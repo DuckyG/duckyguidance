@@ -2,4 +2,20 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  actions: 'Actions'
+  edit: 'Edit'
+  show: 'Details'
+  destroy: 'Delete'
+  back: 'Back'
+  counselor_sessions:
+    new:
+      title: 'Login'
+  students:
+    new:
+      title: 'New Student'
+    index:
+      title: 'Students'
+      new_student: 'New Student'
+  counselors:
+    index:
+      title: 'Counselors'

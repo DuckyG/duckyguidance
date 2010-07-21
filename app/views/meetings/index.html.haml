@@ -1,0 +1,7 @@
+-if !request.xhr?
+  -if @student 
+    %h1= @student.first_name + ' ' + @student.last_name + "'s Meetings"
+  -else
+    %h1 All Meetings
+
+=render :partial => 'shared/meeting_list', :locals => { :meeting_list => @meetings}

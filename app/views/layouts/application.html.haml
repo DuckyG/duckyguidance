@@ -1,0 +1,18 @@
+!!! 5
+%html
+  %head
+    %title Guidance
+    = stylesheet_link_tag 'reset', 'text','960','scaffold','styles', 'calendar/calendar-blue'
+    = javascript_include_tag :defaults, "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js","http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js",'rails-jquery','jquery.dynDateTime.min','lang/calendar-en.min'
+    = javascript_include_tag 'jquery.form'
+    = csrf_meta_tag
+
+
+  %body
+    .container_12
+      #login_nav.grid_1.prefix_11
+        -if current_counselor
+          = link_to 'Logout', logout_path, :method => :delete
+        -else
+          = link_to "Login", login_path
+      = yield

@@ -1,0 +1,49 @@
+:javascript
+  $(document).ready(function(){
+    set_accordion();
+    $('#new_meeting_form').accordion({ header:'a',collapsible: true });
+    $('#new_meeting_form form').hide()
+    $('#new_meeting_link').click()
+    $("#meeting_occured_on").dynDateTime({showsTime: true, timeFormat: 12,ifFormat: "%m/%d/%Y %I:%M %P",});
+
+    $('#new_meeting').submit(function(){
+        $('#meeting_submit').attr('disabled', 'disabled');
+        $(this).ajaxSubmit(function(){
+          var address=location.pathname + '/meetings';
+      
+          $.ajax({
+            type: 'GET',
+            url: address,
+            cache: false,
+            success: function(html){
+              $('#meetings').remove();
+              $('.container_12').append(html);
+              $('#new_meeting_link').click();
+              set_accordion();
+              $('#meeting_submit').removeAttr('disabled');
+              $('#meeting_summary').val('')
+              $('#meeting_occured_on').val('')
+              $('#meeting_notes').val('')
+            }
+          });
+        });
+        return false;
+    });
+  });
+  var set_accordion = function(){
+    $('.year').accordion({ autoHeight: false, header:'h4' });
+    $('#meetings').accordion({ autoHeight: false, header:'h3' });
+  }; 
+
+.grid_12
+  %h1= @student.last_name + ', ' + @student.first_name
+  %p
+    = link_to 'Student List', students_path
+    = link_to t('edit'), edit_student_path(@student)
+
+  #new_meeting_form
+    %a{:href=>"#",:id=>'new_meeting_link'} New Meeting
+    =render :partial => 'meetings/form'
+  %h2 Meetings
+  =render :partial => 'shared/meeting_list', :locals => { :meeting_list => @student.meetings}
+    

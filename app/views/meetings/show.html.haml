@@ -1,0 +1,14 @@
+%h1= t '.title'
+%p
+  = link_to t('back'), meetings_path
+  = link_to t('edit'), edit_meeting_path(@meeting)
+
+%dl
+  %dt= Meeting.human_attribute_name :occured_on
+  %dd= @meeting.occured_on
+  %dt= Meeting.human_attribute_name :notes
+  %dd= @meeting.notes
+  %dt Counselor
+  %dd=@meeting.counselor.last_name
+  %dt Student
+  %dd=@meeting.student.first_name + " " + @meeting.student.last_name

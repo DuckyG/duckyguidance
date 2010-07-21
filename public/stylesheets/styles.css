@@ -1,0 +1,26 @@
+h1,h2,h3,h4,h5,h6{
+  color:#883E39;
+}
+h3,h4{
+  border-bottom: 1px solid #D4756E;
+  padding-bottom:2px;
+  margin-bottom:2px;
+}
+.counselor{
+  padding-top:1px;
+}
+
+body{
+  background:url('/images/background.png') #558fcc repeat-y top center;
+}
+
+/*a{
+  color:#558fcc;
+}
+a:visited{
+  color:#558fcc;
+}*/
+
+#login_nav{
+  float:right;
+}

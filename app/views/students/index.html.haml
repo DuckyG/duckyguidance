@@ -1,0 +1,13 @@
+
+.grid_12
+  %h1= t('.title')
+  %p= link_to t('.new_student'), new_student_path
+
+  //%h5.grid_2= Student.human_attribute_name :last_name
+  //%h5.grid_2= Student.human_attribute_name :first_name
+  
+  .clear
+  - for student in @students
+    .grid_3= student.last_name + ', ' + student.first_name
+    .grid_1= button_to t('show'), student, :method => :get
+    .clear

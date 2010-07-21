@@ -1,4 +1,21 @@
 Guidance::Application.routes.draw do |map|
+  resources :meetings
+
+  resources :students do
+    resources :meetings
+  end
+
+
+  controller :counselor_sessions do
+    get  'login' => :new
+    post 'login' => :create
+    delete 'logout' => :destroy
+  end
+
+  resources :counselors
+
+  get "welcome/index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +65,7 @@ Guidance::Application.routes.draw do |map|
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  root :to => "welcome#index"
 
   # See how all your routes lay out with "rake routes"
 
