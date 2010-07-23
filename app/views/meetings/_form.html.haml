@@ -1,5 +1,3 @@
-
-
 = form_for(@meeting) do |f|
   - if @meeting.errors.any?
     #errorExplanation
@@ -9,14 +7,24 @@
         %li= msg
   =f.hidden_field :student_id, :value => @meeting.student.id
   =f.hidden_field :counselor_id, :value => current_counselor.id
-  .field.date
+  .grid_2
     =f.label 'Occurred At'
+  .clear
+  .grid_3
     =f.text_field :occured_on, :value => @meeting.occured_on.strftime('%m/%d/%Y %I:%M %p')
-  .field
+  .clear
+  .grid_2
     =f.label :summary
+  .clear
+  .grid_3
     =f.text_field :summary
-  .field
+  .clear
+  .grid_1
     =f.label :notes
+  .clear
+  .grid_5
     =f.text_area :notes
-  .actions
+  .clear
+  .grid_1
     = f.submit 'Save meeting'
+  .clear

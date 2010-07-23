@@ -1,11 +1,12 @@
 :javascript
   $(document).ready(function(){
     set_accordion();
-    $('#new_meeting_form').accordion({ header:'a',collapsible: true });
+    $('#new_meeting_form').accordion({ header:'h6',collapsible: true,icons: { 'header': '', 'headerSelected': '' }  });
     $('#new_meeting_form form').hide()
+    $('#new_meeting_form h6 span').remove()
+    $('#new_meeting_form h6').removeAttr('class');
     $('#new_meeting_link').click()
-    $("#meeting_occured_on").dynDateTime({showsTime: true, timeFormat: 12,ifFormat: "%m/%d/%Y %I:%M %P",});
-
+    $("#meeting_occured_on").dynDateTime({showsTime: true, timeFormat: 12,ifFormat: "%m/%d/%Y %I:%M %P"});
     $('#new_meeting').submit(function(){
         $('#meeting_submit').attr('disabled', 'disabled');
         $(this).ajaxSubmit(function(){
@@ -17,9 +18,10 @@
             cache: false,
             success: function(html){
               $('#meetings').remove();
-              $('.container_12').append(html);
+              $('#meeting_container').append(html);
               $('#new_meeting_link').click();
               set_accordion();
+              
               $('#meeting_submit').removeAttr('disabled');
               $('#meeting_summary').val('')
               $('#meeting_occured_on').val('')
@@ -33,17 +35,30 @@
   var set_accordion = function(){
     $('.year').accordion({ autoHeight: false, header:'h4' });
     $('#meetings').accordion({ autoHeight: false, header:'h3' });
-  }; 
+    $('.meeting_info').click(slide_toggle_notes)
+    $('.meeting_notes').hide()
+  };
+  var slide_toggle_notes = function(){
+    $(this).parent().find('.meeting_notes').slideToggle()
+    
+    
+  };
 
 .grid_12
-  %h1= @student.last_name + ', ' + @student.first_name
-  %p
-    = link_to 'Student List', students_path
-    = link_to t('edit'), edit_student_path(@student)
-
+  %h1
+    = @student.last_name + ', ' + @student.first_name
+    = button_to "Edit", edit_student_path(@student), :method => :get
+.clear
+//.grid_4
+//  = link_to 'Student List', students_path
+//.clear
+.grid_12
   #new_meeting_form
-    %a{:href=>"#",:id=>'new_meeting_link'} New Meeting
+    %h6
+      %a{:href=>"#",:id=>'new_meeting_link'} New Meeting
     =render :partial => 'meetings/form'
+.clear
+.grid_12#meeting_container
   %h2 Meetings
   =render :partial => 'shared/meeting_list', :locals => { :meeting_list => @student.meetings}
     

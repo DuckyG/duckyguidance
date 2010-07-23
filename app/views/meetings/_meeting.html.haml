@@ -1,15 +1,17 @@
 .meeting{:id =>[meeting.type, meeting.id]}
-  .grid_3
-    %h5=meeting.occured_on.strftime('%B %d @ %I:%M %p')
-  .grid_4
-    %strong=meeting.summary
-  .grid_1
-    %strong Counselor
-  .grid_1.counselor
-    =meeting.counselor.last_name
+  .meeting_info
+    .grid_3
+      %h6=meeting.occured_on.strftime('%B %d @ %I:%M %p')
+    .grid_3
+      %strong=meeting.summary
+    .grid_1.counselor.right
+      =meeting.counselor.last_name
+    .grid_1.right
+      %strong Counselor
   .clear
-  %strong.grid_1 Notes
-  .clear
-  .notes.grid_10
-    =meeting.notes
+  .meeting_notes
+    %strong.grid_1 Notes
+    .clear
+    .notes
+      %pre=meeting.notes
   .clear

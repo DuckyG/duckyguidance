@@ -2,7 +2,7 @@
 %html
   %head
     %title Guidance
-    = stylesheet_link_tag 'reset', 'text','960','scaffold','styles', 'calendar/calendar-blue'
+    = stylesheet_link_tag 'reset', 'text','960','scaffold', 'calendar/calendar-blue','jquery-ui','styles'
     = javascript_include_tag :defaults, "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js","http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js",'rails-jquery','jquery.dynDateTime.min','lang/calendar-en.min'
     = javascript_include_tag 'jquery.form'
     = csrf_meta_tag
@@ -15,4 +15,8 @@
           = link_to 'Logout', logout_path, :method => :delete
         -else
           = link_to "Login", login_path
+      .clear
+      #header.grid_12
+        %span Guy-dense
+      .clear
       = yield
