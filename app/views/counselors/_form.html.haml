@@ -1,35 +1,36 @@
-= form_for(@counselor) do |f|
-  - if @counselor.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@counselor.errors.count, 'error')} prohibited this user from being saved:"
-      %ul
-      - @counselor.errors.full_messages.each do |msg|
-        %li= msg
+.grid_12
+  = form_for(@counselor) do |f|
+    - if @counselor.errors.any?
+      #errorExplanation
+        %h2= "#{pluralize(@counselor.errors.count, 'error')} prohibited this user from being saved:"
+        %ul
+        - @counselor.errors.full_messages.each do |msg|
+          %li= msg
   
-  .field
-    = f.label :first_name
-    %br
-    = f.text_field :first_name
-  .field
-    = f.label :last_name
-    %br
-    = f.text_field :last_name
-  .field
-    = f.label :login
-    %br
-    = f.text_field :login
-  .field
-    = f.label :password
-    %br
-    = f.password_field :password
-  .field
-    = f.label :password_confirmation
-    %br
-    = f.password_field :password_confirmation
-  .field
-    = f.label :email
-    %br
-    = f.text_field :email
+    .field
+      = f.label :first_name
+      %br
+      = f.text_field :first_name
+    .field
+      = f.label :last_name
+      %br
+      = f.text_field :last_name
+    .field
+      = f.label :login
+      %br
+      = f.text_field :login
+    .field
+      = f.label :password
+      %br
+      = f.password_field :password
+    .field
+      = f.label :password_confirmation
+      %br
+      = f.password_field :password_confirmation
+    .field
+      = f.label :email
+      %br
+      = f.text_field :email
 
-  .actions
-    = f.submit
+    .actions
+      = f.submit
