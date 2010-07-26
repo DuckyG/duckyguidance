@@ -21,8 +21,8 @@ body{
 h3 a, h4 a{
   border-bottom:none;
 }
-.button_to div{
-  display: inline;
+.meeting_info{
+  cursor: pointer;
 }
 a{
   text-decoration:none;

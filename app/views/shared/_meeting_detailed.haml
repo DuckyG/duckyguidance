@@ -1,0 +1,18 @@
+.meeting{:id =>[meeting.type, meeting.id]}
+  .meeting_info
+    .grid_3
+      %h6=meeting.occured_on.strftime('%B %d @ %I:%M %p')
+    .grid_5
+      %strong=meeting.summary
+      %span=meeting.notes
+    .grid_2.counselor.right
+      =meeting.student.last_name + ', ' +meeting.student.first_name
+    .grid_1.right
+      %strong Student
+  .clear
+  .meeting_notes
+    %strong.grid_1 Notes
+    .clear
+    .notes
+      %pre=meeting.notes
+  .clear

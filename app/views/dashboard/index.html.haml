@@ -1,0 +1,15 @@
+:javascript
+  $(document).ready(function(){
+    $('.meeting_info').click(slide_toggle_notes)
+    $('.meeting_notes').hide()
+  });
+  var slide_toggle_notes = function(){
+    $(this).parent().find('.meeting_notes').slideToggle()
+     };
+
+.grid_12
+  %h1 Dashboard
+  
+  .clear
+  
+  =render :partial => 'shared/dashboard_list', :locals => { :meeting_list => @meetings}
