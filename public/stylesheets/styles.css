@@ -21,6 +21,9 @@ body{
 h3 a, h4 a{
   border-bottom:none;
 }
+.button_to div{
+  display: inline;
+}
 a{
   text-decoration:none;
   border-bottom:1px dashed black;
