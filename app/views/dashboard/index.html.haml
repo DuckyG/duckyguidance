@@ -7,9 +7,7 @@
     $(this).parent().find('.meeting_notes').slideToggle()
      };
 
+.grid_5
+  %h2.left Recent Meetings
 .grid_12
-  %h1 Dashboard
-  
-  .clear
-  
   =render :partial => 'shared/dashboard_list', :locals => { :meeting_list => @meetings}

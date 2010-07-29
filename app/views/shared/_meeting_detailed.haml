@@ -4,11 +4,11 @@
       %h6=meeting.occured_on.strftime('%B %d @ %I:%M %p')
     .grid_5
       %strong=meeting.summary
-      %span=meeting.notes
     .grid_2.counselor.right
-      =meeting.student.last_name + ', ' +meeting.student.first_name
+      =link_to meeting.student.last_name + ', ' +meeting.student.first_name, meeting.student
     .grid_1.right
       %strong Student
+    .clear
   .clear
   .meeting_notes
     %strong.grid_1 Notes

@@ -19,4 +19,15 @@
       #header.grid_12
         %span Guy-dense
       .clear
-      = yield
+      .grid_12
+        %h1
+          =@title
+          &nbsp;
+      #nav
+        .grid_2
+          = link_to 'Dashboard', dashboard_path
+          %br
+          = link_to 'Students', students_path
+      .left
+        = yield
+      

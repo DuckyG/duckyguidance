@@ -5,18 +5,17 @@
       %ul
       - @student.errors.full_messages.each do |msg|
         %li= msg
-
   .grid_3
     = f.label :first_name
-  .clear
+  .cleft
   .grid_3
     = f.text_field :first_name
-  .clear
+  .cleft
   .grid_3
     = f.label :last_name
-  .clear
+  .cleft
   .grid_3
     = f.text_field :last_name
-  .clear
+  .cleft
   .grid_3
     = f.submit

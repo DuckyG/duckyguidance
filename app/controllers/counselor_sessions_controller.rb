@@ -1,6 +1,7 @@
 class CounselorSessionsController < ApplicationController
   def new
     @counselor_session = CounselorSession.new
+    @title = 'Login'
   end
 
   def create

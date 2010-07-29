@@ -21,8 +21,21 @@ body{
 h3 a, h4 a{
   border-bottom:none;
 }
+#nav{
+  float:right;
+}
 .meeting_info{
   cursor: pointer;
+  padding:5px 0 5px;
+}
+.meeting_info h6{
+  margin:0;
+}
+.meeting_info:hover{
+  background-color:#eee;
+}
+.cleft{
+  clear:left;
 }
 a{
   text-decoration:none;
@@ -61,6 +74,14 @@ h6,pre{
   padding:10px 0px 10px;
   background-color:#D9E18C;
 }
+pre {
+ white-space: pre-wrap;       /* css-3 */
+ white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+ white-space: -pre-wrap;      /* Opera 4-6 */
+ white-space: -o-pre-wrap;    /* Opera 7 */
+ word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
 .right{
   float:right;
 }

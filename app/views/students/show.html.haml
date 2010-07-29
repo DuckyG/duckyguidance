@@ -44,20 +44,17 @@
     
   };
 
-.grid_12
-  %h1
-    = @student.last_name + ', ' + @student.first_name
-    = button_to "Edit", edit_student_path(@student), :method => :get
-.clear
+
+    //= button_to "Edit", edit_student_path(@student), :method => :get
 //.grid_4
 //  = link_to 'Student List', students_path
 //.clear
-.grid_12
+.grid_6
   #new_meeting_form
     %h6
       %a{:href=>"#",:id=>'new_meeting_link'} New Meeting
     =render :partial => 'meetings/form'
-.clear
+.cleft
 .grid_12#meeting_container
   %h2 Meetings
   =render :partial => 'shared/meeting_list', :locals => { :meeting_list => @student.meetings}

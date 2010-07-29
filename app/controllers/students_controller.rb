@@ -1,5 +1,10 @@
 class StudentsController < ApplicationController
-  before_filter :require_counselor
+  before_filter :require_counselor, :title
+  def title
+    @title = 'Students'
+    @title = @student.last_name + ', ' + @student.first_name if @student
+    
+  end
   # GET /students
   # GET /students.xml
   def index
@@ -18,6 +23,7 @@ class StudentsController < ApplicationController
     @meeting = Meeting.new
     @meeting.occured_on = DateTime.now
     @meeting.student = @student
+    title
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @student }
@@ -38,6 +44,7 @@ class StudentsController < ApplicationController
   # GET /students/1/edit
   def edit
     @student = Student.find(params[:id])
+    title
   end
 
   # POST /students
