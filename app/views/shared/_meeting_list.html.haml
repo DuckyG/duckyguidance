@@ -9,4 +9,6 @@
         %h4
           %a{:href=>'#'}=Date::MONTHNAMES[month]
         .group.prefix_1
-          =render(meeting_months[month].sort{|x,y| x.occured_on <=> y.occured_on})
+          -sorted_meetings = meeting_months[month].sort{|x,y| x.occured_on <=> y.occured_on}
+          -sorted_meetings.each do |meeting|
+            =render :partial => 'meetings/meeting',:locals => {:meeting => meeting, :last => sorted_meetings.last, :odd_even =>cycle('odd', 'even')}

@@ -1,3 +1,7 @@
+html{
+  height:100%;
+  margin:0 0 1px;
+}
 h1,h2,h3,h4,h5,h6{
   color:#883E39;
 }
@@ -23,16 +27,39 @@ h3 a, h4 a{
 }
 #nav{
   float:right;
+  text-align:right;
+  font-size:13px;
+  font-weight:normal;
+}
+
+.odd{
+  background-color:#ddd;
+}
+.odd:hover{
+  background-color:#aaa;
+}
+.even{
+  background-color:#88B1ee;
+}
+.even:hover{
+  background-color:#558fcc;
 }
 .meeting_info{
   cursor: pointer;
-  padding:5px 0 5px;
+  padding:0px 5px 5px;
+  border:1px dashed black;
+  border-bottom:none;
+}
+.meeting_notes{
+  border:1px dashed black;
+  border-top:none;
+  border-bottom:none;
 }
 .meeting_info h6{
   margin:0;
 }
 .meeting_info:hover{
-  background-color:#eee;
+  
 }
 .cleft{
   clear:left;
@@ -44,7 +71,9 @@ a{
 #meetings,.year,.group a{
   bordern:none !important;
 }
-
+.last{
+  border-bottom:1px dashed black;
+}
 #header span
 {
   font-size:48px;
@@ -80,6 +109,7 @@ pre {
  white-space: -pre-wrap;      /* Opera 4-6 */
  white-space: -o-pre-wrap;    /* Opera 7 */
  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+ margin-bottom:0;
 }
 
 .right{
@@ -87,4 +117,5 @@ pre {
 }
 #login_nav{
   float:right;
+  text-align:right;
 }
