@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   layout 'application'
   
   helper_method :current_counselor_session, :current_counselor
-  filter_parameter_logging :password, :password_confirmation
 
   private
     def current_counselor_session

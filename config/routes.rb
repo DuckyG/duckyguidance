@@ -1,4 +1,6 @@
 Guidance::Application.routes.draw do |map|
+  
+
   get "dashboard/index"
   match 'dashboard' => 'dashboard#index'
   resources :meetings
@@ -6,16 +8,20 @@ Guidance::Application.routes.draw do |map|
   resources :students do
     resources :meetings
   end
-
+  controller :meeting_requests do
+    get 'request' => :new
+    post 'request' => :create
+  end
 
   controller :counselor_sessions do
     get  'login' => :new
     post 'login' => :create
     delete 'logout' => :destroy
   end
-
+  resources :meeting_requests
   resources :counselors
-
+  get "thankyou/index"
+  match 'thankyou' => 'thankyou#index'
   get "welcome/index"
 
   # The priority is based upon order of creation:

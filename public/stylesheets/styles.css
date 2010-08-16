@@ -32,6 +32,11 @@ h3 a, h4 a{
   font-weight:normal;
 }
 
+.meeting_info h6
+{
+  display:inline;
+}
+
 .odd{
   background-color:#ddd;
 }
@@ -110,6 +115,14 @@ pre {
  white-space: -o-pre-wrap;    /* Opera 7 */
  word-wrap: break-word;       /* Internet Explorer 5.5+ */
  margin-bottom:0;
+}
+
+.now{
+  display:inline;
+}
+
+.left{
+  float:left;
 }
 
 .right{

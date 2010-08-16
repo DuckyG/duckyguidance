@@ -1,0 +1,1 @@
+page.visual_effect :blind_up, 'MeetingRequest_' + @current_request.id.to_s

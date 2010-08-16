@@ -32,6 +32,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new
     @meeting.student = Student.find(params[:student_id])
     @meeting.counselor = current_counselor
+   
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @meeting }
@@ -48,7 +49,9 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(params[:meeting])
     @student = @meeting.student
-    logger.debug @meeting.counselor.first_name
+    @meeting.occured_on = @meeting.get_occured_on
+    @meeting.duration = @meeting.get_duration
+    #logger.debug @meeting.get_duration
     respond_to do |format|
       if @meeting.save
         format.html { redirect_to(@student, :notice => 'Meeting was successfully created.') }

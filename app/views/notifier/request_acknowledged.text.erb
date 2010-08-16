@@ -1,0 +1,17 @@
+Dear <%=@request.first_name%>,
+Your counselor, <%=@counselor.last_name%>, has <%= @request.accepted ? 'accepted' : 'declined'%> your meeting request.
+
+<% if @request.accepted %>
+  Details:
+  =======================================
+  Counselor:        <%=@counselor.last_name%>
+  Desired date:     <%=@request.desired_date.strftime('%m/%d/%Y %I:%M %p')%>
+  Notes:
+  <%= @request.notes %>
+<% else %>
+  Reason:
+  =======================================
+<% end %>
+
+Thank you,
+Ducky Guidance

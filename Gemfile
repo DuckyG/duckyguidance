@@ -6,7 +6,7 @@ gem 'haml'
 
 gem 'authlogic'
 
-
+gem 'mysql'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

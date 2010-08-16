@@ -1,0 +1,14 @@
+.meeting_notes
+  %strong.grid_1 Duration
+  .clear
+  - hours,mins = meeting.duration_hours_min
+  .duration.grid_4
+    -if hours > 0
+      =hours.to_s + " " + (hours > 1 ? t('hour').pluralize : t('hour')) + (mins > 0 ? ',' : '')
+    -if mins > 0 
+      =mins.to_s + " " + (mins > 1 ? t('minute').pluralize : t('minute'))
+  .clear
+  %strong.grid_1 Notes
+  .clear
+  .notes
+    %pre=meeting.notes

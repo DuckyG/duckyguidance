@@ -1,13 +1,28 @@
 :javascript
-  $(document).ready(function(){
-    $('.meeting_info').click(slide_toggle_notes)
-    $('.meeting_notes').hide()
+  $j(document).ready(function(){
+    $j('.meeting_info').click(slide_toggle_notes)
+    $j('.meeting_notes').hide()
   });
   var slide_toggle_notes = function(){
-    $(this).parent().find('.meeting_notes').slideToggle()
+    $j(this).parent().find('.meeting_notes').slideToggle()
      };
 
 .grid_5
   %h2.left Recent Meetings
 .grid_12
   =render :partial => 'shared/dashboard_list', :locals => { :meeting_list => @meetings}
+.grid_5
+  %h2 Meeting Requests
+.grid_12
+  #requests
+    -@requests.each do |request|
+      .request{:id =>[request.class, request.id]}
+        .name
+          %strong=request.first_name + ' ' + request.last_name
+        .date
+          =request.desired_date.strftime('%B %d @ %I:%M %p')
+        .notes
+          =request.notes
+        .buttons
+          =button_to 'Accept', meeting_request_path(request.id, :accepted => 1), :remote => true, :method => :put
+          =button_to 'Reject', meeting_request_path(request.id, :accepted => 0), :remote => true, :method => :put

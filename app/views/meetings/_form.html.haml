@@ -8,10 +8,24 @@
   =f.hidden_field :student_id, :value => @meeting.student.id
   =f.hidden_field :counselor_id, :value => current_counselor.id
   .grid_2
-    =f.label 'Occurred At'
+    =f.label 'Meeting Date'
   .clear
   .grid_3
-    =f.text_field :occured_on, :value => @meeting.occured_on.strftime('%m/%d/%Y %I:%M %p')
+    =f.text_field :date, :value => @meeting.occured_on.strftime('%m/%d/%Y')
+  .clear
+  .grid_2
+    =f.label 'Started At'
+  .clear
+  .grid_4
+    =f.text_field :start_time, :value => @meeting.occured_on.strftime('%I:%M %p')
+    %input.now{:type=>'submit',:value=>'Now'}
+  .clear
+  .grid_2
+    =f.label 'Ended At'
+  .clear
+  .grid_4
+    =f.text_field :end_time, :value  => (@meeting.occured_on + 900).strftime('%I:%M %p')
+    %input.now{:type=>'submit',:value=>'Now'}
   .clear
   .grid_2
     =f.label :summary

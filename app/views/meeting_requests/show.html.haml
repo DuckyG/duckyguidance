@@ -1,0 +1,16 @@
+%h1= t '.title'
+%p
+  = link_to t('back'), meeting_requests_path
+  = link_to t('edit'), edit_meeting_request_path(@meeting_request)
+
+%dl
+  %dt= MeetingRequest.human_attribute_name :first_name
+  %dd= @meeting_request.first_name
+  %dt= MeetingRequest.human_attribute_name :last_name
+  %dd= @meeting_request.last_name
+  %dt= MeetingRequest.human_attribute_name :email
+  %dd= @meeting_request.email
+  %dt= MeetingRequest.human_attribute_name :notes
+  %dd= @meeting_request.notes
+  %dt= MeetingRequest.human_attribute_name :desired_date
+  %dd= @meeting_request.desired_date

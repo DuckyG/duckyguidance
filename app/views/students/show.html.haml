@@ -1,45 +1,51 @@
 :javascript
-  $(document).ready(function(){
+  $j(document).ready(function(){
     set_accordion();
-    $('#new_meeting_form').accordion({ header:'h6',collapsible: true,icons: { 'header': '', 'headerSelected': '' }  });
-    $('#new_meeting_form form').hide()
-    $('#new_meeting_form h6 span').remove()
-    $('#new_meeting_form h6').removeAttr('class');
-    $('#new_meeting_link').click()
-    $("#meeting_occured_on").dynDateTime({showsTime: true, timeFormat: 12,ifFormat: "%m/%d/%Y %I:%M %P"});
-    $('#new_meeting').submit(function(){
-        $('#meeting_submit').attr('disabled', 'disabled');
-        $(this).ajaxSubmit(function(){
+    $j('.now').click(set_time_now);
+    $j('#new_meeting_form').accordion({ header:'h6',collapsible: true,icons: { 'header': '', 'headerSelected': '' }  });
+    $j('#new_meeting_form form').hide()
+    $j('#new_meeting_form h6 span').remove()
+    $j('#new_meeting_form h6').removeAttr('class');
+    $j('#new_meeting_link').click()
+    $j("#meeting_date").dynDateTime({showsTime: false, ifFormat: "%m/%d/%Y"});
+    $j('#new_meeting').submit(function(){
+        $j('#meeting_submit').attr('disabled', 'disabled');
+        $j(this).ajaxSubmit(function(){
           var address=location.pathname + '/meetings';
       
-          $.ajax({
+          $j.ajax({
             type: 'GET',
             url: address,
             cache: false,
             success: function(html){
-              $('#meetings').remove();
-              $('#meeting_container').append(html);
-              $('#new_meeting_link').click();
+              $j('#meetings').remove();
+              $j('#meeting_container').append(html);
+              $j('#new_meeting_link').click();
               set_accordion();
               
-              $('#meeting_submit').removeAttr('disabled');
-              $('#meeting_summary').val('')
-              $('#meeting_occured_on').val('')
-              $('#meeting_notes').val('')
+              $j('#meeting_submit').removeAttr('disabled');
+              $j('#meeting_summary').val('')
+              $j('#meeting_occured_on').val('')
+              $j('#meeting_notes').val('')
             }
           });
         });
         return false;
     });
   });
+  var set_time_now = function(){
+    d = new Date();
+    $j(this).parent().find('input[type="text"]').val(d.print("%H:%M %p"))
+    return false;
+  };
   var set_accordion = function(){
-    $('.year').accordion({ autoHeight: false, header:'h4' });
-    $('#meetings').accordion({ autoHeight: false, header:'h3' });
-    $('.meeting_info').click(slide_toggle_notes)
-    $('.meeting_notes').hide()
+    $j('.year').accordion({ autoHeight: false, header:'h4' });
+    $j('#meetings').accordion({ autoHeight: false, header:'h3' });
+    $j('.meeting_info').click(slide_toggle_notes)
+    $j('.meeting_notes').hide()
   };
   var slide_toggle_notes = function(){
-    $(this).parent().find('.meeting_notes').slideToggle()
+    $j(this).parent().find('.meeting_notes').slideToggle()
     
     
   };

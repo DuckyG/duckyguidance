@@ -1,0 +1,2 @@
+module MeetingRequestsHelper
+end

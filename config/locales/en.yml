@@ -7,6 +7,8 @@ en:
   show: 'Details'
   destroy: 'Delete'
   back: 'Back'
+  hour: 'hour'
+  minute: 'minute'
   counselor_sessions:
     new:
       title: 'Login'

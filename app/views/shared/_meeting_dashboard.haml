@@ -2,12 +2,12 @@
   .meeting_info{:class =>odd_even}
     .grid_3
       %h6=meeting.occured_on.strftime('%B %d @ %I:%M %p')
-    .grid_3
+    .grid_5
       %strong=meeting.summary
-    .grid_1.counselor.right
-      =meeting.counselor.last_name
+    .grid_2.counselor.right
+      =link_to meeting.student.last_name + ', ' +meeting.student.first_name, meeting.student
     .grid_1.right
-      %strong Counselor
+      %strong Student
     .clear
   .clear
   =render :partial => 'shared/meeting_details', :locals => { :meeting => meeting}

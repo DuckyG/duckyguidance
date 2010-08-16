@@ -1,0 +1,12 @@
+Dear <%= @counselor.first_name %>,
+You have received a meeting request from <%= @request.first_name + ' ' + @request.last_name%>.  Please log in and accept or deny this meeting.
+
+Details
+=======================================
+Student:        <%= @request.first_name + ' ' + @request.last_name%>
+Desired date:   <%=@request.desired_date.strftime('%m/%d/%Y %I:%M %p')%>
+Notes:
+<%= @request.notes %>
+
+
+Ducky Guidance
