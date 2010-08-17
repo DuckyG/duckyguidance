@@ -31,7 +31,16 @@ h3 a, h4 a{
   font-size:13px;
   font-weight:normal;
 }
-
+.buttons form, .buttons div{
+  display:inline;
+}
+.request .name h3{
+  border:none;
+}
+.request{
+  padding:5px 0 5px;
+  border:1px dashed black;
+}
 .meeting_info h6
 {
   display:inline;
@@ -72,6 +81,9 @@ h3 a, h4 a{
 a{
   text-decoration:none;
   border-bottom:1px dashed black;
+}
+#meetings{
+  margin-bottom:20px;
 }
 #meetings,.year,.group a{
   bordern:none !important;

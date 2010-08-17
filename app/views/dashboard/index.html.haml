@@ -16,13 +16,4 @@
 .grid_12
   #requests
     -@requests.each do |request|
-      .request{:id =>[request.class, request.id]}
-        .name
-          %strong=request.first_name + ' ' + request.last_name
-        .date
-          =request.desired_date.strftime('%B %d @ %I:%M %p')
-        .notes
-          =request.notes
-        .buttons
-          =button_to 'Accept', meeting_request_path(request.id, :accepted => 1), :remote => true, :method => :put
-          =button_to 'Reject', meeting_request_path(request.id, :accepted => 0), :remote => true, :method => :put
+      =render :partial => 'meeting_requests/meeting_request',:locals => {:request => request, :last => @requests.last}
