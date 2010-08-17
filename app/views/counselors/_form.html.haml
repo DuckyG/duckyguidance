@@ -7,30 +7,37 @@
         - @counselor.errors.full_messages.each do |msg|
           %li= msg
   
-    .field
+    .clear
+    .grid_3
       = f.label :first_name
       %br
       = f.text_field :first_name
-    .field
+    .clear
+    .grid_3
       = f.label :last_name
       %br
       = f.text_field :last_name
-    .field
+    .clear
+    .grid_3
       = f.label :login
       %br
       = f.text_field :login
-    .field
+    .clear
+    .grid_3
       = f.label :password
       %br
       = f.password_field :password
-    .field
+    .clear
+    .grid_3
       = f.label :password_confirmation
       %br
       = f.password_field :password_confirmation
-    .field
+    .clear
+    .grid_3
       = f.label :email
       %br
       = f.text_field :email
 
-    .actions
+    .clear
+    .grid_3
       = f.submit

@@ -3,7 +3,7 @@ class CounselorsController < ApplicationController
   # GET /counselors.xml
   def index
     @counselors = Counselor.all
-
+    @title = "Counselors"
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @counselors }
@@ -25,7 +25,7 @@ class CounselorsController < ApplicationController
   # GET /counselors/new.xml
   def new
     @counselor = Counselor.new
-
+    @title = "New Counselor"
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @counselor }
