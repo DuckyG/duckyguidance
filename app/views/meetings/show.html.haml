@@ -1,14 +1,27 @@
-%h1= t '.title'
-%p
-  = link_to t('back'), meetings_path
-  = link_to t('edit'), edit_meeting_path(@meeting)
-
-%dl
-  %dt= Meeting.human_attribute_name :occured_on
-  %dd= @meeting.occured_on
-  %dt= Meeting.human_attribute_name :notes
-  %dd= @meeting.notes
-  %dt Counselor
-  %dd=@meeting.counselor.last_name
-  %dt Student
-  %dd=@meeting.student.first_name + " " + @meeting.student.last_name
+.grid_5
+  %h2
+    =link_to @meeting.student.first_name + ' '+ @meeting.student.last_name, @meeting.student
+.clear
+.grid_3
+  %strong Occurred On
+.grid_4
+  = @meeting.occured_on.strftime('%B %d @ %I:%M %p')
+.clear
+.grid_3
+  %strong Duration
+.grid_4
+  - hours,mins = @meeting.duration_hours_min
+  -if hours > 0
+    =hours.to_s + " " + (hours > 1 ? t('hour').pluralize : t('hour')) + (mins > 0 ? ',' : '')
+  -if mins > 0 
+    =mins.to_s + " " + (mins > 1 ? t('minute').pluralize : t('minute'))
+.clear
+.grid_3
+  %strong Counselor
+.grid_4
+  = @meeting.counselor.last_name
+.clear
+.grid_1
+  %strong Notes
+.grid_12
+  %pre= @meeting.notes

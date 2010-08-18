@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100816135030) do
+ActiveRecord::Schema.define(:version => 20100818134546) do
 
   create_table "counselor_sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(:version => 20100816135030) do
     t.boolean  "accepted"
   end
 
+  create_table "meeting_tags", :force => true do |t|
+    t.integer  "meeting_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "meetings", :force => true do |t|
     t.datetime "occured_on"
     t.text     "notes"
@@ -63,5 +70,13 @@ ActiveRecord::Schema.define(:version => 20100816135030) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
 
 end

@@ -1,6 +1,8 @@
 Guidance::Application.routes.draw do |map|
   
 
+  resources :tags
+
   get "dashboard/index"
   match 'dashboard' => 'dashboard#index'
   resources :meetings

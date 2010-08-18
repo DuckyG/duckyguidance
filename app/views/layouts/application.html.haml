@@ -8,6 +8,16 @@
     = csrf_meta_tag
     :javascript
       $j = jQuery.noConflict();
+      $j(document).ready(function(){
+        $j('.now').click(set_time_now);
+        $j("#meeting_date").dynDateTime({showsTime: false, ifFormat: "%m/%d/%Y"});
+      });
+      var set_time_now = function(){
+        d = new Date();
+        $j(this).parent().find('input[type="text"]').val(d.print("%H:%M %p"))
+        return false;
+      };
+      
 
   %body
     .container_12

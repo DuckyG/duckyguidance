@@ -1,13 +1,13 @@
 :javascript
   $j(document).ready(function(){
     set_accordion();
-    $j('.now').click(set_time_now);
+    
     $j('#new_meeting_form').accordion({ header:'h6',collapsible: true,icons: { 'header': '', 'headerSelected': '' }  });
     $j('#new_meeting_form form').hide()
     $j('#new_meeting_form h6 span').remove()
     $j('#new_meeting_form h6').removeAttr('class');
     $j('#new_meeting_link').click()
-    $j("#meeting_date").dynDateTime({showsTime: false, ifFormat: "%m/%d/%Y"});
+    
     $j('#new_meeting').submit(function(){
         $j('#meeting_submit').attr('disabled', 'disabled');
         $j(this).ajaxSubmit(function(){
@@ -33,11 +33,7 @@
         return false;
     });
   });
-  var set_time_now = function(){
-    d = new Date();
-    $j(this).parent().find('input[type="text"]').val(d.print("%H:%M %p"))
-    return false;
-  };
+  
   var set_accordion = function(){
     $j('.year').accordion({ autoHeight: false, header:'h4' });
     $j('#meetings').accordion({ autoHeight: false, header:'h3' });

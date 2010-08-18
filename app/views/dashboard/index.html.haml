@@ -8,12 +8,21 @@
      };
 
 .grid_5
-  %h2.left Recent Meetings
-.grid_12
-  =render :partial => 'shared/dashboard_list', :locals => { :meeting_list => @meetings}
-.grid_5
   %h2 Meeting Requests
 .grid_12
   #requests
     -@requests.each do |request|
-      =render :partial => 'meeting_requests/meeting_request',:locals => {:request => request, :last => @requests.last}
+      =render :partial => 'meeting_requests/new_meeting_request',:locals => {:request => request, :last => @requests.last}
+    -if !@request or @request.count == 0
+      None
+     
+.grid_5
+  %h2 Upcoming Meetings
+.grid_12
+  #requests
+    -@upcoming_meetings.each do |meeting|
+      =render :partial => 'meeting_requests/upcoming_meeting',:locals => {:meeting => meeting, :last => @requests.last}
+.grid_5
+  %h2.left Recent Meetings
+.grid_12
+  =render :partial => 'shared/dashboard_list', :locals => { :meeting_list => @meetings}

@@ -1,3 +1,4 @@
+
 = form_for(@meeting) do |f|
   - if @meeting.errors.any?
     #errorExplanation
@@ -24,7 +25,7 @@
     =f.label 'Ended At'
   .clear
   .grid_4
-    =f.text_field :end_time, :value  => (@meeting.occured_on + 900).strftime('%I:%M %p')
+    =f.text_field :end_time, :value  => (@meeting.end_time).strftime('%I:%M %p')
     %input.now{:type=>'submit',:value=>'Now'}
   .clear
   .grid_2
@@ -32,6 +33,12 @@
   .clear
   .grid_3
     =f.text_field :summary
+  .clear
+  .grid_2
+    =f.label :tags
+  .clear
+  .grid_3
+    =f.text_field :tags_string
   .clear
   .grid_1
     =f.label :notes

@@ -8,6 +8,12 @@
     -if mins > 0 
       =mins.to_s + " " + (mins > 1 ? t('minute').pluralize : t('minute'))
   .clear
+  %strong.grid_1 Tags
+  .clear
+  .tags.grid_8
+    -meeting.tags.each do |tag|
+      =tag.name + ((tag != meeting.tags.last) ? ',' : '')
+  .clear
   %strong.grid_1 Notes
   .clear
   .notes

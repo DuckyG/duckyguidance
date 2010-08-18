@@ -1,5 +1,5 @@
-%h1= t '.title'
-%p
-  = link_to t('back'), meetings_path
-  = link_to t('show'), @meeting
+.grid_5
+  %h2
+    =link_to @meeting.student.first_name + ' '+ @meeting.student.last_name, @meeting.student
+.clear
 = render 'form'

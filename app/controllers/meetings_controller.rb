@@ -19,7 +19,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/1.xml
   def show
     @meeting = Meeting.find(params[:id])
-
+    @title = 'Meeting Details'
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @meeting }
@@ -42,6 +42,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/1/edit
   def edit
     @meeting = Meeting.find(params[:id])
+    @title = 'Edit Meeting'
   end
 
   # POST /meetings
@@ -49,8 +50,7 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(params[:meeting])
     @student = @meeting.student
-    @meeting.occured_on = @meeting.get_occured_on
-    @meeting.duration = @meeting.get_duration
+
     #logger.debug @meeting.get_duration
     respond_to do |format|
       if @meeting.save
@@ -67,10 +67,11 @@ class MeetingsController < ApplicationController
   # PUT /meetings/1.xml
   def update
     @meeting = Meeting.find(params[:id])
+    @student = @meeting.student
 
     respond_to do |format|
       if @meeting.update_attributes(params[:meeting])
-        format.html { redirect_to(@meeting, :notice => 'Meeting was successfully updated.') }
+        format.html { redirect_to(@student, :notice => 'Meeting was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
