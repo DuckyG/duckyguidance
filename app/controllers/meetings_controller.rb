@@ -43,6 +43,7 @@ class MeetingsController < ApplicationController
   def edit
     @meeting = Meeting.find(params[:id])
     @title = 'Edit Meeting'
+    @meeting.tags_string = @meeting.get_tag_string
   end
 
   # POST /meetings

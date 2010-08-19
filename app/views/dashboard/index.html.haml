@@ -14,7 +14,8 @@
     -@requests.each do |request|
       =render :partial => 'meeting_requests/new_meeting_request',:locals => {:request => request, :last => @requests.last}
     -if !@request or @request.count == 0
-      None
+      .grid_1
+        %strong None
      
 .grid_5
   %h2 Upcoming Meetings
@@ -22,7 +23,10 @@
   #requests
     -@upcoming_meetings.each do |meeting|
       =render :partial => 'meeting_requests/upcoming_meeting',:locals => {:meeting => meeting, :last => @requests.last}
+    -if !@upcoming_meetings or @upcoming_meetings.count == 0
+      .grid_1
+        %strong None
 .grid_5
-  %h2.left Recent Meetings
+  %h2 Recent Meetings
 .grid_12
   =render :partial => 'shared/dashboard_list', :locals => { :meeting_list => @meetings}

@@ -14,6 +14,12 @@ class Meeting < ActiveRecord::Base
     @date + " " + @start_time
   end
   
+  def get_tag_string
+    arr = []
+    tags.each {|tag| arr.push tag.name}
+    arr.join ' '
+  end
+  
   def duration_hours_min
     minutes = 0
     hours = 0
@@ -42,13 +48,15 @@ class Meeting < ActiveRecord::Base
     tag_list = @tags_string.split ' '
     tag_array = []
     tag_list.each do |tag_str|
-      tag = Tag.find_by_name tag_str.downcase
-      if !tag
-        tag = Tag.new
-        tag.name = tag_str.downcase
-        tag.save!
+      if !tag_str.strip.empty?
+        tag = Tag.find_by_name tag_str.downcase
+        if !tag
+          tag = Tag.new
+          tag.name = tag_str.downcase
+          tag.save!
+        end
+        tag_array.push tag 
       end
-      tag_array.push tag 
     end
     self.tags = tag_array
   end

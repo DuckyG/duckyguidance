@@ -46,6 +46,10 @@ h3 a, h4 a{
   display:inline;
 }
 
+.edit{
+  margin:5px;
+}
+
 .odd{
   background-color:#ddd;
 }

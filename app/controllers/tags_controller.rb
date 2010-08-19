@@ -3,7 +3,7 @@ class TagsController < ApplicationController
   # GET /tags.xml
   def index
     @tags = Tag.all
-
+    @title = 'Tags'
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @tags }
@@ -14,7 +14,7 @@ class TagsController < ApplicationController
   # GET /tags/1.xml
   def show
     @tag = Tag.find(params[:id])
-
+    @title = 'Tags: ' + @tag.name
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @tag }
@@ -25,7 +25,7 @@ class TagsController < ApplicationController
   # GET /tags/new.xml
   def new
     @tag = Tag.new
-
+    @title = 'New Tag'
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @tag }
@@ -35,6 +35,7 @@ class TagsController < ApplicationController
   # GET /tags/1/edit
   def edit
     @tag = Tag.find(params[:id])
+    @title = 'Edit Tag'
   end
 
   # POST /tags
