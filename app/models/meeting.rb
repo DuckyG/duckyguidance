@@ -2,10 +2,12 @@ class Meeting < ActiveRecord::Base
   belongs_to :student
   belongs_to :counselor
   attr_accessor :date, :start_time, :end_time, :tags_string
-  validates :student, :counselor, :occured_on, :notes, :summary, :presence => true 
-  before_save :convert_meta
+  validates :student, :counselor, :occured_on, :notes, :summary, :category, :presence => true 
+  before_validation :convert_meta
   has_many :meeting_tags
   has_many :tags, :through => :meeting_tags
+  belongs_to :category
+  
   def get_duration
     Time.parse(@end_time) - Time.parse(@start_time) 
   end
@@ -20,6 +22,12 @@ class Meeting < ActiveRecord::Base
     arr.join ' '
   end
   
+  def occured_on_or_now
+    return occured_on if occured_on
+    return DateTime.now
+  end
+  
+  
   def duration_hours_min
     minutes = 0
     hours = 0
@@ -32,16 +40,16 @@ class Meeting < ActiveRecord::Base
   
   def end_time
     if duration
-      occured_on + duration
+      occured_on_or_now + duration
     else
-      occured_on + 900
+      occured_on_or_now + 900
     end
   end
   
   def convert_meta
     self.occured_on = get_occured_on
     self.duration = get_duration
-    get_tags
+    get_tags if @tags_string
   end
 
   def get_tags

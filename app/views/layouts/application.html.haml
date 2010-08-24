@@ -32,7 +32,7 @@
       .clear
       #header.grid_12
         %a{:href=>dashboard_path}
-          %span Ducky Guidance
+          %span  Guidance
       .clear
       .grid_12
         %h1
@@ -43,7 +43,10 @@
               = link_to 'Dashboard', dashboard_path
               |
               = link_to 'Students', students_path
-            
+      .clear
+      .grid_12
+        -if notice
+          = notice
       .left
         = yield
       

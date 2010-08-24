@@ -1,8 +1,9 @@
-%h1= t '.title'
-%p
-  = link_to t('back'), tags_path
-  = link_to t('edit'), edit_tag_path(@tag)
-
-%dl
-  %dt= Tag.human_attribute_name :name
-  %dd= @tag.name
+.grid_3
+  %strong Number of Meetings
+.grid_1
+  =@meetings_with_tag.count
+.clear
+.grid_5
+  %h2 Meetings
+.grid_12
+  =render :partial => 'shared/dashboard_list', :locals => { :meeting_list => @meetings_with_tag}

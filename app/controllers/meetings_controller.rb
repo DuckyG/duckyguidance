@@ -51,8 +51,8 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(params[:meeting])
     @student = @meeting.student
-
-    #logger.debug @meeting.get_duration
+    logger.debug @meeting.summary
+    logger.debug "Saving......"
     respond_to do |format|
       if @meeting.save
         format.html { redirect_to(@student, :notice => 'Meeting was successfully created.') }

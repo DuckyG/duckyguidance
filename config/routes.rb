@@ -1,6 +1,8 @@
 Guidance::Application.routes.draw do |map|
   
 
+  resources :categories
+
   resources :tags
 
   get "dashboard/index"

@@ -12,13 +12,13 @@
     =f.label 'Meeting Date'
   .clear
   .grid_3
-    =f.text_field :date, :value => @meeting.occured_on.strftime('%m/%d/%Y')
+    =f.text_field :date, :value => @meeting.occured_on_or_now.strftime('%m/%d/%Y')
   .clear
   .grid_2
     =f.label 'Started At'
   .clear
   .grid_4
-    =f.text_field :start_time, :value => @meeting.occured_on.strftime('%I:%M %p')
+    =f.text_field :start_time, :value => @meeting.occured_on_or_now.strftime('%I:%M %p')
     %input.now{:type=>'submit',:value=>'Now'}
   .clear
   .grid_2
@@ -27,6 +27,11 @@
   .grid_4
     =f.text_field :end_time, :value  => (@meeting.end_time).strftime('%I:%M %p')
     %input.now{:type=>'submit',:value=>'Now'}
+  .clear
+  .grid_2
+    =f.label 'Category'
+    %br
+    = f.select :category_id, Category.all.map {|c| [c.name, c.id]}
   .clear
   .grid_2
     =f.label :summary

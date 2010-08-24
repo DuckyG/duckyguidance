@@ -1,14 +1,8 @@
-%h1= t '.title'
-%p
-  = link_to t('back'), counselors_path
-  = link_to t('edit'), edit_counselor_path(@counselor)
-
-%dl
-  %dt= Counselor.human_attribute_name :first_name
-  %dd= @counselor.first_name
-  %dt= Counselor.human_attribute_name :last_name
-  %dd= @counselor.last_name
-  %dt= Counselor.human_attribute_name :login
-  %dd= @counselor.login
-  %dt= Counselor.human_attribute_name :email
-  %dd= @counselor.email
+%dt= Counselor.human_attribute_name :first_name
+%dd= @counselor.first_name
+%dt= Counselor.human_attribute_name :last_name
+%dd= @counselor.last_name
+%dt= Counselor.human_attribute_name :login
+%dd= @counselor.login
+%dt= Counselor.human_attribute_name :email
+%dd= @counselor.email

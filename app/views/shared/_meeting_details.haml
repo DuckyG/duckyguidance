@@ -9,6 +9,12 @@
     -if mins > 0 
       =mins.to_s + " " + (mins > 1 ? t('minute').pluralize : t('minute'))
   .clear
+  %strong.grid_1 Category
+  .clear
+  .tags.grid_8
+    &nbsp;
+    =meeting.category.name if meeting.category
+  .clear
   %strong.grid_1 Tags
   .clear
   .tags.grid_8

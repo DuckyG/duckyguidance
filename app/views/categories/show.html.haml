@@ -1,0 +1,10 @@
+%h1= t '.title'
+%p
+  = link_to t('back'), categories_path
+  = link_to t('edit'), edit_category_path(@category)
+
+%dl
+  %dt= Category.human_attribute_name :name
+  %dd= @category.name
+  %dt= Category.human_attribute_name :description
+  %dd= @category.description

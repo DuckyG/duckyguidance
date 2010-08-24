@@ -1,0 +1,176 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+Academic_issues:
+  id: 1
+  name: Academic issues
+  description: Academic issues
+  
+Agency_contacts:
+  id: 2
+  name: Agency contacts
+  description: Agency contacts
+
+Attendance_issues:
+  id: 3
+  name: Attendance issues
+  description: Attendance issues
+
+Career_planning:
+  id: 4
+  name: Career planning
+  description: Career planning
+
+Clubs_and_activities:
+  id: 5
+  name: Clubs and activities
+  description: Clubs and activities
+
+Co_op:
+  id: 6
+  name: Co-op
+  description: Co-op
+
+Discipline_issues:
+  id: 7
+  name: Discipline issues
+  description: Discipline issues
+
+Eligibility_issues:
+  id: 8
+  name: Eligibility issues
+  description: Eligibility issues
+ESL:
+  id: 9
+  name: ESL
+  description: ESL
+
+Exit_interview:
+  id: 10
+  name: Exit interview
+  description: Exit interview
+
+Faculty_administration_consult:
+  id: 11
+  name: Faculty/administration consult
+  description: Faculty/administration consult
+
+Financial_concerns:
+  id: 12
+  name: Financial concerns
+  description: Financial concerns
+
+Follow_up:
+  id: 13
+  name: Follow-up
+  description: Follow-up
+
+Grades:
+  id: 14
+  name: Grades
+  description: Grades
+
+Home_issues:
+  id: 15
+  name: Home issues
+  description: Home issues
+
+Locker_issues:
+  id: 16
+  name: Locker issues
+  description: Locker issues
+
+Lunch:
+  id: 17
+  name: Lunch
+  description: Lunch
+
+MCAS:
+  id: 18
+  name: MCAS
+  description: MCAS
+
+Medical_issues:
+  id: 19
+  name: Medical issues
+  description: Medical issues
+
+Non_traditional_support:
+  id: 20
+  name: Non-traditional support
+  description: Non-traditional support
+
+Orientation:
+  id: 21
+  name: Orientation
+  description: Orientation
+
+Parent_contact:
+  id: 22
+  name: Parent contact
+  description: Parent contact
+
+Parent_meeting:
+  id: 23
+  name: Parent meeting
+  description: Parent meeting
+
+Peer_issues:
+  id: 24
+  name: Peer issues
+  description: Peer issues
+
+Personal_issues:
+  id: 25
+  name: Personal issues
+  description: Personal issues
+
+Placement:
+  id: 26
+  name: Placement
+  description: Placement
+
+Post_secondary_planning:
+  id: 27
+  name: Post-secondary planning
+  description: Post-secondary planning
+
+Progress_check:
+  id: 28
+  name: Progress check
+  description: Progress check
+
+Referral_issues:
+  id: 29
+  name: Referral issues
+  description: Referral issues
+
+Scheduling_issues:
+  id: 30
+  name: Scheduling issues
+  description: Scheduling issues
+
+Special_education_meeting:
+  id: 31
+  name: Special education meeting
+  description: Special education meeting
+
+Student_information_paperwork:
+  id: 32
+  name: Student information paperwork
+  description: Student information paperwork
+
+Teacher_concerns:
+  id: 33
+  name: Teacher concerns
+  description: Teacher concerns
+
+Vocational_concerns:
+  id: 34
+  name: Vocational concerns
+  description: Vocational concerns
+
+Other:
+  id: 35
+  name: Other
+  description: Other
+

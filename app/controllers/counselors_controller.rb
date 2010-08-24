@@ -14,7 +14,7 @@ class CounselorsController < ApplicationController
   # GET /counselors/1.xml
   def show
     @counselor = Counselor.find(params[:id])
-
+    @title = 'Counselor: ' + @counselor.first_name + ' ' + @counselor.last_name
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @counselor }
