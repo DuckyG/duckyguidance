@@ -8,7 +8,7 @@ class CounselorSessionsController < ApplicationController
     @counselor_session = CounselorSession.new(params[:counselor_session])
     if @counselor_session.save
       flash[:notice] = "Login successful!"
-      redirect_to dashboard_url
+      redirect_to dashboard_path
     else
       render :action => :new
     end
