@@ -9,11 +9,7 @@ Guidance::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  if config.action_controller.session
-    config.action_controller.session[:domain] = '.viridianspark.com'
-  else
-    config.action_controller.session = { :domain => '.viridianspark.com' }
-  end
+  config.action_controller.session = {:domain => '.viridianspark.com'}
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
