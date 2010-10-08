@@ -4,7 +4,7 @@ gem 'rails', '3.0.0'
 
 gem 'haml'
 
-gem 'authlogic'
+gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
 
 gem 'pg'
   
