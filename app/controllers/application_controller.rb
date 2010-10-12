@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout 'application'
-
+  before_filter :require_counselor
   helper_method :current_counselor_session, :current_counselor, :current_school
 
   private
@@ -23,6 +23,13 @@ class ApplicationController < ActionController::Base
     def require_counselor
       unless current_counselor
         flash[:notice] = "You must be logged in to access this page"
+        redirect_to login_url
+        return false
+      end
+      
+      unless current_counselor.school_id == current_school.id
+        flash[:notice] = "You do not have access to this school"
+        current_counselor_session.destroy
         redirect_to login_url
         return false
       end

@@ -1,4 +1,5 @@
 class MeetingRequestsController < ApplicationController
+  skip_before_filter :require_counselor
   # GET /meeting_requests
   # GET /meeting_requests.xml
   def index
