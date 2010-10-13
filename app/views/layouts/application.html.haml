@@ -1,7 +1,7 @@
 !!! 5
 %html
   %head
-    %title Guidance
+    %title= current_school.name
     = stylesheet_link_tag 'reset', 'text','960','scaffold', 'calendar/calendar-blue','jquery-ui','styles'
     = javascript_include_tag :defaults, "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js","http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js",'rails-jquery','jquery.dynDateTime.min','lang/calendar-en.min'
     = javascript_include_tag 'jquery.form'
@@ -32,7 +32,7 @@
       .clear
       #header.grid_12
         %a{:href=>dashboard_path}
-          %span  Guidance
+          %span= current_school.name
       .clear
       .grid_12
         %h1

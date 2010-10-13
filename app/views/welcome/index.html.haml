@@ -1,2 +1,8 @@
-.grid_4
-  = link_to 'Students', students_path
+.grid_6
+  %h2 Students
+
+  = link_to 'Request a meeting with your counselor', request_path
+.grid_6
+  %h2 Counselors
+  
+  =render :partial => 'counselor_sessions/form'
