@@ -94,13 +94,16 @@ a{
 .last{
   border-bottom:1px dashed black;
 }
-#header span
+#header a
 {
   font-size:48px;
   font-weight:bold;
   color:#883E39;
 }
 #header{
+  float:left;
+  margin-left:10px;
+  margin-top:10px;
   margin-bottom:20px;
 }
 .field label
@@ -144,6 +147,7 @@ pre {
   float:right;
 }
 #login_nav{
+  padding-right:10px;
   float:right;
   text-align:right;
 }

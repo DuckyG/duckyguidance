@@ -22,22 +22,25 @@
 
   %body
     .container_12
-      #login_nav.grid_3.prefix_9
-        -if current_counselor
-          Welcome, 
-          = link_to current_counselor.first_name, current_counselor
-          |
-          = link_to 'Logout', logout_path
-        -else
-          = link_to "Login", login_path
-      .clear
-      #header.grid_12
+      
+      -if current_school
+        #login_nav
+          &nbsp;
+          -if current_counselor
+            Welcome, 
+            = link_to current_counselor.first_name, current_counselor
+            |
+            = link_to 'Logout', logout_path
+          -else
+            = link_to "Login", login_path
+
+      #header
         -url = root_path
         -url = dashboard_path if current_school && current_counselor
         
         %a{:href=>url}
-          %span= current_school.name if current_school
-          %span= "Ducky Guidance" if !current_school
+          = current_school.name if current_school
+          = "Ducky Guidance" if !current_school
       .clear
       .grid_12
         %h1
