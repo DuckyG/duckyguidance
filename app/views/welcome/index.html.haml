@@ -1,8 +1,12 @@
-.grid_6
-  %h2 Students
+-if current_school
+  .grid_6
+    %h2 Students
 
-  = link_to 'Request a meeting with your counselor', request_path
-.grid_6
-  %h2 Counselors
+    = link_to 'Request a meeting with your counselor', request_path
+  .grid_6
+    %h2 Counselors
   
-  =render :partial => 'counselor_sessions/form'
+    =render :partial => 'counselor_sessions/form'
+-else
+  Welcome to Ducky Guidance
+

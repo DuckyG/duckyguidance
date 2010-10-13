@@ -1,10 +1,20 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout 'application'
-  before_filter :require_counselor
+  before_filter :require_counselor, :check_domain
   helper_method :current_counselor_session, :current_counselor, :current_school
 
   private
+    def check_domain
+      if request.subdomains.first != nil && !current_school
+        querystring = "?error_domain="+ request.subdomains.first
+        querystring = querystring + "&error_title=School+Not+Found"
+        querystring = querystring + "&error_message=The+school+you+are+looking+for+could+not+be+found.+Please+check+to+see+that+you+have+the+correct+domain+for+your+school."
+
+
+        redirect_to request.scheme+"://" + request.domain+"/error/404"+querystring
+      end
+    end
     def current_counselor_session
       return @current_counselor_session if defined?(@current_counselor_session)
       @current_counselor_session = CounselorSession.find

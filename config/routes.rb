@@ -1,6 +1,8 @@
 Guidance::Application.routes.draw do |map|
   
 
+  match 'error/:id' => 'error#show'
+
   resources :categories
 
   resources :tags

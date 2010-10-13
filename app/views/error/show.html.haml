@@ -1,0 +1,6 @@
+.grid_11
+  %p= flash['error_message']
+  -if flash['error_domain']
+    %p
+      %strong= flash['error_domain']+".duckyg.com"
+      was not found
