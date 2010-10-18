@@ -45,17 +45,14 @@
   };
 
 
-    //= button_to "Edit", edit_student_path(@student), :method => :get
-//.grid_4
-//  = link_to 'Student List', students_path
-//.clear
+=render :partial => 'student_details', :locals => { :student => @student}
 .grid_6
   #new_meeting_form
     %h6
-      %a{:href=>"#",:id=>'new_meeting_link'} New Meeting
+      %a{:href=>"#",:id=>'new_meeting_link'} New Note
     =render :partial => 'meetings/form'
 .cleft
 .grid_12#meeting_container
-  %h2 Meetings
+  %h2 Notes
   =render :partial => 'shared/meeting_list', :locals => { :meeting_list => @student.meetings}
     
