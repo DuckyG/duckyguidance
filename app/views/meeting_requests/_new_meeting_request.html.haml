@@ -6,7 +6,10 @@
     .grid_2 
       %strong Desired Date
     .grid_4
-      =request.desired_date.strftime('%B %d @ %I:%M %p')
+      - if request.desired_date
+        =request.desired_date.strftime('%B %d @ %I:%M %p')
+      -else
+        N/A
   .clear
   .notes
     .grid_1
