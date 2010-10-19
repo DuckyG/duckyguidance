@@ -56,6 +56,7 @@ class MeetingsController < ApplicationController
         format.html { redirect_to(@student, :notice => 'Meeting was successfully created.') }
         format.xml  { render :xml => @meeting, :status => :created, :location => @meeting }
       else
+        logger.error "Could not save meeting"
         format.html { render :action => "new" }
         format.xml  { render :xml => @meeting.errors, :status => :unprocessable_entity }
       end
