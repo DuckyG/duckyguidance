@@ -3,4 +3,5 @@ class Counselor < ActiveRecord::Base
   has_many :meetings
   has_many :meeting_requests
   belongs_to :school
+  validate :school, :presence => true
 end

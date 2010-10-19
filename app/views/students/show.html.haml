@@ -44,7 +44,7 @@
     $j(this).parent().find('.meeting_notes').slideToggle()
   };
 
-
+=button_to "Edit Student", edit_student_path, :method => :get
 =render :partial => 'student_details', :locals => { :student => @student}
 .grid_6
   #new_meeting_form
