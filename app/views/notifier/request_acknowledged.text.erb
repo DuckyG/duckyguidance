@@ -5,7 +5,7 @@ Your counselor, <%=@counselor.last_name%>, has <%= @request.accepted ? 'accepted
   Details:
   =======================================
   Counselor:        <%=@counselor.last_name%>
-  Desired date:     <%=@request.desired_date.strftime('%m/%d/%Y %I:%M %p')%>
+  Desired date:     <%=@request.desired_date.strftime('%m/%d/%Y %I:%M %p') if @request.desired_date %>
   Notes:
   <%= @request.notes %>
 <% else %>

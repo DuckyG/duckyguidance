@@ -42,11 +42,11 @@ class MeetingRequestsController < ApplicationController
   # POST /meeting_requests.xml
   def create
     @meeting_request = MeetingRequest.new(params[:meeting_request])
-    @meeting_request.desired_date = @meeting_request.date + ' ' + @meeting_request.time
+    @meeting_request.desired_date = Date.strptime(@meeting_request.date + ' ' + @meeting_request.time, "%m/%d/%Y %I:%M %p")
     respond_to do |format|
       if @meeting_request.save
-        Notifier.request_submitted(@meeting_request).deliver
-        Notifier.request_received(@meeting_request).deliver
+        #Notifier.request_submitted(@meeting_request).deliver
+        #Notifier.request_received(@meeting_request).deliver  #Disabled for now until we fix other problems
         format.html { redirect_to(thankyou_path, :notice => 'Your meeting request was received.  You should receive an email from one of the counselors shortly.') }
         format.xml  { render :xml => @meeting_request, :status => :created, :location => @meeting_request }
       else

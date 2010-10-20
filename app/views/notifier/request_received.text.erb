@@ -4,7 +4,7 @@ You have received a meeting request from <%= @request.first_name + ' ' + @reques
 Details
 =======================================
 Student:        <%= @request.first_name + ' ' + @request.last_name%>
-Desired date:   <%=@request.desired_date.strftime('%m/%d/%Y %I:%M %p')%>
+Desired date:   <%=@request.desired_date.strftime('%m/%d/%Y %I:%M %p') if @request.desired_date%>
 Notes:
 <%= @request.notes %>
 
