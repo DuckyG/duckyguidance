@@ -31,7 +31,7 @@
   .grid_2
     =f.label 'Category'
     %br
-    = f.select :category_id, Category.all.map {|c| [c.name, c.id]}
+    = f.select :category_id, current_school.categories.all.map {|c| [c.name, c.id]}
   .clear
   .grid_2
     =f.label :summary

@@ -51,12 +51,12 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(params[:meeting])
     @student = @meeting.student
+   
     respond_to do |format|
       if @meeting.save
         format.html { redirect_to(@student, :notice => 'Meeting was successfully created.') }
         format.xml  { render :xml => @meeting, :status => :created, :location => @meeting }
       else
-        logger.error "Could not save meeting"
         format.html { render :action => "new" }
         format.xml  { render :xml => @meeting.errors, :status => :unprocessable_entity }
       end

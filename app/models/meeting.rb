@@ -47,7 +47,7 @@ class Meeting < ActiveRecord::Base
   end
   
   def convert_meta
-    self.occured_on = get_occured_on
+    self.occured_on = Date.strptime get_occured_on, "%m/%d/%Y %I:%M %p" 
     self.duration = get_duration
     get_tags if @tags_string
   end

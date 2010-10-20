@@ -51,7 +51,7 @@ class StudentsController < ApplicationController
   # POST /students.xml
   def create
     @student = Student.new(params[:student])
-
+    @student.school = current_school
     respond_to do |format|
       if @student.save
         format.html { redirect_to(@student, :notice => 'Student was successfully created.') }

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout 'application'
-  before_filter :require_counselor, :check_domain
+  before_filter :require_counselor, :check_domain, :ensure_defaults
   helper_method :current_counselor_session, :current_counselor, :current_school
 
   private
@@ -13,6 +13,16 @@ class ApplicationController < ActionController::Base
 
 
         redirect_to request.scheme+"://" + request.domain+"/error/404"+querystring
+      end
+    end
+    
+    def ensure_defaults
+      uncat_cat =current_school.categories.find_by_name "Uncategorized"
+      if !uncat_cat
+        uncat_cat = Category.new
+        uncat_cat.name = "Uncategorized"
+        uncat_cat.school = current_school
+        uncat_cat.save
       end
     end
     def current_counselor_session
