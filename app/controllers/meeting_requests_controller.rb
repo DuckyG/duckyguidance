@@ -64,7 +64,7 @@ class MeetingRequestsController < ApplicationController
     respond_to do |format|
       if @meeting_request.update_attributes(params[:meeting_request])
         #format.html { redirect_to(@meeting_request, :notice => 'Your meeting request was received.  You should receive an email from one of the counselors shortly.') }
-        Notifier.request_acknowledged(@meeting_request).deliver
+        #Notifier.request_acknowledged(@meeting_request).deliver #Disabled for now until we fix other problems
         format.js {@current_request = @meeting_request}
         format.xml  { head :ok }
       else
