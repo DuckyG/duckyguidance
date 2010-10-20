@@ -1,6 +1,5 @@
 class MeetingsController < ApplicationController
   layout Proc.new { |controller| controller.request.xhr? ? 'ajax' : 'application' }
-  before_filter :require_counselor
   # GET /meetings
   # GET /meetings.xml
   def index
