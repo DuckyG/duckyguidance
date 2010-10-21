@@ -3,8 +3,8 @@ class MeetingsController < ApplicationController
   # GET /meetings
   # GET /meetings.xml
   def index
-    @meetings = Meeting.all
-    @student = Student.find(params[:student_id]) if params[:student_id]
+    @meetings = current_school.meetings.order "occured_on DESC"
+    @student = current_school.students.find(params[:student_id]) if params[:student_id]
     @meetings =  @student.meetings if @student
    
     respond_to do |format|
@@ -17,7 +17,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/1
   # GET /meetings/1.xml
   def show
-    @meeting = Meeting.find(params[:id])
+    @meeting = current_school.meetings.find(params[:id])
     @title = 'Meeting Details'
     respond_to do |format|
       format.html # show.html.erb
@@ -28,8 +28,8 @@ class MeetingsController < ApplicationController
   # GET /meetings/new
   # GET /meetings/new.xml
   def new
-    @meeting = Meeting.new
-    @meeting.student = Student.find(params[:student_id])
+    @meeting = current_school.meetings.new
+    @meeting.student = current_school.students.find(params[:student_id])
     @meeting.counselor = current_counselor
    
     respond_to do |format|
@@ -40,7 +40,7 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/1/edit
   def edit
-    @meeting = Meeting.find(params[:id])
+    @meeting = current_school.meetings.find(params[:id])
     @title = 'Edit Meeting'
     @meeting.tags_string = @meeting.get_tag_string
   end
@@ -50,7 +50,7 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(params[:meeting])
     @student = @meeting.student
-   
+    @meeting.school = current_school
     respond_to do |format|
       if @meeting.save
         format.html { redirect_to(@student, :notice => 'Meeting was successfully created.') }
@@ -65,7 +65,7 @@ class MeetingsController < ApplicationController
   # PUT /meetings/1
   # PUT /meetings/1.xml
   def update
-    @meeting = Meeting.find(params[:id])
+    @meeting = current_school.meetings.find(params[:id])
     @student = @meeting.student
 
     respond_to do |format|
@@ -82,7 +82,7 @@ class MeetingsController < ApplicationController
   # DELETE /meetings/1
   # DELETE /meetings/1.xml
   def destroy
-    @meeting = Meeting.find(params[:id])
+    @meeting = current_school.meetings.find(params[:id])
     @meeting.destroy
 
     respond_to do |format|

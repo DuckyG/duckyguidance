@@ -7,6 +7,7 @@ class Meeting < ActiveRecord::Base
   has_many :meeting_tags
   has_many :tags, :through => :meeting_tags
   belongs_to :category
+  belongs_to :school
   
   def get_duration
     Time.parse(@end_time) - Time.parse(@start_time) 
