@@ -20,7 +20,7 @@
   .tags.grid_8
     &nbsp;
     -meeting.tags.each do |tag|
-      =tag.name + ((tag != meeting.tags.last) ? ',' : '')
+      =link_to(tag.name, tag_path(tag.name)) + ((tag != meeting.tags.last) ? ',' : '')
   .clear
   %strong.grid_1 Notes
   .clear
