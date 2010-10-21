@@ -41,7 +41,7 @@ class CategoriesController < ApplicationController
   # POST /categories.xml
   def create
     @category = Category.new(params[:category])
-
+    @category.school = current_school
     respond_to do |format|
       if @category.save
         format.html { redirect_to(@category, :notice => 'Category was successfully created.') }
