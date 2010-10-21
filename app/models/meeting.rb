@@ -61,6 +61,7 @@ class Meeting < ActiveRecord::Base
         if !tag
           tag = Tag.new
           tag.name = tag_str.downcase
+          tag.school = current_school
           tag.save!
         end
         tag_array.push tag 
