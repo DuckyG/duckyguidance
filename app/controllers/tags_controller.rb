@@ -13,9 +13,9 @@ class TagsController < ApplicationController
   # GET /tags/1
   # GET /tags/1.xml
   def show
-    @tag = Tag.find(params[:id])
+    @tag = current_school.tags.find_by_name(params[:id])
     @title = 'Tags: ' + @tag.name
-    meeting_tags = MeetingTag.where('tag_id = ?', params[:id])
+    meeting_tags = MeetingTag.where('tag_id = ?', @tag.id)
     @meetings_with_tag = []
     meeting_tags.each {|mt| @meetings_with_tag.push mt.meeting} 
     respond_to do |format|
@@ -37,7 +37,7 @@ class TagsController < ApplicationController
 
   # GET /tags/1/edit
   def edit
-    @tag = Tag.find(params[:id])
+    @tag = Tag.find_by_name(params[:id])
     @title = 'Edit Tag'
   end
 
@@ -60,7 +60,7 @@ class TagsController < ApplicationController
   # PUT /tags/1
   # PUT /tags/1.xml
   def update
-    @tag = Tag.find(params[:id])
+    @tag = Tag.find_by_name(params[:id])
 
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
