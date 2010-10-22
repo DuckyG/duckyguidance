@@ -3,7 +3,7 @@ class MeetingRequestsController < ApplicationController
   # GET /meeting_requests
   # GET /meeting_requests.xml
   def index
-    @meeting_requests = MeetingRequest.all
+    @meeting_requests = current_school.meeting_requests.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +14,7 @@ class MeetingRequestsController < ApplicationController
   # GET /meeting_requests/1
   # GET /meeting_requests/1.xml
   def show
-    @meeting_request = MeetingRequest.find(params[:id])
+    @meeting_request = current_school.meeting_requests.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -35,7 +35,7 @@ class MeetingRequestsController < ApplicationController
 
   # GET /meeting_requests/1/edit
   def edit
-    @meeting_request = MeetingRequest.find(params[:id])
+    @meeting_request = current_school.meeting_requests.find(params[:id])
   end
 
   # POST /meeting_requests
@@ -43,6 +43,7 @@ class MeetingRequestsController < ApplicationController
   def create
     @meeting_request = MeetingRequest.new(params[:meeting_request])
     @meeting_request.desired_date = Date.strptime(@meeting_request.date + ' ' + @meeting_request.time, "%m/%d/%Y %I:%M %p")
+    @meeting_request.school = current_school
     respond_to do |format|
       if @meeting_request.save
         #Notifier.request_submitted(@meeting_request).deliver
@@ -59,7 +60,7 @@ class MeetingRequestsController < ApplicationController
   # PUT /meeting_requests/1
   # PUT /meeting_requests/1.xml
   def update
-    @meeting_request = MeetingRequest.find(params[:id])
+    @meeting_request = current_school.meeting_requests.find(params[:id])
     @meeting_request.accepted = params[:accepted]
     respond_to do |format|
       if @meeting_request.update_attributes(params[:meeting_request])
@@ -77,7 +78,7 @@ class MeetingRequestsController < ApplicationController
   # DELETE /meeting_requests/1
   # DELETE /meeting_requests/1.xml
   def destroy
-    @meeting_request = MeetingRequest.find(params[:id])
+    @meeting_request = current_school.meeting_requests.find(params[:id])
     @meeting_request.destroy
 
     respond_to do |format|
