@@ -58,7 +58,7 @@ class Meeting < ActiveRecord::Base
     tag_array = []
     tag_list.each do |tag_str|
       if !tag_str.strip.empty?
-        tag = Tag.find_by_name tag_str.downcase
+        tag = current_school.tags.find_by_name tag_str.downcase
         if !tag
           tag = Tag.new
           tag.name = tag_str.downcase
