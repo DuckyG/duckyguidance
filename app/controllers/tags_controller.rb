@@ -27,7 +27,7 @@ class TagsController < ApplicationController
   # GET /tags/new
   # GET /tags/new.xml
   def new
-    @tag = Tag.new
+    @tag = current_school.tags.new
     @title = 'New Tag'
     respond_to do |format|
       format.html # new.html.erb
@@ -37,7 +37,7 @@ class TagsController < ApplicationController
 
   # GET /tags/1/edit
   def edit
-    @tag = Tag.find_by_name(params[:id])
+    @tag = current_school.tags.find_by_name(params[:id])
     @title = 'Edit Tag'
   end
 
@@ -60,7 +60,7 @@ class TagsController < ApplicationController
   # PUT /tags/1
   # PUT /tags/1.xml
   def update
-    @tag = Tag.find_by_name(params[:id])
+    @tag = current_school.tags.find_by_name(params[:id])
 
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
@@ -76,7 +76,7 @@ class TagsController < ApplicationController
   # DELETE /tags/1
   # DELETE /tags/1.xml
   def destroy
-    @tag = Tag.find(params[:id])
+    @tag = current_school.tags.find(params[:id])
     @tag.destroy
 
     respond_to do |format|
