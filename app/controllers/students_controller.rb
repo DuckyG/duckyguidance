@@ -8,7 +8,7 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
   def index
-    @students = Student.order(:last_name)
+    @students = current_school.students.order(:last_name)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,7 +19,7 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.xml
   def show
-    @student = Student.find(params[:id])
+    @student = current_school.students.find(params[:id])
     @meeting = Meeting.new
     @meeting.occured_on = DateTime.now
     @meeting.student = @student
@@ -43,7 +43,7 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
-    @student = Student.find(params[:id])
+    @student = current_school.students.find(params[:id])
     title
   end
 
@@ -66,7 +66,7 @@ class StudentsController < ApplicationController
   # PUT /students/1
   # PUT /students/1.xml
   def update
-    @student = Student.find(params[:id])
+    @student = current_school.students.find(params[:id])
 
     respond_to do |format|
       if @student.update_attributes(params[:student])
@@ -82,7 +82,7 @@ class StudentsController < ApplicationController
   # DELETE /students/1
   # DELETE /students/1.xml
   def destroy
-    @student = Student.find(params[:id])
+    @student = current_school.students.find(params[:id])
     @student.destroy
 
     respond_to do |format|
