@@ -1,0 +1,72 @@
+.grid_12
+  = form_for(@school) do |f|
+    - if @school.errors.any?
+      #errorExplanation
+        %h2= "#{pluralize(@school.errors.count, 'error')} prohibited this user from being saved:"
+        %ul
+        - @school.errors.full_messages.each do |msg|
+          %li= msg
+  
+    .clear
+
+    .grid_3
+      = f.label :name
+      %br
+      = f.text_field :name
+    .clear
+    .grid_3
+      = f.label :address
+      %br
+      = f.text_field :address
+    .clear
+    .grid_3
+      = f.label :city
+      %br
+      = f.text_field :city
+    .clear
+    .grid_3
+      = f.label :state
+      %br
+      = f.text_field :state
+    .clear
+    .grid_3
+      = f.label :zip_code
+      %br
+      = f.text_field :zip_code
+    .clear
+    .grid_3
+      = f.label :subdomain
+      %br
+      = f.text_field :subdomain
+    .clear
+    -if @school.new_record?
+      %h2 Administrator
+      -prefix ="school[new_counselor_attributes]"
+      =fields_for prefix, Counselor.new do |counselor_form|
+        .grid_3
+          = counselor_form.label :first_name
+          %br
+          = counselor_form.text_field :first_name
+        .clear
+        .grid_3
+          = counselor_form.label :last_name
+          %br
+          = counselor_form.text_field :last_name
+        .clear
+        .grid_3
+          = counselor_form.label :password
+          %br
+          = counselor_form.password_field :password
+        .clear
+        .grid_3
+          = counselor_form.label :password_confirmation
+          %br
+          = counselor_form.password_field :password_confirmation
+        .clear
+        .grid_3
+          = counselor_form.label :email
+          %br
+          = counselor_form.text_field :email
+      .clear
+    .grid_3
+      = f.submit

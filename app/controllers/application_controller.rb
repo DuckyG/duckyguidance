@@ -18,12 +18,8 @@ class ApplicationController < ActionController::Base
     
     def ensure_defaults
       # This is a workaraound, this should be removed once a "Create site" flow and un-deletable defaults are added
-      uncat_cat =current_school.categories.find_by_name "Uncategorized"
-      if !uncat_cat
-        uncat_cat = Category.new
-        uncat_cat.name = "Uncategorized"
-        uncat_cat.school = current_school
-        uncat_cat.save
+      if current_school
+       
       end
     end
     def current_counselor_session
