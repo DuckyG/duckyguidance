@@ -3,6 +3,7 @@ Guidance::Application.routes.draw do |map|
 
   match 'error/:id' => 'error#show'
 
+  resources :users
   resources :schools
   resources :categories
 
@@ -20,13 +21,13 @@ Guidance::Application.routes.draw do |map|
     post 'request' => :create
   end
 
-  controller :counselor_sessions do
+  controller :user_sessions do
     get  'login' => :new
     post 'login' => :create
     get 'logout' => :destroy
   end
   resources :meeting_requests
-  resources :counselors
+  resources :counselors, :controller => "users"
   get "thankyou/index"
   match 'thankyou' => 'thankyou#index'
   get "welcome/index"

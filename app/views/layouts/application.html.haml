@@ -26,9 +26,9 @@
       -if current_school
         #login_nav
           &nbsp;
-          -if current_counselor
+          -if current_user
             Welcome, 
-            = link_to current_counselor.first_name, current_counselor
+            = link_to current_user.first_name, current_user
             |
             = link_to 'Logout', logout_path
           -else
@@ -36,7 +36,7 @@
 
       #header
         -url = root_path
-        -url = dashboard_path if current_school && current_counselor
+        -url = dashboard_path if current_school && current_user
         
         %a{:href=>url}
           = current_school.name if current_school
@@ -46,7 +46,7 @@
         %h1
           =@title
           &nbsp;
-          -if current_counselor
+          -if current_user
             #nav
               = link_to 'Dashboard', dashboard_path
               |

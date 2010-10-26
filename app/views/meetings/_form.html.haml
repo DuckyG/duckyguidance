@@ -7,7 +7,6 @@
       - @meeting.errors.full_messages.each do |msg|
         %li= msg
   =f.hidden_field :student_id, :value => @meeting.student.id
-  =f.hidden_field :counselor_id, :value => current_counselor.id
   .grid_2
     =f.label 'Note Date'
   .clear

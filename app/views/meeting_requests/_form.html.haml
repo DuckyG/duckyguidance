@@ -26,7 +26,7 @@
     %strong
       =f.label 'Counselor'
     %br
-    = f.select :counselor_id, Counselor.all.map {|c| [c.last_name, c.id]}
+    = f.select :counselor_id, current_school.counselors.map {|c| [c.last_name, c.id]}
   .clear
   .grid_2
     %strong

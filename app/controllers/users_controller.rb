@@ -1,17 +1,17 @@
-class CounselorsController < ApplicationController
-  # GET /counselors
-  # GET /counselors.xml
+class UsersController < ApplicationController
+  # GET /users
+  # GET /users.xml
   def index
     @counselors = current_school.counselors.all
     @title = "Counselors"
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @counselors }
+      format.xml  { render :xml => @users }
     end
   end
 
-  # GET /counselors/1
-  # GET /counselors/1.xml
+  # GET /users/1
+  # GET /users/1.xml
   def show
     @counselor = current_school.counselors.find(params[:id])
     @title = 'Counselor: ' + @counselor.first_name + ' ' + @counselor.last_name
@@ -21,10 +21,10 @@ class CounselorsController < ApplicationController
     end
   end
 
-  # GET /counselors/new
-  # GET /counselors/new.xml
+  # GET /users/new
+  # GET /users/new.xml
   def new
-    @counselor = Counselor.new
+    @counselor = User.new
     @title = "New Counselor"
     respond_to do |format|
       format.html # new.html.erb
@@ -32,15 +32,15 @@ class CounselorsController < ApplicationController
     end
   end
 
-  # GET /counselors/1/edit
+  # GET /users/1/edit
   def edit
     @counselor = current_school.counselors.find(params[:id])
   end
 
-  # POST /counselors
-  # POST /counselors.xml
+  # POST /users
+  # POST /users.xml
   def create
-    @counselor = Counselor.new(params[:counselor])
+    @counselor = User.new(params[:counselor])
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.save
@@ -53,8 +53,8 @@ class CounselorsController < ApplicationController
     end
   end
 
-  # PUT /counselors/1
-  # PUT /counselors/1.xml
+  # PUT /users/1
+  # PUT /users/1.xml
   def update
     @counselor = current_school.counselors.find(params[:id])
     @counselor.school = current_school
@@ -69,14 +69,14 @@ class CounselorsController < ApplicationController
     end
   end
 
-  # DELETE /counselors/1
-  # DELETE /counselors/1.xml
+  # DELETE /users/1
+  # DELETE /users/1.xml
   def destroy
     @counselor = current_school.counselors.find(params[:id])
     @counselor.destroy
 
     respond_to do |format|
-      format.html { redirect_to(counselors_url) }
+      format.html { redirect_to(users_url) }
       format.xml  { head :ok }
     end
   end
