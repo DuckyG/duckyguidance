@@ -1,16 +1,18 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout 'application'
-  before_filter :require_counselor, :check_domain, :ensure_defaults
-  helper_method :current_school, :current_user_session, :current_user
-
+  before_filter :check_domain, :ensure_defaults, :admin_domain
+  helper_method :current_school, :current_user_session, :current_user, :current_subdomain
+  
   private
+    def admin_domain
+      request.subdomains.first == 'admin'
+    end
     def check_domain
-      if request.subdomains.first != nil && !current_school
+      if !admin_domain && !current_school
         querystring = "?error_domain="+ request.subdomains.first
         querystring = querystring + "&error_title=School+Not+Found"
         querystring = querystring + "&error_message=The+school+you+are+looking+for+could+not+be+found.+Please+check+to+see+that+you+have+the+correct+domain+for+your+school."
-
 
         redirect_to request.scheme+"://" + request.domain+"/error/404"+querystring
       end
@@ -35,13 +37,19 @@ class ApplicationController < ActionController::Base
     
     def current_school
       return @current_school if defined?(@current_school)
-      @current_school = School.find_by_subdomain(request.subdomains.first)
+      @current_school = current_subdomain.school
+    end
+    
+    def current_subdomain
+      return @current_subdomain if defined?(@current_subdomain)
+      @current_subdomain = Subdomain.find_by_name(request.subdomains.first)
     end
 
     def current_counselor
       return @current_counselor if defined?(@current_counselor)
       @current_counselor = Counselor.find(current_user.id) 
     end
+    
     def require_counselor
       unless current_user
         flash[:notice] = "You must be logged in to access this page"

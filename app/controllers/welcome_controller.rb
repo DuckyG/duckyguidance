@@ -1,7 +1,9 @@
 class WelcomeController < ApplicationController
-  skip_before_filter :require_counselor
+  access_control do
+    allow all
+  end
   def index
-    @counselor_session = UserSession.new
+    @user_session = UserSession.new
     
     if current_user
       redirect_to dashboard_path

@@ -4,7 +4,7 @@ Guidance::Application.routes.draw do |map|
   match 'error/:id' => 'error#show'
 
   resources :users
-  resources :schools
+  resources :schools, :constraints => {:subdomain => 'admin'}
   resources :categories
 
   resources :tags
@@ -27,7 +27,7 @@ Guidance::Application.routes.draw do |map|
     get 'logout' => :destroy
   end
   resources :meeting_requests
-  resources :counselors, :controller => "users"
+  resources :counselors
   get "thankyou/index"
   match 'thankyou' => 'thankyou#index'
   get "welcome/index"
