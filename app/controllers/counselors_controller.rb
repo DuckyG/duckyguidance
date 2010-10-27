@@ -31,7 +31,11 @@ class CounselorsController < ApplicationController
   # GET /users/1
   # GET /users/1.xml
   def show
-    @counselor = current_school.counselors.find(params[:id])
+    if params[:id]
+      @counselor = current_school.counselors.find(params[:id])
+    else
+      @counselor = current_counselor
+    end
     @title = 'Counselor: ' + @counselor.first_name + ' ' + @counselor.last_name
     respond_to do |format|
       format.html # show.html.erb
@@ -52,8 +56,15 @@ class CounselorsController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @counselor = current_school.counselors.find(params[:id])
+    if params[:id]
+      @counselor = current_school.counselors.find(params[:id])
+      @title = "Edit Counselor"
+    else
+      @counselor = current_counselor
+      @title = "My Settings"
+    end
   end
+  
 
   # POST /users
   # POST /users.xml
@@ -75,11 +86,23 @@ class CounselorsController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
-    @counselor = current_school.counselors.find(params[:id])
+    if params[:id]
+      @counselor = current_school.counselors.find(params[:id])
+      @title = "Edit Counselor"
+    else
+      @counselor = current_counselor
+      @title = "My Settings"
+    end
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.update_attributes(params[:counselor])
-        format.html { redirect_to(@counselor, :notice => 'Counselor was successfully updated.') }
+        format.html {
+          if request.fullpath == "/my_settings_update"
+            redirect_to(my_account_path, :notice => 'Counselor was successfully updated.') 
+          else
+            redirect_to(@counselor, :notice => 'Counselor was successfully updated.') 
+          end
+           }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

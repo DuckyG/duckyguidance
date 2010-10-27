@@ -28,7 +28,7 @@
           &nbsp;
           -if current_counselor
             Welcome, 
-            = link_to current_counselor.first_name, current_counselor
+            = link_to current_counselor.first_name, my_account_path
             |
             = link_to 'Logout', logout_path
           -else

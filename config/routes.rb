@@ -2,7 +2,9 @@ Guidance::Application.routes.draw do |map|
   
 
   match 'error/:id' => 'error#show'
-
+  match 'my_account' => 'counselors#show'
+  match 'my_settings' => 'counselors#edit'
+  match 'my_settings_update' => 'counselors#update'
   resources :users
   resources :schools, :constraints => {:subdomain => 'admin'}
   resources :categories

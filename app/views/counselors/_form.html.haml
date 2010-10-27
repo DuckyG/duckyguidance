@@ -1,5 +1,5 @@
 .grid_12
-  = form_for(@counselor) do |f|
+  = form_for @counselor, :url => (request.fullpath == my_settings_path ? my_settings_update_path : @counselor) do |f|
     - if @counselor.errors.any?
       #errorExplanation
         %h2= "#{pluralize(@counselor.errors.count, 'error')} prohibited this user from being saved:"

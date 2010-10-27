@@ -6,7 +6,6 @@ class Counselor < User
   private
   
   def assign_roles
-    logger.debug "Hit counselor assign roles"
     has_role! :counselor, school
     super
   end
