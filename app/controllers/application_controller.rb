@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout 'application'
   before_filter :check_domain, :ensure_defaults
-  helper_method :current_school, :current_user_session, :current_user, :current_subdomain
+  helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor
   
   private
     
@@ -46,29 +46,6 @@ class ApplicationController < ActionController::Base
 
     def current_counselor
       return @current_counselor if defined?(@current_counselor)
-      @current_counselor = Counselor.find(current_user.id) 
-    end
-    
-    def require_counselor
-      unless current_user
-        flash[:notice] = "You must be logged in to access this page"
-        redirect_to login_url
-        return false
-      end
-      
-      unless current_user.school_id == current_school.id
-        flash[:notice] = "You do not have access to this school"
-        current_user_session.destroy
-        redirect_to login_url
-        return false
-      end
-    end
-
-    def require_no_counselor
-      if current_user
-        flash[:notice] = "You must be logged out to access this page"
-        redirect_to root_url
-        return false
-      end
+      @current_counselor = current_user ? Counselor.find(current_user.id) : nil
     end
 end
