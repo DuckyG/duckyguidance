@@ -1,4 +1,7 @@
 class MeetingsController < ApplicationController
+  access_control do
+    allow :counselor, :of => :current_school
+  end
   layout Proc.new { |controller| controller.request.xhr? ? 'ajax' : 'application' }
   # GET /meetings
   # GET /meetings.xml

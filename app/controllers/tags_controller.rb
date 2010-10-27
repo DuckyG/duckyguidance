@@ -1,4 +1,7 @@
 class TagsController < ApplicationController
+  access_control do
+    allow :counselor, :of => :current_school
+  end
   # GET /tags
   # GET /tags.xml
   def index

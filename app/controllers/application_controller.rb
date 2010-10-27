@@ -1,15 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout 'application'
-  before_filter :check_domain, :ensure_defaults, :admin_domain
+  before_filter :check_domain, :ensure_defaults
   helper_method :current_school, :current_user_session, :current_user, :current_subdomain
   
   private
-    def admin_domain
-      request.subdomains.first == 'admin'
-    end
+    
     def check_domain
-      if !admin_domain && !current_school
+      if !request.subdomains.empty? && !current_subdomain
         querystring = "?error_domain="+ request.subdomains.first
         querystring = querystring + "&error_title=School+Not+Found"
         querystring = querystring + "&error_message=The+school+you+are+looking+for+could+not+be+found.+Please+check+to+see+that+you+have+the+correct+domain+for+your+school."
@@ -37,7 +35,8 @@ class ApplicationController < ActionController::Base
     
     def current_school
       return @current_school if defined?(@current_school)
-      @current_school = current_subdomain.school
+      @current_school = current_subdomain ? current_subdomain.school : nil
+      
     end
     
     def current_subdomain
