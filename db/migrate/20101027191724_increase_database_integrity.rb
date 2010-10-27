@@ -14,8 +14,6 @@ class IncreaseDatabaseIntegrity < ActiveRecord::Migration
     add_foreign_key :students, :schools
     add_foreign_key :students, :users, :column => 'counselor_id'
     
-    add_foreign_key :counselors, :schools
-    
     add_foreign_key :tags, :schools
     
     add_foreign_key :users, :schools
@@ -37,8 +35,6 @@ class IncreaseDatabaseIntegrity < ActiveRecord::Migration
     
     remove_foreign_key :students, :schools
     remove_foreign_key :students, :users
-    
-    remove_foreign_key :counselors, :schools
     
     remove_foreign_key :tags, :schools
     
