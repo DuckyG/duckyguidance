@@ -7,6 +7,6 @@ class User < ActiveRecord::Base
   attr_accessor :subdomain
   
   def assign_roles
-    has_role! :member, subdomain
+    has_role! :member, subdomain if subdomain
   end
 end

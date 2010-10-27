@@ -13,6 +13,8 @@ class UserSessionsController < ApplicationController
     
     user = User.find_by_email params[:user_session][:email]
     if !user.has_role? :member, current_subdomain
+      logger.debug current_subdomain.id
+      logger.debug user.roles
       @user_session.errors.add :base, "You do not have access to this domain"
     end
     

@@ -34,12 +34,14 @@
       %br
       = f.text_field :zip_code
     .clear
-    .grid_3
-      = f.label :subdomain
-      %br
-      = f.text_field :subdomain
-    .clear
     -if @school.new_record?
+      -subdomain_prefix = "school[new_subdomain_attributes]"
+      =fields_for subdomain_prefix, Subdomain.new do |subdomain_form|
+        .grid_3
+          = subdomain_form.label "Subdomain"
+          %br
+          = subdomain_form.text_field :name
+        .clear
       %h2 Administrator
       -prefix ="school[new_counselor_attributes]"
       =fields_for prefix, Counselor.new do |counselor_form|
@@ -67,6 +69,6 @@
           = counselor_form.label :email
           %br
           = counselor_form.text_field :email
-      .clear
+        .clear
     .grid_3
       = f.submit

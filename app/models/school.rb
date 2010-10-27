@@ -12,6 +12,11 @@ class School < ActiveRecord::Base
   
   def new_counselor_attributes=(counselor_attributes)
     school_admin = counselors.build counselor_attributes
+    school_admin.has_role! :member, subdomain
     school_admin.has_role! :school_admin, self
+  end
+  
+  def new_subdomain_attributes=(subdomain_attributes)
+    self.subdomain = Subdomain.new subdomain_attributes
   end
 end
