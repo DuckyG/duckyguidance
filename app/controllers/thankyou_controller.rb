@@ -1,5 +1,7 @@
 class ThankyouController < ApplicationController
-  skip_before_filter :require_counselor
+  access_control do
+    allow all
+  end
   def index
     @title = 'Thank You'
   end

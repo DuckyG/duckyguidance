@@ -1,0 +1,20 @@
+= form_for(@user_session,:url=>'login') do |f|
+  - if @user_session.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@user_session.errors.count, 'error')} prohibited this user from being saved:"
+      %ul
+      - @user_session.errors.full_messages.each do |msg|
+        %li= msg
+  
+  .grid_1
+    = f.label :email
+  .grid_1
+    = f.text_field :email
+  .clear
+  .grid_1
+    =f.label :password
+  .grid_1
+    =f.password_field :password
+  .clear
+  .actions
+    = f.submit "Login"

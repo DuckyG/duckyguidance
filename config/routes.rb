@@ -3,7 +3,8 @@ Guidance::Application.routes.draw do |map|
 
   match 'error/:id' => 'error#show'
 
-  resources :schools
+  resources :users
+  resources :schools, :constraints => {:subdomain => 'admin'}
   resources :categories
 
   resources :tags
@@ -20,7 +21,7 @@ Guidance::Application.routes.draw do |map|
     post 'request' => :create
   end
 
-  controller :counselor_sessions do
+  controller :user_sessions do
     get  'login' => :new
     post 'login' => :create
     get 'logout' => :destroy

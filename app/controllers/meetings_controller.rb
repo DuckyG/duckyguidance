@@ -1,4 +1,7 @@
 class MeetingsController < ApplicationController
+  access_control do
+    allow :counselor, :of => :current_school
+  end
   layout Proc.new { |controller| controller.request.xhr? ? 'ajax' : 'application' }
   # GET /meetings
   # GET /meetings.xml
@@ -30,7 +33,7 @@ class MeetingsController < ApplicationController
   def new
     @meeting = current_school.meetings.new
     @meeting.student = current_school.students.find(params[:student_id])
-    @meeting.counselor = current_counselor
+    @meeting.counselor = Counselor.find(current_user.id)
    
     respond_to do |format|
       format.html # new.html.erb
@@ -50,6 +53,7 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(params[:meeting])
     @student = @meeting.student
+    @meeting.counselor = Counselor.find(current_user.id)
     @meeting.school = current_school
     respond_to do |format|
       if @meeting.save

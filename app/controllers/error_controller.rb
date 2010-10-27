@@ -1,5 +1,8 @@
 class ErrorController < ApplicationController
-  skip_before_filter :require_counselor, :check_domain
+  skip_before_filter :check_domain
+  access_control do
+    allow all
+  end
   def show
     if params['error_message']
       flash['error_message'] = params['error_message']

@@ -1,27 +1,13 @@
-class CounselorsController < ApplicationController
+class UsersController < ApplicationController
   access_control do
-    actions :index, :show do
-      allow :counselor, :of => :current_school
-    end
-
-    actions :new, :create do
-      allow :school_admin, :of => :current_school
-    end
-
-    actions :edit, :update do
-      allow :counselor, :of => :current_school, :if => :editing_self?
-      allow :school_admin, :of => :current_school
-    end
-
-    action :destroy do
-      allow :school_admin,:of => :current_school
-    end
+    allow :school_admin, :of => :current_school
+    allow :superadmin
   end
   # GET /users
   # GET /users.xml
   def index
     @counselors = current_school.counselors.all
-    @title = "Counselors"
+    @title = "Users"
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @users }
@@ -32,7 +18,7 @@ class CounselorsController < ApplicationController
   # GET /users/1.xml
   def show
     @counselor = current_school.counselors.find(params[:id])
-    @title = 'Counselor: ' + @counselor.first_name + ' ' + @counselor.last_name
+    @title = 'User: ' + @counselor.first_name + ' ' + @counselor.last_name
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @counselor }
@@ -42,7 +28,7 @@ class CounselorsController < ApplicationController
   # GET /users/new
   # GET /users/new.xml
   def new
-    @counselor = Counselor.new
+    @counselor = User.new
     @title = "New Counselor"
     respond_to do |format|
       format.html # new.html.erb
@@ -58,8 +44,7 @@ class CounselorsController < ApplicationController
   # POST /users
   # POST /users.xml
   def create
-    @counselor = Counselor.new(params[:counselor])
-    @counselor.subdomain = current_subdomain
+    @counselor = User.new(params[:counselor])
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.save
@@ -99,7 +84,7 @@ class CounselorsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
+  
   def editing_self?
     params[:id].to_i == current_user.id
   end

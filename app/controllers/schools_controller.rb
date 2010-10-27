@@ -1,6 +1,7 @@
 class SchoolsController < ApplicationController
-  skip_before_filter :require_counselor, :check_domain, :ensure_defaults
-  
+  access_control do
+    allow :superadmin
+  end
   def index
     
   end

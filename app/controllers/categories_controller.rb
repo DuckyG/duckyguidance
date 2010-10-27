@@ -1,4 +1,7 @@
 class CategoriesController < ApplicationController
+  access_control do
+    allow :counselor, :of => :current_school
+  end
   # GET /categories
   # GET /categories.xml
   def index

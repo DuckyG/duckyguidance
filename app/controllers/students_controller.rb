@@ -1,5 +1,8 @@
 class StudentsController < ApplicationController
-  before_filter :require_counselor, :title
+  before_filter :title
+  access_control do
+    allow :counselor, :of => :current_school
+  end
   def title
     @title = 'Students'
     @title = @student.last_name + ', ' + @student.first_name if @student
