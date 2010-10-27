@@ -17,7 +17,7 @@ class UserSessionsController < ApplicationController
     end
     
     if user.has_role?(:member, current_subdomain) && @user_session.save
-      if admin_domain
+      if current_domain.name == 'admin'
         redirect_to schools_path
       else
         redirect_to dashboard_path
