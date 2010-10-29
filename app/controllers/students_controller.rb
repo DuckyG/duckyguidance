@@ -11,7 +11,11 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
   def index
-    @students = current_school.students.order(:last_name)
+    if params[:last_name]
+      @students = current_school.students.where('last_name like ?', "%" + params[:last_name] + "%").order(:last_name)
+    else
+      @students = current_school.students.order(:last_name) if !params[:last_name]
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -64,6 +68,11 @@ class StudentsController < ApplicationController
         format.xml  { render :xml => @student.errors, :status => :unprocessable_entity }
       end
     end
+  end
+  
+  def search
+    logger.debug 
+    
   end
 
   # PUT /students/1

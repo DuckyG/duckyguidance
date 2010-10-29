@@ -1,9 +1,18 @@
+
+
+
 .grid_2
   = button_to t('.new_student'), new_student_path, :method => :get
 
   //%h5.grid_2= Student.human_attribute_name :last_name
   //%h5.grid_2= Student.human_attribute_name :first_name
   
+.cleft
+
+.grid_8
+  =form_tag(students_path,:method => 'get') do
+    = text_field_tag :last_name
+    = submit_tag('Search')
 .cleft
 - for student in @students
   .grid_3= student.last_name + ', ' + student.first_name
