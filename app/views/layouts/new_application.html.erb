@@ -1,0 +1,86 @@
+
+<!doctype html>
+
+<!--[if IE 6 ]><html lang="en" class="ie6"><![endif]-->
+<!--[if IE 7 ]><html lang="en" class="ie7"><![endif]-->
+<!--[if IE 8 ]><html lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+	<title>DuckyG - Template</title>
+
+	<meta name="description" content="Description of page">
+	<meta name="keywords" content="Keywords for page">
+	<meta name="copyright" content="Copyright information">
+	<meta name="Robots" content="INDEX,FOLLOW">
+
+	<link rel="shortcut icon" href="/favicon.gif" type="image/gif">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+	<%= stylesheet_link_tag '/styles/structure.css','/styles/content.css' %>
+	<%= stylesheet_link_tag  '/styles/print.css', :media => 'print' %>
+</head>
+<body>
+	<div id="header">
+		<div class="wrap">
+			<strong><%= current_school.name %></strong>
+
+			<ul id="userInfo">
+				<li><%= link_to current_user.first_name + " " + current_user.last_name, my_account_path%></li>
+				<li><a href="#">Administer</a></li>
+				<li><a href="<%=logout_path%>">Log Out&nbsp;&raquo;</a></li>
+			</ul><!--// end userInfo //-->
+
+		</div>
+	</div><!--// end header //-->
+	<hr class="print">
+
+		<div id="landing">
+			<div class="wrap">
+				<ul id="navGlobal">
+					<li class="active"><a href="#">Dashboard</a></li>
+					<li><a href="#">Students</a></li>
+					<li><a href="#">Groups</a></li>
+				</ul>
+				<div class="modSearch">
+					<a class="trigger" href="#">Search</a>
+					<div id="searchLayer" class="item">
+						<p><label for="search">Search</label><input type="text" name="search" value="" id="search"></p>
+						<input class="button" type="submit" name="search_submit" value="Search">
+					</div><!--// end searchLayer //-->
+				</div><!--// end modSearch //-->
+			</div>
+		</div><!--// end landing //-->
+
+		<div id="container">
+			<div class="wrap">
+
+				<div id="padder">
+					<div id="content">
+
+						<h1 id="pageTitle">Dashboard</h1>
+						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed felis dolor, convallis quis, interdum posuere, feugiat nec, libero. Mauris ornare luctus tortor. Fusce arcu elit, bibendum nec, suscipit ut, ullamcorper in, lacus. Ut in diam. Morbi pharetra. Etiam tristique, leo eu dapibus aliquam, ante turpis nonummy orci, non ultricies est ipsum ac dolor. Aenean eget mauris.</p><p>Integer accumsan, augue vitae pellentesque bibendum, eros magna fringilla dui, et ullamcorper nibh lorem vel lacus. Mauris odio purus, condimentum a, volutpat ac, tempor in, elit. Maecenas at mi. Vivamus tortor. Cras sagittis sagittis massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam rutrum lectus eu mauris. Nullam a felis.</p><p>Maecenas placerat, metus sit amet sodales dictum, ligula purus congue risus, vitae vehicula dolor urna imperdiet metus. Nunc euismod vulputate enim. Ut interdum odio. Morbi aliquet, lorem vitae ornare tempor, odio est dictum sem, sed porttitor risus turpis eu nulla. Nulla facilisi. Ut tempus leo at nulla. Integer at orci. Ut at arcu. Nam arcu. Mauris nibh eros, semper sit amet, adipiscing quis, bibendum quis, felis. In varius. Phasellus dictum. Nulla facilisi. Morbi enim. Fusce lobortis nisi ut nisi. Nunc pulvinar, mi ut laoreet facilisis, est metus vehicula augue, sed semper sapien lectus vitae ante. </p>
+
+					</div><!--// end #content //-->
+				</div><!--// end #padder //-->
+				<hr>
+
+			</div>
+		</div><!--// end #container //-->
+	</form><!--// end homeForm //-->
+
+	<hr class="print">
+	<div id="footer">
+		&nbsp;
+	</div><!--// end #footer //-->
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script>!window.jQuery && document.write('<script src="js/jquery-1.4.2.min.js"><\/script>')</script>
+	<script type="text/javascript" src="/scripts/library.js"></script>
+
+</body>
+</html>

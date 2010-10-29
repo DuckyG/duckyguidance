@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+  layout 'new_application'
   access_control do
     allow :member, :of => :current_subdomain
   end

@@ -21,16 +21,15 @@
 
 	<link rel="shortcut icon" href="/favicon.gif" type="image/gif">
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-	<link rel="stylesheet" href="/styles/structure.css">
-	<link rel="stylesheet" href="/styles/content.css">
-	<link rel="stylesheet" media="print" href="/styles/print.css">
+	<%= stylesheet_link_tag '/styles/structure.css','/styles/content.css' %>
+	<%= stylesheet_link_tag  '/styles/print.css', :media => 'print' %>
 	<%= csrf_meta_tag%>
 </head>
 <body class="pageHome">
 
 	<div id="header">
 		<div class="wrap">
-			<h1 id="pageTitle">Ducky Regional High School</h1>
+			<h1 id="pageTitle"><%= current_school.name if current_school%></h1>
 		</div>
 	</div><!--// end header //-->
 	<hr class="print">
