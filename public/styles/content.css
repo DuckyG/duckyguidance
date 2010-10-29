@@ -1,0 +1,400 @@
+/* Default Link Styles -------------------------------------------- */
+#content a {}
+#content a:hover {}
+#content p a:visited {}
+/* Headlines ------------------------------------------------------ */
+h1 {
+	display: none;
+}
+h1#pageTitle {
+	display: block;
+	font: normal 1.71em/28px Arial, Helvetica, sans-serif;
+}
+.pageHome #pageTitle {
+	font: 1em Georgia, sans-serif;
+	font-weight: normal;
+}
+#content h2 {}
+#content h3 {}
+#content h4 {}
+#content h5 {}
+#content h6 {}
+
+#content p {
+	padding: 0 0 20px;
+}
+
+#content blockquote {}
+	#content blockquote p {}
+#content img {
+	display: block;
+	float: left;
+}
+
+#content ul {}
+	#content ul li {}
+		#content ul li ul {}
+			#content ul li ul li {}
+
+#content ol {}
+	#content ol li {}
+		#content ol li ol {}
+			#content ol li ol li {}
+
+#content ul li ol,
+#content ol li ul {}
+	#content ul li ol li,
+	#content ol li ul li {}
+
+#content dl {}
+	#content dl dt {}
+	#content dl dd {}
+/* Columns -------------------------------------------------------- */
+#content .cols2,
+#content .cols3 {}
+	#content .cols2 .col {
+		float: left;
+		width: 45%;
+		background: #A8A8A8;
+		margin: 0 5% 0 0;
+	}
+	#content .cols3 .col {
+		float: left;
+		width: 29%;
+		background: #A8A8A8;
+		margin: 0 4% 0 0;
+	}
+/* Modules -------------------------------------------------------- */
+.module {
+	position: relative;
+}
+
+.modDrop {}
+	.jsOn .modDrop ul {
+		position: absolute;
+			left: -999em;
+			z-index: 1;
+	}
+	.jsOn .modDropOver ul {
+		width: 474px;
+		left: -1px;
+		z-index: 100;
+		background: #FFF;
+		border: 1px solid #2B2B2B;
+		border-top: 0;
+	}
+	.modDrop {}
+	.modDrop {}
+	.modDrop {}
+	.modDrop {}
+	.modDrop {}
+	.modDrop {}
+	.modDrop {}
+	.modDrop {}
+	.modDrop {}
+	.modDrop {}
+/* Tables --------------------------------------------------------- */
+#content table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	table-layout: fixed;
+}
+	#content table caption {}
+	#content tr {}
+	#content td {
+		background: #333;
+		border: 1px solid #000;
+	}
+	#content tr.odd td {
+		background: #FFF;
+	}
+	#content thead tr td,
+	#content thead tr.odd td {
+		font-weight: bold;
+	}
+	#content tfoot tr td,
+	#content tfoot tr.odd td {}
+
+#content table.plain {}
+	#content table.plain td,
+	#content table.plain tr.odd td {
+		background: none;
+		border: none;
+	}
+	#content table.plain thead tr.odd td {}
+	#content table.plain tfoot tr td,
+	#content table.plain tfoot tr.odd td {}
+
+
+/* Forms ---------------------------------------------------------- */
+fieldset {
+	border: none;
+}
+#content fieldset p {
+	padding: 0;
+}
+#content p label,
+#landing p label,
+#content legend {
+	display: block;
+	padding: 0 0 4px;
+}
+#content textarea {}
+#content select {}
+
+/* Always put text inputs inside paragraph tags. This enables the
+separation of text inputs & submit inputs for styling without classes
+or IDs. */
+#content input {}
+#login div.button,
+#landing div.button,
+#content div.button {
+	clear: both;
+	width: 477px;
+}
+#landing .button input,
+#content .button input,
+#login .button input {
+	float: right;
+}
+#landing p input,
+#content p input,
+#login p input {
+	display: block;
+	width: 460px;
+	background: #FFF;
+	color: #2B2B2B;
+	font: 0.78em/14px Arial Helvetica, sans-serif;
+	padding: 8px 7px 6px 7px;
+	border: 1px solid #2B2B2B;
+	margin: 0 0 17px 0;
+	-webkit-box-shadow: 0px 0px 5px #737373;
+	-moz-box-shadow: 0px 0px 5px #737373;
+	box-shadow: 0px 0px 5px #737373;
+}
+.ie6 #landing fieldset p input,
+.ie7 #landing fieldset p input,
+.ie8 #landing fieldset p input,
+.ie9 #landing fieldset p input {
+	padding: 7px 6px 7px 8px;
+}
+#landing fieldset p input.inactive,
+#content fieldset p input.inactive {
+	color: #808080;
+}
+
+#content p.formDate,
+#content p.formTime {
+	float: left;
+	width: 269px;
+	margin: 0 7px 0 0;
+}
+#content p.formTime {
+	width: 214px;
+}
+	#content p.formDate input,
+	#content p.formTime input {
+		float: left;
+		width: 184px;
+	}
+	#content p.formDate .cal,
+	#content p.formTime .clock {
+		margin: 0 0 0 8px;
+	}
+
+#content textarea {
+	width: 460px;
+	height: 186px;
+	font: 0.78em/18px Arial;
+	padding: 8px 7px 6px 7px;
+	border: 1px solid #2B2B2B;
+	margin: 0 0 17px;
+	-webkit-box-shadow: 0px 0px 5px #737373;
+	-moz-box-shadow: 0px 0px 5px #737373;
+	box-shadow: 0px 0px 5px #737373;
+}
+
+#landing input.button,
+#content input.button,
+#login input.button {
+	position: relative;
+		top: -1px;
+	padding: 4px 5px 5px 5px;
+}
+.pageHome #landing .button {
+	
+}
+
+
+button {
+	display: block;
+	float: left;
+	background: transparent;
+	padding: 0;
+	border: none;
+}
+	button img {
+		display: block;
+		float: none;
+	}
+
+/* Form Error Messaging ------------------------------------------- */
+fieldset p {
+	position: relative;
+}
+	fieldset p .error {
+		position: absolute;
+			left: 0;
+			bottom: 4em;
+		display: block;
+		width: 232px;
+		background: url(images/modules/errorBubble.png) no-repeat;
+		color: #000;
+		font: 0.67em/14px Arial;
+		padding: 15px 20px 0 20px;
+	}
+		fieldset p strong.oops {
+			display: block;
+			color: #CD0008;
+			font-size: 1.17em;
+			padding: 0 0 3px;
+		}
+		fieldset p .error .btm {
+			position: relative;
+				left: -20px;
+				top: 13px;
+			display: block;
+			width: 272px;
+			height: 13px;
+				overflow: hidden;
+			background: url(images/modules/errorBubble.png) 0 bottom no-repeat;
+		}
+
+
+/* Home Form ------------------------------------------------------ */
+.pageHome #landing .wrap {
+	width: 753px;
+	padding-right: 207px;
+}
+	#landing h2 {
+		color: #FFF;
+		font: normal 1.33em/24px Verdana;
+		padding: 0;
+	}
+	#landing p {
+		padding: 0 0 16px;
+	}
+	#landing p.message {
+		display: none;
+		font-family: Georgia;
+		padding: 4px 0 0 0;
+	}
+		#landing .message strong {
+			color: #FFF;
+			font-size: 1.67em;
+			font-weight: normal;
+		}
+		#landing .message .edit {
+			color: #FFF;
+			text-decoration: underline;
+			cursor: pointer;
+		}
+			#landing .message .edit:hover {
+				color: #8DC53E;
+				text-decoration: none;
+			}
+
+
+	#landing fieldset {
+		padding: 0 0 23px;
+	}
+		#landing fieldset p {
+			float: left;
+			padding: 0;
+		}
+			#landing p input {
+				width: 253px;
+				margin-right: 7px;
+				margin-bottom: 0;
+				border-color: #959595;
+				-webkit-box-shadow: none;
+				-moz-box-shadow: none;
+				box-shadow: none;
+			}
+			.pageHome #landing p input {
+				float: left;
+			}
+
+	#landing .continue {
+		display: none;
+	}
+	.ie8 #landing .continue {
+		margin: -3px 0 0 -4px;
+	}
+		#landing .continue:focus {
+			outline: 1px dotted #8DC53E;
+		}
+
+	.pageHome #content .chooser {
+		margin: 0 0 17px;
+	}
+		.pageHome #content .chooser legend {}
+		.pageHome #content .chooser .modDrop {
+			width: 474px;
+			background: #FFF;
+			font: 0.78em/18px Arial;
+			padding: 8px 0 6px 0;
+			border: 1px solid #2B2B2B;
+			-webkit-box-shadow: 0px 0px 5px #737373;
+			-moz-box-shadow: 0px 0px 5px #737373;
+			box-shadow: 0px 0px 5px #737373;
+		}
+		.pageHome #content .chooser p {
+			padding: 0 0 0 7px;
+		}
+			.pageHome #content .chooser ul {
+				padding: 0 0 2px;
+			}
+				.pageHome #content .chooser li {
+					background: none;
+					padding: 2px 7px;
+					cursor: pointer;
+				}
+					.pageHome #content .chooser li:hover {
+						background: #DCDCDC;
+					}
+					.pageHome #content .chooser li label {
+						cursor: pointer;
+					}
+		
+.pageHome .formContinue {
+	display: none;
+}
+
+
+
+
+
+
+
+/* Clearfixes ----------------------------------------------------- */
+.cols2,
+.cols3,
+#landing fieldset {height: 1%;}
+.cols2:after,
+.cols3:after,
+#landing fieldset:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+*> .cols2,
+*> .cols3,
+*> #landing fieldset {min-height: 1px; height: auto;}
+/* Test Styles ---------------------------------------------------- */
+.red    {background: red !important;}
+.blue   {background: blue !important;}
+.green  {background: green !important;}
+.olive  {background: olive !important;}
+.orange {background: orange !important;}
+.black  {background: black !important;}
+.gray   {background: gray !important;}
+.silver {background: silver !important;}
+.white  {background: white !important;}

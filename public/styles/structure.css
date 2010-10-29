@@ -1,0 +1,262 @@
+/* Default colors - remove during structural build ---------------- */
+body           {background: #000;}
+/* end Default colors --------------------------------------------- */
+
+/* CSS Reset ------------------------------------------------------ */
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a,
+abbr, acronym, dl, dt, dd, ol, ul, li, big, cite, code, del, dfn, em,
+font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup,
+address, tt, var, applet, object, iframe, fieldset, form, label,
+legend, table, caption, tbody, tfoot, thead, tr, th, td {margin: 0; padding: 0;}
+.hidden, .copperfield, hr {position: absolute; left: -999em; width: 1px; height: 1px; overflow: hidden;}
+
+.clear {clear: both;}
+.clearfix {height: 1%;}
+.clearfix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+*> .clearfix {min-height: 1px; height: auto;}
+
+a img {border: none;}
+ul {list-style: none;}
+/* Structure ------------------------------------------------------ */
+body {
+	background: #959595;
+	font: 62.5% Arial;
+}
+#landing {
+	background: #2B2B2B;
+	color: #BFBFBF;
+	font: 1.6em/16px Arial, Helvetica, sans-serif;
+}
+	#landing .wrap {
+		position: relative;
+	}
+.pageHome #landing {
+	font: 1.8em/26px Arial;
+	padding: 39px 0 37px 0;
+}
+#container {
+	background: url(images/structure/containerBG.png) center 0 no-repeat;
+}
+.pageHome #container {
+	background: none;
+}
+	#container .wrap {
+		background: #FFF;
+	}
+	.pageHome #container .wrap {
+		background: none;
+	}
+.pageHome #container {
+	background: #959595;
+	color: #2B2B2B;
+}
+#padder {
+	float: left;
+	width: 100%;
+}
+body #content {
+	min-height: 461px;
+	font: 1.4em/20px Arial, Helvetica, sans-serif;
+	padding: 60px 7px 60px 34px;
+	margin: 0 245px 0 0;
+}
+.pageHome #content {
+	background: transparent;
+	font-size: 1.8em;
+	padding: 12px 0 100px 0;
+	margin: 0;
+}
+#auxiliary {
+	float: left;
+	width: 200px;
+	margin: 0 0 0 -200px;
+}
+#navigation {
+	float: left;
+	width: 200px;
+	margin: 0 0 0 -960px;
+}
+#header {
+	display: block;
+	background: #FFF;
+	font: 2.4em/30px Georgia, serif;
+	padding: 15px 0 17px 0;
+}
+.pageHome #header {
+	font: 3em/50px Georgia, serif;
+	padding: 13px 0 12px 0;
+}
+	#header strong {
+		font-weight: normal;
+	}
+		#header a img {}
+/* Footer --------------------------------------------------------- */
+#footer {
+	clear: both;
+	margin: 0 auto;
+}
+	#footer p {}
+/* ---------------------------------------------------------------- */
+/* Navigation ----------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+#navGlobal {
+	float: left;
+	color: #FFF;
+	border-left: 1px solid #464646;
+}
+	#navGlobal li {
+		float: left;
+		border-right: 1px solid #464646;
+	}
+		#navGlobal li a {
+			display: block;
+			color: #FFF;
+			font-size: 1em;
+			text-decoration: none;
+			padding: 9px 20px;
+		}
+		#navGlobal li.active a,
+		#navGlobal li a:hover {
+			background: #464646;
+		}
+#navLocal {}
+/* Level 2 ----------------------- */
+	#navLocal ul {}
+		#navLocal li {}
+			#navLocal a {}
+				#navLocal a:hover {}
+/* Level 3 ----------------------- */
+	#navLocal li.active {}
+		#navLocal li.active ul {}
+			#navLocal li.active li {}
+				#navLocal li.active li a {}
+					#navLocal li.active li a:hover {}
+/* Level 4 ----------------------- */
+	#navLocal li.active li.active {}
+		#navLocal li.active li.active ul {}
+			#navLocal li.active li.active li {}
+				#navLocal li.active li.active li a {}
+					#navLocal li.active li.active li a:hover {}
+/* Level 5 ----------------------- */
+	#navLocal li.active li.active li.active {}
+		#navLocal li.active li.active li.active ul {}
+			#navLocal li.active li.active li.active li {}
+				#navLocal li.active li.active li.active li a {}
+					#navLocal li.active li.active li.active li a:hover {}
+
+/* Search --------------------------------------------------------- */
+.modSearch {}
+	.modSearch .trigger {
+		float: right;
+		display: block;
+		color: #FFF;
+		font-size: 1em;
+		text-decoration: none;
+		padding: 9px 20px;
+		border-right: 1px solid #464646;
+		border-left: 1px solid #464646;
+	}
+		.modSearch .trigger:focus {
+			outline: none;
+		}
+		.modSearch .trigger:hover {
+			background: #464646;
+		}
+	.modSearch #searchLayer {
+		clear: both;
+		display: none;
+		padding: 20px;
+		border-top: 1px solid #464646;
+	}
+		.modSearch #searchLayer p {
+			display: inline;
+		}
+			.modSearch #searchLayer input {
+				float: left;
+			}
+
+
+
+
+
+/* User Info ------------------------------------------------------ */
+#userInfo {
+	float: right;
+	font: 0.42em/20px Verdana, sans-serif;
+	margin: -10px 0 0 0;
+}
+	#userInfo li {
+		float: left;
+		padding: 0 0 0 20px;
+	}
+		#userInfo li a {
+			color: #000;
+			text-decoration: none;
+		}
+			#userInfo li a:hover {
+				color: #464646;
+				text-decoration: underline;
+			}
+/* Login ---------------------------------------------------------- */
+#login {
+	position: absolute;
+		left: 0;
+		top: -276px;
+	width: 100%;
+	background: #2B2B2B;
+	color: #FFF;
+	font: 1.4em/18px Arial, Helvetica, sans-serif;
+}
+	#login .wrap {
+		position: relative;
+		height: 276px;
+		background: #2B2B2B;
+	}
+		#login .wrap form {
+			padding: 50px;
+		}
+	#login .trigger {
+		position: relative;
+			left: 4px;
+			top: 276px;
+		display: block;
+		float: right;
+		min-width: 208px;
+		height: 34px;
+		background: url(images/structure/loginTab.png) no-repeat;
+		font: 0.86em/16px Arial;
+		text-align: center;
+		cursor: pointer;
+		padding: 6px 0 0 0;
+		margin: 0;
+
+	}
+	#login input {
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
+	#login p input {
+		margin: 0;
+	}
+/* Constants ------------------------------------------------------ */
+.wrap {
+	width: 960px;
+	margin: 0 auto;
+}
+/* Clearfixes ----------------------------------------------------- */
+#container .wrap,
+#content,
+#landing,
+#navGlobal,
+#searchLayer {height: 1%;}
+#container .wrap:after,
+#content:after,
+#landing:after,
+#navGlobal:after,
+#searchLayer:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+*> #container .wrap,
+*> #content,
+*> #landing,
+*> #navGlobal,
+*> #searchLayer {min-height: 1px; height: auto;}

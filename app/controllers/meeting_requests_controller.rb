@@ -44,7 +44,7 @@ class MeetingRequestsController < ApplicationController
   # POST /meeting_requests.xml
   def create
     @meeting_request = MeetingRequest.new(params[:meeting_request])
-    @meeting_request.desired_date = Date.strptime(@meeting_request.date + ' ' + @meeting_request.time, "%m/%d/%Y %I:%M %p")
+    @meeting_request.desired_date = Date.strptime(@meeting_request.date + ' ' + @meeting_request.time, "%m/%d/%Y %I:%M %p") if @meeting_request.date
     @meeting_request.school = current_school
     respond_to do |format|
       if @meeting_request.save

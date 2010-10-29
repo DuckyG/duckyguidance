@@ -1,0 +1,58 @@
+
+<%= form_for(MeetingRequest.new, :html => {:class => 'homeForm'}) do |f| %>
+	<div id="landing">
+		<div class="wrap">
+			<h2>Students:</h2>
+			<p>Request a Meeting with your Counselor</p>
+
+			<fieldset class="formBegin">
+			  <p><%= f.label :first_name, "First Name", :class => 'copperfield' %><%= f.text_field :first_name, :value => 'First Name', :class => "first_name" %></p>
+        <p><%= f.label :last_name, "Last Name", :class => 'copperfield' %><%= f.text_field :last_name, :value => 'Last Name', :class => "last_name" %></p>
+				<input class="continue button" type="submit" name="continue" value="Continue &raquo;">
+			</fieldset>
+			<p class="message"><strong></strong>,&nbsp;&nbsp;your request is almost complete. Just fill out the rest of the form below and you&rsquo;ll be on your way. You can also <span class="edit">edit your name</span> if you need to.</p>
+
+		</div>
+	</div><!--// end landing //-->
+
+	<div id="container">
+		<div class="wrap">
+
+			<div id="padder">
+				<div id="content">
+
+					<fieldset class="formContinue">
+					  <p><%= f.label :email, "Email Address" %><%= f.text_field :email %></p>
+
+						<fieldset class="chooser">
+							<legend>Guidance Counselor</legend>
+							<div class="modDrop module">
+								<p class="header">Choose a Guidance Counselor:</p>
+								<ul>
+								  <% current_school.counselors.each do |counselor| %>
+								    <li><label><%= f.radio_button :counselor_id,counselor.id %> <%= counselor.last_name%></label></li>
+								  <% end %>
+
+								</ul>
+							</div><!--// end drop //-->
+						</fieldset><!--// end chooser //-->
+						<p><%= f.label :notes, "Message "%><%= f.text_area :notes, :rows => 8, :cols => 40 %></p>
+
+						<p class="formDate">
+							<%= f.label :date, 'Desired Date' %><%= f.text_field :date %>
+							<a href="#"><img class="cal" src="/images/buttons/calendar.png" alt="" title="Choose a Desired Date"></a>
+						</p>
+						<p class="formTime"><%= f.label :time, 'Desired Time'%><%= f.text_field :time %></p>
+
+						<div class="button">
+						  <%= f.submit 'Send Request', :class => 'button' %>
+						</div>
+					</fieldset><!--// end formContinue //-->
+
+				</div><!--// end #content //-->
+			</div><!--// end #padder //-->
+			<hr>
+
+		</div>
+	</div><!--// end #container //-->
+<% end %>
