@@ -1,5 +1,5 @@
-%h1= t '.title'
-%p
-  = link_to t('back'), categories_path
-  = link_to t('show'), @category
-= render 'form'
+.grid_12
+  %p
+    = link_to t('back'), categories_path
+    = link_to t('show'), @category
+  = render 'form'

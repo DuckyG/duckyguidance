@@ -1,9 +1,9 @@
 .grid_3
   %strong Number of Meetings
 .grid_1
-  =@meetings_with_tag.count
+  =@tag.meetings.count
 .clear
 .grid_5
   %h2 Meetings
 .grid_12
-  =render :partial => 'shared/dashboard_list', :locals => { :meeting_list => @meetings_with_tag}
+  =render :partial => 'shared/dashboard_list', :locals => { :meeting_list => @tag.meetings}
