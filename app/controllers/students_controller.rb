@@ -12,7 +12,7 @@ class StudentsController < ApplicationController
   # GET /students.xml
   def index
     if params[:last_name]
-      @students = current_school.students.where('last_name like ?', "%" + params[:last_name] + "%").order(:last_name)
+      @students = current_school.students.where('last_name ilike ? or first_name ilike ?', "%" + params[:last_name] + "%", "%" + params[:last_name] + "%").order(:last_name)
     else
       @students = current_school.students.order(:last_name) if !params[:last_name]
     end
