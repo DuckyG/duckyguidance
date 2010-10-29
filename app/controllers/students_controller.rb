@@ -70,11 +70,6 @@ class StudentsController < ApplicationController
     end
   end
   
-  def search
-    logger.debug 
-    
-  end
-
   # PUT /students/1
   # PUT /students/1.xml
   def update
