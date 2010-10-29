@@ -6,7 +6,7 @@ class MeetingsController < ApplicationController
   # GET /meetings
   # GET /meetings.xml
   def index
-    @meetings = current_school.meetings.order "occured_on DESC"
+    @meetings = current_school.meetings.order "created_at DESC"
     @student = current_school.students.find(params[:student_id]) if params[:student_id]
     @meetings =  @student.meetings if @student
    

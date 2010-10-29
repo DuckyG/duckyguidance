@@ -1,7 +1,7 @@
 -meeting_list.each do |meeting|
   .meeting_info{:class =>cycle('odd','even')}
     .grid_3
-      %h6=meeting.occured_on.strftime('%B %d @ %I:%M %p') if meeting.occured_on
+      %h6=meeting.created_at.strftime('%B %d @ %I:%M %p') if meeting.created_at
     .grid_5
       %strong=meeting.summary
     .grid_2.counselor.right

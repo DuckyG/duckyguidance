@@ -24,7 +24,7 @@ class StudentsController < ApplicationController
   def show
     @student = current_school.students.find(params[:id])
     @meeting = Meeting.new
-    @meeting.occured_on = DateTime.now
+    @meeting.created_at = DateTime.now
     @meeting.student = @student
     title
     respond_to do |format|

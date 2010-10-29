@@ -5,7 +5,7 @@
 .grid_3
   %strong Occurred On
 .grid_4
-  = @meeting.occured_on.strftime('%B %d @ %I:%M %p')
+  = @meeting.created_at.strftime('%B %d @ %I:%M %p')
 .clear
 .grid_3
   %strong Duration
