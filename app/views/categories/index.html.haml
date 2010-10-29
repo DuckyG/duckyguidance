@@ -5,13 +5,10 @@
     %thead
       %tr
         %th= Category.human_attribute_name :name
-        %th= Category.human_attribute_name :description
-        %th{:colspan => 3}= t 'actions'
+        %th &nbsp
   
     %tbody
       - for category in @categories
         %tr{ :class => cycle(:odd, :even) }
-          %td= category.name
-          %td= category.description
-          %td.action= link_to t('show'), category
-          %td.action= link_to t('edit'), edit_category_path(category)
+          %td=  link_to category.name, category
+          %td.action= button_to t('edit'), edit_category_path(category), :method => :get
