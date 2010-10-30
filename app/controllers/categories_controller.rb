@@ -1,6 +1,20 @@
 class CategoriesController < ApplicationController
   access_control do
-    allow :counselor, :of => :current_school
+    actions :index, :show do
+      allow :counselor, :of => :current_school
+    end
+
+    actions :new, :create do
+      allow :school_admin, :of => :current_school
+    end
+
+    actions :edit, :update do
+      allow :school_admin, :of => :current_school
+    end
+
+    action :destroy do
+      allow :school_admin,:of => :current_school
+    end
   end
   # GET /categories
   # GET /categories.xml
