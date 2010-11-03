@@ -1,0 +1,26 @@
+.grid_12
+  %p
+    = link_to t('back'), groups_path
+    = link_to t('edit'), edit_group_path(@category)
+
+  %dl
+    %dt
+      %strong= Group.human_attribute_name :name
+    %dd= @group.name
+    %dt
+      %strong= Group.human_attribute_name :description
+    %dd= @group.description
+  
+  .cleft
+  %h2 Members
+  
+  - for student in @group.students
+    .grid_3= student.last_name + ', ' + student.first_name
+    .grid_1= button_to t('show'), student, :method => :get
+    .cleft
+//    %dt
+//      %strong= 'Number of Meetings'
+//    %dd= @group.meetings.count
+  
+//.grid_12
+//  =render :partial => 'shared/dashboard_list', :locals => { :meeting_list => @category.meetings}

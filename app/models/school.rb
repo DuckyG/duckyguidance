@@ -5,6 +5,7 @@ class School < ActiveRecord::Base
   has_many :categories
   has_many :tags
   has_many :meetings
+  has_many :groups
   has_many :meeting_requests
   belongs_to :subdomain
   

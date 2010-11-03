@@ -36,6 +36,21 @@ class StudentsController < ApplicationController
       format.xml  { render :xml => @student }
     end
   end
+  
+  def add_group
+    @group = current_school.groups.find(params[:group_id])
+    @student = current_school.students.find(params[:id])
+    @group.students<<@student
+    redirect_to edit_student_path(@group)
+  end
+  
+  def remove_group
+    @group = current_school.groups.find(params[:group_id])
+    @student = current_school.students.find(params[:id])
+    @group.students.delete @student
+    redirect_to edit_student_path(@group)
+  end
+  
 
   # GET /students/new
   # GET /students/new.xml
@@ -51,6 +66,7 @@ class StudentsController < ApplicationController
   # GET /students/1/edit
   def edit
     @student = current_school.students.find(params[:id])
+    @other_groups = current_school.groups - @student.groups
     title
   end
 
@@ -77,7 +93,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.update_attributes(params[:student])
-        format.html { redirect_to(@student, :notice => 'Student was successfully updated.') }
+        format.html { redirect_to(edit_student_path(@student), :notice => 'Student was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

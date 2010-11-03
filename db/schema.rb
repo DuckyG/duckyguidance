@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101027191724) do
+ActiveRecord::Schema.define(:version => 20101101134831) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -19,6 +19,25 @@ ActiveRecord::Schema.define(:version => 20101027191724) do
     t.datetime "updated_at"
     t.integer  "school_id"
   end
+
+  create_table "groups", :force => true do |t|
+    t.string   "name",        :null => false
+    t.string   "description", :null => false
+    t.integer  "school_id",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups_students", :id => false, :force => true do |t|
+    t.integer  "group_id"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups_students", ["group_id"], :name => "index_groups_students_on_group_id"
+  add_index "groups_students", ["student_id", "group_id"], :name => "index_groups_students_on_student_id_and_group_id", :unique => true
+  add_index "groups_students", ["student_id"], :name => "index_groups_students_on_student_id"
 
   create_table "meeting_requests", :force => true do |t|
     t.string   "first_name"
@@ -83,9 +102,9 @@ ActiveRecord::Schema.define(:version => 20101027191724) do
     t.string   "city"
     t.string   "state"
     t.string   "zip_code"
-    t.integer  "subdomain_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "subdomain_id"
   end
 
   create_table "students", :force => true do |t|
@@ -138,5 +157,33 @@ ActiveRecord::Schema.define(:version => 20101027191724) do
     t.datetime "updated_at"
     t.integer  "school_id"
   end
+
+  add_foreign_key "categories", "schools", :name => "categories_school_id_fk"
+
+  add_foreign_key "groups_students", "groups", :name => "groups_students_group_id_fk"
+  add_foreign_key "groups_students", "students", :name => "groups_students_student_id_fk"
+
+  add_foreign_key "meeting_requests", "schools", :name => "meeting_requests_school_id_fk"
+  add_foreign_key "meeting_requests", "users", :name => "meeting_requests_counselor_id_fk", :column => "counselor_id"
+
+  add_foreign_key "meeting_tags", "meetings", :name => "meeting_tags_meeting_id_fk"
+  add_foreign_key "meeting_tags", "tags", :name => "meeting_tags_tag_id_fk"
+
+  add_foreign_key "meetings", "categories", :name => "meetings_category_id_fk"
+  add_foreign_key "meetings", "schools", :name => "meetings_school_id_fk"
+  add_foreign_key "meetings", "students", :name => "meetings_student_id_fk"
+  add_foreign_key "meetings", "users", :name => "meetings_counselor_id_fk", :column => "counselor_id"
+
+  add_foreign_key "roles_users", "roles", :name => "roles_users_role_id_fk"
+  add_foreign_key "roles_users", "users", :name => "roles_users_user_id_fk"
+
+  add_foreign_key "schools", "subdomains", :name => "schools_subdomain_id_fk"
+
+  add_foreign_key "students", "schools", :name => "students_school_id_fk"
+  add_foreign_key "students", "users", :name => "students_counselor_id_fk", :column => "counselor_id"
+
+  add_foreign_key "tags", "schools", :name => "tags_school_id_fk"
+
+  add_foreign_key "users", "schools", :name => "users_school_id_fk"
 
 end
