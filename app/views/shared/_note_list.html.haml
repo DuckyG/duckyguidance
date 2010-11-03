@@ -1,0 +1,14 @@
+#notes
+  -note_years = note_list.group_by {|meet| meet.created_at.year}
+  -note_years.keys.sort.each do |year|
+    %h3
+      %a{:href=>'#'}=year
+    .year.prefix_1
+      -note_months = note_years[year].group_by {|meet| meet.created_at.mon}
+      -note_months.keys.sort.each do |month|
+        %h4
+          %a{:href=>'#'}=Date::MONTHNAMES[month]
+        .group.prefix_1
+          -sorted_notes = note_months[month].sort{|x,y| x.created_at <=> y.created_at}
+          -sorted_notes.each do |note|
+            =render :partial => 'notes/note',:locals => {:note => note, :last => sorted_notes.last, :odd_even =>cycle('odd', 'even')}

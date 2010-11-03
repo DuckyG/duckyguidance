@@ -1,6 +1,5 @@
 class Tag < ActiveRecord::Base
-  has_many :meeting_tags
-  has_many :meetings, :through => :meeting_tags
+  has_and_belongs_to_many :notes
   belongs_to :school
   validates_uniqueness_of :name, :scope => :school_id
 end

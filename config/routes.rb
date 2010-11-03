@@ -18,10 +18,10 @@ Guidance::Application.routes.draw do |map|
 
   get "dashboard/index"
   match 'dashboard' => 'dashboard#index'
-  resources :meetings
+  resources :notes
 
   resources :students do
-    resources :meetings
+    resources :notes
   end
   controller :meeting_requests do
     get 'request' => :new

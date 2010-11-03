@@ -27,9 +27,9 @@ class StudentsController < ApplicationController
   # GET /students/1.xml
   def show
     @student = current_school.students.find(params[:id])
-    @meeting = Meeting.new
-    @meeting.created_at = DateTime.now
-    @meeting.student = @student
+    @note = Note.new
+    @note.created_at = DateTime.now
+    @note.student = @student
     title
     respond_to do |format|
       format.html # show.html.erb

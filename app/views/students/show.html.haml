@@ -2,31 +2,31 @@
   $j(document).ready(function(){
     set_accordion();
     
-    $j('#new_meeting_form').accordion({ header:'h6',collapsible: true,icons: { 'header': '', 'headerSelected': '' }  });
-    $j('#new_meeting_form form').hide()
-    $j('#new_meeting_form h6 span').remove()
-    $j('#new_meeting_form h6').removeAttr('class');
-    $j('#new_meeting_link').click()
+    $j('#new_note_form').accordion({ header:'h6',collapsible: true,icons: { 'header': '', 'headerSelected': '' }  });
+    $j('#new_note_form form').hide()
+    $j('#new_note_form h6 span').remove()
+    $j('#new_note_form h6').removeAttr('class');
+    $j('#new_note_link').click()
     
-    $j('#new_meeting').submit(function(){
-        $j('#meeting_submit').attr('disabled', 'disabled');
+    $j('#new_note').submit(function(){
+        $j('#note_submit').attr('disabled', 'disabled');
         $j(this).ajaxSubmit(function(){
-          var address=location.pathname + '/meetings';
+          var address=location.pathname + '/notes';
       
           $j.ajax({
             type: 'GET',
             url: address,
             cache: false,
             success: function(html){
-              $j('#meetings').remove();
-              $j('#meeting_container').append(html);
-              $j('#new_meeting_link').click();
+              $j('#notes').remove();
+              $j('#note_container').append(html);
+              $j('#new_note_link').click();
               set_accordion();
               
-              $j('#meeting_submit').removeAttr('disabled');
-              $j('#meeting_summary').val('')
-              $j('#meeting_occured_on').val('')
-              $j('#meeting_notes').val('')
+              $j('#note_submit').removeAttr('disabled');
+              $j('#note_summary').val('')
+              $j('#note_occured_on').val('')
+              $j('#note_notes').val('')
             }
           });
         });
@@ -36,23 +36,23 @@
   
   var set_accordion = function(){
     $j('.year').accordion({ autoHeight: false, header:'h4' });
-    $j('#meetings').accordion({ autoHeight: false, header:'h3' });
-    $j('.meeting_info').click(slide_toggle_notes)
-    $j('.meeting_notes').hide()
+    $j('#notes').accordion({ autoHeight: false, header:'h3' });
+    $j('.note_info').click(slide_toggle_notes)
+    $j('.note_notes').hide()
   };
   var slide_toggle_notes = function(){
-    $j(this).parent().find('.meeting_notes').slideToggle()
+    $j(this).parent().find('.note_notes').slideToggle()
   };
 
 =button_to "Edit Student", edit_student_path, :method => :get
 =render :partial => 'student_details', :locals => { :student => @student}
 .grid_6
-  #new_meeting_form
+  #new_note_form
     %h6
-      %a{:href=>"#",:id=>'new_meeting_link'} New Note
-    =render :partial => 'meetings/form'
+      %a{:href=>"#",:id=>'new_note_link'} New Note
+    =render :partial => 'notes/form'
 .cleft
-.grid_12#meeting_container
+.grid_12#note_container
   %h2 Notes
-  =render :partial => 'shared/meeting_list', :locals => { :meeting_list => @student.meetings}
+  =render :partial => 'shared/note_list', :locals => { :note_list => @student.notes}
     

@@ -1,16 +1,16 @@
 .grid_5
   %h2
-    =link_to @meeting.student.first_name + ' '+ @meeting.student.last_name, @meeting.student
+    =link_to @note.student.first_name + ' '+ @note.student.last_name, @note.student
 .clear
 .grid_3
   %strong Occurred On
 .grid_4
-  = @meeting.created_at.strftime('%B %d @ %I:%M %p')
+  = @note.created_at.strftime('%B %d @ %I:%M %p')
 .clear
 .grid_3
   %strong Duration
 .grid_4
-  - hours,mins = @meeting.duration_hours_min
+  - hours,mins = @note.duration_hours_min
   -if hours > 0
     =hours.to_s + " " + (hours > 1 ? t('hour').pluralize : t('hour')) + (mins > 0 ? ',' : '')
   -if mins > 0 
@@ -19,9 +19,9 @@
 .grid_3
   %strong Counselor
 .grid_4
-  = @meeting.counselor.last_name
+  = @note.counselor.last_name
 .clear
 .grid_1
   %strong Notes
 .grid_12
-  %pre= @meeting.notes
+  %pre= @note.notes

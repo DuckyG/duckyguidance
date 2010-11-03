@@ -1,0 +1,14 @@
+.note{:id =>[note.class, note.id],:class => note == last && "last"}
+  .note_info{:class =>odd_even}
+    .grid_3
+      %h6=note.created_at.strftime('%B %d @ %I:%M %p') if note.created_at
+    .grid_5
+      %strong=note.summary
+    .grid_2.counselor.right
+      =link_to note.student.last_name + ', ' +note.student.first_name, note.student
+    .grid_1.right
+      %strong Student
+    .clear
+  .clear
+  =render :partial => 'shared/note_details', :locals => { :note => note}
+  .clear

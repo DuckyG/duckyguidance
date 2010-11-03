@@ -40,7 +40,7 @@ h3 a, h4 a{
   padding:5px 0 5px;
   border:1px dashed black;
 }
-.meeting_info h6
+.note_info h6
 {
   display:inline;
 }
@@ -61,21 +61,21 @@ h3 a, h4 a{
 .even:hover{
   background-color:#558fcc;
 }
-.meeting_info{
+.note_info{
   cursor: pointer;
   padding:0px 5px 5px;
   border:1px dashed black;
   border-bottom:none;
 }
-.meeting_notes{
+.note_notes{
   border:1px dashed black;
   border-top:none;
   border-bottom:none;
 }
-.meeting_info h6{
+.note_info h6{
   margin:0;
 }
-.meeting_info:hover{
+.note_info:hover{
   
 }
 .cleft{
@@ -85,10 +85,10 @@ a{
   text-decoration:none;
   border-bottom:1px dashed black;
 }
-#meetings{
+#notes{
   margin-bottom:20px;
 }
-#meetings,.year,.group a{
+#notes,.year,.group a{
   bordern:none !important;
 }
 .last{
@@ -122,7 +122,7 @@ h6,pre{
 .link{
   margin-bottom:10px;
 }
-#new_meeting{
+#new_note{
   border:1px dashed black;
   width:460px;
   margin:0px 0 10px 0;

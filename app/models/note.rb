@@ -1,4 +1,4 @@
-class Meeting < ActiveRecord::Base
+class Note < ActiveRecord::Base
   belongs_to :student
   belongs_to :counselor
   belongs_to :category
@@ -6,12 +6,9 @@ class Meeting < ActiveRecord::Base
   attr_accessor :date, :start_time, :end_time, :tags_string
   validates :student, :counselor, :notes, :summary, :category, :presence => true 
   before_validation :convert_meta
-  has_many :meeting_tags
-  has_many :tags, :through => :meeting_tags
+  
+  has_and_belongs_to_many :tags
 
-  
-  
-  
   def get_tag_string
     arr = []
     tags.each {|tag| arr.push tag.name}

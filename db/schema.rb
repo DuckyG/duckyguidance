@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101101134831) do
+ActiveRecord::Schema.define(:version => 20101103173526) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -52,14 +52,7 @@ ActiveRecord::Schema.define(:version => 20101101134831) do
     t.integer  "school_id"
   end
 
-  create_table "meeting_tags", :force => true do |t|
-    t.integer  "meeting_id"
-    t.integer  "tag_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "meetings", :force => true do |t|
+  create_table "notes", :force => true do |t|
     t.datetime "occured_on"
     t.text     "notes"
     t.datetime "created_at"
@@ -70,6 +63,13 @@ ActiveRecord::Schema.define(:version => 20101101134831) do
     t.integer  "duration"
     t.integer  "category_id"
     t.integer  "school_id"
+  end
+
+  create_table "notes_tags", :id => false, :force => true do |t|
+    t.integer  "note_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "roles", :force => true do |t|
@@ -166,13 +166,13 @@ ActiveRecord::Schema.define(:version => 20101101134831) do
   add_foreign_key "meeting_requests", "schools", :name => "meeting_requests_school_id_fk"
   add_foreign_key "meeting_requests", "users", :name => "meeting_requests_counselor_id_fk", :column => "counselor_id"
 
-  add_foreign_key "meeting_tags", "meetings", :name => "meeting_tags_meeting_id_fk"
-  add_foreign_key "meeting_tags", "tags", :name => "meeting_tags_tag_id_fk"
+  add_foreign_key "notes", "categories", :name => "meetings_category_id_fk"
+  add_foreign_key "notes", "schools", :name => "meetings_school_id_fk"
+  add_foreign_key "notes", "students", :name => "meetings_student_id_fk"
+  add_foreign_key "notes", "users", :name => "meetings_counselor_id_fk", :column => "counselor_id"
 
-  add_foreign_key "meetings", "categories", :name => "meetings_category_id_fk"
-  add_foreign_key "meetings", "schools", :name => "meetings_school_id_fk"
-  add_foreign_key "meetings", "students", :name => "meetings_student_id_fk"
-  add_foreign_key "meetings", "users", :name => "meetings_counselor_id_fk", :column => "counselor_id"
+  add_foreign_key "notes_tags", "notes", :name => "meeting_tags_meeting_id_fk"
+  add_foreign_key "notes_tags", "tags", :name => "meeting_tags_tag_id_fk"
 
   add_foreign_key "roles_users", "roles", :name => "roles_users_role_id_fk"
   add_foreign_key "roles_users", "users", :name => "roles_users_user_id_fk"

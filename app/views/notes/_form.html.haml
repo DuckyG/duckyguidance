@@ -1,12 +1,12 @@
 
-= form_for(@meeting) do |f|
-  - if @meeting.errors.any?
+= form_for(@note) do |f|
+  - if @note.errors.any?
     #errorExplanation
-      %h2= "#{pluralize(@meeting.errors.count, 'error')} prohibited this user from being saved:"
+      %h2= "#{pluralize(@note.errors.count, 'error')} prohibited this user from being saved:"
       %ul
-      - @meeting.errors.full_messages.each do |msg|
+      - @note.errors.full_messages.each do |msg|
         %li= msg
-  =f.hidden_field :student_id, :value => @meeting.student.id
+  =f.hidden_field :student_id, :value => @note.student.id
   .grid_2
     =f.label 'Category'
     %br

@@ -11,8 +11,8 @@
       %strong= Category.human_attribute_name :description
     %dd= @category.description
     %dt
-      %strong= 'Number of Meetings'
-    %dd= @category.meetings.count
+      %strong= 'Number of Notes'
+    %dd= @category.notes.count
     
 .grid_12
-  =render :partial => 'shared/dashboard_list', :locals => { :meeting_list => @category.meetings}
+  =render :partial => 'shared/dashboard_list', :locals => { :note_list => @category.notes}
