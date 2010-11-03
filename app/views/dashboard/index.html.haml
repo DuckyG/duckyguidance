@@ -8,17 +8,17 @@
      };
 
 .grid_5
-  %h2 Note Requests
+  %h2 Meeting Requests
 .grid_12
   #requests
     -@requests.each do |request|
-      =render :partial => 'note_requests/new_note_request',:locals => {:request => request, :last => @requests.last}
+      =render :partial => 'meeting_requests/new_meeting_request',:locals => {:request => request, :last => @requests.last}
     -if !@request or @request.count == 0
       .grid_1
         %strong None
      
 .grid_5
-  %h2 Upcoming Notes
+  %h2 Upcoming Meetings
 .grid_12
   #requests
     -@upcoming_meetings.each do |note|
