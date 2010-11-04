@@ -18,6 +18,10 @@
   .grid_3
     =f.text_field :summary
   .clear
+  -if @note.student.counselor != current_counselor
+    .grid_3
+      =f.check_box :notify_students_counselor
+      =f.label :notify_students_counselor, "Notify student's counselor"
   .grid_4
     =f.label :tags, 'Tags (separated by spaces)'
   .clear

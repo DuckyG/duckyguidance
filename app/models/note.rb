@@ -3,10 +3,9 @@ class Note < ActiveRecord::Base
   belongs_to :counselor
   belongs_to :category
   belongs_to :school
-  attr_accessor :date, :start_time, :end_time, :tags_string
+  attr_accessor :notify_students_counselor, :tags_string
   validates :student, :counselor, :notes, :summary, :category, :presence => true 
   before_validation :convert_meta
-  
   has_and_belongs_to_many :tags
 
   def get_tag_string

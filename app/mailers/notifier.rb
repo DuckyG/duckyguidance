@@ -34,6 +34,14 @@ class Notifier < ActionMailer::Base
     @counselor = Counselor.find(@request.counselor_id)
     mail :to => request.email, :cc => @counselor.email
   end
+  
+  def another_counselor_post(note)
+    @note = note
+    @student_counselor = note.student.counselor
+    @counselor_creating = note.counselor
+    
+    mail :to => @student_counselor.email, :cc => @counselor_creating.email
+  end
 
  
 end
