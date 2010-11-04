@@ -37,7 +37,7 @@ class Notifier < ActionMailer::Base
   
   def another_counselor_post(note)
     @note = note
-    @student_counselor = note.student.counselor
+    @student_counselor = note.students.first.counselor
     @counselor_creating = note.counselor
     
     mail :to => @student_counselor.email, :cc => @counselor_creating.email

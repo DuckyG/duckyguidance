@@ -29,7 +29,7 @@ class StudentsController < ApplicationController
     @student = current_school.students.find(params[:id])
     @note = Note.new
     @note.created_at = DateTime.now
-    @note.student = @student
+    @student_id_string = @student.id
     title
     respond_to do |format|
       format.html # show.html.erb

@@ -52,16 +52,14 @@ class NotesController < ApplicationController
   # POST /notes.xml
   def create
     @note = Note.new(params[:note])
-    @student = @note.student
     @note.counselor = current_counselor
-    logger.debug @note.notify_students_counselor
     @note.school = current_school
     respond_to do |format|
-      if @note.save
+      if @note.save!
         if(@note.notify_students_counselor == '1')
           Notifier.another_counselor_post(@note).deliver
         end
-        format.html { redirect_to(@student, :notice => 'Note was successfully created.') }
+        format.html { redirect_to(@note.students.first, :notice => 'Note was successfully created.') }
         format.xml  { render :xml => @note, :status => :created, :location => @note }
       else
         format.html { render :action => "new" }

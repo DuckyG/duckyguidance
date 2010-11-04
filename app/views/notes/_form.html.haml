@@ -6,7 +6,7 @@
       %ul
       - @note.errors.full_messages.each do |msg|
         %li= msg
-  =f.hidden_field :student_id, :value => @note.student.id
+  =f.hidden_field :student_ids, :value => @student_id_string
   .grid_2
     =f.label 'Category'
     %br
@@ -18,10 +18,10 @@
   .grid_3
     =f.text_field :summary
   .clear
-  -if @note.student.counselor != current_counselor
+  -if @student && @student.counselor != current_counselor
     .grid_3
       =f.check_box :notify_students_counselor
-      =f.label :notify_students_counselor, "Notify student's counselor (" + @note.student.counselor.last_name + ")"
+      =f.label :notify_students_counselor, "Notify student's counselor (" + @student.counselor.last_name + ")"
   .grid_4
     =f.label :tags, 'Tags (separated by spaces)'
   .clear

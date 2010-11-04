@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101103173526) do
+ActiveRecord::Schema.define(:version => 20101104165702) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -57,12 +57,16 @@ ActiveRecord::Schema.define(:version => 20101103173526) do
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "student_id"
     t.integer  "counselor_id"
     t.string   "summary"
     t.integer  "duration"
     t.integer  "category_id"
     t.integer  "school_id"
+  end
+
+  create_table "notes_students", :id => false, :force => true do |t|
+    t.integer "student_id"
+    t.integer "note_id"
   end
 
   create_table "notes_tags", :id => false, :force => true do |t|
@@ -168,7 +172,6 @@ ActiveRecord::Schema.define(:version => 20101103173526) do
 
   add_foreign_key "notes", "categories", :name => "meetings_category_id_fk"
   add_foreign_key "notes", "schools", :name => "meetings_school_id_fk"
-  add_foreign_key "notes", "students", :name => "meetings_student_id_fk"
   add_foreign_key "notes", "users", :name => "meetings_counselor_id_fk", :column => "counselor_id"
 
   add_foreign_key "notes_tags", "notes", :name => "meeting_tags_meeting_id_fk"

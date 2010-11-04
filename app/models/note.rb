@@ -1,10 +1,11 @@
 class Note < ActiveRecord::Base
-  belongs_to :student
+  has_and_belongs_to_many :students
+  
   belongs_to :counselor
   belongs_to :category
   belongs_to :school
-  attr_accessor :notify_students_counselor, :tags_string
-  validates :student, :counselor, :notes, :summary, :category, :presence => true 
+  attr_accessor :notify_students_counselor, :tags_string, :student_ids
+  validates :counselor, :notes, :summary, :category, :presence => true 
   before_validation :convert_meta
   has_and_belongs_to_many :tags
 
@@ -17,6 +18,19 @@ class Note < ActiveRecord::Base
   
   def convert_meta
     get_tags if @tags_string
+    convert_student_ids
+  end
+  
+  def convert_student_ids
+    logger.debug "IDs:" + @student_ids
+    unless @student_ids.nil?
+      logger.debug "IDs:" + @student_ids
+      @student_ids.split(',').each do |id|
+        logger.debug "ID:" + id
+        student = school.students.find id
+        self.students<<student
+      end
+    end
   end
 
   def get_tags
