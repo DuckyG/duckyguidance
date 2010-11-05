@@ -32,7 +32,7 @@ class NotesController < ApplicationController
   # GET /notes/new.xml
   def new
     @note = current_school.notes.new
-    @note.student = current_school.students.find(params[:student_id])
+    @note.students<< current_school.students.find(params[:student_id])
     @note.counselor = current_counselor
    
     respond_to do |format|
@@ -72,7 +72,7 @@ class NotesController < ApplicationController
   # PUT /notes/1.xml
   def update
     @note = current_school.notes.find(params[:id])
-    @student = @note.student
+    @student = @note.students.first
 
     respond_to do |format|
       if @note.update_attributes(params[:note])

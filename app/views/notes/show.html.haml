@@ -1,20 +1,11 @@
 .grid_5
   %h2
-    =link_to @note.student.first_name + ' '+ @note.student.last_name, @note.student
+    =link_to @note.students.first.first_name + ' '+ @note.students.first.last_name, @note.students.first
 .clear
 .grid_3
   %strong Occurred On
 .grid_4
   = @note.created_at.strftime('%B %d @ %I:%M %p')
-.clear
-.grid_3
-  %strong Duration
-.grid_4
-  - hours,mins = @note.duration_hours_min
-  -if hours > 0
-    =hours.to_s + " " + (hours > 1 ? t('hour').pluralize : t('hour')) + (mins > 0 ? ',' : '')
-  -if mins > 0 
-    =mins.to_s + " " + (mins > 1 ? t('minute').pluralize : t('minute'))
 .clear
 .grid_3
   %strong Counselor

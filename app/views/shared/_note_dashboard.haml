@@ -5,7 +5,8 @@
     .grid_5
       %strong=note.summary
     .grid_2.counselor.right
-      =link_to note.student.last_name + ', ' +note.student.first_name, note.student
+      -if(note.students.count == 1)
+        =link_to note.students.first.last_name + ', ' +note.students.first.first_name, note.students.first
     .grid_1.right
       %strong Student
     .clear

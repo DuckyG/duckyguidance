@@ -9,14 +9,9 @@ class UserSessionsController < ApplicationController
 
   def create
     
-    @user_session = UserSession.new(params[:user_session])
-    
-    user = User.find_by_email params[:user_session][:email]
-    if !user.has_role? :member, current_subdomain
-      @user_session.errors.add :base, "You do not have access to this domain"
-    end
-    
-    if user.has_role?(:member, current_subdomain) && @user_session.save
+    @user_session = UserSession.new(params[:user_session])    
+    if @user_session.save!
+
       if current_subdomain.name == 'admin'
         redirect_to schools_path
       else
