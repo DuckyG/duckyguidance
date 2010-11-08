@@ -98,6 +98,8 @@ class CounselorsController < ApplicationController
       if @counselor.update_attributes(params[:counselor])
         format.html {
           if request.fullpath == "/my_settings_update"
+            session = UserSession.new(:email  => params[:counselor][:email], :password => params[:counselor][:password]) 
+            session.save
             redirect_to(my_account_path, :notice => 'Counselor was successfully updated.') 
           else
             redirect_to(@counselor, :notice => 'Counselor was successfully updated.') 

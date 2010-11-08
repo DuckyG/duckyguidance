@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base
-  default :from => "guidance@viridianspark.com"
+  default :from => "notifications@duckyg.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -33,6 +33,14 @@ class Notifier < ActionMailer::Base
     @request = request
     @counselor = Counselor.find(@request.counselor_id)
     mail :to => request.email, :cc => @counselor.email
+  end
+  
+  def another_counselor_post(note)
+    @note = note
+    @student_counselor = note.students.first.counselor
+    @counselor_creating = note.counselor
+    
+    mail :to => @student_counselor.email, :cc => @counselor_creating.email
   end
 
  

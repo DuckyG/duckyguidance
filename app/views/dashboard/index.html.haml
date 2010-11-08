@@ -1,10 +1,10 @@
 :javascript
   $j(document).ready(function(){
-    $j('.meeting_info').click(slide_toggle_notes)
-    $j('.meeting_notes').hide()
+    $j('.note_info').click(slide_toggle_notes)
+    $j('.note_notes').hide()
   });
   var slide_toggle_notes = function(){
-    $j(this).parent().find('.meeting_notes').slideToggle()
+    $j(this).parent().find('.note_notes').slideToggle()
      };
 
 .grid_5
@@ -21,12 +21,12 @@
   %h2 Upcoming Meetings
 .grid_12
   #requests
-    -@upcoming_meetings.each do |meeting|
-      =render :partial => 'meeting_requests/upcoming_meeting',:locals => {:meeting => meeting, :last => @requests.last}
+    -@upcoming_meetings.each do |note|
+      =render :partial => 'meeting_requests/upcoming_meeting',:locals => {:note => note, :last => @requests.last}
     -if !@upcoming_meetings or @upcoming_meetings.count == 0
       .grid_1
         %strong None
 .grid_5
   %h2 Recent Notes
 .grid_12
-  =render :partial => 'shared/dashboard_list', :locals => { :meeting_list => @meetings}
+  =render :partial => 'shared/note_list', :locals => { :note_list => @notes}

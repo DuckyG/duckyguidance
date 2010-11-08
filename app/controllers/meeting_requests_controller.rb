@@ -48,8 +48,8 @@ class MeetingRequestsController < ApplicationController
     @meeting_request.school = current_school
     respond_to do |format|
       if @meeting_request.save
-        #Notifier.request_submitted(@meeting_request).deliver
-        #Notifier.request_received(@meeting_request).deliver  #Disabled for now until we fix other problems
+        Notifier.request_submitted(@meeting_request).deliver
+        Notifier.request_received(@meeting_request).deliver  
         format.html { redirect_to(thankyou_path, :notice => 'Your meeting request was received.  You should receive an email from one of the counselors shortly.') }
         format.xml  { render :xml => @meeting_request, :status => :created, :location => @meeting_request }
       else
@@ -67,7 +67,7 @@ class MeetingRequestsController < ApplicationController
     respond_to do |format|
       if @meeting_request.update_attributes(params[:meeting_request])
         #format.html { redirect_to(@meeting_request, :notice => 'Your meeting request was received.  You should receive an email from one of the counselors shortly.') }
-        #Notifier.request_acknowledged(@meeting_request).deliver #Disabled for now until we fix other problems
+        Notifier.request_acknowledged(@meeting_request).deliver 
         format.js {@current_request = @meeting_request}
         format.xml  { head :ok }
       else

@@ -1,10 +1,18 @@
-%h1= t '.title'
-%p
-  = link_to t('back'), categories_path
-  = link_to t('edit'), edit_category_path(@category)
+.grid_12
+  %p
+    = link_to t('back'), categories_path
+    = link_to t('edit'), edit_category_path(@category)
 
-%dl
-  %dt= Category.human_attribute_name :name
-  %dd= @category.name
-  %dt= Category.human_attribute_name :description
-  %dd= @category.description
+  %dl
+    %dt
+      %strong= Category.human_attribute_name :name
+    %dd= @category.name
+    %dt
+      %strong= Category.human_attribute_name :description
+    %dd= @category.description
+    %dt
+      %strong= 'Number of Notes'
+    %dd= @category.notes.count
+    
+.grid_12
+  =render :partial => 'shared/dashboard_list', :locals => { :note_list => @category.notes}

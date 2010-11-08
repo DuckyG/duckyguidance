@@ -1,0 +1,40 @@
+
+= form_for(@note) do |f|
+  - if @note.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@note.errors.count, 'error')} prohibited this user from being saved:"
+      %ul
+      - @note.errors.full_messages.each do |msg|
+        %li= msg
+  =f.hidden_field :student_ids, :value => @student_id_string
+  =f.hidden_field :group_ids, :value => @group_id_string
+  .grid_2
+    =f.label 'Category'
+    %br
+    = f.select :category_id, current_school.categories.all.map {|c| [c.name, c.id]}
+  .clear
+  .grid_2
+    =f.label :summary
+  .clear
+  .grid_3
+    =f.text_field :summary
+  .clear
+  -if @student && @student.counselor != current_counselor
+    .grid_3
+      =f.check_box :notify_students_counselor
+      =f.label :notify_students_counselor, "Notify student's counselor (" + @student.counselor.last_name + ")"
+  .grid_4
+    =f.label :tags, 'Tags (separated by spaces)'
+  .clear
+  .grid_3
+    =f.text_field :tags_string
+  .clear
+  .grid_1
+    =f.label :notes
+  .clear
+  .grid_5
+    =f.text_area :notes
+  .clear
+  .grid_1
+    = f.submit 'Save Note'
+  .clear

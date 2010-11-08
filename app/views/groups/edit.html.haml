@@ -1,0 +1,19 @@
+.grid_12
+  %p
+    = link_to t('back'), groups_path
+    = link_to t('show'), @group
+  = render 'form'
+  
+
+.grid_6
+  %h2 Members
+  - for student in @group.students
+    .grid_3= student.last_name + ', ' + student.first_name
+    .grid_1= button_to t('Remove'), remove_student_from_group_path(:id => @group.id, :student_id => student.id), :method => :post
+    .cleft
+.grid_6
+  %h2 Students
+  - for student in @non_members
+    .grid_3= student.last_name + ', ' + student.first_name
+    .grid_1= button_to t('Add'), add_student_to_group_path(:id => @group.id, :student_id => student.id), :method => :post
+    .cleft

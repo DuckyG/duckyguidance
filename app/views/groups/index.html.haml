@@ -1,0 +1,14 @@
+.grid_12
+  %p= link_to 'New Group', new_group_path
+
+  %table
+    %thead
+      %tr
+        %th= Group.human_attribute_name :name
+        %th &nbsp
+  
+    %tbody
+      - for group in @groups
+        %tr{ :class => cycle(:odd, :even) }
+          %td=  link_to group.name, group
+          %td.action= button_to t('edit'), edit_group_path(group), :method => :get

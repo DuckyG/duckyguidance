@@ -1,0 +1,18 @@
+.grid_5
+  %h2
+    =link_to @note.students.first.first_name + ' '+ @note.students.first.last_name, @note.students.first
+.clear
+.grid_3
+  %strong Occurred On
+.grid_4
+  = @note.created_at.strftime('%B %d @ %I:%M %p')
+.clear
+.grid_3
+  %strong Counselor
+.grid_4
+  = @note.counselor.last_name
+.clear
+.grid_1
+  %strong Notes
+.grid_12
+  %pre= @note.notes

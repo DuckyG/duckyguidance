@@ -1,0 +1,19 @@
+Dear <%=@note.students.first.counselor.first_name%>,
+<%=@note.counselor.first_name %> <%=@note.counselor.last_name %> has posted a note on one of your students, 
+<%=@note.students.first.first_name %> <%=@note.students.first.last_name %>, and has wished to notify you.
+
+Note Details:
+===================================================================
+Student: 		<%=@note.students.first.first_name %> <%=@note.students.first.last_name %>
+Note Author:	<%=@note.counselor.first_name %> <%=@note.counselor.last_name %>
+Summary:		<%=@note.summary%>
+Date:			<%=@note.created_at.strftime('%m/%d/%Y %I:%M %p') %>
+Category:		<%=@note.category.name%>
+Tags:			<%- @note.tags.each do |tag| %> <%=tag.name + ((tag != @note.tags.last) ? ',' : '')%> <% end %>
+Notes:
+<%=@note.notes%>
+
+
+
+
+-Ducky Guidance

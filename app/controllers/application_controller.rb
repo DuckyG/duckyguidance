@@ -1,10 +1,26 @@
 class ApplicationController < ActionController::Base
+  rescue_from 'Acl9::AccessDenied', :with => :access_denied
   protect_from_forgery
   layout 'application'
-  before_filter :check_domain, :ensure_defaults
+  before_filter :check_domain
   helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor
   
   private
+    def access_denied
+      if current_user
+        if current_user.has_role? :member, current_subdomain
+          flash[:notice] = "You do not have access to this page"
+          redirect_to dashboard_path
+        else
+          current_user_session.destroy
+          flash[:notice] = "You do not have access to this domain"
+          redirect_to root_path
+        end
+      else
+        flash[:notice] = "You must be logged in to view this page"
+        redirect_to root_path
+      end
+    end
     
     def check_domain
       if !request.subdomains.empty? && !current_subdomain
@@ -13,13 +29,6 @@ class ApplicationController < ActionController::Base
         querystring = querystring + "&error_message=The+school+you+are+looking+for+could+not+be+found.+Please+check+to+see+that+you+have+the+correct+domain+for+your+school."
 
         redirect_to request.scheme+"://" + request.domain+"/error/404"+querystring
-      end
-    end
-    
-    def ensure_defaults
-      # This is a workaraound, this should be removed once a "Create site" flow and un-deletable defaults are added
-      if current_school
-       
       end
     end
     

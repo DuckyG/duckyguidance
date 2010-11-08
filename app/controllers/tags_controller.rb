@@ -18,9 +18,6 @@ class TagsController < ApplicationController
   def show
     @tag = current_school.tags.find_by_name(params[:id])
     @title = 'Tags: ' + @tag.name
-    meeting_tags = MeetingTag.where('tag_id = ?', @tag.id)
-    @meetings_with_tag = []
-    meeting_tags.each {|mt| @meetings_with_tag.push mt.meeting} 
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @tag }

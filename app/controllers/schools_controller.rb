@@ -22,7 +22,6 @@ class SchoolsController < ApplicationController
   def create
     @school = School.new(params[:school])
     uncat_cat = Category.new
-
     
     respond_to do |format|
       if @school.save!

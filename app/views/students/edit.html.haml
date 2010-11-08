@@ -4,3 +4,16 @@
   = link_to t('show'), @student
 .cleft
 = render 'form'
+.cleft
+.grid_6
+  %h2 Member Of
+  - for group in @student.groups
+    .grid_3= group.name
+    .grid_1= button_to t('Remove'), remove_group_from_student_path(:group_id => group.id, :id => @student.id), :method => :post
+    .cleft
+.grid_6
+  %h2 Other Groups
+  - for group in @other_groups
+    .grid_3= group.name
+    .grid_1= button_to t('Add'), add_group_to_student_path(:group_id => group.id, :id => @student.id), :method => :post
+    .cleft

@@ -1,0 +1,14 @@
+-note_list.each do |note|
+  .note_info{:class =>cycle('odd','even')}
+    .grid_3
+      %h6=note.created_at.strftime('%B %d @ %I:%M %p') if note.created_at
+    .grid_5
+      %strong=note.summary
+    .grid_2.counselor.right
+      -if(note.students.count == 1)
+        =link_to note.students.first.last_name + ', ' +note.students.first.first_name, note.students.first
+    .grid_1.right
+      %strong Student
+    .clear
+  .clear
+  

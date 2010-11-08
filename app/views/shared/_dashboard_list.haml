@@ -1,3 +1,0 @@
-#meetings
-  -meeting_list.each do |meeting|
-    =render :partial => 'shared/meeting_dashboard', :locals => { :meeting => meeting, :last => meeting_list.last, :odd_even =>cycle('odd', 'even')}

@@ -8,7 +8,11 @@ en:
   destroy: 'Delete'
   back: 'Back'
   hour: 'hour'
+  are_you_sure: 'Are you sure?'
   minute: 'minute'
+  add: 'add'
+  Add: 'Add'
+  Remove: 'Remove'
   counselor_sessions:
     new:
       title: 'Login'

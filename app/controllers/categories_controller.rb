@@ -1,12 +1,26 @@
 class CategoriesController < ApplicationController
   access_control do
-    allow :counselor, :of => :current_school
+    actions :index, :show do
+      allow :counselor, :of => :current_school
+    end
+
+    actions :new, :create do
+      allow :school_admin, :of => :current_school
+    end
+
+    actions :edit, :update do
+      allow :school_admin, :of => :current_school
+    end
+
+    action :destroy do
+      allow :school_admin,:of => :current_school
+    end
   end
   # GET /categories
   # GET /categories.xml
   def index
     @categories = current_school.categories.all
-
+    @title = 'Categories'
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @categories }
@@ -17,7 +31,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1.xml
   def show
     @category = current_school.categories.find(params[:id])
-
+    @title = 'Category: '  + @category.name
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @category }
@@ -28,7 +42,7 @@ class CategoriesController < ApplicationController
   # GET /categories/new.xml
   def new
     @category = Category.new
-
+    @title = 'New Category'
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @category }
@@ -38,6 +52,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1/edit
   def edit
     @category = current_school.categories.find(params[:id])
+    @title = 'Edit Category: '  + @category.name
   end
 
   # POST /categories
