@@ -61,7 +61,11 @@ class NotesController < ApplicationController
         if(@note.notify_students_counselor == '1')
           Notifier.another_counselor_post(@note).deliver
         end
-        format.html { redirect_to(@note.students.first, :notice => 'Note was successfully created.') }
+        @target = @note.students.first
+        unless @note.groups.first.nil?
+          @target = @note.groups.first
+        end
+        format.html { redirect_to(@target, :notice => 'Note was successfully created.') }
         format.xml  { render :xml => @note, :status => :created, :location => @note }
       else
         format.html { render :action => "new" }
