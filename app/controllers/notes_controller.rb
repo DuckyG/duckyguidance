@@ -6,10 +6,12 @@ class NotesController < ApplicationController
   # GET /notes
   # GET /notes.xml
   def index
-    @notes = current_school.notes.order "created_at DESC"
+    @notes = current_school.notes
     @student = current_school.students.find(params[:student_id]) if params[:student_id]
     @notes =  @student.notes if @student
-   
+    @group = current_school.groups.find(params[:group_id]) if params[:group_id]
+    @notes =  @group.notes if @group
+    @notes = @notes.sort {|x,y| y.created_at <=> x.created_at}
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @notes }

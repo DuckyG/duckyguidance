@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101105141237) do
+ActiveRecord::Schema.define(:version => 20101105160842) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -26,6 +26,11 @@ ActiveRecord::Schema.define(:version => 20101105141237) do
     t.integer  "school_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "groups_notes", :id => false, :force => true do |t|
+    t.integer "group_id", :null => false
+    t.integer "note_id",  :null => false
   end
 
   create_table "groups_students", :id => false, :force => true do |t|

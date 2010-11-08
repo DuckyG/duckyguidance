@@ -20,8 +20,8 @@ class ApplicationController < ActionController::Base
         flash[:notice] = "You must be logged in to view this page"
         redirect_to root_path
       end
-      
     end
+    
     def check_domain
       if !request.subdomains.empty? && !current_subdomain
         querystring = "?error_domain="+ request.subdomains.first

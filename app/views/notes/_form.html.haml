@@ -7,6 +7,7 @@
       - @note.errors.full_messages.each do |msg|
         %li= msg
   =f.hidden_field :student_ids, :value => @student_id_string
+  =f.hidden_field :group_ids, :value => @group_id_string
   .grid_2
     =f.label 'Category'
     %br

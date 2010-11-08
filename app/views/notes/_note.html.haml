@@ -2,13 +2,21 @@
   .note_info{:class =>odd_even}
     .grid_3
       %h6=note.created_at.strftime('%B %d @ %I:%M %p')
-    .grid_2
+    .grid_5
       %strong=note.summary
     .grid_2.counselor.right
-      -if note.students.count == 1
+      -if note.groups.count == 1
+        =note.groups.first.name
+      -else
         =note.students.first.last_name + ", " + note.students.first.first_name
+      
     .grid_1.right
-      %strong Student
+      %strong
+        -if note.groups.count == 1
+          Group
+        -else
+          Student
+        
     .clear
   .clear
   =render :partial => 'shared/note_details', :locals => { :note => note}

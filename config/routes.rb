@@ -9,7 +9,9 @@ Guidance::Application.routes.draw do |map|
   match 'my_settings' => 'counselors#edit'
   match 'my_settings_update' => 'counselors#update'
   
-  resources :groups
+  resources :groups do
+    resources :notes
+  end
   resources :users
   resources :schools, :constraints => {:subdomain => 'admin'}
   resources :categories

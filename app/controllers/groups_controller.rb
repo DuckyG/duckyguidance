@@ -45,7 +45,9 @@ class GroupsController < ApplicationController
   # GET /groups/1.xml
   def show
     @group = current_school.groups.find(params[:id])
+    @note = Note.new
     @title = 'Group: '  + @group.name
+    @group_id_string = @group.id
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @group }

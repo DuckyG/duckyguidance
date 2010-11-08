@@ -1,3 +1,46 @@
+:javascript
+  $j(document).ready(function(){
+    set_accordion();
+    
+    $j('#new_note_form').accordion({ header:'h6',collapsible: true,icons: { 'header': '', 'headerSelected': '' }  });
+    $j('#new_note_form form').hide()
+    $j('#new_note_form h6 span').remove()
+    $j('#new_note_form h6').removeAttr('class');
+    $j('#new_note_link').click()
+    
+    $j('#new_note').submit(function(){
+        $j('#note_submit').attr('disabled', 'disabled');
+        $j(this).ajaxSubmit(function(){
+          var address=location.pathname + '/notes';
+
+          $j.ajax({
+            type: 'GET',
+            url: address,
+            cache: false,
+            success: function(html){
+              $j('#notes').remove();
+              $j('#note_container').append(html);
+              $j('#new_note_link').click();
+              set_accordion();
+              
+              $j('#note_submit').removeAttr('disabled');
+              $j('#note_summary').val('')
+              $j('#note_occured_on').val('')
+              $j('#note_notes').val('')
+            }
+          });
+        });
+        return false;
+    });
+  });
+  
+  var set_accordion = function(){
+    $j('.note_info').click(slide_toggle_notes)
+    $j('.note_notes').hide()
+  };
+  var slide_toggle_notes = function(){
+    $j(this).parent().find('.note_notes').slideToggle()
+  };
 .grid_12
   %p
     = link_to t('back'), groups_path
@@ -18,6 +61,13 @@
     .grid_3= student.last_name + ', ' + student.first_name
     .grid_1= button_to t('show'), student, :method => :get
     .cleft
+  #new_note_form
+    %h6
+      %a{:href=>"#",:id=>'new_note_link'} New Note
+    =render :partial => 'notes/form'
+.grid_12#note_container
+  %h2 Notes
+  =render :partial => 'shared/note_list', :locals => { :note_list => @group.notes}
 //    %dt
 //      %strong= 'Number of Notes'
 //    %dd= @group.notes.count
