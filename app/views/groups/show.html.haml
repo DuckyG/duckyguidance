@@ -8,32 +8,40 @@
     $j('#new_note_form h6').removeAttr('class');
     $j('#new_note_link').click()
     
+    var optionsAjaxSubmit = {
+      resetForm: true,
+      success: submit_succeeded,
+      error: submit_failed
+    };
     $j('#new_note').submit(function(){
         $j('#note_submit').attr('disabled', 'disabled');
-        $j(this).ajaxSubmit(function(){
-          var address=location.pathname + '/notes';
-
-          $j.ajax({
-            type: 'GET',
-            url: address,
-            cache: false,
-            success: function(html){
-              $j('#notes').remove();
-              $j('#note_container').append(html);
-              $j('#new_note_link').click();
-              set_accordion();
-              
-              $j('#note_submit').removeAttr('disabled');
-              $j('#note_summary').val('')
-              $j('#note_occured_on').val('')
-              $j('#note_notes').val('')
-            }
-          });
-        });
+        $j(this).ajaxSubmit(optionsAjaxSubmit);
+        
         return false;
     });
   });
-  
+  var submit_succeeded = function(html){
+    var address=location.pathname + '/notes';
+
+    $j.ajax({
+      type: 'GET',
+      url: address,
+      cache: false,
+      success: function(html){
+        $j('#notes').remove();
+        $j('#note_container').append(html);
+        $j('#new_note_link').click();
+        set_accordion();
+        
+        $j('#note_submit').removeAttr('disabled');
+      }
+    });
+
+  };
+  var submit_failed = function(html,errortype){
+    $j('#note_submit').removeAttr('disabled');
+    alert("The Note could note be saved, make sure that you have included a summary and the details for the note. ")
+  };
   var set_accordion = function(){
     $j('.note_info').click(slide_toggle_notes)
     $j('.note_notes').hide()
@@ -41,6 +49,7 @@
   var slide_toggle_notes = function(){
     $j(this).parent().find('.note_notes').slideToggle()
   };
+
 .grid_12
   %p
     = link_to t('back'), groups_path
