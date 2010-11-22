@@ -1,6 +1,7 @@
 class NotesController < ApplicationController
   access_control do
     allow :counselor, :of => :current_school
+    allow :superadmin
   end
   layout Proc.new { |controller| controller.request.xhr? ? 'ajax' : 'application' }
   # GET /notes

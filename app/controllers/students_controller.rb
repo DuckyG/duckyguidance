@@ -2,6 +2,7 @@ class StudentsController < ApplicationController
   before_filter :title
   access_control do
     allow :counselor, :of => :current_school
+    allow :superadmin
   end
   def title
     @title = 'Students'

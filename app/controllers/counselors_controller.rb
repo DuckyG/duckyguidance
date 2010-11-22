@@ -2,6 +2,7 @@ class CounselorsController < ApplicationController
   access_control do
     actions :index, :show do
       allow :counselor, :of => :current_school
+      allow :superadmin
     end
 
     actions :new, :create do
