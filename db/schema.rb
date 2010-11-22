@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101105160842) do
+ActiveRecord::Schema.define(:version => 20101117155552) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(:version => 20101105160842) do
   add_index "groups_students", ["group_id"], :name => "index_groups_students_on_group_id"
   add_index "groups_students", ["student_id", "group_id"], :name => "index_groups_students_on_student_id_and_group_id", :unique => true
   add_index "groups_students", ["student_id"], :name => "index_groups_students_on_student_id"
+
+  create_table "guardians", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "meeting_requests", :force => true do |t|
     t.string   "first_name"
