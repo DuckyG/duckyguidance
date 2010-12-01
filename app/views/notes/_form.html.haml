@@ -26,12 +26,14 @@
     .grid_3
       =f.check_box :notify_students_counselor
       =f.label :notify_students_counselor, "Notify student's counselor (" + @student.counselor.last_name + ")"
-  .grid_4
-    =f.label :tags, 'Tags (separated by spaces)'
-  .clear
-  .grid_3
-    =f.text_field :tags_string
-  .clear
+  -if current_school.show_tags
+    .grid_4
+      =f.label :tags, 'Tags (separated by spaces)'
+    .clear
+    .grid_3
+      =f.text_field :tags_string
+    .clear
+  
   .grid_1
     =f.label :notes
   .clear

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101117155552) do
+ActiveRecord::Schema.define(:version => 20101201171904) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20101117155552) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "subdomain_id"
+    t.boolean  "show_tags",    :default => true
   end
 
   create_table "students", :force => true do |t|

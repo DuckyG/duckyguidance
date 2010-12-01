@@ -11,13 +11,14 @@
     &nbsp;
     =note.category.name if note.category
   .clear
-  %strong.grid_1 Tags
-  .clear
-  .tags.grid_8
-    &nbsp;
-    -note.tags.each do |tag|
-      =link_to(tag.name, tag_path(tag.name)) + ((tag != note.tags.last) ? ',' : '')
-  .clear
+  -if current_school.show_tags
+    %strong.grid_1 Tags
+    .clear
+    .tags.grid_8
+      &nbsp;
+      -note.tags.each do |tag|
+        =link_to(tag.name, tag_path(tag.name)) + ((tag != note.tags.last) ? ',' : '')
+    .clear
   %strong.grid_1 Notes
   .clear
   .notes
