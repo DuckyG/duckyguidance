@@ -15,4 +15,4 @@
     %dd= @category.notes.count
     
 .grid_12
-  =render :partial => 'shared/dashboard_list', :locals => { :note_list => @category.notes}
+  =render :partial => 'shared/note_list', :locals => { :note_list => @category.notes}

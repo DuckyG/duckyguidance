@@ -20,7 +20,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.xml
   def index
-    @categories = current_school.categories.all
+    @categories = current_school.categories.all.sort {|x,y| x.name <=> y.name}
     @title = 'Categories'
     respond_to do |format|
       format.html # index.html.erb

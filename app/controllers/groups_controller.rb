@@ -7,10 +7,12 @@ class GroupsController < ApplicationController
 
     actions :new, :create do
       allow :school_admin, :of => :current_school
+      allow :counselor, :of => :current_school
     end
 
     actions :edit, :update, :add_student, :remove_student do
       allow :school_admin, :of => :current_school
+      allow :counselor, :of => :current_school
     end
 
     action :destroy do
