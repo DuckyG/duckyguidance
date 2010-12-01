@@ -12,7 +12,9 @@
     =f.label 'Category'
     %br
     -categories = current_school.categories.all.sort {|x,y| x.name <=> y.name}
-    = f.select :category_id, categories.map {|c| [c.name, c.id]}, :selected => current_school.categories.find_by_name('Uncategorized').id
+    -default = current_school.categories.find_by_name('Uncategorized')
+    -default = categories.first unless default
+    = f.select :category_id, categories.map {|c| [c.name, c.id]}, :selected => default.id 
   .clear
   .grid_2
     =f.label :summary
