@@ -66,7 +66,7 @@
   .cleft
   %h2 Members
   
-  - for student in @group.students
+  - for student in @group.students.sort { |x,y| x.last_name <=> y.last_name}
     .grid_3= student.last_name + ', ' + student.first_name
     .grid_1= button_to t('show'), student, :method => :get
     .cleft
