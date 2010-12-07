@@ -30,13 +30,13 @@
     = f.text_field :primary_phone_number
   .cleft
   .grid_3
-    %label Student ID
+    = f.label :student_id, "Student ID"
   .cleft
   .grid_3
     = f.text_field :student_id
   .cleft
   .grid_3
-    %label Counselor
+    = f.label :counselor_id, "Counselor"
   .cleft
   .grid_3
     = f.select :counselor_id, current_school.counselors.map {|c| [c.last_name, c.id]}
