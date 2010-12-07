@@ -24,6 +24,10 @@ body{
 h3 a, h4 a{
   border-bottom:none;
 }
+.multiselect {
+		width: 460px;
+		height: 200px;
+	}
 #nav{
   float:right;
   text-align:right;

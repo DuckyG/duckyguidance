@@ -8,7 +8,7 @@ Guidance::Application.configure do
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = false
-
+  config.active_support.deprecation = :log
   
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
@@ -20,7 +20,7 @@ Guidance::Application.configure do
   # just comment this out and Rails will serve the files
 
   # See everything in the log (default is :info)
-   config.log_level = :debug
+  # config.log_level = :debug
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
