@@ -13,7 +13,9 @@ Guidance::Application.routes.draw do |map|
     resources :notes
   end
   resources :users
-  resources :schools, :constraints => {:subdomain => 'admin'}
+  constraints :subdomain => 'admin' do
+    resources :schools
+  end
   resources :categories
 
   resources :tags

@@ -1,10 +1,8 @@
+-@field_error_proc = Proc.new{ |html_tag, instance| "#{html_tag}".html_safe }
 = form_for(@user_session,:url=>'login') do |f|
   - if @user_session.errors.any?
     #errorExplanation
-      %h2= "#{pluralize(@user_session.errors.count, 'error')} prohibited this user from being saved:"
-      %ul
-      - @user_session.errors.full_messages.each do |msg|
-        %li= msg
+      %h5 Invalid email or password
   
   .grid_1
     = f.label :email

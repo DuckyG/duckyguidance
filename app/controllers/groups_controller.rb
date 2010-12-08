@@ -29,20 +29,6 @@ class GroupsController < ApplicationController
       format.xml  { render :xml => @groups }
     end
   end
-  
-  def add_student
-    @group = current_school.groups.find(params[:id])
-    @student = current_school.students.find(params[:student_id])
-    @group.students<<@student
-    redirect_to edit_group_path(@group)
-  end
-  
-  def remove_student
-    @group = current_school.groups.find(params[:id])
-    @student = current_school.students.find(params[:student_id])
-    @group.students.delete @student
-    redirect_to edit_group_path(@group)
-  end
 
   # GET /groups/1
   # GET /groups/1.xml
@@ -95,7 +81,9 @@ class GroupsController < ApplicationController
   # PUT /groups/1.xml
   def update
     @group = current_school.groups.find(params[:id])
-
+    if params[:group][:student_ids].nil?
+      @group.students.clear
+    end
     respond_to do |format|
       if @group.update_attributes(params[:group])
         format.html { redirect_to(edit_group_path(@group), :notice => 'Group was successfully updated.') }

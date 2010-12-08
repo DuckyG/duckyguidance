@@ -2,11 +2,11 @@
   $j(document).ready(function(){
     set_accordion();
     
-    $j('#new_note_form').accordion({ header:'h6',collapsible: true,icons: { 'header': '', 'headerSelected': '' }  });
     $j('#new_note_form form').hide()
-    $j('#new_note_form h6 span').remove()
-    $j('#new_note_form h6').removeAttr('class');
-    $j('#new_note_link').click()
+    $j('#new_note_link').click(function(){
+      $j('#new_note').slideToggle()
+      return false;
+    });
     
     var optionsAjaxSubmit = {
       resetForm: true,
@@ -71,8 +71,7 @@
     .grid_1= button_to t('show'), student, :method => :get
     .cleft
   #new_note_form
-    %h6
-      %a{:href=>"#",:id=>'new_note_link'} New Note
+    %a{:href=>"#",:id=>'new_note_link'} New Note
     =render :partial => 'notes/form'
 .grid_12#note_container
   %h2 Notes

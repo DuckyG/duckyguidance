@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
   before_filter :title
+  before_filter :retrieve_non_member_groups, :only => [:edit, :update]
   access_control do
     allow :counselor, :of => :current_school
     allow :superadmin
@@ -66,9 +67,12 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
+    title
+  end
+  
+  def retrieve_non_member_groups
     @student = current_school.students.find(params[:id])
     @other_groups = current_school.groups - @student.groups
-    title
   end
 
   # POST /students
@@ -90,8 +94,6 @@ class StudentsController < ApplicationController
   # PUT /students/1
   # PUT /students/1.xml
   def update
-    @student = current_school.students.find(params[:id])
-
     respond_to do |format|
       if @student.update_attributes(params[:student])
         format.html { redirect_to(edit_student_path(@student), :notice => 'Student was successfully updated.') }
