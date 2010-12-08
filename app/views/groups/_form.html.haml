@@ -5,7 +5,7 @@
 = form_for(@group) do |f|
   - if @group.errors.any?
     #errorExplanation
-      %h2= "#{pluralize(@category.errors.count, 'error')} prohibited this user from being saved:"
+      %h2= "#{pluralize(@group.errors.count, 'error')} prohibited this user from being saved:"
       %ul
       - @group.errors.full_messages.each do |msg|
         %li= msg
@@ -22,6 +22,7 @@
     = f.label :students
     %br
     = select_tag "group[student_ids]", build_student_options(current_school.students, @group.students), {:multiple => true, :class => 'multiselect'}
+
 
   .actions
     = f.submit 'Save'
