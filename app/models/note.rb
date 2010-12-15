@@ -1,6 +1,7 @@
 class Note < ActiveRecord::Base
   has_and_belongs_to_many :students
   has_and_belongs_to_many :groups
+  has_and_belongs_to_many :smart_groups
   belongs_to :counselor
   belongs_to :category
   belongs_to :school

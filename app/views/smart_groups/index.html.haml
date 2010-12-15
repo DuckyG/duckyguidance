@@ -1,0 +1,13 @@
+.grid_12
+
+  %table
+    %thead
+      %tr
+        %th= SmartGroup.human_attribute_name :name
+        %th &nbsp
+  
+    %tbody
+      - for smart_group in @smart_groups
+        %tr{ :class => cycle(:odd, :even) }
+          %td=  link_to smart_group.name, smart_group
+          %td.action= button_to t('edit'), edit_smart_group_path(smart_group), :method => :get

@@ -1,7 +1,8 @@
 Guidance::Application.routes.draw do |map|
   
-  match 'groups/:id/add_student/:student_id' => 'groups#add_student', :as => :add_student_to_group
-  match 'groups/:id/remove_student/:student_id' => 'groups#remove_student', :as => :remove_student_from_group
+  resources :smart_groups
+
+  
   match 'students/:id/add_group/:group_id' => 'students#add_group', :as => :add_group_to_student
   match 'students/:id/remove_group/:group_id' => 'students#remove_group', :as => :remove_group_from_student
   match 'error/:id' => 'error#show'

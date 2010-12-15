@@ -10,7 +10,7 @@ class GroupsController < ApplicationController
       allow :counselor, :of => :current_school
     end
 
-    actions :edit, :update, :add_student, :remove_student do
+    actions :edit, :update do
       allow :school_admin, :of => :current_school
       allow :counselor, :of => :current_school
     end
