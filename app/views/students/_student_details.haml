@@ -1,5 +1,5 @@
 .grid_3
-  =image_tag('/images/students/' + Digest::MD5.hexdigest(current_subdomain.name+@student.student_id.to_s) + '.jpg')
+  =image_tag('https://images.duckyg.com/' + Digest::MD5.hexdigest(current_subdomain.name+@student.student_id.to_s) + '.jpg')
 .grid_3
   %strong Student ID
   %br
