@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
   protect_from_forgery
   layout 'application'
-  before_filter :check_domain
+  before_filter :check_domain, :check_defaults
   helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options
   
   private
@@ -19,6 +19,19 @@ class ApplicationController < ActionController::Base
       else
         flash[:notice] = "You must be logged in to view this page"
         redirect_to root_path
+      end
+    end
+    def check_defaults
+      if current_school
+        uncat = current_school.categories.find_by_name 'Uncategorized'
+        unless uncat
+          uncat = Category.new
+          uncat.name = "Uncategorized"
+          uncat.description = "System category: Uncategorized"
+          uncat.system = true
+          uncat.school = current_school
+          uncat.save
+        end
       end
     end
     
