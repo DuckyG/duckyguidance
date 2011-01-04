@@ -24,6 +24,9 @@
   .notes
     %pre=note.notes
   .clear
+  -if note.students.count > 1 && note.groups.count == 0
+    %strong.grid_8="This note is assigned to #{note.students.count} students.  Editing it will change it for all students."
+    .clear
   .right.edit
     =button_to 'Edit', edit_note_path(note), :method => :get
   .clear
