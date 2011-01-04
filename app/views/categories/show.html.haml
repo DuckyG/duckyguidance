@@ -1,7 +1,8 @@
 .grid_12
   %p
     = link_to t('back'), categories_path
-    = link_to t('edit'), edit_category_path(@category)
+    -if current_counselor.has_role?(:school_admin, current_school) && !@category.system
+      = link_to t('edit'), edit_category_path(@category)
 
   %dl
     %dt
