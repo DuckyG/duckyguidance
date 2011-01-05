@@ -13,6 +13,20 @@
     %dt
       %strong= 'Number of Notes'
     %dd= @category.notes.count
+.grid_12
+  %h2 Generate Report
+  = form_tag(categories_path + "/#{@category.id}/report.csv", :method => :get) do
+    %strong.grid_2=label_tag :start_date, "Start Date"
+    .grid_1=text_field_tag :start_date
+    .clear
+    %strong.grid_2=label_tag :end_date, "End Date"
+    .grid_1=text_field_tag :end_date
+    .clear
+    .prefix_2.grid_4
+      %em Dates should be in YYYY-MM-DD format (ie 2011-01-01).  Both fields are optional.
+    .clear
+      
+    =submit_tag 'Generate Report'
     
 .grid_12
   =render :partial => 'shared/note_list', :locals => { :note_list => @category.notes}

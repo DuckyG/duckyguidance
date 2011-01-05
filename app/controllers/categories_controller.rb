@@ -90,12 +90,24 @@ class CategoriesController < ApplicationController
   
   def report
     
-    @start_date = Date.strptime(params[:start_date], "%Y-%m-%d")
-    @end_date = Date.strptime(params[:end_date], "%Y-%m-%d")
+    start_date = Time.strptime(params[:start_date], "%Y-%m-%d") unless params[:start_date].nil? || params[:start_date].empty? 
+    end_date = Time.strptime(params[:end_date]+ " 23:59", "%Y-%m-%d %H:%M") unless params[:end_date].nil? || params[:end_date].empty? 
     @category = current_school.categories.find(params[:id])
-    @notes = @category.notes.where('created_at >= ? AND created_at <= ?', @start_date, @end_date)
+    if start_date && end_date
+      @notes = @category.notes.where('created_at >= ? AND created_at <= ?', start_date, end_date)
+      name = "#{@category.name}_#{start_date.strftime("%Y-%m-%d")}_#{end_date.strftime("%Y-%m-%d")}"
+    elsif start_date
+      @notes = @category.notes.where('created_at >= ?', start_date)
+      name = "#{@category.name}_from_#{start_date.strftime("%Y-%m-%d")}"
+    elsif end_date
+      @notes = @category.notes.where('created_at <= ?', end_date)
+      name = "#{@category.name}_until_#{end_date.strftime("%Y-%m-%d")}"
+    else
+      @notes = @category.notes
+      name = "#{@category.name}"
+    end
     respond_to do |format|
-      format.csv {render_csv("#{@category.name}-#{@start_date.strftime("%Y%m%d")}-#{@end_date.strftime("%Y%m%d")}")}
+      format.csv {render_csv(name)}
     end
   end
 
