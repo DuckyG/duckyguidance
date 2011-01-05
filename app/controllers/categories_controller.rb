@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   access_control do
-    actions :index, :show do
+    actions :index, :show, :report do
       allow :counselor, :of => :current_school
       allow :superadmin
     end
@@ -85,6 +85,17 @@ class CategoriesController < ApplicationController
         format.html { render :action => "edit" }
         format.xml  { render :xml => @category.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+  
+  def report
+    
+    @start_date = Date.strptime(params[:start_date], "%Y-%m-%d")
+    @end_date = Date.strptime(params[:end_date], "%Y-%m-%d")
+    @category = current_school.categories.find(params[:id])
+    @notes = @category.notes.where('created_at >= ? AND created_at <= ?', @start_date, @end_date)
+    respond_to do |format|
+      format.csv {render_csv("#{@category.name}-#{@start_date.strftime("%Y%m%d")}-#{@end_date.strftime("%Y%m%d")}")}
     end
   end
 
