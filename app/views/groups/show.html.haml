@@ -64,15 +64,18 @@
     %dd= @group.description
   
   .cleft
+  #new_note_form
+    %h2
+      %a{:href=>"#",:id=>'new_note_link'} New Note
+    =render :partial => 'notes/form'
+  .cleft
   %h2 Members
   
   - for student in @group.students.sort { |x,y| x.last_name <=> y.last_name}
     .grid_3= student.last_name + ', ' + student.first_name
     .grid_1= button_to t('show'), student, :method => :get
     .cleft
-  #new_note_form
-    %a{:href=>"#",:id=>'new_note_link'} New Note
-    =render :partial => 'notes/form'
+  
 .grid_12#note_container
   %h2 Notes
   =render :partial => 'shared/note_list', :locals => { :note_list => @group.notes}
