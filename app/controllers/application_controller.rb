@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout 'application'
   before_filter :check_domain, :check_defaults
-  helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options
+  helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options, :render_csv
   
   private
     def access_denied
@@ -78,5 +78,23 @@ class ApplicationController < ActionController::Base
     def current_counselor
       return @current_counselor if defined?(@current_counselor)
       @current_counselor = current_user ? Counselor.find(current_user.id) : nil
+    end
+    
+    def render_csv(filename = nil)
+      filename ||= params[:action]
+      filename += '.csv'
+
+      if request.env['HTTP_USER_AGENT'] =~ /msie/i
+        headers['Pragma'] = 'public'
+        headers["Content-type"] = "text/plain" 
+        headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\"" 
+        headers['Expires'] = "0" 
+      else
+        headers["Content-Type"] ||= 'text/csv'
+        headers["Content-Disposition"] = "attachment; filename=\"#{filename}\"" 
+      end
+
+      render :layout => false
     end
 end

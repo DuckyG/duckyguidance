@@ -1,0 +1,3 @@
+Note Date,Group,Student Last Name,Student First Name,Summary,Author,Tags,Note
+<%@notes.each do |note|%><%=raw(note.to_csv)%><% end %>
+<%#Do not add new lines, otherwise, there will be empty lines in the CSV%>
