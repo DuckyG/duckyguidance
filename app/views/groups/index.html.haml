@@ -12,3 +12,5 @@
         %tr{ :class => cycle(:odd, :even) }
           %td=  link_to group.name, group
           %td.action= button_to t('edit'), edit_group_path(group), :method => :get
+          -if current_counselor.has_role?(:school_admin, current_school)
+            %td.action= button_to t('destroy'), group_path(group), :method => :delete, :confirm => "Are you sure you want to delete the group '#{group.name}'? This action cannot be undone. "

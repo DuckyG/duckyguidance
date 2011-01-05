@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101201171904) do
+ActiveRecord::Schema.define(:version => 20110104163635) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20101201171904) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "school_id"
+    t.boolean  "system"
   end
 
   create_table "groups", :force => true do |t|
@@ -75,6 +76,11 @@ ActiveRecord::Schema.define(:version => 20101201171904) do
     t.integer  "school_id"
   end
 
+  create_table "notes_smart_groups", :id => false, :force => true do |t|
+    t.integer "smart_group_id"
+    t.integer "note_id"
+  end
+
   create_table "notes_students", :id => false, :force => true do |t|
     t.integer "student_id"
     t.integer "note_id"
@@ -121,6 +127,15 @@ ActiveRecord::Schema.define(:version => 20101201171904) do
     t.datetime "updated_at"
     t.integer  "subdomain_id"
     t.boolean  "show_tags",    :default => true
+  end
+
+  create_table "smart_groups", :force => true do |t|
+    t.string   "name",        :null => false
+    t.string   "field_name",  :null => false
+    t.string   "field_value", :null => false
+    t.integer  "school_id",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "students", :force => true do |t|
@@ -176,6 +191,9 @@ ActiveRecord::Schema.define(:version => 20101201171904) do
 
   add_foreign_key "categories", "schools", :name => "categories_school_id_fk"
 
+  add_foreign_key "groups_notes", "groups", :name => "groups_notes_group_id_fk"
+  add_foreign_key "groups_notes", "notes", :name => "groups_notes_note_id_fk"
+
   add_foreign_key "groups_students", "groups", :name => "groups_students_group_id_fk"
   add_foreign_key "groups_students", "students", :name => "groups_students_student_id_fk"
 
@@ -186,6 +204,12 @@ ActiveRecord::Schema.define(:version => 20101201171904) do
   add_foreign_key "notes", "schools", :name => "meetings_school_id_fk"
   add_foreign_key "notes", "users", :name => "meetings_counselor_id_fk", :column => "counselor_id"
 
+  add_foreign_key "notes_smart_groups", "notes", :name => "notes_smart_groups_note_id_fk"
+  add_foreign_key "notes_smart_groups", "smart_groups", :name => "notes_smart_groups_smart_group_id_fk"
+
+  add_foreign_key "notes_students", "notes", :name => "notes_students_note_id_fk"
+  add_foreign_key "notes_students", "students", :name => "notes_students_student_id_fk"
+
   add_foreign_key "notes_tags", "notes", :name => "meeting_tags_meeting_id_fk"
   add_foreign_key "notes_tags", "tags", :name => "meeting_tags_tag_id_fk"
 
@@ -193,6 +217,8 @@ ActiveRecord::Schema.define(:version => 20101201171904) do
   add_foreign_key "roles_users", "users", :name => "roles_users_user_id_fk"
 
   add_foreign_key "schools", "subdomains", :name => "schools_subdomain_id_fk"
+
+  add_foreign_key "smart_groups", "schools", :name => "smart_groups_school_id_fk"
 
   add_foreign_key "students", "schools", :name => "students_school_id_fk"
   add_foreign_key "students", "users", :name => "students_counselor_id_fk", :column => "counselor_id"
