@@ -5,10 +5,16 @@
     %thead
       %tr
         %th= Category.human_attribute_name :name
-        %th &nbsp
+        %th &nbsp;
+        %th &nbsp;
   
     %tbody
       - for category in @categories
         %tr{ :class => cycle(:odd, :even) }
           %td=  link_to category.name, category
-          %td.action= button_to t('edit'), edit_category_path(category), :method => :get
+          -if current_counselor.has_role?(:school_admin, current_school) && !category.system
+            %td.action= button_to t('edit'), edit_category_path(category), :method => :get
+            %td.action= button_to t('destroy'), category_path(category), :method => :delete, :confirm => "Are you sure you want to delete the category '#{category.name}'? This action cannot be undone. Any notes assigned to this category will be labeled as Uncategorized."
+          -else
+            %td.action &nbsp;
+            %td.action &nbsp;

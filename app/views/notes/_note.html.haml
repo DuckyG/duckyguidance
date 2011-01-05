@@ -8,14 +8,16 @@
       -if note.groups.count == 1
         =note.groups.first.name
       -else
-        =note.students.first.last_name + ", " + note.students.first.first_name
+        -if note.students.count == 1
+          =note.students.first.last_name + ", " + note.students.first.first_name
       
     .grid_1.right
       %strong
         -if note.groups.count == 1
           Group
         -else
-          Student
+          -if note.students.count == 1
+            Student
         
     .clear
   .clear

@@ -53,6 +53,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1/edit
   def edit
     @category = current_school.categories.find(params[:id])
+    redirect_to category_path(@category) if @category.system 
     @title = 'Edit Category: '  + @category.name
   end
 
@@ -76,9 +77,9 @@ class CategoriesController < ApplicationController
   # PUT /categories/1.xml
   def update
     @category = current_school.categories.find(params[:id])
-
+    
     respond_to do |format|
-      if @category.update_attributes(params[:category])
+      if @category.system || @category.update_attributes(params[:category])
         format.html { redirect_to(@category, :notice => 'Category was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -115,11 +116,17 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1.xml
   def destroy
     @category = current_school.categories.find(params[:id])
-    @category.destroy
-
+    unless @category.system
+      uncategorized_cat.notes << @category.notes
+      @category.destroy
+    end
     respond_to do |format|
       format.html { redirect_to(categories_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  def uncategorized_cat
+    current_school.categories.find_by_name 'Uncategorized'
   end
 end

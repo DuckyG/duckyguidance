@@ -55,7 +55,8 @@
 =render :partial => 'student_details', :locals => { :student => @student}
 .grid_6
   #new_note_form
-    %a{:href=>"#",:id=>'new_note_link'} New Note
+    %h2
+      %a{:href=>"#",:id=>'new_note_link'} New Note
     =render :partial => 'notes/form'
 .cleft
 .grid_12#note_container
