@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  layout 'school_homepage'
+  layout false
   access_control do
     allow all
   end

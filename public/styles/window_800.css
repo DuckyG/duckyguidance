@@ -1,0 +1,40 @@
+#navGlobal {
+	font-size: 1.1em;
+	line-height: 16px;
+}
+	#navGlobal a {
+		padding-left: 8px;
+		padding-right: 8px;
+	}
+
+#container #content .col {
+	width: auto;
+	float: none;
+}
+.block .content {
+	padding: 0 0 20px;
+}
+.block .head {
+	font-size: 1.71em;
+}
+#systemMessage {
+	padding: 13px 15px 3px 15px;
+	margin: 0 20px 20px 20px;
+}
+	#systemMessage .head {
+		font-size: 1.71em;
+	}
+td,
+th {
+	padding: 4px 5px 3px 10px;
+}
+#content .cols2 .col {
+	min-height: 1px !important;
+}
+#content .cols2 .colR {
+	margin-left: 0;
+}
+.bIE #content .cols2 .col,
+.bIE #content .cols3 .col {
+	margin-right: 0;
+}

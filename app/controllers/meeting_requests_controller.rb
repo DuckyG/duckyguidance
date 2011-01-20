@@ -44,7 +44,7 @@ class MeetingRequestsController < ApplicationController
   # POST /meeting_requests.xml
   def create
     @meeting_request = MeetingRequest.new(params[:meeting_request])
-    @meeting_request.desired_date = Date.strptime(@meeting_request.date + ' ' + @meeting_request.time, "%m/%d/%Y %I:%M %p") if @meeting_request.date
+    @meeting_request.desired_date = Time.strptime(@meeting_request.date + ' ' + @meeting_request.time, "%m/%d/%Y %I:%M %p") if @meeting_request.date
     @meeting_request.school = current_school
     respond_to do |format|
       if @meeting_request.save
@@ -63,12 +63,19 @@ class MeetingRequestsController < ApplicationController
   # PUT /meeting_requests/1.xml
   def update
     @meeting_request = current_school.meeting_requests.find(params[:id])
-    @meeting_request.accepted = params[:accepted]
+    params[:meeting_request] = {} unless params[:meeting_request]
+    updated = false
+    params[:meeting_request][:accepted] = true
+    if params[:meeting_request][:date]
+      params[:meeting_request][:desired_date] = Time.strptime(params[:meeting_request][:date] + ' ' + params[:meeting_request][:time], "%m/%d/%Y %I:%M %p")
+      updated = true
+    end
+    
     respond_to do |format|
       if @meeting_request.update_attributes(params[:meeting_request])
         #format.html { redirect_to(@meeting_request, :notice => 'Your meeting request was received.  You should receive an email from one of the counselors shortly.') }
-        Notifier.request_acknowledged(@meeting_request).deliver 
-        format.js {@current_request = @meeting_request}
+        Notifier.request_acknowledged(@meeting_request,updated).deliver 
+        format.html {redirect_to dashboard_path}
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
