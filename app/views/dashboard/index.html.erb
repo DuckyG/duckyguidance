@@ -1,7 +1,7 @@
 
-<%=render :partial => 'shared/meeting_requests_list', :locals => {:requests => @requests}%>
+<%=render :partial => 'meeting_requests/meeting_requests_list', :locals => {:requests => @requests}%>
 	<div class="cols2">
-		<div class="col">
+	<div class="col">
 		<div class="modNotes block module">
 			<h2 class="head">Recent Notes</h2>
 			<div class="content">
@@ -37,47 +37,8 @@
 				</table>
 			</div>
 		</div><!--// end modNotes //-->
-		</div>
-		<div class="col colR">
-		<div class="modMeetings block module">
-			<h2 class="head">Upcoming Meetings</h2>
-			<div class="content">
-				<table cellpadding="0" cellspacing="0">
-					<thead>
-						<tr>
-							<th class="spaced" colspan="2">Date &amp; Time</th>
-							<th>Student</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="spaced">10/20/2010</td>
-							<td>10:00&nbsp;AM</td>
-							<td><a href="#">Nathan Palmer<span class="arr">&nbsp;&rarr;</span></a></td>
-						</tr>
-						<tr>
-							<td class="spaced">10/21/2010</td>
-							<td>9:00&nbsp;AM</td>
-							<td><a href="#">Chris Lees<span class="arr">&nbsp;&rarr;</span></a></td>
-						</tr>
-						<tr>
-							<td class="spaced">10/21/2010</td>
-							<td>1:00&nbsp;PM</td>
-							<td><a href="#">Costa Boudouvas<span class="arr">&nbsp;&rarr;</span></a></td>
-						</tr>
-						<tr>
-							<td class="spaced">10/22/2010</td>
-							<td>1:30&nbsp;PM</td>
-							<td><a href="#">Dan Seaver<span class="arr">&nbsp;&rarr;</span></a></td>
-						</tr>
-						<tr>
-							<td class="spaced">10/31/2010</td>
-							<td>7:45&nbsp;AM</td>
-							<td><a href="#">Frankie Benevides Jr.<span class="arr">&nbsp;&rarr;</span></a></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div><!--// end modMeetings //-->
-		</div>
-	</div><!--// end cols2 //-->
+	</div>
+	<div class="col colR">
+		<%=render :partial => 'meeting_requests/upcoming_meetings_list', :locals => {:upcoming_meetings => @upcoming_meetings}%>
+	</div>
+</div><!--// end cols2 //-->
