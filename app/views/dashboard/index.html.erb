@@ -1,42 +1,7 @@
-
 <%=render :partial => 'meeting_requests/meeting_requests_list', :locals => {:requests => @requests}%>
-	<div class="cols2">
+<div class="cols2">
 	<div class="col">
-		<div class="modNotes block module">
-			<h2 class="head">Recent Notes</h2>
-			<div class="content">
-				<table cellpadding="0" cellspacing="0">
-					<thead>
-						<tr>
-							<th class="spaced">Student</th>   
-							<th>Note Title</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="spaced">Nathan Palmer</td>
-							<td><a href="#">Here Is the Note Title<span class="arr">&nbsp;&rarr;</span></a></td>
-						</tr>
-						<tr>
-							<td class="spaced">Chris Lees</td>
-							<td><a href="#">Another Note Title for You to Read<span class="arr">&nbsp;&rarr;</span></a></td>
-						</tr>
-						<tr>
-							<td class="spaced">Costa Boudouvas</td>
-							<td><a href="#">Note Titles Are Awesome<span class="arr">&nbsp;&rarr;</span></a></td>
-						</tr>
-						<tr>
-							<td class="spaced">Dan Seaver</td>
-							<td><a href="#">Note Titles Are Awesome Part II<span class="arr">&nbsp;&rarr;</span></a></td>
-						</tr>
-						<tr>
-							<td class="spaced">Frankie Benevides Jr.</td>
-							<td><a href="#">Lorem Notesum Textolor Sit Amet<span class="arr">&nbsp;&rarr;</span></a></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div><!--// end modNotes //-->
+		<%=render :partial => 'notes/recent_note_list', :locals => {:notes => @notes}%>
 	</div>
 	<div class="col colR">
 		<%=render :partial => 'meeting_requests/upcoming_meetings_list', :locals => {:upcoming_meetings => @upcoming_meetings}%>

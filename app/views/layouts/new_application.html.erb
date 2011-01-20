@@ -11,7 +11,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Section Name - DuckyGuidance - <%=current_school.name%></title>
+	<title><%= @section ? @section + " - " : ""%>DuckyGuidance - <%=current_school.name%></title>
 	<meta name="description" content="Description of page">
 	<meta name="keywords" content="Keywords for page">
 	<meta name="copyright" content="Copyright information">
@@ -39,10 +39,10 @@
 		<div id="navigation">
 			<h2 class="copperfield">Navigation</h2>
 			<ul id="navGlobal">
-				<li id="btnPriNav1" class="active"><a href="#">Dashboard<span></span></a></li>
-				<li id="btnPriNav2"><a href="#">Students<span></span></a></li>
-				<li id="btnPriNav3"><a href="#">Groups<span></span></a></li>
-				<li id="btnPriNav4"><a href="#">Note Categories<span></span></a></li>
+				<li id="btnPriNav1" <%= "class='active'" if current_page?('/dashboard') %>><a href="<%= dashboard_path %>">Dashboard<span></span></a></li>
+				<li id="btnPriNav2"><a href="<%= students_path %>">Students<span></span></a></li>
+				<li id="btnPriNav3"><a href="<%= groups_path %>">Groups<span></span></a></li>
+				<li id="btnPriNav4"><a href="<%= categories_path %>">Note Categories<span></span></a></li>
 			</ul><!--// end primary //-->
 
 		</div><!--// end navigation //-->
@@ -51,13 +51,7 @@
 	<div id="container">
 		<div id="padder">
 			<div id="content">
-				<div id="systemMessage">
-				<h2 class="head">System Message Headline</h2>
-				<div class="content">
-					<p>Short message explaining system maintenance or issue. Maecenas sagittis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin pede odio, iaculis id, ultrices ut, convallis eu, ipsum. Etiam nisi dui, dictum id, varius non, egestas ut, enim. Suspendisse vehicula, quam ut iaculis imperdiet, dolor neque semper neque, ut lacinia ante libero in tellus. Integer convallis luctus eros. Suspendisse potenti.</p>
-				</div><!--// end content //-->
-				<span class="close icon iconClose"></span>
-				</div><!--// end systemMessage //-->
+				<%= render :partial => 'system_message/message'%>
 				<%=yield%>
 			</div><!--// end #content //-->
 		</div><!--// end #padder //-->
@@ -69,10 +63,10 @@
 					<ul class="linklist">
 						<li><a href="#" class="icon iconSearch">Search for a Student</a></li>
 						<li><a href="#" class="icon iconSearch">Search Student Notes</a></li>
-						<li><a href="#" class="icon iconAddStudent">Add a Student</a></li>
-						<li><a href="#" class="icon iconAddGroup">Add a Group</a></li>
-						<li><a href="#" class="icon iconAddCategory">Add a Note Category</a></li>
-						<li><a href="#" class="icon iconOptions">Your Account Options</a></li>
+						<li><a href="<%= new_student_path %>" class="icon iconAddStudent">Add a Student</a></li>
+						<li><a href="<%= new_group_path %>" class="icon iconAddGroup">Add a Group</a></li>
+						<li><a href="<%= new_category_path %>" class="icon iconAddCategory">Add a Note Category</a></li>
+						<li><a href="<%= my_account_path %>" class="icon iconOptions">Your Account Options</a></li>
 					</ul>
 				</div>
 			</div><!--// end modTools //-->

@@ -10,9 +10,9 @@ class DashboardController < ApplicationController
       current_counselor.students.all.each {|student| @notes = @notes + student.notes }
       @notes = @notes.uniq {|n| n.id}.sort {|x,y| y.created_at <=> x.created_at}.take(10)
       @requests = current_counselor.meeting_requests.where(['accepted IS NULL']).order('desired_date')
-      @upcoming_meetings = current_counselor.meeting_requests.where([' accepted = ? AND desired_date > ?',true, DateTime.now]).order('desired_date')
+      @upcoming_meetings = current_counselor.meeting_requests.where([' accepted = ? AND desired_date > ?',true, DateTime.now]).order('desired_date').take(10)
     end
-    @title = 'Dashboard'
+    @section = 'Dashboard'
   end
 
 end
