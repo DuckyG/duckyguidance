@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
   protect_from_forgery
   layout 'application'
-  before_filter :check_domain
-  helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor
+  before_filter :check_domain, :check_defaults
+  helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options
   
   private
     def access_denied
@@ -21,6 +21,19 @@ class ApplicationController < ActionController::Base
         redirect_to root_path
       end
     end
+    def check_defaults
+      if current_school
+        uncat = current_school.categories.find_by_name 'Uncategorized'
+        unless uncat
+          uncat = Category.new
+          uncat.name = "Uncategorized"
+          uncat.description = "System category: Uncategorized"
+          uncat.system = true
+          uncat.school = current_school
+          uncat.save
+        end
+      end
+    end
     
     def check_domain
       if !request.subdomains.empty? && !current_subdomain
@@ -30,6 +43,15 @@ class ApplicationController < ActionController::Base
 
         redirect_to request.scheme+"://" + request.domain+"/error/404"+querystring
       end
+    end
+    
+    def build_student_options(student_list, selected_students)
+      output = ""
+      student_list.sort! {|x,y| x.last_name <=> y.last_name}
+      student_list.each do |student|
+        output += "<option value='#{student.id}' #{'selected="selected"' if selected_students.include? student}>#{student.last_name}, #{student.first_name}</option>"
+      end
+      output.html_safe
     end
     
     def current_user_session

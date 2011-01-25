@@ -2,6 +2,7 @@ class DashboardController < ApplicationController
   layout 'new_application'
   access_control do
     allow :member, :of => :current_subdomain
+    allow :superadmin
   end
   def index
     if current_counselor

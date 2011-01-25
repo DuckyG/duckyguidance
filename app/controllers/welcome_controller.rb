@@ -2,6 +2,7 @@ class WelcomeController < ApplicationController
   layout false
   access_control do
     allow all
+    allow :superadmin
   end
   def index
     @user_session = UserSession.new

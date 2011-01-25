@@ -3,8 +3,8 @@
   %head
     %title= current_school.name if current_school
     %title= "Ducky Guidance" if !current_school
-    = stylesheet_link_tag 'reset', 'text','960','scaffold', 'calendar/calendar-blue','jquery-ui','styles'
-    = javascript_include_tag :defaults, "https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js","https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js",'rails-jquery','jquery.dynDateTime.min','lang/calendar-en.min'
+    = stylesheet_link_tag 'reset', 'text','960','scaffold', 'calendar/calendar-blue','jquery-ui','styles','multiselect'
+    = javascript_include_tag  "https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js","https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js",'rails-jquery','jquery.dynDateTime.min','lang/calendar-en.min', 'ui.multiselect'
     = javascript_include_tag 'jquery.form'
     = csrf_meta_tag
     :javascript

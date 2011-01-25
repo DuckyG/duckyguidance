@@ -5,3 +5,4 @@ tmp/**/*
 tmp/
 */**/.svn
 .svn
+public/images/students/

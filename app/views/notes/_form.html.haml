@@ -11,7 +11,10 @@
   .grid_2
     =f.label 'Category'
     %br
-    = f.select :category_id, current_school.categories.all.map {|c| [c.name, c.id]}
+    -categories = current_school.categories.all.sort {|x,y| x.name <=> y.name}
+    -default = current_school.categories.find_by_name('Uncategorized')
+    -default = categories.first unless default
+    = f.select :category_id, categories.map {|c| [c.name, c.id]}, :selected => default.id 
   .clear
   .grid_2
     =f.label :summary
@@ -23,12 +26,14 @@
     .grid_3
       =f.check_box :notify_students_counselor
       =f.label :notify_students_counselor, "Notify student's counselor (" + @student.counselor.last_name + ")"
-  .grid_4
-    =f.label :tags, 'Tags (separated by spaces)'
-  .clear
-  .grid_3
-    =f.text_field :tags_string
-  .clear
+  -if current_school.show_tags
+    .grid_4
+      =f.label :tags, 'Tags (separated by spaces)'
+    .clear
+    .grid_3
+      =f.text_field :tags_string
+    .clear
+  
   .grid_1
     =f.label :notes
   .clear

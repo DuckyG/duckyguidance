@@ -1,20 +1,26 @@
-
+:javascript
+  $j(document).ready(function(){
+    $j('#filter').keyup(function(){
+      query = $j('#filter').val()
+      $j(".student").each(function(){
+        ($j(this).find('.grid_3').text().search(new RegExp(query,"i")) < 0) ? $j(this).hide() : $j(this).show();
+      });
+    });
+  });
 
 
 .grid_2
   = button_to t('.new_student'), new_student_path, :method => :get
 
-  //%h5.grid_2= Student.human_attribute_name :last_name
-  //%h5.grid_2= Student.human_attribute_name :first_name
   
 .cleft
 
 .grid_8
-  =form_tag(students_path,:method => 'get') do
-    = text_field_tag :last_name
-    = submit_tag('Search')
+  %label Filter
+  = text_field_tag "filter"
 .cleft
 - for student in @students
-  .grid_3= student.last_name + ', ' + student.first_name
-  .grid_1= button_to t('show'), student, :method => :get
+  .student
+    .grid_3= student.last_name + ', ' + student.first_name
+    .grid_1= button_to t('show'), student, :method => :get
   .cleft

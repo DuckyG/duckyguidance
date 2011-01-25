@@ -2,6 +2,7 @@ class CounselorsController < ApplicationController
   access_control do
     actions :index, :show do
       allow :counselor, :of => :current_school
+      allow :superadmin
     end
 
     actions :new, :create do
@@ -126,6 +127,6 @@ class CounselorsController < ApplicationController
   end
 
   def editing_self?
-    params[:id].to_i == current_user.id
+    (params[:id].to_i == current_user.id) || (request.fullpath == "/my_settings_update") || (request.fullpath == "/my_settings")
   end
 end
