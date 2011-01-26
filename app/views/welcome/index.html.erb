@@ -1,94 +1,39 @@
-<!doctype html>
-
-<!--[if IE 6 ]><html lang="en" class="bIE ie6"><![endif]-->
-<!--[if IE 7 ]><html lang="en" class="bIE ie7"><![endif]-->
-<!--[if IE 8 ]><html lang="en" class="bIE ie8"><![endif]-->
-<!--[if IE 9 ]><html lang="en" class="bIE ie9"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="en">
-<!--<![endif]-->
-
-<head>
-	<meta charset="utf-8">
-	<title>Section Name - DuckyGuidance - <%=current_school.name%></title>
-	<meta name="description" content="Description of page">
-	<meta name="keywords" content="Keywords for page">
-	<meta name="copyright" content="Copyright information">
-	<meta name="Robots" content="INDEX,FOLLOW">
-
-	<link rel="shortcut icon" type="image/gif" href="/favicon.gif?v=1">
-	<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
-
-	<link rel="stylesheet" href="/styles/structure.css">
-	<link rel="stylesheet" href="/styles/content.css">
-	<link rel="stylesheet" media="print" href="/styles/print.css">
-
-<!--[if !(IE)]><!-->
-	<link rel="stylesheet" href="/styles/window_1024.css" media="only screen and (max-width: 1024px)">
-	<link rel="stylesheet" href="/styles/window_800.css" media="only screen and (max-width: 800px)">
-<!--<![endif]-->
-<!--[if (lt IE 10)]><!-->
-	<link id="styles1024" rel="stylesheet" href="/styles/structure.css" media="screen">
-	<link id="styles800" rel="stylesheet" href="/styles/structure.css" media="screen">
-<!--<![endif]-->
-</head>
-<body class="pageHome">
-	<div id="header">
-		<h1 id="clientName"><%=current_school.name%></h1>
-	</div>
-	<hr class="print">
-	<div id="container">
-		<div id="padder">
-			<div id="content">
-				<div class="requestMeeting module">
-					<h2 class="head">Students:</h2>
-					<div class="content">
-						<h3>Request a Meeting with your Counselor</h3>
-				<%= form_for(MeetingRequest.new, :html => {}) do |f| %>
-				<fieldset class="formBegin">
-					<p><%= f.label :first_name, "First Name", :class => 'first_name' %><%= f.text_field :first_name, :value => 'First Name', :class => "first_name" %></p>
-					<p><%= f.label :last_name, "Last Name", :class => 'last_name' %><%= f.text_field :last_name, :value => 'Last Name', :class => "last_name" %></p>
-					<div class="button">
-						<input class="continue" type="submit" name="continue" value="Continue &raquo;">
-					</div>
-				</fieldset>
-				<p class="message"><strong></strong>,&nbsp;&nbsp;your request is almost complete. Just fill out the rest of the fields below and you&rsquo;ll be on your way. (You can also <span class="editName">edit your name</span> if needed.)</p>
-						<fieldset class="formContinue">
-							<p><%= f.label :email, "Email Address" %><%= f.text_field :email %></p>
-							<fieldset>
-								<p>
-									<%= f.label :counselor_id, "Guidance Counselor" %>
-									<% counselor_array = ["Choose a Counselor"] + current_school.counselors.map { |counselor| [counselor.last_name, counselor.id] } %>
-									<%= f.select :counselor_id, options_for_select(counselor_array) %>
-								</p>
-							</fieldset><!--// end chooser //-->
-							<p><%= f.label :notes, "Message "%><%= f.text_area :notes, :rows => 8, :cols => 40 %></p>
-							<p class="formDate">
-								<%= f.label :date, 'Desired Date' %><%= f.text_field :date %>
-								<a href="#"><img class="cal" src="/images/buttons/calendar.png" alt="" title="Choose a Desired Date"></a>
-							</p>
-							<p>
-								<% valid_times = ["Choose a Time","8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM", "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM", "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM", "1:00 PM", "1:15 PM", "1:30 PM", "1:45 PM", "2:00 PM", "2:15 PM", "2:30 PM", "2:45 PM", "3:00 PM"]%>
-								<%= f.label :time, 'Desired Time'%>
-								<%= f.select :time, options_for_select(valid_times), {}, {:class => "narrow"} %>
-							</p>
-							<div class="button">
-								<%= f.submit 'Send Request' %>
-							</div>
-						</fieldset><!--// end formContinue //-->
-						<% end %>
-					</div><!--// end content //-->
-				</div><!--// end meetingForm module //-->
-			</div><!--// end #content //-->
-		</div><!--// end #padder //-->
-		<hr>
-	</div><!--// end #container //-->
-	<hr class="print">
-	<div id="footer">
-		&nbsp;
-	</div><!--// end #footer //-->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	<script>!window.jQuery && document.write('<script src="js/jquery-1.4.2.min.js"><\/script>')</script>
-	<script type="text/javascript" src="/scripts/library.js"></script>
-</body>
-</html>
+<div class="requestMeeting module">
+	<h2 class="head">Students</h2>
+	<div class="content">
+		<h3>Request a Meeting with your Counselor</h3>
+		<%= form_for(MeetingRequest.new, :html => {}) do |f| %>
+			<fieldset class="formBegin">
+				<p><%= f.label :first_name, "First Name", :class => 'first_name' %><%= f.text_field :first_name, :value => 'First Name', :class => "first_name" %></p>
+				<p><%= f.label :last_name, "Last Name", :class => 'last_name' %><%= f.text_field :last_name, :value => 'Last Name', :class => "last_name" %></p>
+				<div class="button">
+					<input class="continue" type="submit" name="continue" value="Continue &raquo;">
+				</div>
+			</fieldset>
+			<p class="message"><strong></strong>,&nbsp;&nbsp;your request is almost complete. Just fill out the rest of the fields below and you&rsquo;ll be on your way. (You can also <span class="editName">edit your name</span> if needed.)</p>
+			<fieldset class="formContinue">
+				<p><%= f.label :email, "Email Address" %><%= f.text_field :email %></p>
+				<fieldset>
+					<p>
+						<%= f.label :counselor_id, "Guidance Counselor" %>
+						<% counselor_array = ["Choose a Counselor"] + current_school.counselors.map { |counselor| [counselor.last_name, counselor.id] } %>
+						<%= f.select :counselor_id, options_for_select(counselor_array) %>
+					</p>
+				</fieldset><!--// end chooser //-->
+				<p><%= f.label :notes, "Message "%><%= f.text_area :notes, :rows => 8, :cols => 40 %></p>
+				<p class="formDate">
+					<%= f.label :date, 'Desired Date' %><%= f.text_field :date %>
+					<a href="#"><img class="cal" src="/images/buttons/calendar.png" alt="" title="Choose a Desired Date"></a>
+				</p>
+				<p>
+					<% valid_times = ["Choose a Time","8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM", "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM", "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM", "1:00 PM", "1:15 PM", "1:30 PM", "1:45 PM", "2:00 PM", "2:15 PM", "2:30 PM", "2:45 PM", "3:00 PM"]%>
+					<%= f.label :time, 'Desired Time'%>
+					<%= f.select :time, options_for_select(valid_times), {}, {:class => "narrow"} %>
+				</p>
+				<div class="button">
+					<%= f.submit 'Send Request' %>
+				</div>
+			</fieldset><!--// end formContinue //-->
+		<% end %>
+	</div><!--// end content //-->
+</div><!--// end meetingForm module //-->

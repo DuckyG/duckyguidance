@@ -1,4 +1,5 @@
 class StudentsController < ApplicationController
+  layout 'new_application'
   before_filter :title
   before_filter :retrieve_non_member_groups, :only => [:edit, :update]
   access_control do
@@ -6,10 +7,9 @@ class StudentsController < ApplicationController
     allow :superadmin
   end
   def title
-    @title = 'Students'
-    @title = @student.last_name + ', ' + @student.first_name if @student
-    
+    @section = 'Students'
   end
+
   # GET /students
   # GET /students.xml
   def index

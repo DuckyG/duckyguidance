@@ -30,6 +30,12 @@ $(document).ready(function(){
 	$('.date .month, .date .day, .date .year').autotab_magic().autotab_filter('numeric');
 
 
+  $('.studentFilter').keyup(function(){
+    query = $('.studentFilter').val()
+	  $("tbody").find('tr').each(function(){
+	    ($(this).find('.studentName').find('strong').text().search(new RegExp(query,"i")) < 0) ? $(this).hide() : $(this).show();
+	  });
+	});
 }); // Bye-bye jQuery!
 
 

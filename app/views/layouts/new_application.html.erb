@@ -40,7 +40,7 @@
 			<h2 class="copperfield">Navigation</h2>
 			<ul id="navGlobal">
 				<li id="btnPriNav1" <%= "class='active'" if current_page?('/dashboard') %>><a href="<%= dashboard_path %>">Dashboard<span></span></a></li>
-				<li id="btnPriNav2"><a href="<%= students_path %>">Students<span></span></a></li>
+				<li id="btnPriNav2" <%= "class='active'" if current_page?('/students') %>><a href="<%= students_path %>">Students<span></span></a></li>
 				<li id="btnPriNav3"><a href="<%= groups_path %>">Groups<span></span></a></li>
 				<li id="btnPriNav4"><a href="<%= categories_path %>">Note Categories<span></span></a></li>
 			</ul><!--// end primary //-->
@@ -61,7 +61,7 @@
 				<h2 class="head">Tools</h2>
 				<div class="content">
 					<ul class="linklist">
-						<li><a href="#" class="icon iconSearch">Search for a Student</a></li>
+						<li><a href="<%= students_path %>" class="icon iconSearch">Search for a Student</a></li>
 						<li><a href="#" class="icon iconSearch">Search Student Notes</a></li>
 						<li><a href="<%= new_student_path %>" class="icon iconAddStudent">Add a Student</a></li>
 						<li><a href="<%= new_group_path %>" class="icon iconAddGroup">Add a Group</a></li>

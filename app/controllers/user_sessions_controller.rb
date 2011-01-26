@@ -1,14 +1,15 @@
 class UserSessionsController < ApplicationController
+  ActionView::Base.field_error_proc = proc { |input, instance| input }
+  layout 'logged_out'
   access_control do
       allow all
   end
   def new
     @user_session = UserSession.new
-    @title = 'Login'
+    @sectionName = "Counselor Login"
   end
 
   def create
-    
     @user_session = UserSession.new(params[:user_session])    
     if @user_session.save
       if current_subdomain.name == 'admin'
