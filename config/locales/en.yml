@@ -25,3 +25,10 @@ en:
   counselors:
     index:
       title: 'Counselors'
+  activerecord:
+    attributes:
+      student:
+        student_id: "Student ID"
+    errors:
+      messages:
+        blank: "is required"

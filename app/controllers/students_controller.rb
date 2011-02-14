@@ -68,6 +68,7 @@ class StudentsController < ApplicationController
   # GET /students/1/edit
   def edit
     title
+    @student.distribute_phone_number
   end
   
   def retrieve_non_member_groups
@@ -96,7 +97,7 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update_attributes(params[:student])
-        format.html { redirect_to(edit_student_path(@student), :notice => 'Student was successfully updated.') }
+        format.html { redirect_to(student_path(@student), :notice => 'Student was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

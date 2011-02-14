@@ -10,7 +10,7 @@ $(document).ready(function(){
 
 
 	tableRowDrop('tr.drop');
-
+	contentDrop('.contentDrop');
 	swapLayers('.swapLayers')
 
 
@@ -30,12 +30,6 @@ $(document).ready(function(){
 	$('.date .month, .date .day, .date .year').autotab_magic().autotab_filter('numeric');
 
 
-  $('.studentFilter').keyup(function(){
-    query = $('.studentFilter').val()
-	  $("tbody").find('tr').each(function(){
-	    ($(this).find('.studentName').find('strong').text().search(new RegExp(query,"i")) < 0) ? $(this).hide() : $(this).show();
-	  });
-	});
 }); // Bye-bye jQuery!
 
 
@@ -116,6 +110,27 @@ function tableRowDrop(el){
 		})
 	});
 }
+
+function contentDrop(el){
+	$(el).each(function(){
+		var obj = $(el);
+		var trigger = obj.find('.trigger');
+		var view = trigger.html();
+		trigger.click(function(){
+			if(obj.hasClass('open') == true) {
+				obj.removeClass('open');
+				trigger.next('.item').hide();
+				trigger.html(view);
+			} else {
+				obj.addClass('open');
+				trigger.next('.item').show();
+				trigger.html('<span class="close icon iconClose"></span>');
+			}
+			return false;
+		});
+	})
+}
+
 function swapLayers(el){
 	$(el).each(function(){
 		var obj = $(this);

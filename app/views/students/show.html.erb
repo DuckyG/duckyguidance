@@ -1,0 +1,87 @@
+<h2 class="head pageTitle"><%="#{@student.first_name} #{@student.last_name}"%></h2>
+
+<span class="studentPic"><img src="/images/student.png" alt="Bartholomew Maximillian Jagmanis-Kubacheski"></span>
+<table cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="spaced label">Year of Graduation</td>
+		<td><%=@student.year_of_graduation%></td>
+	</tr>
+	<tr>
+		<td class="spaced label">Shop</td>
+		<td><%=@student.shop%></td>
+	</tr>
+	<tr>
+		<td class="spaced label">City</td>
+		<td><%=@student.city%></td>
+	</tr>
+	<tr>
+		<td class="spaced label">Counselor</td>
+		<td><%=@student.counselor.last_name%></td>
+	</tr>
+	<tr>
+		<td class="spaced label">Primary Phone</td>
+		<td><%=@student.primary_phone_number%></td>
+	</tr>
+	<tr>
+		<td class="spaced label">Student ID</td>
+		<td><%=@student.student_id%></td>
+	</tr>
+</table>
+
+<div class="modNotes block module">
+	<h2 class="head">Notes</h2>
+		<div class="contentDrop">
+			<div class="trigger">
+				<span class="addItem addNote" href="#">Add a Note<span>&nbsp;&rarr;</span></span>
+			</div>
+			<div class="item">
+				<%=form_for Note.new do |f|%>
+				<fieldset>
+					<%=f.hidden_field :student_ids, :value => @student_id_string%>
+				  	<%=f.hidden_field :group_ids, :value => @group_id_string%>
+					<p>
+						<%= f.required_field_label :category_id, "Note Category"%>
+						<% category_array = ["Select a Category..."] + current_school.categories.map { |cat| [cat.name, cat.id] } %>
+						<%= f.select :category_id, options_for_select(category_array) %>
+					</p>
+					<p>
+						<%= f.required_field_label :summary, "Note Summary" %>
+						<%= f.text_field :summary%>
+					</p>
+					<% if @student && @student.counselor == current_counselor %>
+					<p><%=f.label :notify_students_counselor, f.check_box(:notify_students_counselor) + "Notify Counselor (" + @student.counselor.last_name + ")"%></p>
+					<% end %>
+					<%= f.required_field_label :notes, "Note"%>
+					<p><%=f.text_area :notes, :html => {:rows =>8, :cols=>40 } %></p>
+					<div class="button">
+						<p class="cancel"></p>
+						<input type="submit" name="submitform" value="Save Note">
+					</div>
+				</fieldset>
+				<% end %>
+			</div><!--// end item //-->
+		</div><!--// end contentDrop //-->
+
+	<div class="notesList content">
+		<table cellpadding="0" cellspacing="0">
+			<%-@student.notes.each do |note|-%>
+			<tr class="drop">
+				<td class="spaced"><strong><%=note.summary%></strong></td>
+				<td>
+					<div class="trigger">
+						View Note<span class="arr">&nbsp;&rarr;</span>
+					</div>
+				</td>
+			</tr>
+			<tr class="full">
+				<td colspan="2">
+					<div class="modCopy">
+						<p><%=raw(note.notes.gsub(/\<(.*?)\>/,"").gsub("\n","<br/>"))%></p>
+					</div>
+				</td>
+			</tr>
+			<%-end-%>
+		</table>
+	</div>
+</div><!--// end modNotes //-->
+

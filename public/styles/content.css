@@ -1,6 +1,7 @@
 /* Constants ------------------------------------------------------ */
 a,
 .trigger {
+	position: relative;
 	color: #4B798B;
 	text-decoration: none;
 	cursor: pointer;
@@ -203,9 +204,6 @@ dl {}
 		.modRequests tr:hover .trigger .arr {
 			visibility: visible;
 		}
-	.modRequests .trigger {
-		position: relative;
-	}
 		.modRequests .close {
 			right: 0;
 			top: 0;
@@ -296,7 +294,23 @@ dl {}
 			cursor: pointer;
 		}
 
-.modRequests .full {
+.contentDrop {
+	position: relative;
+	padding: 15px 0 0 37px;
+}
+.contentDrop.open {
+	background: #F5F4F2;
+	border-bottom: 1px solid #D7D2CF;
+}
+	.contentDrop .item {
+		display: none;
+	}
+	.contentDrop .addNote {
+		padding-right: 37px;
+	}
+
+.modRequests .full,
+.modNotes .full {
 	display: none;
 }
 
@@ -317,9 +331,38 @@ dl {}
 	.studentFilter {
 		margin-top: -5px;
 	}
+
+.studentDetail {}
+	.studentName {}
+	.studentPic {
+		display: none;
+	}
+		.studentPic img {
+			background: #FFF;
+			padding: 2px;
+			border: 1px solid #D7D2CF;
+			margin: 0;
+			-webkit-border-radius: 3px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+		}
+	.modAddNote .head {
+		margin: 0;
+	}
+
+.notesList {}
+	.notesList .trigger {
+		text-align: right;
+		padding-right: 27px;
+	}
+	.notesList .close {
+		right: 0;
+		top: 0;
+	}
 /* Tables --------------------------------------------------------- */
 table {
 	width: 100%;
+	clear: both;
 	font-size: 0.88em;
 	font-family: Arial, Helvetica, sans-serif;
 	border-spacing: 0 0;
@@ -355,8 +398,18 @@ table {
 		padding-left: 37px;
 		border-left: none;
 	}
+	.details td.spaced {
+		width: 25%;
+		font-weight: bold;
+	}
+	.label {
+		width: 25%;
+	}
 	td.w90 {
 		width: 90%;
+	}
+	td.w75 {
+		width: 75%;
 	}
 	td.w50 {
 		width: 50%;

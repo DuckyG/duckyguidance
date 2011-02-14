@@ -1,0 +1,53 @@
+<div class="modCopy module">
+	<%= form_for(@student) do |f|%>
+		<% if @student.errors.any? %>
+			<ul>
+				<%- @student.errors.full_messages.each do |msg| -%>
+					<li><%=msg%></li>
+				<%-end-%>
+			</ul>
+		<% end %>
+		<fieldset>
+			<p>
+				<%= f.required_field_label :first_name, "First Name"%>
+				<%= f.text_field :first_name %>
+			</p>
+			<p>
+				<%= f.required_field_label :last_name, "Last Name"%>
+				<%= f.text_field :last_name%>
+			</p>
+			<p>
+				<%= f.required_field_label :city%>
+				<%= f.text_field :city%>
+			</p>
+			<p class="phone">
+				<label>Primary Phone Number</label>
+				(<%=f.text_field :areaCode, {:class => "areaCode", :maxlength => "3"} %>)
+				<%=f.text_field :prefix, {:class => "prefix", :maxlength => "3"}%>
+				<%=f.text_field :line, {:class => "line", :maxlength => "4"}%>
+				
+				ext. <%=f.text_field :extension, {:class => "ext", :maxlength => "3"}%>
+			</p>
+			<p class="formFloat">
+				<%= f.required_field_label :student_id, "Student ID"%>
+				<%= f.text_field :student_id %>
+			</p>
+			<p>
+				<%= f.label :counselor_id, "Guidance Counselor"%>
+				<% counselor_array = ["Choose a Counselor"] + current_school.counselors.map { |counselor| [counselor.last_name, counselor.id] } %>
+				<%= f.select :counselor_id, options_for_select(counselor_array, @student.counselor_id) %>
+			</p>
+			<p>
+				<%=f.label :shop%>
+				<%=f.text_field :shop%>
+			</p>
+			<p>
+				<%=f.label :year_of_graduation%>
+				<%= f.text_field :year_of_graduation %>
+			</p>
+			<div class="button">
+				<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Student" : "Update This Student"%>
+			</div>
+		</fieldset>
+	<% end %>
+</div><!--// end modCopy //-->
