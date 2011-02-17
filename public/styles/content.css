@@ -1,16 +1,21 @@
 /* Constants ------------------------------------------------------ */
 a,
-.trigger {
+.trigger,
+.editName {
 	position: relative;
 	color: #4B798B;
 	text-decoration: none;
 	cursor: pointer;
 }
+.editName {
+	text-decoration: underline;
+}
 	a .arr,
 	.trigger .arr {
 		visibility: hidden;
 	}
-	a:hover {
+	a:hover,
+	.editName:hover {
 		color: #000;
 	}
 		a:hover .arr,
@@ -183,12 +188,24 @@ dl {}
 				.module .linklist a:hover {
 					background-color: #F5F4F2;
 				}
-	.module .addItem {
+	.module .right {
 		display: block;
 		float: right;
 		text-decoration: none;
 		padding: 0 0 10px;
 	}
+
+.rightLink {
+	display: block;
+	float: right;
+	text-align: right;
+	text-decoration: none;
+	padding: 0 37px 10px 37px;
+}
+.modCopy .rightLink {
+	text-decoration: none;
+	padding: 0 0 10px 37px;
+}
 
 .modRequests {}
 	.modRequests .head {
@@ -225,6 +242,7 @@ dl {}
 	}
 
 .modCopy {
+	clear: both;
 	max-width: 820px;
 	padding: 0 40px;
 }
@@ -305,9 +323,6 @@ dl {}
 	.contentDrop .item {
 		display: none;
 	}
-	.contentDrop .addNote {
-		padding-right: 37px;
-	}
 
 .modRequests .full,
 .modNotes .full {
@@ -367,7 +382,7 @@ table {
 	font-family: Arial, Helvetica, sans-serif;
 	border-spacing: 0 0;
 	border-bottom: 1px solid #FFF;
-	margin: 10px 0 35px 0;
+	margin: 0 0 35px 0;
 }
 .module table {
 	margin: 0;

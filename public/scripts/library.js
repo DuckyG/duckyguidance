@@ -29,6 +29,9 @@ $(document).ready(function(){
 	// Autotab date field
 	$('.date .month, .date .day, .date .year').autotab_magic().autotab_filter('numeric');
 
+  $(document).ready(function(){
+    $(".multiselect").multiselect();
+  });
 
 }); // Bye-bye jQuery!
 

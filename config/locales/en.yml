@@ -13,6 +13,7 @@ en:
   add: 'add'
   Add: 'Add'
   Remove: 'Remove'
+  Description: 'Description'
   counselor_sessions:
     new:
       title: 'Login'

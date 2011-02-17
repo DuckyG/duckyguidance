@@ -1,0 +1,31 @@
+<div class="contentDrop">
+	<div class="trigger">
+		<span class="addItem addNote" href="#">Add a Note<span>&nbsp;&rarr;</span></span>
+	</div>
+	<div class="item">
+		<%=form_for Note.new do |f|%>
+		<fieldset>
+			<%=f.hidden_field :student_ids, :value => @student_id_string%>
+		  	<%=f.hidden_field :group_ids, :value => @group_id_string%>
+			<p>
+				<%= f.required_field_label :category_id, "Note Category"%>
+				<% category_array = ["Select a Category..."] + current_school.categories.map { |cat| [cat.name, cat.id] } %>
+				<%= f.select :category_id, options_for_select(category_array) %>
+			</p>
+			<p>
+				<%= f.required_field_label :summary, "Note Summary" %>
+				<%= f.text_field :summary%>
+			</p>
+			<% if @student && @student.counselor == current_counselor %>
+			<p><%=f.label :notify_students_counselor, f.check_box(:notify_students_counselor) + "Notify Counselor (" + @student.counselor.last_name + ")"%></p>
+			<% end %>
+			<%= f.required_field_label :notes, "Note"%>
+			<p><%=f.text_area :notes, :html => {:rows =>8, :cols=>40 } %></p>
+			<div class="button">
+				<p class="cancel"></p>
+				<input type="submit" name="submitform" value="Save Note">
+			</div>
+		</fieldset>
+		<% end %>
+	</div><!--// end item //-->
+</div><!--// end contentDrop //-->

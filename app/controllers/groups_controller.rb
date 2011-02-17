@@ -1,4 +1,5 @@
 class GroupsController < ApplicationController
+  layout 'new_application'
   access_control do
     actions :index, :show do
       allow :counselor, :of => :current_school
@@ -86,7 +87,7 @@ class GroupsController < ApplicationController
     end
     respond_to do |format|
       if @group.update_attributes(params[:group])
-        format.html { redirect_to(edit_group_path(@group), :notice => 'Group was successfully updated.') }
+        format.html { redirect_to(@group, :notice => 'Group was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
