@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  layout 'new_application'
   access_control do
     actions :index, :show do
       allow :counselor, :of => :current_school
