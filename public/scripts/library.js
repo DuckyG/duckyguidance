@@ -29,10 +29,17 @@ $(document).ready(function(){
 	// Autotab date field
 	$('.date .month, .date .day, .date .year').autotab_magic().autotab_filter('numeric');
 
-  $(document).ready(function(){
-    $(".multiselect").multiselect();
-  });
+  
 
+
+  $('.studentFilter').keyup(function(){
+    query = $('.studentFilter').val()
+    $("tbody").find('tr').each(function(){
+       ($(this).find('.studentName').find('strong').text().search(new RegExp(query,"i")) < 0) ? $(this).hide() : $(this).show();
+    });
+  });
+  
+    $(".multiselect").multiselect();
 }); // Bye-bye jQuery!
 
 

@@ -15,6 +15,7 @@ a,
 		visibility: hidden;
 	}
 	a:hover,
+	span.trigger:hover,
 	.editName:hover {
 		color: #000;
 	}
@@ -30,6 +31,9 @@ a,
 	height: 16px;
 		overflow: hidden;
 	cursor: pointer;
+}
+.addNote .close {
+	top: -5px;
 }
 /* Headlines ------------------------------------------------------ */
 h1 {
@@ -55,6 +59,9 @@ h6 {color: #444; font: bold 0.88em/20px Arial, Helvetica, sans-serif; text-trans
 	border-bottom: 1px solid #D7D2CF;
 	margin: 0 0 25px;
 }
+	.pageTitle span {
+		font-size: 0.73em;
+	}
 .pageHome .content h3 {
 	color: #444;
 	font: normal 1.13em 'Puritan20Normal', Arial, Helvetica, sans-serif;
@@ -162,9 +169,7 @@ dl {}
 	.block .content {
 		padding: 0 0 38px;
 	}
-		.module .head {
-
-		}
+		.module .head {}
 		.block .head {
 			background: #E9E7E5 url(images/structure/whiteBorder.png) 0 0 no-repeat;
 			padding: 10px 38px 3px 38px;
@@ -172,6 +177,7 @@ dl {}
 			border-bottom: 1px solid #D7D2CF;
 			margin: 0 0 15px;
 		}
+	.modList .head,
 	.modNotes .head,
 	.modMeetings .head,
 	.modRequests .head {
@@ -202,9 +208,8 @@ dl {}
 	text-decoration: none;
 	padding: 0 37px 10px 37px;
 }
-.modCopy .rightLink {
-	text-decoration: none;
-	padding: 0 0 10px 37px;
+table .rightLink {
+	padding-right: 7px;
 }
 
 .modRequests {}
@@ -366,14 +371,62 @@ dl {}
 	}
 
 .notesList {}
-	.notesList .trigger {
-		text-align: right;
-		padding-right: 27px;
+	.notesList td {
+		padding-top: 15px;
 	}
-	.notesList .close {
-		right: 0;
-		top: 0;
+	.notesList .title {
+		padding: 0 0 2px;
 	}
+	.notesList .subtitle {
+		display: block;
+		font-size: 0.85em;
+		padding: 0 0 2px;
+	}
+		.notesList .subtitle span {
+			font-weight: normal;
+		}
+	.notesList p {
+		padding: 0 0 5px;
+	}
+
+.pagination {
+	font: 0.88em Arial, Helvetica, sans-serif;
+	padding: 10px 10px 10px 37px;
+}
+	.pagination p {
+		position: relative;
+			top: 7px;
+		float: left;
+		padding: 0;
+	}
+	.pagination ul {
+		float: right;
+		padding: 0;
+	}
+		.pagination li {
+			display: inline;
+		}
+			.pagination a {
+				display: block;
+				float: left;
+				padding: 5px 9px;
+				border-top: 1px solid #FFF;
+				border-right: 1px solid #D7D2CF;
+				border-bottom: 1px solid #D7D2CF;
+				border-left: 1px solid #FFF;
+			}
+				.pagination a:hover {
+					background: #E9E7E5;
+					border-top-color: #D7D2CF;
+					border-right-color: #FFF;
+					border-bottom-color: #FFF;
+					border-left-color: #D7D2CF;
+				}
+				.pagination .active a {
+					background: #EEECEA;
+					padding-top: 6px;
+					border: none;
+				}
 /* Tables --------------------------------------------------------- */
 table {
 	width: 100%;
@@ -419,6 +472,9 @@ table {
 	}
 	.label {
 		width: 25%;
+	}
+	.action {
+		width: 10%;
 	}
 	td.w90 {
 		width: 90%;
@@ -634,18 +690,21 @@ p.message {
 .cols3,
 .formDate,
 .modCopy,
+.pagination,
 .full .content {height: 1%;}
 .cols2:after,
 .cols3:after,
 .formDate:after,
 .buttonSet:after,
 .modCopy:after,
+.pagination:after,
 .full .content:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
 *> .cols2,
 *> .cols3,
 *> .formDate,
 *> .buttonSet,
 *> .modCopy,
+*> .pagination,
 *> .full .content {min-height: 1px; height: auto;}
 /* Test Styles ---------------------------------------------------- */
 .red    {background: red !important;}
