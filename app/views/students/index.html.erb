@@ -21,7 +21,7 @@
 			<tbody>
 				<% @students.each do |student| %>
 					<tr>
-						<td class="spaced w50 studentName"><strong><%= student.first_name + " " + student.last_name %></strong></td>
+						<td class="spaced w50 studentName"><strong><%= student.full_name %></strong></td>
 						<td><%=student.student_id%></td>
 						<td><%=student.year_of_graduation%></td>
 						<td class="w25"><%=student.counselor.last_name%></td>
