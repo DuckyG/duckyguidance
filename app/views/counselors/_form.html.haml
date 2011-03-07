@@ -19,6 +19,11 @@
       = f.text_field :last_name
     .clear
     .grid_3
+      = f.label :name_prefix_id, "Prefix"
+      %br
+      = f.select :name_prefix_id, NamePrefix.all.map {|pref| [pref.prefix, pref.id]}
+    .clear
+    .grid_3
       = f.label :password
       %br
       = f.password_field :password
