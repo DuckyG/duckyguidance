@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
       if current_user
         if current_user.has_role? :member, current_subdomain
           flash[:notice] = "You do not have access to this page"
-          redirect_to dashboard_path
+          redirect_to dashboard_path, :status => :forbidden
         else
           current_user_session.destroy
           flash[:notice] = "You do not have access to this domain"
@@ -37,11 +37,9 @@ class ApplicationController < ActionController::Base
     
     def check_domain
       if !request.subdomains.empty? && !current_subdomain
-        querystring = "?error_domain="+ request.subdomains.first
-        querystring = querystring + "&error_title=School+Not+Found"
-        querystring = querystring + "&error_message=The+school+you+are+looking+for+could+not+be+found.+Please+check+to+see+that+you+have+the+correct+domain+for+your+school."
-
-        redirect_to request.scheme+"://" + request.domain+"/error/404"+querystring
+        @section = "School Not Found"
+        @message = "The school you are looking for could not be found. Please check to see that you have the correct domain for your school."
+        render "shared/error", :status => 404, :layout => false
       end
     end
     
