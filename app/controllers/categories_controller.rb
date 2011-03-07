@@ -43,6 +43,7 @@ class CategoriesController < ApplicationController
   # GET /categories/new
   # GET /categories/new.xml
   def new
+    @section = "Add a Note Category"
     @category = Category.new
     @title = 'New Category'
     respond_to do |format|

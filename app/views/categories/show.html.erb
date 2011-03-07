@@ -1,0 +1,25 @@
+<h2 class="head pageTitle"><span>Note Category:</span> <%= @category.name %></h2>
+
+<%- unless @category.system -%>
+<div class="rightLink">
+	<a href="<%= edit_category_path(@category)%>">Edit<span>&nbsp;&rarr;</a>
+</div>
+<%- end -%>
+<table cellpadding="0" cellspacing="0">
+	<tbody>
+		<tr>
+			<td class="spaced label">Name</td>
+			<td><%= @category.name %></td>
+		</tr>
+		<tr>
+			<td class="spaced label">Description</td>
+			<td><p><%=@category.description%></p></td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="modNotes block module">
+	<h2 class="head">Notes</h2>
+	<%=render :partial => 'shared/note_list', :locals => {:notes => @category.notes}%>
+</div><!--// end modNotes //-->
+
