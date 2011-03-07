@@ -1,4 +1,5 @@
 class CounselorsController < ApplicationController
+  layout "new_application"
   access_control do
     actions :index, :show do
       allow :counselor, :of => :current_school
@@ -94,12 +95,14 @@ class CounselorsController < ApplicationController
       @counselor = current_counselor
       @title = "My Settings"
     end
+    logger.info request.path
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.update_attributes(params[:counselor])
         format.html {
-          if request.fullpath == "/my_settings_update"
-            session = UserSession.new(:email  => params[:counselor][:email], :password => params[:counselor][:password]) 
+          
+          if request.path == "/my_account_update"
+            session = UserSession.new(:email  => params[:counselor][:email], :password => params[:counselor][:password]) if params[:counselor][:password]
             session.save
             redirect_to(my_account_path, :notice => 'Counselor was successfully updated.') 
           else
