@@ -1,0 +1,59 @@
+<!doctype html>
+
+<!--[if IE 6 ]><html lang="en" class="bIE ie6"><![endif]-->
+<!--[if IE 7 ]><html lang="en" class="bIE ie7"><![endif]-->
+<!--[if IE 8 ]><html lang="en" class="bIE ie8"><![endif]-->
+<!--[if IE 9 ]><html lang="en" class="bIE ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+	<title><%= @section ? @section + " - " : ""%>DuckyGuidance<%= current_school.name  if current_school%></title>
+	<meta name="description" content="Description of page">
+	<meta name="keywords" content="Keywords for page">
+	<meta name="copyright" content="Copyright information">
+	<meta name="Robots" content="INDEX,FOLLOW">
+
+	<link rel="shortcut icon" type="image/gif" href="/favicon.gif?v=1">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
+
+	<link rel="stylesheet" href="/styles/structure.css">
+	<link rel="stylesheet" href="/styles/content.css">
+	<link rel="stylesheet" media="print" href="/styles/print.css">
+
+<!--[if !(IE)]><!-->
+	<link rel="stylesheet" href="/styles/window_1024.css" media="only screen and (max-width: 1024px)">
+	<link rel="stylesheet" href="/styles/window_800.css" media="only screen and (max-width: 800px)">
+<!--<![endif]-->
+<!--[if (lt IE 10)]><!-->
+	<link id="styles1024" rel="stylesheet" href="/styles/structure.css" media="screen">
+	<link id="styles800" rel="stylesheet" href="/styles/structure.css" media="screen">
+<!--<![endif]-->
+</head>
+<body>
+	<div id="header">
+		<h1 id="clientName"><%= current_school.name %></h1>
+		
+	</div>
+	<hr class="print">
+	<div id="container">
+		<div id="padder">
+			<div id="content">
+				<h2 class="head pageTitle"><%= @section %></h2>
+				<div class="modCopy module">
+					<p><%=flash[:notice]%></p>
+				</div>
+			</div><!--// end #content //-->
+		</div><!--// end #padder //-->
+		<hr>
+		
+		<hr>
+	</div><!--// end #container //-->
+	<hr class="print">
+	<div id="footer">
+		&nbsp;
+	</div><!--// end #footer //-->
+</body>
+</html>
