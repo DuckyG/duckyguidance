@@ -24,7 +24,7 @@
 						<td class="spaced w50 studentName"><strong><%= student.full_name %></strong></td>
 						<td><%=student.student_id%></td>
 						<td><%=student.year_of_graduation%></td>
-						<td class="w25"><%=student.counselor.last_name%></td>
+						<td class="w25"><%=student.counselor.formal_name%></td>
 						<td class="action"><%=button_to "View Student", student_path(student), :method => :get %></td>
 					</tr>
 				<% end %>

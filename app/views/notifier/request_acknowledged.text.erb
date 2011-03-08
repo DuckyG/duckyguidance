@@ -1,10 +1,10 @@
 Dear <%=@request.first_name%>,
-Your counselor, <%=@counselor.last_name%>, has <%= @changed ? 'edited' : 'accepted'%> your meeting request.
+Your counselor, <%=@counselor.formal_name%>, has <%= @changed ? 'edited' : 'accepted'%> your meeting request.
 
 
 Details:
 =======================================
-Counselor:        <%=@counselor.last_name%>
+Counselor:        <%=@counselor.formal_name%>
 Scheduled at:     <%=@request.desired_date.strftime('%m/%d/%Y %I:%M %p') if @request.desired_date %>
 Notes:
 <%= @request.notes %>

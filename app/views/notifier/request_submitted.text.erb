@@ -1,9 +1,9 @@
 Dear <%= @request.first_name %>,
-Your meeting request has been received, and <%=@counselor.last_name%> has been notified and will respond to you shortly.
+Your meeting request has been received, and <%=@counselor.formal_name%> has been notified and will respond to you shortly.
 
 Details:
 =======================================
-Counselor:        <%=@counselor.last_name%>
+Counselor:        <%=@counselor.formal_name%>
 Desired date:     <%=@request.desired_date.strftime('%m/%d/%Y %I:%M %p') if @request.desired_date%>
 Notes:
 <%= @request.notes %>

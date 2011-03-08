@@ -25,7 +25,7 @@
   -if @student && @student.counselor != current_counselor
     .grid_3
       =f.check_box :notify_students_counselor
-      =f.label :notify_students_counselor, "Notify student's counselor (" + @student.counselor.last_name + ")"
+      =f.label :notify_students_counselor, "Notify student's counselor (" + @student.counselor.formal_name + ")"
   -if current_school.show_tags
     .grid_4
       =f.label :tags, 'Tags (separated by spaces)'

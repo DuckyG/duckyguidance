@@ -38,7 +38,7 @@ class CounselorsController < ApplicationController
     else
       @counselor = current_counselor
     end
-    @title = 'Counselor: ' + @counselor.first_name + ' ' + @counselor.last_name
+    @title = "Counselor: #{@counselor.full_name}"
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @counselor }
