@@ -22,7 +22,9 @@
 				</fieldset><!--// end chooser //-->
 				<p><%= f.label :notes, "Message "%><%= f.text_area :notes, :rows => 8, :cols => 40 %></p>
 				<p class="formDate">
-					<%= f.label :date, 'Desired Date' %><%= f.text_field :date %>
+					<%= f.label :date, 'Desired Date' %>
+					<span class="ex">(Example: Today would be <%=Time.now.strftime "%m/%d/%Y"%>)</span>
+					<%= f.text_field :date %>
 					<a href="#"><img class="cal" src="/images/buttons/calendar.png" alt="" title="Choose a Desired Date"></a>
 				</p>
 				<p>

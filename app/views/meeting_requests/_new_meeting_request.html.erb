@@ -27,7 +27,9 @@
 				<%= form_for(new_request, :html => {}) do |f| %>
 				<div class="formDate">
 					<p>
-						<%= f.label :date, 'Desired Date' %><%= f.text_field :date %>
+						<%= f.label :date, 'Desired Date' %>
+						<span class="ex">(Example: Today would be <%=Time.now.strftime "%m/%d/%Y"%>)</span>
+						<%= f.text_field :date %>
 						<a href="#"><img class="cal" src="/images/buttons/calendar.png" alt="" title="Choose a Desired Date"></a>
 					</p>
 				</div>
