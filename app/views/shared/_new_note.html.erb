@@ -18,7 +18,7 @@
 				<%=f.label :tags, 'Tags (separated by spaces)'%>
 				<%=f.text_field :tags_string%>
 			</p>
-			<% if @student && @student.counselor == current_counselor %>
+			<% if @student && @student.counselor != current_counselor %>
 			<p><%=f.label :notify_students_counselor, f.check_box(:notify_students_counselor) + "Notify Counselor (" + @student.counselor.last_name + ")"%></p>
 			<% end %>
 			
