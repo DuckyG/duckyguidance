@@ -3,7 +3,7 @@ class NotesController < ApplicationController
     allow :counselor, :of => :current_school
     allow :superadmin
   end
-  layout Proc.new { |controller| controller.request.xhr? ? 'ajax' : 'application' }
+  layout Proc.new { |controller| controller.request.xhr? ? false : 'application' }
   # GET /notes
   # GET /notes.xml
   def index
