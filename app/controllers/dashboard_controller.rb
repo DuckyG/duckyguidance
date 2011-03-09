@@ -1,5 +1,4 @@
 class DashboardController < ApplicationController
-  layout 'standard'
   access_control do
     allow :member, :of => :current_subdomain
     allow :superadmin

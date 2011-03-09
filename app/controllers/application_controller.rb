@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
   protect_from_forgery
-  layout 'application'
+  layout 'standard'
   before_filter :check_domain, :check_defaults
   helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options
   

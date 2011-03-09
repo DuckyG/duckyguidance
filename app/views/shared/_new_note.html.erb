@@ -14,11 +14,15 @@
 				<%= f.required_field_label :summary, "Note Summary" %>
 				<%= f.text_field :summary%>
 			</p>
+			<p>
+				<%=f.label :tags, 'Tags (separated by spaces)'%>
+				<%=f.text_field :tags_string%>
+			</p>
 			<% if @student && @student.counselor == current_counselor %>
 			<p><%=f.label :notify_students_counselor, f.check_box(:notify_students_counselor) + "Notify Counselor (" + @student.counselor.last_name + ")"%></p>
 			<% end %>
-			<%= f.required_field_label :notes, "Note"%>
-			<p><%=f.text_area :notes, :html => {:rows =>8, :cols=>40 } %></p>
+			
+			<p><%= f.required_field_label :notes, "Note"%><%=f.text_area :notes, :html => {:rows =>8, :cols=>40 } %></p>
 			<div class="button">
 				<p class="cancel"></p>
 				<input type="submit" name="submitform" value="Save Note">

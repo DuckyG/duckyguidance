@@ -9,6 +9,11 @@ class Note < ActiveRecord::Base
   before_validation :convert_meta
   has_and_belongs_to_many :tags
 
+  def formatted_date_and_time
+    created_at.strftime '%B %d %Y @ %I:%M %p'
+  end
+  
+
   def get_tag_string
     arr = []
     tags.each {|tag| arr.push tag.name}
