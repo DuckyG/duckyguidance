@@ -8,7 +8,9 @@ gem 'haml'
 gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
 
 gem 'pg'
-  
+
+gem 'delayed_job', :git => 'https://github.com/collectiveidea/delayed_job.git'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
