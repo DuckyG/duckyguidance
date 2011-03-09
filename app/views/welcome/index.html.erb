@@ -16,7 +16,7 @@
 				<fieldset>
 					<p>
 						<%= f.label :counselor_id, "Guidance Counselor" %>
-						<% counselor_array = ["Choose a Counselor"] + current_school.counselors.map { |counselor| ["#{counselor.name_prefix.prefix if counselor.name_prefix} #{counselor.last_name}", counselor.id] } %>
+						<% counselor_array = ["Choose a Counselor"] + current_school.counselors.map { |counselor| [counselor.formal_name, counselor.id] } %>
 						<%= f.select :counselor_id, options_for_select(counselor_array) %>
 					</p>
 				</fieldset><!--// end chooser //-->
