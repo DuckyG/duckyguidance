@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  layout 'new_application'
+  layout 'standard'
   before_filter :title
   before_filter :retrieve_non_member_groups, :only => [:edit, :update]
   access_control do

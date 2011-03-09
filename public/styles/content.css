@@ -201,6 +201,25 @@ dl {}
 		padding: 0 0 10px;
 	}
 
+.modAccount {
+	font-size: 0.88em;
+	text-align: right;
+	padding: 10px 13px;
+}
+	.modAccount a {
+		text-decoration: underline;
+	}
+
+.accountAlert {
+	background: #FFDE00;
+	font-size: 1.6em;
+	padding: 7px 20px;
+	margin: 5px 5px 0 5px;
+}
+	.accountAlert p {
+		padding: 0;
+	}
+
 .rightLink {
 	display: block;
 	float: right;
@@ -653,14 +672,17 @@ p .required {
 p.req,
 p.required,
 .ex {
+	display: block;
+	clear: both;
 	color: #969696;
 	font-size: 0.86em;
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight: normal;
 	font-style: italic;
 }
-.ex {
-	display: inline-block;
+fieldset .ex {
+	position: relative;
+		top: -5px;
 }
 
 /* Specified Styles ----------------------------------------------- */
