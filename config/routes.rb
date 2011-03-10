@@ -1,11 +1,11 @@
 Guidance::Application.routes.draw do |map|
   
-  match 'groups/:id/add_student/:student_id' => 'groups#add_student', :as => :add_student_to_group
-  match 'groups/:id/remove_student/:student_id' => 'groups#remove_student', :as => :remove_student_from_group
   match 'students/:id/add_group/:group_id' => 'students#add_group', :as => :add_group_to_student
   match 'students/:id/remove_group/:group_id' => 'students#remove_group', :as => :remove_group_from_student
   match 'my_account' => 'counselors#edit'
   match 'my_account_update' => 'counselors#update'
+  match 'categories/:id/report' => 'categories#report'
+
   
   resources :groups do
     resources :notes
@@ -14,7 +14,7 @@ Guidance::Application.routes.draw do |map|
   constraints :subdomain => 'admin' do
     resources :schools
   end
-  resources :categories
+  resources :categories 
 
   resources :tags
 

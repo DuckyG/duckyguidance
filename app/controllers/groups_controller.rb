@@ -86,7 +86,7 @@ class GroupsController < ApplicationController
     end
     respond_to do |format|
       if @group.update_attributes(params[:group])
-        format.html { redirect_to(@group }
+        format.html { redirect_to(@group) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

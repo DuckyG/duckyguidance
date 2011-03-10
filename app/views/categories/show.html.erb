@@ -18,6 +18,25 @@
 	</tbody>
 </table>
 
+<div class="modCopy block module">
+	<h2 class="head">Report</h2>
+	<%= form_tag(categories_path + "/#{@category.id}/report.csv", :method => :get) do%>
+		<fieldset>
+			<p>
+				<%= label_tag :start_date, "Start Date" %>
+				<%= text_field_tag :start_date %>
+			</p>
+			<p>
+				<%= label_tag :end_date, "End Date" %>
+				<%= text_field_tag :end_date %>
+			</p>
+			<div class="button">
+				<%=submit_tag 'Generate Report'%>
+			</div>
+		</fieldset>
+	<% end %>
+</div><!--// end modCopy //-->
+
 <div class="modNotes block module">
 	<h2 class="head">Notes</h2>
 	<%=render :partial => 'shared/note_list', :locals => {:notes => @category.notes}%>

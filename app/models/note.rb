@@ -60,4 +60,19 @@ class Note < ActiveRecord::Base
       end
     end
   end
+  
+  def to_csv(student = nil)
+    tags_list = ""
+    tags.each do |tag|
+      tags_list += tag.name
+      tags_list += ", " unless tag == tags.last
+    end
+    if(student)
+      return [self.created_at.strftime("%Y-%m-%d %I:%M %p"),"",student.last_name, student.first_name,self.summary,self.counselor.formal_name,tags_list,self.notes].to_csv
+    elsif groups.count == 1 
+      return [ self.created_at.strftime("%Y-%m-%d %I:%M %p"),self.groups.first.name,"","",self.summary,self.counselor.formal_name,tags_list,self.notes].to_csv 
+    elsif students.count == 1
+      return [self.created_at.strftime("%Y-%m-%d %I:%M %p"),"",self.students.first.last_name, self.students.first.first_name,self.summary,self.counselor.formal_name,tags_list,self.notes].to_csv
+    end 
+  end
 end
