@@ -34,6 +34,11 @@
 
 </head>
 <body>
+	<%- if flash[:notice]-%>
+	<div class="accountAlert">
+			<p><%= flash[:notice]%></p>
+	</div><!--// end accountAlert //-->
+	<%- end -%>
 	<div id="header">
 		<h1 id="clientName"><%=current_school ? current_school.name : @section %></h1>
 		<div id="navigation">
