@@ -10,7 +10,7 @@ class Student < ActiveRecord::Base
   before_validation :aggregate_phone_number
   
   def aggregate_phone_number
-    self.primary_phone_number = "(#{self.areaCode})#{self.prefix}-#{self.line}#{" ext. " + self.extension unless self.extension.empty?}"
+    primary_phone_number = "(#{self.areaCode})#{self.prefix}-#{self.line}#{" ext. " + self.extension unless self.extension.empty?}" if @areaCode && @prefix && @line
   end
   def distribute_phone_number
     if self.primary_phone_number && !self.primary_phone_number.empty?
