@@ -24,10 +24,12 @@
 		<fieldset>
 			<p>
 				<%= label_tag :start_date, "Start Date" %>
+				<span class="ex">(Example: Today would be <%=Time.now.strftime "%Y/%m/%d"%>)</span>
 				<%= text_field_tag :start_date %>
 			</p>
 			<p>
 				<%= label_tag :end_date, "End Date" %>
+				<span class="ex">(Example: Today would be <%=Time.now.strftime "%Y/%m/%d"%>)</span>
 				<%= text_field_tag :end_date %>
 			</p>
 			<div class="button">
