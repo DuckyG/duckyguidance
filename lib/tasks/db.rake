@@ -1,5 +1,5 @@
 require 'csv'
- 
+require 'nokogiri'
 namespace :db do
   task :seed, [:subdomain] do |t,args|
     
@@ -36,12 +36,32 @@ namespace :db do
     students = CSV.read("db/students.csv", :headers => true)
 
     students.each do |student_row|
-      student = Student.find_by_student_id row["student_id"]
+      student = sub.school.students.find_by_student_id student_row["student_id"]
       
       unless student
         student = Student.new(student_row.to_hash)
         student.school = sub.school
         student.save
+      end
+    end
+    
+    f = File.open("db/categories.xml")
+    categories = Nokogiri::XML(f)
+    f.close
+    
+    categories.xpath('//category').each do |category|
+      as_hash = {}
+      category.children.each do |child|
+        as_hash[child.name.gsub('-','_')] = child.content
+      end
+      as_hash.delete "text"
+      cat = sub.school.categories.find_by_name as_hash['name']
+      unless cat
+        cat = Category.new as_hash
+        cat.description = cat.name if cat.description.nil? || cat.description.empty?
+        cat.school = sub.school
+        cat.id = as_hash['id']
+        cat.save!
       end
     end
     

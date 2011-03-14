@@ -18,15 +18,15 @@ gem 'delayed_job', :git => 'https://github.com/collectiveidea/delayed_job.git'
 # gem 'unicorn'
 
 # Deploy with Capistrano
- gem 'capistrano'
- gem 'capistrano-ext'
+gem 'capistrano'
+gem 'capistrano-ext'
 
 # To use debugger
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
 # gem 'bj'
-# gem 'nokogiri'
+gem 'nokogiri'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 
