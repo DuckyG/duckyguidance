@@ -1,17 +1,14 @@
 Dear <%=@request.first_name%>,
-Your counselor, <%=@counselor.last_name%>, has <%= @request.accepted ? 'accepted' : 'declined'%> your meeting request.
+Your counselor, <%=@counselor.formal_name%>, has <%= @changed ? 'edited' : 'accepted'%> your meeting request.
 
-<% if @request.accepted %>
-  Details:
-  =======================================
-  Counselor:        <%=@counselor.last_name%>
-  Desired date:     <%=@request.desired_date.strftime('%m/%d/%Y %I:%M %p') if @request.desired_date %>
-  Notes:
-  <%= @request.notes %>
-<% else %>
-  Reason:
-  =======================================
-<% end %>
+
+Details:
+=======================================
+Counselor:        <%=@counselor.formal_name%>
+Scheduled at:     <%=@request.desired_date.strftime('%m/%d/%Y %I:%M %p') if @request.desired_date %>
+Notes:
+<%= @request.notes %>
+
 
 Thank you,
  Guidance

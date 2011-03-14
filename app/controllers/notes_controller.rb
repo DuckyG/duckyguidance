@@ -3,7 +3,7 @@ class NotesController < ApplicationController
     allow :counselor, :of => :current_school
     allow :superadmin
   end
-  layout Proc.new { |controller| controller.request.xhr? ? 'ajax' : 'application' }
+  layout Proc.new { |controller| controller.request.xhr? ? false : 'standard' }
   # GET /notes
   # GET /notes.xml
   def index
@@ -66,7 +66,7 @@ class NotesController < ApplicationController
         unless @note.groups.first.nil?
           @target = @note.groups.first
         end
-        format.html { redirect_to(@target, :notice => 'Note was successfully created.') }
+        format.html { redirect_to(@target) }
         format.xml  { render :xml => @note, :status => :created, :location => @note }
       else
         format.html { render :action => "new" }
@@ -83,7 +83,7 @@ class NotesController < ApplicationController
 
     respond_to do |format|
       if @note.update_attributes(params[:note])
-        format.html { redirect_to(@student, :notice => 'Note was successfully updated.') }
+        format.html { redirect_to(@student) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

@@ -6,10 +6,9 @@ class StudentsController < ApplicationController
     allow :superadmin
   end
   def title
-    @title = 'Students'
-    @title = @student.last_name + ', ' + @student.first_name if @student
-    
+    @section = 'Students'
   end
+
   # GET /students
   # GET /students.xml
   def index
@@ -68,6 +67,7 @@ class StudentsController < ApplicationController
   # GET /students/1/edit
   def edit
     title
+    @student.distribute_phone_number
   end
   
   def retrieve_non_member_groups
@@ -82,7 +82,7 @@ class StudentsController < ApplicationController
     @student.school = current_school
     respond_to do |format|
       if @student.save
-        format.html { redirect_to(@student, :notice => 'Student was successfully created.') }
+        format.html { redirect_to(@student) }
         format.xml  { render :xml => @student, :status => :created, :location => @student }
       else
         format.html { render :action => "new" }
@@ -96,7 +96,7 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update_attributes(params[:student])
-        format.html { redirect_to(edit_student_path(@student), :notice => 'Student was successfully updated.') }
+        format.html { redirect_to(@student) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

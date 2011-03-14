@@ -2,11 +2,10 @@ Guidance::Application.routes.draw do |map|
   
   match 'students/:id/add_group/:group_id' => 'students#add_group', :as => :add_group_to_student
   match 'students/:id/remove_group/:group_id' => 'students#remove_group', :as => :remove_group_from_student
-  match 'error/:id' => 'error#show'
+  match 'my_account' => 'counselors#edit'
+  match 'my_account_update' => 'counselors#update'
   match 'categories/:id/report' => 'categories#report'
-  match 'my_account' => 'counselors#show'
-  match 'my_settings' => 'counselors#edit'
-  match 'my_settings_update' => 'counselors#update'
+
   
   resources :groups do
     resources :notes

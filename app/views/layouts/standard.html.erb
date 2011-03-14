@@ -1,0 +1,94 @@
+<!doctype html>
+
+<!--[if IE 6 ]><html lang="en" class="bIE ie6"><![endif]-->
+<!--[if IE 7 ]><html lang="en" class="bIE ie7"><![endif]-->
+<!--[if IE 8 ]><html lang="en" class="bIE ie8"><![endif]-->
+<!--[if IE 9 ]><html lang="en" class="bIE ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+	<title><%= @section ? @section + " - " : ""%>DuckyGuidance - <%=current_school.name if current_school%></title>
+	<meta name="description" content="Description of page">
+	<meta name="keywords" content="Keywords for page">
+	<meta name="copyright" content="Copyright information">
+	<meta name="Robots" content="INDEX,FOLLOW">
+
+	<link rel="shortcut icon" type="image/gif" href="/favicon.gif?v=1">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
+
+	<link rel="stylesheet" href="/styles/structure.css">
+	<link rel="stylesheet" href="/styles/content.css">
+	<link rel="stylesheet" media="print" href="/styles/print.css">
+
+	<!--[if !(IE)]>
+		<link rel="stylesheet" href="/styles/window_1024.css" media="only screen and (max-width: 1024px)">
+		<link rel="stylesheet" href="/styles/window_800.css" media="only screen and (max-width: 800px)">
+	<![endif]-->
+	<!--[if (lt IE 10)]>
+		<link id="styles1024" rel="stylesheet" href="/styles/structure.css" media="screen">
+		<link id="styles800" rel="stylesheet" href="/styles/structure.css" media="screen">
+	<![endif]-->
+
+</head>
+<body>
+	<%- if flash[:notice]-%>
+	<div class="accountAlert">
+			<p><%= flash[:notice]%></p>
+	</div><!--// end accountAlert //-->
+	<%- end -%>
+	<div id="header">
+		<h1 id="clientName"><%=current_school ? current_school.name : @section %></h1>
+		<div id="navigation">
+			<h2 class="copperfield">Navigation</h2>
+			<ul id="navGlobal">
+				<li id="btnPriNav1" <%= "class='active'" if Regexp.new("^#{dashboard_path}").match request.path %>><a href="<%= dashboard_path %>">Dashboard<span></span></a></li>
+				<li id="btnPriNav2" <%= "class='active'" if Regexp.new("^#{students_path}").match request.path %>><a href="<%= students_path %>">Students<span></span></a></li>
+				<li id="btnPriNav3" <%= "class='active'" if Regexp.new("^#{groups_path}").match request.path %>><a href="<%= groups_path %>">Groups<span></span></a></li>
+				<li id="btnPriNav4" <%= "class='active'" if Regexp.new("^#{categories_path}").match request.path %>><a href="<%= categories_path %>">Note Categories<span></span></a></li>
+			</ul><!--// end primary //-->
+		</div><!--// end navigation //-->
+	</div>
+	<hr class="print">
+	<div id="container">
+		<% if current_counselor %>
+		<div class="modAccount module">
+			Welcome, <%= link_to current_counselor.first_name, my_account_path %> &nbsp;|&nbsp;<%= link_to "Sign Off", logout_path%>
+		</div><!--// end account //-->
+		<% end %>
+		<div id="padder">
+			<div id="content">
+				<%#= render :partial => 'system_message/message'%>
+				<%=yield%>
+			</div><!--// end #content //-->
+		</div><!--// end #padder //-->
+		<hr>
+		<div id="auxiliary">
+			<div class="modTools block module">
+				<h2 class="head">Tools</h2>
+				<div class="content">
+					<ul class="linklist">
+						<li><a href="<%= students_path %>" class="icon iconSearch">Search for a Student</a></li>
+						<li><a href="#" class="icon iconSearch">Search Student Notes</a></li>
+						<li><a href="<%= new_student_path %>" class="icon iconAddStudent">Add a Student</a></li>
+						<li><a href="<%= new_group_path %>" class="icon iconAddGroup">Add a Group</a></li>
+						<li><a href="<%= new_category_path %>" class="icon iconAddCategory">Add a Note Category</a></li>
+						<li><a href="<%= my_account_path %>" class="icon iconOptions">Your Account Options</a></li>
+					</ul>
+				</div>
+			</div><!--// end modTools //-->
+		</div><!--// end #extra //-->
+		<hr>
+	</div><!--// end #container //-->
+	<hr class="print">
+	<div id="footer">
+		&nbsp;
+	</div><!--// end #footer //-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script>!window.jQuery && document.write('<script src="js/jquery-1.4.2.min.js"><\/script>')</script>
+	<script type="text/javascript" src="/scripts/ui.multiselect.js"></script>
+	<script type="text/javascript" src="/scripts/library.js"></script>
+</body>
+</html>

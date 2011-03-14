@@ -1,4 +1,0 @@
-#notes
-  -note_list.sort! {|x,y| y.created_at <=> x.created_at}
-  -note_list.each do |note|
-    =render :partial => 'notes/note', :locals => { :note => note, :last => note_list.last, :odd_even =>cycle('odd', 'even')}

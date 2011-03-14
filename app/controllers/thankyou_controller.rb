@@ -1,9 +1,10 @@
 class ThankyouController < ApplicationController
+  layout false
   access_control do
     allow all
   end
   def index
-    @title = 'Thank You'
+    @section = 'Thank You'
   end
   
 end

@@ -9,6 +9,11 @@ class Note < ActiveRecord::Base
   before_validation :convert_meta
   has_and_belongs_to_many :tags
 
+  def formatted_date_and_time
+    created_at.strftime '%B %d %Y @ %I:%M %p'
+  end
+  
+
   def get_tag_string
     arr = []
     tags.each {|tag| arr.push tag.name}
@@ -56,16 +61,18 @@ class Note < ActiveRecord::Base
     end
   end
   
-  def to_csv
-    tags = ""
-    self.tags.each do |tag|
-      tags += tag.name
-      tags += ", " unless tag == self.tags.last
+  def to_csv(student = nil)
+    tags_list = ""
+    tags.each do |tag|
+      tags_list += tag.name
+      tags_list += ", " unless tag == tags.last
     end
-    if self.groups.count == 1 
-      return [ self.created_at.strftime("%Y-%m-%d %I:%M %p"),self.groups.first.name,"","",self.summary,self.counselor.last_name,tags,self.notes].to_csv 
-    else
-      return [self.created_at.strftime("%Y-%m-%d %I:%M %p"),"",self.students.first.last_name,self.students.first.first_name,self.summary,self.counselor.last_name,tags,self.notes].to_csv
+    if(student)
+      return [self.created_at.strftime("%Y-%m-%d %I:%M %p"),"",student.last_name, student.first_name,self.summary,self.counselor.formal_name,tags_list,self.notes].to_csv
+    elsif groups.count == 1 
+      return [ self.created_at.strftime("%Y-%m-%d %I:%M %p"),self.groups.first.name,"","",self.summary,self.counselor.formal_name,tags_list,self.notes].to_csv 
+    elsif students.count == 1
+      return [self.created_at.strftime("%Y-%m-%d %I:%M %p"),"",self.students.first.last_name, self.students.first.first_name,self.summary,self.counselor.formal_name,tags_list,self.notes].to_csv
     end 
   end
 end

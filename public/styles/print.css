@@ -1,0 +1,79 @@
+* {position: static !important; padding: 0; margin: 0; background: transparent !important;}
+body {background: #FFF; color: #000 !important; font-family: Arial, Helvetica, sans-serif;}
+
+#container #content h1,
+#container #content h2,
+#container #content h3,
+#container #content h4,
+#container #content h5,
+#container #content h6 {
+	padding: 0 0 5px 0 !important;
+	margin: 0 !important;
+}
+
+#header a img {
+	display: block;
+}
+
+#breadcrumbs {
+	width: 100% !important;
+	margin: -5px 0 20px 0 !important;
+}
+
+	#content p {padding: 0 0 2em 0;}
+	#content ul,
+	#content ol {padding: 2px 0 2em 35px;}
+	#content ul {list-style-type: disc !important;}
+	#content img {float: left; margin: 0 10px 0 0;}
+
+table {
+	width: 100% !important;
+	border-top: 2px solid #000 !important;
+	border-right: 2px solid #000 !important;
+	margin: 0 0 2em 0;
+}
+	table td, table th {
+		padding: 5px;
+		border-bottom: 2px solid #000 !important;
+		border-left: 2px solid #000 !important;
+	}
+
+a {text-decoration: underline !important;}
+a img {border: none;}
+
+#header a, a#logo {text-decoration: none !important;}
+
+hr {display: none;}
+hr.print {
+	position: static !important;
+	display: block !important;
+	clear: both !important;
+	width: auto !important;
+	height: auto !important;
+}
+
+* {color: #000 !important; border-color: #000 !important;}
+
+#container {
+	width: 100%;
+	font-size: 1.4em;
+}
+
+#content {
+	float: none;
+	clear: both;
+	width: 700px !important;
+	padding: 0 25px !important;
+	margin: 0 auto 50px auto !important;
+}
+
+#footer {
+	width: 700px !important;
+	clear: both !important;
+	padding: 25px 25px 25px 25px !important;
+	margin: 0 auto !important;
+}
+
+.hidden, .copperfield, #navGlobal, #auxiliary, .btm, iframe {
+	display: none !important;
+}

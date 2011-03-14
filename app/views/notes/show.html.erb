@@ -1,0 +1,48 @@
+<h2 class="head pageTitle">Note Detail</h2>
+
+<div class="rightLink">
+	<a href="<%= edit_note_path @note%>">Edit<span>&nbsp;&rarr;</a>
+</div>
+
+<table cellpadding="0" cellspacing="0">
+	<tbody>
+		<% if @note.groups.count == 1 %>
+		<tr>
+			<td class="spaced label">Group</td>
+			<td><%= link_to @note.groups.first.name, @note.groups.first%></td>
+		</tr>
+		<% elsif @note.students.count > 1%>
+		
+		<% else %>
+		<tr>
+			<td class="spaced label">Student</td>
+			<td><%= link_to @note.students.first.full_name, @note.students.first%></td>
+		</tr>
+		<% end %>
+		<tr>
+			<td class="spaced label">Occured On</td>
+			<td><%= @note.formatted_date_and_time%></td>
+		</tr>
+		<tr>
+			<td class="spaced label">Counselor</td>
+			<td><%= @note.counselor.formal_name%></td>
+		</tr>
+		<tr>
+			<td class="spaced label">Category</td>
+			<td><%= @note.category.name%></td>
+		</tr>
+		<tr>
+			<td class="spaced label">Tags</td>
+			<td>
+			<%-@note.tags.each do |tag|-%>
+			<%= tag.name%><%= ", " if tag != @note.tags.last%>
+			<%-end-%>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="modCopy module">
+	<%- note_text =h(@note.notes).gsub("\n","<br/>") -%>
+	<p><%=raw(note_text) %></p>
+</div>
