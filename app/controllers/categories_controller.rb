@@ -92,8 +92,8 @@ class CategoriesController < ApplicationController
   
   def report
     
-    start_date = Time.strptime(params[:start_date], "%Y-%m-%d") unless params[:start_date].nil? || params[:start_date].empty? 
-    end_date = Time.strptime(params[:end_date]+ " 23:59", "%Y-%m-%d %H:%M") unless params[:end_date].nil? || params[:end_date].empty? 
+    start_date = Time.strptime(params[:start_date], "%m/%d/%Y") unless params[:start_date].nil? || params[:start_date].empty? 
+    end_date = Time.strptime("#{params[:end_date]} 23:59", "%m/%d/%Y %H:%M") unless params[:end_date].nil? || params[:end_date].empty? 
     @category = current_school.categories.find(params[:id])
     if start_date && end_date
       @notes = @category.notes.where('created_at >= ? AND created_at <= ?', start_date, end_date)

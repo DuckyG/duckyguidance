@@ -22,15 +22,15 @@
 	<h2 class="head">Report</h2>
 	<%= form_tag(categories_path + "/#{@category.id}/report.csv", :method => :get) do%>
 		<fieldset>
-			<p>
+			<p class="formDate">
 				<%= label_tag :start_date, "Start Date" %>
-				<span class="ex">(Example: Today would be <%=Time.now.strftime "%Y/%m/%d"%>)</span>
-				<%= text_field_tag :start_date %>
+				<span class="ex">(Example: Today would be <%=Time.now.strftime "%m/%d/%Y"%>)</span>
+				<%= text_field_tag :start_date,'', :class => "datepicker" %>
 			</p>
-			<p>
+			<p class="formDate">
 				<%= label_tag :end_date, "End Date" %>
-				<span class="ex">(Example: Today would be <%=Time.now.strftime "%Y/%m/%d"%>)</span>
-				<%= text_field_tag :end_date %>
+				<span class="ex">(Example: Today would be <%=Time.now.strftime "%m/%d/%Y"%>)</span>
+				<%= text_field_tag :end_date,'', :class => "datepicker" %>
 			</p>
 			<div class="button">
 				<%=submit_tag 'Generate Report'%>

@@ -13,7 +13,7 @@
 				<td class="spaced w50"><strong><%=student.full_name%></strong></td>
 				<td><%=student.student_id%></td>
 				<td><%=student.year_of_graduation%></td>
-				<td class="action"><input type="submit" name="viewStudent00001" value="View Student"></td>
+				<td class="action"><%=button_to "View Student", student, :method => :get%></td>
 			</tr>
 		<%-end-%>
 	</tbody>

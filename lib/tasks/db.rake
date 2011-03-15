@@ -15,7 +15,7 @@ namespace :db do
       exit!
     end
     
-    counselors = CSV.read("db/counselor_names.csv", :headers => true)
+    counselors = CSV.read("db/seed_data/counselor_names.csv", :headers => true)
 
     counselors.each do |row|
       counselor= Counselor.find_by_email "#{row["first_name"]}.#{row["last_name"]}@duckyg.com"
@@ -33,7 +33,7 @@ namespace :db do
       end
     end
 
-    students = CSV.read("db/students.csv", :headers => true)
+    students = CSV.read("db/seed_data/students.csv", :headers => true)
 
     students.each do |student_row|
       student = sub.school.students.find_by_student_id student_row["student_id"]
@@ -45,7 +45,7 @@ namespace :db do
       end
     end
     
-    f = File.open("db/categories.xml")
+    f = File.open("db/seed_data/categories.xml")
     categories = Nokogiri::XML(f)
     f.close
     
@@ -62,6 +62,26 @@ namespace :db do
         cat.school = sub.school
         cat.id = as_hash['id']
         cat.save!
+      end
+    end
+    
+    groups = CSV.read("db/seed_data/groups.csv", :headers => true)
+
+    groups.each do |group_row|
+      group = sub.school.groups.find_by_name group_row["name"]
+      
+      unless group
+        student_ids = eval group_row["student_ids"] 
+        group_row.delete 'student_ids'
+        students = []
+        student_ids.each do |id|
+          students.push  sub.school.students.find_by_student_id id
+        end
+        group = Group.new(group_row.to_hash)
+        group.id = group_row["id"]
+        group.students = students
+        group.school = sub.school
+        group.save
       end
     end
     
