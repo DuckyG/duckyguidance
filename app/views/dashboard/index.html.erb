@@ -1,0 +1,11 @@
+<% if @requests && @requests.count > 0 %>
+<%=render :partial => 'meeting_requests/meeting_requests_list', :locals => {:requests => @requests}%>
+<% end %>
+<div class="cols2">
+	<div class="col">
+		<%=render :partial => 'notes/recent_note_list', :locals => {:notes => @notes}%>
+	</div>
+	<div class="col colR">
+		<%=render :partial => 'meeting_requests/upcoming_meetings_list', :locals => {:upcoming_meetings => @upcoming_meetings}%>
+	</div>
+</div><!--// end cols2 //-->

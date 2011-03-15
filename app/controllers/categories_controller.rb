@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   access_control do
-    actions :index, :show do
+    actions :index, :show, :report do
       allow :counselor, :of => :current_school
       allow :superadmin
     end
@@ -42,6 +42,7 @@ class CategoriesController < ApplicationController
   # GET /categories/new
   # GET /categories/new.xml
   def new
+    @section = "Add a Note Category"
     @category = Category.new
     @title = 'New Category'
     respond_to do |format|
@@ -64,7 +65,7 @@ class CategoriesController < ApplicationController
     @category.school = current_school
     respond_to do |format|
       if @category.save
-        format.html { redirect_to(@category, :notice => 'Category was successfully created.') }
+        format.html { redirect_to(@category) }
         format.xml  { render :xml => @category, :status => :created, :location => @category }
       else
         format.html { render :action => "new" }
@@ -80,12 +81,35 @@ class CategoriesController < ApplicationController
     
     respond_to do |format|
       if @category.system || @category.update_attributes(params[:category])
-        format.html { redirect_to(@category, :notice => 'Category was successfully updated.') }
+        format.html { redirect_to(@category) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @category.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+  
+  def report
+    
+    start_date = Time.strptime(params[:start_date], "%m/%d/%Y") unless params[:start_date].nil? || params[:start_date].empty? 
+    end_date = Time.strptime("#{params[:end_date]} 23:59", "%m/%d/%Y %H:%M") unless params[:end_date].nil? || params[:end_date].empty? 
+    @category = current_school.categories.find(params[:id])
+    if start_date && end_date
+      @notes = @category.notes.where('created_at >= ? AND created_at <= ?', start_date, end_date)
+      name = "#{@category.name}_#{start_date.strftime("%Y-%m-%d")}_#{end_date.strftime("%Y-%m-%d")}"
+    elsif start_date
+      @notes = @category.notes.where('created_at >= ?', start_date)
+      name = "#{@category.name}_from_#{start_date.strftime("%Y-%m-%d")}"
+    elsif end_date
+      @notes = @category.notes.where('created_at <= ?', end_date)
+      name = "#{@category.name}_until_#{end_date.strftime("%Y-%m-%d")}"
+    else
+      @notes = @category.notes
+      name = "#{@category.name}"
+    end
+    respond_to do |format|
+      format.csv {render_csv(name)}
     end
   end
 

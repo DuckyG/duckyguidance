@@ -1,0 +1,51 @@
+<h2 class="head pageTitle">Your Account</h2>
+<div class="modCopy module">
+	<%= form_for @counselor, :url => (request.path == my_account_path ? my_account_update_path : @counselor) do |f|%>
+	<%#= form_for @counselor do |f|%>
+	<% if @counselor.errors.any? %>
+		<ul>
+			<%- @counselor.errors.full_messages.each do |msg| -%>
+				<li><%=msg%></li>
+			<%-end-%>
+		</ul>
+	<% end %>
+	<fieldset>
+		<legend>Your Account Information</legend>
+		<p>
+			<%= f.label :name_prefix_id, "Prefix"%>
+			<%= f.select :name_prefix_id, ["Select one"] + NamePrefix.all.map {|p| [p.prefix,p.id]}%>
+		</p>
+		<p>
+			<%= f.label :first_name, "First Name"%>
+			<%= f.text_field :first_name %>
+		</p>
+		<p>
+			<%= f.label :last_name, "Last Name"%>
+			<%= f.text_field :last_name %>
+		</p>
+		<p>
+			<%= f.label :email, "Your Email Address"%>
+			<%= f.text_field :email %>
+		</p>
+	</fieldset>
+	<fieldset>
+		<legend>Change Your Password</legend>
+		<%#<p>
+			<label for="input4"><span class="req">*&nbsp;</span>Your Current Password</label>
+			<input type="password" name="input4" id="input4" value="">
+		</p>%>
+		<p>
+			<%= f.label :password, "Your New Password"%>
+			<%= f.password_field :password %>
+		</p>
+		<p>
+			<%= f.label :password_confirmation, "Confirm Your New Password"%>
+			<%= f.password_field :password_confirmation %>
+		</p>
+		<div class="button">
+			<p class="cancel"></p>
+			<%= f.submit "Save Your Changes"%>
+		</div>
+	</fieldset>
+	<% end %>
+</div><!--// end modCopy module //-->

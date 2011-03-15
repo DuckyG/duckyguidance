@@ -1,0 +1,28 @@
+<div class="modCopy module">
+	<%= form_for @group do |f| %>
+	<% if @group.errors.any? %>
+		<ul>
+			<%- @group.errors.full_messages.each do |msg| -%>
+				<li><%=msg%></li>
+			<%-end-%>
+		</ul>
+	<% end %>
+	<fieldset>
+		<p>
+			<%= f.required_field_label :name, "Group Name" %>
+			<%= f.text_field :name %>
+		</p>
+		<p>
+			<%= f.required_field_label :description %>
+			<%= f.text_area :description, :rows => "8", :cols => 40 %>
+		</p>
+		<p>
+			<%= f.label :student_ids, "Students" %>
+			<%=select_tag "group[student_ids]", build_student_options(current_school.students, @group.students), {:multiple => true, :class => 'multiselect'}%>
+		</p>
+		<div class="button">
+			<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Group" : "Update This Group"%>
+		</div>
+	</fieldset>
+	<% end %>
+</div><!--// end modCopy //-->

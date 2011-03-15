@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<categories type="array">
+  <category>
+    
+    <description>MCAS, Report Cards, Progress reports, owed academic courses</description>
+    <id type="integer">1003</id>
+    <name>Academics </name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1004</id>
+    <name>Agency contacts</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1005</id>
+    <name>Attendance Issues</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1006</id>
+    <name>Career planning</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1007</id>
+    <name>Clubs/Activities</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1009</id>
+    <name>Confidential - Guidance</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description>DECAP proposed at mid-year to support students who are in danger of failing</description>
+    <id type="integer">1025</id>
+    <name>DCAP</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1008</id>
+    <name>Discipline Concerns</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1010</id>
+    <name>ESL/ELL</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1101</id>
+    <name>Exit Interview</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description>Federal Harassment categories
+
+Bullying
+
+Hazing</description>
+    <id type="integer">1012</id>
+    <name>Harassment</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1013</id>
+    <name>Home Concerns</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1014</id>
+    <name>Medical Concerns</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1015</id>
+    <name>Parental Contact</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1016</id>
+    <name>Parental Meeting</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description>Issue(s) concerning peers</description>
+    <id type="integer">1002</id>
+    <name>Peer </name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1017</id>
+    <name>Personal concerns</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1018</id>
+    <name>Post-Secondary plans</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description>Academic and or Vocational</description>
+    <id type="integer">1019</id>
+    <name>Scheduling Concerns</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1020</id>
+    <name>Special Education - Meetings</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description>Teacher - student or student- teacher</description>
+    <id type="integer">1021</id>
+    <name>Teacher Concerns</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+  <category>
+    
+    <description>System category: Uncategorized</description>
+    <id type="integer">1024</id>
+    <name>Uncategorized</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean">true</system>
+    
+  </category>
+  <category>
+    
+    <description></description>
+    <id type="integer">1022</id>
+    <name>Vocational Concerns</name>
+    <school-id type="integer">2</school-id>
+    <system type="boolean" nil="true"></system>
+    
+  </category>
+</categories>

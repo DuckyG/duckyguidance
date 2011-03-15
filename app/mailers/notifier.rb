@@ -29,8 +29,9 @@ class Notifier < ActionMailer::Base
   #
   #   en.notifier.request_accepted.subject
   #
-  def request_acknowledged(request)
+  def request_acknowledged(request, changed=nil)
     @request = request
+    @changed = changed
     @counselor = Counselor.find(@request.counselor_id)
     mail :to => request.email, :cc => @counselor.email
   end

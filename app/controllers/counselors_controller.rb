@@ -37,7 +37,7 @@ class CounselorsController < ApplicationController
     else
       @counselor = current_counselor
     end
-    @title = 'Counselor: ' + @counselor.first_name + ' ' + @counselor.last_name
+    @title = "Counselor: #{@counselor.full_name}"
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @counselor }
@@ -75,7 +75,7 @@ class CounselorsController < ApplicationController
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.save
-        format.html { redirect_to(@counselor, :notice => 'Counselor was successfully created.') }
+        format.html { redirect_to(@counselor) }
         format.xml  { render :xml => @counselor, :status => :created, :location => @counselor }
       else
         format.html { render :action => "new" }
@@ -94,16 +94,18 @@ class CounselorsController < ApplicationController
       @counselor = current_counselor
       @title = "My Settings"
     end
+    logger.info request.path
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.update_attributes(params[:counselor])
         format.html {
-          if request.fullpath == "/my_settings_update"
-            session = UserSession.new(:email  => params[:counselor][:email], :password => params[:counselor][:password]) 
+          
+          if request.path == "/my_account_update"
+            session = UserSession.new(:email  => params[:counselor][:email], :password => params[:counselor][:password]) if params[:counselor][:password]
             session.save
-            redirect_to(my_account_path, :notice => 'Counselor was successfully updated.') 
+            redirect_to(my_account_path, :notice => 'Your settings have been updated. Please review the changes made below.') 
           else
-            redirect_to(@counselor, :notice => 'Counselor was successfully updated.') 
+            redirect_to(@counselor) 
           end
            }
         format.xml  { head :ok }
