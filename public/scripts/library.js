@@ -36,6 +36,8 @@ $(document).ready(function(){
     });
   });
 
+	$('.multiselect').multiselect();
+
 }); // Bye-bye jQuery!
 
 
