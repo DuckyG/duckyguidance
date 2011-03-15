@@ -29,8 +29,7 @@
 					<p>
 						<%= f.label :date, 'Desired Date' %>
 						<span class="ex">(Example: Today would be <%=Time.now.strftime "%m/%d/%Y"%>)</span>
-						<%= f.text_field :date %>
-						<a href="#"><img class="cal" src="/images/buttons/calendar.png" alt="" title="Choose a Desired Date"></a>
+						<%= f.text_field :date, :class => "datepicker"  %>
 					</p>
 				</div>
 				<div class="formTime">

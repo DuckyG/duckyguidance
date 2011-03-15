@@ -38,6 +38,13 @@ $(document).ready(function(){
 
 	$('.multiselect').multiselect();
 
+	$( ".datepicker" ).datepicker({
+		showOn: "button",
+		buttonImage: "/images/buttons/calendar.png",
+		buttonImageOnly: true
+	});
+
+
 }); // Bye-bye jQuery!
 
 
