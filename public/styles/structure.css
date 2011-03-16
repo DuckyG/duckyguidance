@@ -149,6 +149,9 @@ body {
 	#navGlobal {}
 	#navGlobal {}
 
+.errors li{
+	color:red;
+}
 
 /* Clearfixes ----------------------------------------------------- */
 #container,
