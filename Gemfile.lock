@@ -58,8 +58,10 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     foreigner (0.9.1)
-    haml (3.0.24)
     highline (1.6.1)
+    hoptoad_notifier (2.4.7)
+      activesupport
+      builder
     i18n (0.5.0)
     mail (2.2.12)
       activesupport (>= 2.3.6)
@@ -111,7 +113,7 @@ DEPENDENCIES
   capistrano-ext
   delayed_job!
   foreigner
-  haml
+  hoptoad_notifier
   nokogiri
   pg
   rails (= 3.0.3)
