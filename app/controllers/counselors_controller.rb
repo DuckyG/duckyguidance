@@ -9,8 +9,11 @@ class CounselorsController < ApplicationController
       allow :school_admin, :of => :current_school
     end
 
+    actions :my_account, :my_account_update do
+      allow :counselor, :of => :current_school
+    end
+    
     actions :edit, :update do
-      allow :counselor, :of => :current_school, :if => :editing_self?
       allow :school_admin, :of => :current_school
     end
 
@@ -57,13 +60,8 @@ class CounselorsController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    if params[:id]
       @counselor = current_school.counselors.find(params[:id])
       @title = "Edit Counselor"
-    else
-      @counselor = current_counselor
-      @title = "My Settings"
-    end
   end
   
 
@@ -83,39 +81,50 @@ class CounselorsController < ApplicationController
       end
     end
   end
+  
+  def my_account
 
-  # PUT /users/1
-  # PUT /users/1.xml
-  def update
-    if params[:id]
-      @counselor = current_school.counselors.find(params[:id])
-      @title = "Edit Counselor"
-    else
-      @counselor = current_counselor
-      @title = "My Settings"
-    end
-    logger.info request.path
+     @counselor = current_counselor
+     @title = "My Settings"
+  end
+
+  def my_account_update
+
+    @counselor = current_counselor
+    @title = "My Settings"
+
+
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.update_attributes(params[:counselor])
         format.html {
-          
-          if request.path == "/my_account_update"
             session = UserSession.new(:email  => params[:counselor][:email], :password => params[:counselor][:password]) if params[:counselor][:password]
             session.save
             redirect_to(my_account_path, :notice => 'Your settings have been updated. Please review the changes made below.') 
-          else
-            redirect_to(@counselor) 
-          end
-           }
+        }
         format.xml  { head :ok }
       else
-        format.html {
-          if request.path == "/my_account_update"
-            redirect_to "/my_account", :notice => 'Your password confirmation did not match, password was not updated.'
-          else
-            render :action => "edit"
-          end }
+        format.html { render :action => "my_account"}
+        format.xml  { render :xml => @counselor.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /users/1
+  # PUT /users/1.xml
+  def update
+
+      @counselor = current_school.counselors.find(params[:id])
+      @title = "Edit Counselor"
+
+
+    @counselor.school = current_school
+    respond_to do |format|
+      if @counselor.update_attributes(params[:counselor])
+        format.html { redirect_to(@counselor) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit"  }
         format.xml  { render :xml => @counselor.errors, :status => :unprocessable_entity }
       end
     end
@@ -131,9 +140,5 @@ class CounselorsController < ApplicationController
       format.html { redirect_to(users_url) }
       format.xml  { head :ok }
     end
-  end
-
-  def editing_self?
-    (params[:id].to_i == current_user.id) || (request.fullpath == "/my_account_update") || (request.fullpath == "/my_account")
   end
 end

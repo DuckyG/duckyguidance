@@ -2,8 +2,8 @@ Guidance::Application.routes.draw do |map|
   
   match 'students/:id/add_group/:group_id' => 'students#add_group', :as => :add_group_to_student
   match 'students/:id/remove_group/:group_id' => 'students#remove_group', :as => :remove_group_from_student
-  match 'my_account' => 'counselors#edit'
-  match 'my_account_update' => 'counselors#update'
+  match 'my_account' => 'counselors#my_account'
+  match 'my_account_update' => 'counselors#my_account_update'
   match 'categories/:id/report' => 'categories#report'
 
   

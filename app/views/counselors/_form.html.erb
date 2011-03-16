@@ -1,9 +1,9 @@
-<h2 class="head pageTitle">Your Account</h2>
+
 <div class="modCopy module">
-	<%= form_for @counselor, :url => (request.path == my_account_path ? my_account_update_path : @counselor) do |f|%>
+	<%= form_for @counselor, :url => ( [ my_account_update_path, my_account_path ].include?(request.path) ? my_account_update_path : @counselor) do |f|%>
 	<%#= form_for @counselor do |f|%>
 	<% if @counselor.errors.any? %>
-		<ul>
+		<ul class="errors">
 			<%- @counselor.errors.full_messages.each do |msg| -%>
 				<li><%=msg%></li>
 			<%-end-%>
