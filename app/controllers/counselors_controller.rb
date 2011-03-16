@@ -110,7 +110,12 @@ class CounselorsController < ApplicationController
            }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html {
+          if request.path == "/my_account_update"
+            redirect_to "/my_account", :notice => 'Your password confirmation did not match, password was not updated.'
+          else
+            render :action => "edit"
+          end }
         format.xml  { render :xml => @counselor.errors, :status => :unprocessable_entity }
       end
     end

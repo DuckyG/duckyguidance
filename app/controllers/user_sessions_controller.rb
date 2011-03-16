@@ -26,7 +26,7 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.find
     @user_session.destroy
     flash[:notice] = "You have logged out."
-    redirect_to root_url
+    redirect_to login_path
   end
 
 end
