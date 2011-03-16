@@ -129,6 +129,6 @@ class CounselorsController < ApplicationController
   end
 
   def editing_self?
-    (params[:id].to_i == current_user.id) || (request.fullpath == "/my_settings_update") || (request.fullpath == "/my_settings")
+    (params[:id].to_i == current_user.id) || (request.fullpath == "/my_account_update") || (request.fullpath == "/my_account")
   end
 end
