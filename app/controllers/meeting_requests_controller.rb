@@ -2,6 +2,7 @@ class MeetingRequestsController < ApplicationController
   access_control do
     allow all
   end
+  layout :choose_layout
   # GET /meeting_requests
   # GET /meeting_requests.xml
   def index
@@ -34,7 +35,27 @@ class MeetingRequestsController < ApplicationController
       format.xml  { render :xml => @meeting_request }
     end
   end
-
+  
+  def welcome
+    new
+  end
+  
+  def welcome_submit
+    @meeting_request = MeetingRequest.new(params[:meeting_request])
+    @meeting_request.desired_date = Time.strptime(@meeting_request.date + ' ' + @meeting_request.time, "%m/%d/%Y %I:%M %p") if !@meeting_request.date.empty?
+    @meeting_request.school = current_school
+    respond_to do |format|
+      if @meeting_request.save
+        Notifier.delay.request_submitted(@meeting_request)
+        Notifier.delay.request_received(@meeting_request)  
+        format.html { redirect_to(thankyou_path, :notice => 'Your meeting request was received.  You should receive an email from one of the counselors shortly.') }
+        format.xml  { render :xml => @meeting_request, :status => :created, :location => @meeting_request }
+      else
+        format.html { render :action => "welcome" }
+        format.xml  { render :xml => @meeting_request.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
   # GET /meeting_requests/1/edit
   def edit
     @meeting_request = current_school.meeting_requests.find(params[:id])
@@ -44,7 +65,7 @@ class MeetingRequestsController < ApplicationController
   # POST /meeting_requests.xml
   def create
     @meeting_request = MeetingRequest.new(params[:meeting_request])
-    @meeting_request.desired_date = Time.strptime(@meeting_request.date + ' ' + @meeting_request.time, "%m/%d/%Y %I:%M %p") if @meeting_request.date
+    @meeting_request.desired_date = Time.strptime(@meeting_request.date + ' ' + @meeting_request.time, "%m/%d/%Y %I:%M %p") if !@meeting_request.date.empty?
     @meeting_request.school = current_school
     respond_to do |format|
       if @meeting_request.save
@@ -53,7 +74,7 @@ class MeetingRequestsController < ApplicationController
         format.html { redirect_to(thankyou_path, :notice => 'Your meeting request was received.  You should receive an email from one of the counselors shortly.') }
         format.xml  { render :xml => @meeting_request, :status => :created, :location => @meeting_request }
       else
-        format.html { render :url=> request_path,:action => "new" }
+        format.html { render :action => "welcome" }
         format.xml  { render :xml => @meeting_request.errors, :status => :unprocessable_entity }
       end
     end
@@ -93,6 +114,15 @@ class MeetingRequestsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(meeting_requests_url) }
       format.xml  { head :ok }
+    end
+  end
+  
+  private
+  def choose_layout    
+    if [ 'welcome' ].include? action_name
+      'logged_out'
+    else
+      'standard'
     end
   end
 end

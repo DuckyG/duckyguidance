@@ -1,4 +1,5 @@
 <div class="modCopy module">
+
 	<%= form_for(@note) do |f|%>
 		<% if @note.errors.any? %>
 			<ul>
@@ -8,7 +9,6 @@
 			</ul>
 		<% end %>
 		<fieldset>
-
 				<%=f.hidden_field :student_ids, :value => @student_id_string%>
 			  	<%=f.hidden_field :group_ids, :value => @group_id_string%>
 				<p>
