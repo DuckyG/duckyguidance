@@ -10,7 +10,7 @@ gem 'pg'
 
 gem 'delayed_job', :git => 'https://github.com/collectiveidea/delayed_job.git'
 
-gem 'hoptoad_notifier'
+#gem 'hoptoad_notifier'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
