@@ -41,6 +41,6 @@
 
 <div class="modNotes block module">
 	<h2 class="head">Notes</h2>
-	<%=render :partial => 'shared/note_list', :locals => {:notes => @category.notes.sort{|x,y| y.created <=> x.created_at}}%>
+	<%=render :partial => 'shared/note_list', :locals => {:notes => @category.notes.sort{|x,y| y.created_at <=> x.created_at}}%>
 </div><!--// end modNotes //-->
 

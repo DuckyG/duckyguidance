@@ -1,5 +1,5 @@
 Note Date,Group,Student Last Name,Student First Name,Summary,Author,Tags,Note
-<%-@notes.sort{|x,y| x.created <=> y.created_at}.each do |note|%>
+<%-@notes.sort{|x,y| x.created_at <=> y.created_at}.each do |note|%>
 <%- if note.groups.count == 1 ||note.students.count == 1 -%>
 <%=raw(note.to_csv)-%>
 <%-end-%>
