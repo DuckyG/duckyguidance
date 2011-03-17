@@ -8,45 +8,27 @@
 			</ul>
 		<% end %>
 		<fieldset>
-			<p>
-				<%= f.required_field_label :first_name, "First Name"%>
-				<%= f.text_field :first_name %>
-			</p>
-			<p>
-				<%= f.required_field_label :last_name, "Last Name"%>
-				<%= f.text_field :last_name%>
-			</p>
-			<p>
-				<%= f.required_field_label :city%>
-				<%= f.text_field :city%>
-			</p>
-			<p class="phone">
-				<label>Primary Phone Number</label>
-				(<%=f.text_field :areaCode, {:class => "areaCode", :maxlength => "3"} %>)
-				<%=f.text_field :prefix, {:class => "prefix", :maxlength => "3"}%>
-				<%=f.text_field :line, {:class => "line", :maxlength => "4"}%>
+
+				<%=f.hidden_field :student_ids, :value => @student_id_string%>
+			  	<%=f.hidden_field :group_ids, :value => @group_id_string%>
+				<p>
+					<%= f.required_field_label :category_id, "Note Category"%>
+					<% category_array = ["Select a Category..."] + current_school.categories.map { |cat| [cat.name, cat.id] } %>
+					<%= f.select :category_id, options_for_select(category_array, @note.category_id) %>
+				</p>
+				<p>
+					<%= f.required_field_label :summary, "Note Summary" %>
+					<%= f.text_field :summary%>
+				</p>
+				<p>
+					<%=f.label :tags, 'Tags (separated by spaces)'%>
+					<%=f.text_field :tags_string%>
+				</p>
 				
-				ext. <%=f.text_field :extension, {:class => "ext", :maxlength => "3"}%>
-			</p>
-			<p class="formFloat">
-				<%= f.required_field_label :student_id, "Student ID"%>
-				<%= f.text_field :student_id %>
-			</p>
-			<p>
-				<%= f.label :counselor_id, "Guidance Counselor"%>
-				<% counselor_array = ["Choose a Counselor"] + current_school.counselors.map { |counselor| [counselor.formal_name, counselor.id] } %>
-				<%= f.select :counselor_id, options_for_select(counselor_array, @student.counselor_id) %>
-			</p>
-			<p>
-				<%=f.label :shop%>
-				<%=f.text_field :shop%>
-			</p>
-			<p>
-				<%=f.label :year_of_graduation%>
-				<%= f.text_field :year_of_graduation %>
-			</p>
+				<p><%= f.required_field_label :notes, "Note"%><%=f.text_area :notes, :html => {:rows =>8, :cols=>40 } %></p>
+
 			<div class="button">
-				<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Student" : "Update This Student"%>
+				<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Note" : "Update This Note"%>
 			</div>
 		</fieldset>
 	<% end %>

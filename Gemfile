@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
-
+gem 'haml'
 gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
 gem 'acl9'
 

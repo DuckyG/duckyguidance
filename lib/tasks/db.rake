@@ -85,6 +85,25 @@ namespace :db do
       end
     end
     
+    f = File.open("db/seed_data/student_notes.xml")
+    student_notes = Nokogiri::XML(f)
+    f.close
+
+    student_notes.xpath('//note').each do |note_row|
+      as_hash = {}
+      note_row.children.each do |child|
+        as_hash[child.name.gsub('-','_')] = child.content
+      end
+      as_hash.delete "text"
+      student = sub.school.students.find_by_student_id as_hash["student_id"]
+      as_hash.delete "student_id"
+      note = Note.new as_hash
+      note.students << student
+      note.school = sub.school
+      note.save!
+      
+    end
+    
   end
 
 end
