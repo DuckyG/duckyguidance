@@ -8,6 +8,14 @@ class User < ActiveRecord::Base
   validate :password_meets_requirements
   attr_accessor :subdomain
   
+  def formal_name
+     "#{name_prefix.prefix if name_prefix} #{last_name}"
+   end
+
+   def full_name
+     "#{first_name} #{last_name}"
+   end
+  
   def password_meets_requirements
     return true if password.blank?
     
