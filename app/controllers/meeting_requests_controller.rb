@@ -6,7 +6,7 @@ class MeetingRequestsController < ApplicationController
   # GET /meeting_requests
   # GET /meeting_requests.xml
   def index
-    @meeting_requests = MeetingRequest.for_school(current_school).all
+    @meeting_requests = MeetingRequest.for_school(current_school).all.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -33,6 +33,24 @@ class MeetingRequestsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @meeting_request }
+    end
+  end
+  
+  def past
+    @meeting_requests = MeetingRequest.for_school(current_school).past.paginate(:page => params[:page])
+
+    respond_to do |format|
+      format.html { render :index}
+      format.xml  { render :xml => @meeting_requests }
+    end
+  end
+  
+  def future
+    @meeting_requests = MeetingRequest.for_school(current_school).future.paginate(:page => params[:page])
+
+    respond_to do |format|
+      format.html { render :index}
+      format.xml  { render :xml => @meeting_requests }
     end
   end
   
@@ -86,10 +104,8 @@ class MeetingRequestsController < ApplicationController
     updated = false
     params[:meeting_request][:accepted] = true
     if params[:meeting_request][:date]
-      params[:meeting_request][:desired_date] = Time.strptime(params[:meeting_request][:date] + ' ' + params[:meeting_request][:time], "%m/%d/%Y %I:%M %p")
       updated = true
     end
-    logger.info @meeting_request.methods.sort
     respond_to do |format|
       if @meeting_request.update_attributes(params[:meeting_request])
         #format.html { redirect_to(@meeting_request, :notice => 'Your meeting request was received.  You should receive an email from one of the counselors shortly.') }

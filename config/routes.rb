@@ -7,6 +7,9 @@ Guidance::Application.routes.draw do |map|
   match 'categories/:id/report' => 'categories#report'
   match 'welcome_submit' => 'meeting_requests#welcome_submit'
   
+  match 'meeting_requests/past' => 'meeting_requests#past'
+  match 'meeting_requests/future' => 'meeting_requests#future'
+  
   resources :groups do
     resources :notes
   end

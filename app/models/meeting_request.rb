@@ -1,4 +1,3 @@
-require 'forschoolscope'
 class MeetingRequest < ActiveRecord::Base
 
   belongs_to :counselor
@@ -9,13 +8,28 @@ class MeetingRequest < ActiveRecord::Base
   validates :first_name, :last_name, :counselor, :email, :presence => true
   
   scope :for_school, lambda { |current_school| where(:school_id => current_school.id) }
-
+  scope :past, where("desired_date < '#{DateTime.now}'")
+  scope :future, where("desired_date > '#{DateTime.now}'")
+  scope :accepted, where(:accepted => true)
+  
+  default_scope order('desired_date DESC')
   def check_date
-    Rails::logger.info self
     unless desired_date
       errors.add_to_base "Date and Time are required"
     end
   end
+  
+  def student_full_name
+    "#{first_name} #{last_name}"
+  end
+  
+  def formatted_desired_date
+    desired_date.strftime "%m/%d/%Y"
+  end
+  
+  def formatted_desired_time
+    desired_date.strftime "%I:%M %p"
+   end
   
   def aggregate_desired_date
     unless self.date.empty? && self.time.empty?
