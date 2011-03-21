@@ -1,7 +1,29 @@
 class MeetingRequestsController < ApplicationController
   access_control do
-    allow all
-  end
+    action :welcome do
+      allow all
+    end
+    actions :index, :show, :past, :future do
+      allow :counselor, :of => :current_school
+      allow :superadmin
+    end
+
+    actions :new, :create do
+      allow :counselor, :of => :current_school
+      allow :school_admin, :of => :current_school
+    end
+
+    actions :edit, :update do
+      allow :counselor, :of => :current_school
+      allow :school_admin, :of => :current_school
+    end
+
+    action :destroy do
+      allow :counselor, :of => :current_school
+      allow :school_admin,:of => :current_school
+    end
+   end
+   
   layout :choose_layout
   # GET /meeting_requests
   # GET /meeting_requests.xml
