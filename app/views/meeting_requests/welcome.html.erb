@@ -10,6 +10,7 @@
 				<%-end-%>
 			</ul>
 		<% end %>
+		    <%= f.hidden_field :school_id%>
 			<fieldset class="formBegin">
 				<p><%= f.label :first_name, "First Name", :class => 'first_name' %><%= f.text_field :first_name, :value => @meeting_request.first_name ? @meeting_request.first_name : 'First Name', :class => "first_name" %></p>
 				<p><%= f.label :last_name, "Last Name", :class => 'last_name' %><%= f.text_field :last_name, :value => @meeting_request.last_name ? @meeting_request.last_name : 'Last Name', :class => "last_name" %></p>
