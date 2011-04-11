@@ -32,7 +32,7 @@ class MeetingRequest < ActiveRecord::Base
    end
   
   def aggregate_desired_date
-    unless self.date.empty? && self.time.empty?
+    unless self.date.nil? || self.time.nil? || self.date.empty? || self.time.empty? 
       self.desired_date = Time.strptime("#{self.date} #{self.time}" , "%m/%d/%Y %I:%M %p") 
     end
   end
