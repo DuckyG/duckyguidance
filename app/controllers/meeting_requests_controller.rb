@@ -1,6 +1,6 @@
 class MeetingRequestsController < ApplicationController
   access_control do
-    action :welcome do
+    action :welcome, :welcome_submit do
       allow all
     end
     actions :index, :show, :past, :future do
@@ -82,14 +82,15 @@ class MeetingRequestsController < ApplicationController
   
   def welcome_submit
     @meeting_request = MeetingRequest.for_school(current_school).build(params[:meeting_request])
-    
+
     respond_to do |format|
-      if @meeting_request.save
+      if @meeting_request.save!
         Notifier.delay.request_submitted(@meeting_request)
         Notifier.delay.request_received(@meeting_request)  
         format.html { redirect_to(thankyou_path, :notice => 'Your meeting request was received.  You should receive an email from one of the counselors shortly.') }
         format.xml  { render :xml => @meeting_request, :status => :created, :location => @meeting_request }
       else
+        logger.info @meeting_request.errors.any?
         format.html { render :action => "welcome" }
         format.xml  { render :xml => @meeting_request.errors, :status => :unprocessable_entity }
       end
@@ -103,7 +104,7 @@ class MeetingRequestsController < ApplicationController
   # POST /meeting_requests
   # POST /meeting_requests.xml
   def create
-    @meeting_request = MeetingRequest.new(params[:meeting_request])
+    @meeting_request = MeetingRequest.for_school(current_school).build(params[:meeting_request])
     @meeting_request.school = current_school
     respond_to do |format|
       if @meeting_request.save

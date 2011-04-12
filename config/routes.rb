@@ -5,7 +5,8 @@ Guidance::Application.routes.draw do |map|
   match 'my_account' => 'counselors#my_account'
   match 'my_account_update' => 'counselors#my_account_update'
   match 'categories/:id/report' => 'categories#report'
-  match 'welcome_submit' => 'meeting_requests#welcome_submit'
+  post 'meeting_requests/welcome_submit'
+  match 'welcome_submit' => 'meeting_requests#welcome_submit', :via => [:post]
   
   match 'meeting_requests/past' => 'meeting_requests#past'
   match 'meeting_requests/future' => 'meeting_requests#future'
