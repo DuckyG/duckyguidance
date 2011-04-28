@@ -374,16 +374,21 @@ table .rightLink {
 .studentDetail {}
 	.studentName {}
 	.studentPic {
-		display: none;
+		width: 1%;
+		background: #EEECEA;
+		text-align: center;
+		padding: 0;
+		border-left: 1px solid #D7D2CF;
 	}
 		.studentPic img {
+			display: inline;
 			background: #FFF;
 			padding: 2px;
 			border: 1px solid #D7D2CF;
-			margin: 0;
 			-webkit-border-radius: 3px;
 			-moz-border-radius: 3px;
 			border-radius: 3px;
+			margin: 10px;
 		}
 	.modAddNote .head {
 		margin: 0;
