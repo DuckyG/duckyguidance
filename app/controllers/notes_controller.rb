@@ -7,7 +7,7 @@ class NotesController < ApplicationController
   # GET /notes
   # GET /notes.xml
   def index
-    @notes = current_school.notes
+    @notes = current_school.notes.paginate(:page => params[:page], :per_page => 5, :order => "created_at DESC")
     @student = current_school.students.find(params[:student_id]) if params[:student_id]
     @notes =  @student.notes if @student
     @group = current_school.groups.find(params[:group_id]) if params[:group_id]

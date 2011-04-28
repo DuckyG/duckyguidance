@@ -2,16 +2,26 @@
 	<h2 class="head">Students</h2>
 	<div class="content">
 		<h3>Request a Meeting with your Counselor</h3>
-		<%= form_for(MeetingRequest.for_school(current_school).build, :html => {}) do |f| %>
+		<%= form_for(@meeting_request, :html => {}, :url =>  welcome_submit_path) do |f| %>
+		<% if @meeting_request.errors.any? %>
+			<ul class="errors">
+				<%- @meeting_request.errors.full_messages.each do |msg| -%>
+					<li><%=msg%></li>
+				<%-end-%>
+			</ul>
+		<% end %>
+		    <%= f.hidden_field :school_id%>
 			<fieldset class="formBegin">
-				<p><%= f.label :first_name, "First Name", :class => 'first_name' %><%= f.text_field :first_name, :value => 'First Name', :class => "first_name" %></p>
-				<p><%= f.label :last_name, "Last Name", :class => 'last_name' %><%= f.text_field :last_name, :value => 'Last Name', :class => "last_name" %></p>
+				<p><%= f.label :first_name, "First Name", :class => 'first_name' %><%= f.text_field :first_name, :value => @meeting_request.first_name ? @meeting_request.first_name : 'First Name', :class => "first_name" %></p>
+				<p><%= f.label :last_name, "Last Name", :class => 'last_name' %><%= f.text_field :last_name, :value => @meeting_request.last_name ? @meeting_request.last_name : 'Last Name', :class => "last_name" %></p>
+				<%if request.path == "/" %>
 				<div class="button">
 					<input class="continue" type="submit" name="continue" value="Continue &raquo;">
 				</div>
+				<%end%>
 			</fieldset>
 			<p class="message"><strong></strong>,&nbsp;&nbsp;your request is almost complete. Just fill out the rest of the fields below and you&rsquo;ll be on your way. (You can also <span class="editName">edit your name</span> if needed.)</p>
-			<fieldset class="formContinue">
+			<fieldset <%="class='formContinue'" if request.path == "/" %>>
 				<p><%= f.label :email, "Email Address" %><%= f.text_field :email %></p>
 				<fieldset>
 					<p>

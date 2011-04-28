@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-
+gem "will_paginate", "~> 3.0.pre2"
 gem 'rails', '3.0.3'
 gem 'haml'
 gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
