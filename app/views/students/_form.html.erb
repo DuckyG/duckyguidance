@@ -33,7 +33,7 @@
 				<%= f.text_field :student_id %>
 			</p>
 			<p>
-				<%= f.label :counselor_id, "Guidance Counselor"%>
+				<%= f.required_field_label :counselor_id, "Guidance Counselor"%>
 				<% counselor_array = ["Choose a Counselor"] + current_school.counselors.map { |counselor| [counselor.formal_name, counselor.id] } %>
 				<%= f.select :counselor_id, options_for_select(counselor_array, @student.counselor_id) %>
 			</p>
