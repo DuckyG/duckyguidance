@@ -8,7 +8,7 @@
 	<tr>
 		<td class="spaced label">Year of Graduation</td>
 		<td><%=@student.year_of_graduation%></td>
-		<td class="studentPic" rowspan="100"><%=image_tag("https://images.duckyg.com/'#{Digest::MD5.hexdigest(request.subdomain+@student.student_id.to_s)}.jpg", :alt => @student.full_name)%></td>
+		<td class="studentPic" rowspan="100"><%=image_tag("https://images.duckyg.com/#{Digest::MD5.hexdigest(request.subdomain+@student.student_id.to_s)}.jpg", :alt => @student.full_name)%></td>
 		
 	</tr>
 	<tr>
