@@ -5,7 +5,11 @@ Guidance::Application.routes.draw do |map|
   match 'my_account' => 'counselors#my_account'
   match 'my_account_update' => 'counselors#my_account_update'
   match 'categories/:id/report' => 'categories#report'
-
+  post 'meeting_requests/welcome_submit'
+  match 'welcome_submit' => 'meeting_requests#welcome_submit', :via => [:post]
+  
+  match 'meeting_requests/past' => 'meeting_requests#past'
+  match 'meeting_requests/future' => 'meeting_requests#future'
   
   resources :groups do
     resources :notes
@@ -39,7 +43,9 @@ Guidance::Application.routes.draw do |map|
   resources :counselors
   get "thankyou/index"
   match 'thankyou' => 'thankyou#index'
-  get "welcome/index"
+
+  # just remember to delete public/index.html.
+  root :to => "meeting_requests#welcome"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -89,8 +95,7 @@ Guidance::Application.routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  root :to => "welcome#index"
+
 
   # See how all your routes lay out with "rake routes"
 

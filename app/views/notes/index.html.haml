@@ -1,7 +1,0 @@
--if !request.xhr?
-  -if @student 
-    %h1= @student.first_name + ' ' + @student.last_name + "'s Notes"
-  -else
-    %h1 All Notes
-
-=render :partial => 'shared/note_list', :locals => { :note_list => @notes}

@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-
+gem "will_paginate", "~> 3.0.pre2"
 gem 'rails', '3.0.3'
 gem 'haml'
 gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
@@ -10,7 +10,7 @@ gem 'pg'
 
 gem 'delayed_job', :git => 'https://github.com/collectiveidea/delayed_job.git'
 
-gem 'hoptoad_notifier'
+#gem 'hoptoad_notifier'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

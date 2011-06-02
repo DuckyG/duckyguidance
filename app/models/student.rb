@@ -6,6 +6,7 @@ class Student < ActiveRecord::Base
   has_many :guardians
   validates_presence_of :first_name, :last_name, :counselor_id, :city, :student_id
   validates_uniqueness_of :student_id, :scope => :school_id
+  validate :validate_counselor
   attr_accessor :areaCode, :prefix, :line, :extension
   before_validation :aggregate_phone_number
   
@@ -23,6 +24,13 @@ class Student < ActiveRecord::Base
       end
     end
   end
+  
+  def validate_counselor
+    unless self.counselor_id && self.counselor_id.kind_of?(Integer) && self.counselor_id > 0
+      errors.add_to_base "Guidance Counselor is required"
+    end
+  end
+  
   
   def full_name
     "#{first_name} #{last_name}"

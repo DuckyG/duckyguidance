@@ -1,7 +1,5 @@
 <h2 class="head pageTitle"><%=@student.full_name%></h2>
 
-<span class="studentPic"><img src="/images/student.png" alt="Bartholomew Maximillian Jagmanis-Kubacheski"></span>
-
 <div class="rightLink">
 	<a href="<%= edit_student_path(@student)%>">Edit<span>&nbsp;&rarr;</a>
 </div>
@@ -10,6 +8,8 @@
 	<tr>
 		<td class="spaced label">Year of Graduation</td>
 		<td><%=@student.year_of_graduation%></td>
+		<td class="studentPic" rowspan="100"><%=image_tag("https://images.duckyg.com/#{Digest::MD5.hexdigest(request.subdomain+@student.student_id.to_s)}.jpg", :alt => @student.full_name)%></td>
+		
 	</tr>
 	<tr>
 		<td class="spaced label">Shop</td>
