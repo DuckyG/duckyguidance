@@ -3,7 +3,7 @@ class SchoolsController < ApplicationController
     allow :superadmin
   end
   def index
-    
+    @schools = School.all 
   end
   
   def show

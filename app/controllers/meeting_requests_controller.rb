@@ -50,7 +50,7 @@ class MeetingRequestsController < ApplicationController
   # GET /meeting_requests/new
   # GET /meeting_requests/new.xml
   def new
-    @meeting_request = MeetingRequest.for_school(current_school).build
+    @meeting_request = MeetingRequest.for_school(current_school).build if current_school
     @title = 'Request a Meeting'
     respond_to do |format|
       format.html # new.html.erb
