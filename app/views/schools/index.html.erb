@@ -1,0 +1,27 @@
+<h2 class="head pageTitle">Schools</h2>
+<div class="modSchools modData block module">
+	<div class="modCopy">
+		<a class="addItem right" href="<%= new_school_path %>">Add a School<span>&nbsp;&rarr;</span></a>
+	</div><!--// end modCopy //-->
+	<div class="content">
+		<table cellpadding="0" cellspacing="0">
+			<thead>
+				<tr>
+					<th class="spaced w50">School</th>
+					<th>Subdomain</th>
+					<th>School Admin</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @schools.each do |school| %>
+					<tr>
+						<td class="spaced w50 schoolName"><strong><%= school.name %></strong></td>
+						<td><%=school.subdomain.name%></td>
+            <%-admin = school.counselors.select{|c| c.has_role? :school_admin, school}.first-%>
+            <td><%=admin.full_name if admin%></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div><!--// end modRequests //-->
