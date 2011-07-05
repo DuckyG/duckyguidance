@@ -2,4 +2,37 @@
 <script>!window.jQuery && document.write('<script src="js/jquery-1.4.2.min.js"><\/script>')</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.js"></script>
 <script type="text/javascript" src="/scripts/ui.multiselect.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript" src="/scripts/library.js"></script>
+
+    <script type="text/javascript">
+    
+      // Load the Visualization API and the piechart package.
+	google.load('visualization', '1', {'packages':['corechart']});
+google.setOnLoadCallback(drawChart);
+  
+  function drawChart() {
+    // Everything is loaded. Lets draw our chart...
+    var rows=$(".chart li")
+  if(rows.length > 0){
+	var dataTbl = new google.visualization.DataTable();
+     dataTbl.addColumn('string', 'Month');
+     dataTbl.addColumn('number', 'Notes');
+
+				$.each(rows, function(data){
+			var monthSpan = $(rows[data]).find(".month").first()
+			var countSpan =  $(rows[data]).find(".count").first()
+			dataTbl.addRow([monthSpan[0].innerHTML,parseInt(countSpan[0].innerHTML)])
+		});
+     
+     
+
+     // Instantiate and draw our chart, passing in some options.
+     var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+     chart.draw(dataTbl, {width: 400, height: 240, title: "Notes Per Month", backgroundColor: "#edecea", 
+         titleTextStyle: {fontSize: "16"}});
+  }
+  } 
+      // Set a callback to run when the Google Visualization API is loaded.
+      
+    </script>

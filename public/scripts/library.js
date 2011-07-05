@@ -45,8 +45,8 @@ $(document).ready(function(){
 	});
 
 
-}); // Bye-bye jQuery!
 
+}); // Bye-bye jQuery!
 
 
 slideUpSpeed = 500;
