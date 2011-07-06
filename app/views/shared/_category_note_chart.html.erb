@@ -1,0 +1,12 @@
+<%- category_groups = notes.group_by {|note| note.category.name}-%>
+<ul class="category-chart">
+  <% category_groups.keys.each do |category_name| %>
+    <li>
+    <span class="category"><%=category_name%></span>
+    <span class="count"><%=category_groups[category_name].count%></span></li>
+  <% end%>
+</ul>
+
+<div id="category_chart_div">
+</div>
+

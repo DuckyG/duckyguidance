@@ -743,4 +743,5 @@ p.message {
 .gray   {background: gray !important;}
 .silver {background: silver !important;}
 .white  {background: white !important;}
-#chart {display: none;}
+.monthly-chart, .category-chart {display: none;}
+

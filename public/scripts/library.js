@@ -62,6 +62,8 @@ function closeLayer(el){
 }
 
 
+
+
 //  Apply the proper stylesheets to IE when the window resizes
 function ieResize(){
 	function adjustStyle(width) {

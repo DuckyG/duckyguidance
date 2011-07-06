@@ -1,5 +1,5 @@
 class Student < ActiveRecord::Base
-  has_and_belongs_to_many :notes
+  has_and_belongs_to_many :notes, :order => "created_at ASC"
   belongs_to :school
   belongs_to :counselor
   has_and_belongs_to_many :groups
