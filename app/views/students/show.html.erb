@@ -32,11 +32,12 @@
 		<td><%=@student.student_id%></td>
 	</tr>
 </table>
-
+<%= render :partial => "shared/month_note_chart", :locals => {:notes => @student.notes} %>
+<%= render :partial => "shared/category_note_chart", :locals => {:notes => @student.notes} %>
 <div class="modNotes block module">
 	<h2 class="head">Notes</h2>
 	<%=render :partial => "shared/new_note" %>
 
-	<%=render :partial => 'shared/note_list', :locals => {:notes => @student.notes.sort{|x,y| y.created_at <=> x.created_at} }%>
+	<%=render :partial => 'shared/note_list', :locals => {:notes => @student.notes.reverse }%>
 </div><!--// end modNotes //-->
 

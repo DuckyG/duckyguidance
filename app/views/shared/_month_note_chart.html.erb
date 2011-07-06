@@ -1,0 +1,14 @@
+<%- month_groups = notes.group_by {|note| note.created_at.strftime "%B %Y"}-%>
+<ul class="monthly-chart">
+  <% now = Time.now %>
+  <%(-6..0).each do |month_offset| %>
+    <% offset_date = now.advance(:months => month_offset).to_date.strftime "%B %Y" %>
+    <li>
+    <span class="month"><%=offset_date%></span>
+    <span class="count"><%=month_groups[offset_date] ? month_groups[offset_date].count : 0%></span></li>
+  <% end%>
+</ul>
+
+<div id="month_chart_div">
+</div>
+

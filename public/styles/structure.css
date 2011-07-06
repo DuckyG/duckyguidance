@@ -10,7 +10,10 @@ legend, table, caption, tbody, tfoot, thead, tr, th, td {margin: 0; padding: 0;}
 .clearfix {height: 1%;}
 .clearfix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
 *> .clearfix {min-height: 1px; height: auto;}
-
+.multiselect{
+  height:200px;
+  width:400px;
+}
 a img {border: none;}
 /* Font-face ------------------------------------------------------ */
 /* School Name */
@@ -160,3 +163,4 @@ body {
 *> #container,
 *> #content,
 *> #navGlobal {min-height: 1px; height: auto;}
+.chart {display: none;}
