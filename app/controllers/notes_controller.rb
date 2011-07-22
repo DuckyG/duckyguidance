@@ -103,4 +103,45 @@ class NotesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def search
+    auth_ids =  params[:author_ids].map(&:to_i) if params[:author_ids]
+    category_ids = params[:category_ids].map(&:to_i) if params[:category_ids]
+    start_date = params[:start_date] unless params[:start_date].nil? ||  params[:start_date].empty?
+    end_date = params[:end_date] unless params[:end_date].nil? || params[:end_date].empty?
+    year_of_grad = params[:year_of_graduation] unless params[:year_of_graduation].nil? ||  params[:year_of_graduation].empty?
+    shop_str= "%#{params[:shop]}%" unless params[:shop].nil? || params[:shop].empty?
+    student_name= "%#{params[:student_name]}%" unless params[:student_name].nil? || params[:student_name].empty?
+    tags = params[:tags].split(' ') unless params[:tags].nil? || params[:tags].empty?
+ 
+    if year_of_grad || shop_str || student_name
+      ids = current_school.students.where do
+        conditions = {}
+        conditions[year_of_graduation] = year_of_grad if year_of_grad
+        conditions[shop.matches] = shop_str if shop_str
+        conditions[full_name.matches] = student_name if student_name
+        conditions
+      end.joins(:notes).select("notes.id")
+      @notes = current_school.notes.where(:id => ids)
+    else
+        @notes = current_school.notes
+    end
+
+    if tags
+      @tag_note_ids = current_school.tags.where do
+        {name.matches_any => tags}
+      end.joins(:notes).select("notes.id")
+      @notes = @notes.where(:id => @tag_note_ids)
+    end
+
+    @notes = @notes.where do
+      conditions = {}
+      conditions[notes.counselor_id] = auth_ids if auth_ids
+      conditions[notes.category_id] = category_ids if category_ids
+      conditions[notes.created_at.gteq] = start_date if start_date
+      conditions[notes.created_at.lteq] = end_date if end_date
+      conditions
+    end
+      
+  end
 end
