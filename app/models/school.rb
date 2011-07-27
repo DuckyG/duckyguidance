@@ -10,7 +10,7 @@ class School < ActiveRecord::Base
   belongs_to :subdomain
   
   validates    :name, :address, :city, :state, :zip_code, :subdomain, :presence => true
-  
+  validates_uniqueness_of :name 
   def new_counselor_attributes=(counselor_attributes)
     school_admin = counselors.build counselor_attributes
     school_admin.school = self
