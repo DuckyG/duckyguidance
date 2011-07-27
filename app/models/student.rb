@@ -4,11 +4,13 @@ class Student < ActiveRecord::Base
   belongs_to :counselor
   has_and_belongs_to_many :groups
   has_many :guardians
-  validates_presence_of :first_name, :last_name, :counselor_id, :city, :student_id
+  validates_presence_of :first_name, :last_name, :counselor_id, :city, :student_id, :full_name
   validates_uniqueness_of :student_id, :scope => :school_id
   validate :validate_counselor
   attr_accessor :areaCode, :prefix, :line, :extension
+  attr_protected :full_name
   before_validation :aggregate_phone_number
+  before_validation { self.full_name = "#{first_name} #{last_name}" }
   
   def aggregate_phone_number
     self.primary_phone_number = "(#{areaCode})#{prefix}-#{line}#{" ext. " + self.extension unless self.extension.empty?}" if @areaCode && @prefix && @line
@@ -31,10 +33,4 @@ class Student < ActiveRecord::Base
       errors.add_to_base "Guidance Counselor is required"
     end
   end
-  
-  
-  def full_name
-    "#{first_name} #{last_name}"
-  end
-  
 end
