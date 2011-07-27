@@ -11,16 +11,17 @@ class Student < ActiveRecord::Base
   before_validation :aggregate_phone_number
   
   def aggregate_phone_number
-    primary_phone_number = "(#{self.areaCode})#{self.prefix}-#{self.line}#{" ext. " + self.extension unless self.extension.empty?}" if @areaCode && @prefix && @line
+    self.primary_phone_number = "(#{areaCode})#{prefix}-#{line}#{" ext. " + self.extension unless self.extension.empty?}" if @areaCode && @prefix && @line
   end
   def distribute_phone_number
     if self.primary_phone_number && !self.primary_phone_number.empty?
-      matches = /\((\d{3})\)(\d{3})-(\d{4}) ext\. (\d+)/.match(self.primary_phone_number)
+      matches = /\(?(\d+)\)?-?(\d+)-(\d+)( ext. (\d+))?/.match(self.primary_phone_number)
       if matches
+      logger.info "exists in matches"
         @areaCode = matches[1]
         @prefix = matches[2]
         @line = matches[3]
-        @extension = matches[4]
+        @extension = matches[5]
       end
     end
   end
