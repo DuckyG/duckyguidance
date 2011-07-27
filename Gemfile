@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 gem "will_paginate", "~> 3.0.pre2"
-gem 'rails', '3.0.7'
+gem 'rails', '3.0.9'
 gem 'haml'
 gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
 gem 'acl9'
