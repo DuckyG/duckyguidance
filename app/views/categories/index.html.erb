@@ -1,8 +1,8 @@
 <h2 class="head pageTitle">Categories</h2>
 <div class="modCategories modData block module">
+    <%= render :partial => "shared/category_note_chart", :locals => {:notes => current_school.notes} %>
 	<a class="rightLink" href="<%=new_category_path%>">Add a Note Category<span>&nbsp;&rarr;</span></a>
 	<div class="content">
-    <%= render :partial => "shared/category_note_chart", :locals => {:notes => current_school.notes} %>
 		<table cellpadding="0" cellspacing="0">
 			<thead>
 				<tr>

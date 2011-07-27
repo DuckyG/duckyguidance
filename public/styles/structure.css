@@ -164,3 +164,7 @@ body {
 *> #content,
 *> #navGlobal {min-height: 1px; height: auto;}
 .chart {display: none;}
+#category_chart_div{
+  clear:both;
+  height:240px;
+}

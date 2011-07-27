@@ -33,7 +33,7 @@
      chart.draw(dataTbl, {width: 800, height: 240, title: "Notes Per Month (Last 7 months)", backgroundColor: "#edecea", 
          titleTextStyle: {fontSize: "16"}});
     }
-  }
+      }
 
   function drawCategoryPieCharts(){
     var rows=$(".category-chart li")
@@ -52,6 +52,10 @@
      chart.draw(dataTbl, {width: 800, height: 240, title: "Notes Per Category", backgroundColor: "#edecea", 
          titleTextStyle: {fontSize: "16"}});
     }
+    else {
+      $("#category_chart_div").hide()
+    }
+
   } 
       // Set a callback to run when the Google Visualization API is loaded.  
     </script>
