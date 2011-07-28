@@ -12,7 +12,15 @@
 			<td><%= link_to @note.groups.first.name, @note.groups.first%></td>
 		</tr>
 		<% elsif @note.students.count > 1%>
-		
+		<tr>
+			<td class="spaced label">Students</td>
+			<td>
+        <% @note.students.each do |student| %>
+          <%= link_to student.full_name, student-%><%=", " unless student == @note.students.last%>
+        <% end %>
+      </td>
+		</tr>
+
 		<% else %>
 		<tr>
 			<td class="spaced label">Student</td>
@@ -35,7 +43,7 @@
 			<td class="spaced label">Tags</td>
 			<td>
 			<%-@note.tags.each do |tag|-%>
-			<%= tag.name%><%= ", " if tag != @note.tags.last%>
+			<%= link_to tag.name, tag%><%= ", " if tag != @note.tags.last%>
 			<%-end-%>
 			</td>
 		</tr>
