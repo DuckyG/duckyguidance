@@ -43,7 +43,7 @@
 			<td class="spaced label">Tags</td>
 			<td>
 			<%-@note.tags.each do |tag|-%>
-			<%= tag.name%><%= ", " if tag != @note.tags.last%>
+			<%= link_to tag.name, tag%><%= ", " if tag != @note.tags.last%>
 			<%-end-%>
 			</td>
 		</tr>

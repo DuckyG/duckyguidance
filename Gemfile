@@ -8,12 +8,11 @@ gem 'acl9'
 gem 'foreigner'
 gem 'pg'
 
-gem 'delayed_job', :git => 'https://github.com/collectiveidea/delayed_job.git'
+gem 'delayed_job', :tag => 'v2.1.4', :git => 'https://github.com/collectiveidea/delayed_job.git'
 
 # Deploy with Capistrano
 gem 'capistrano'
 gem 'capistrano-ext'
 
 gem 'nokogiri'
-#gem 'meta_where'
 gem 'squeel'
