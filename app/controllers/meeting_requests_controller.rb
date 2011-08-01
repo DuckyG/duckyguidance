@@ -77,7 +77,11 @@ class MeetingRequestsController < ApplicationController
   end
   
   def welcome
-    new
+    if current_school.allows_meeting_requests
+      new
+    else
+      redirect_to login_path
+    end
   end
   
   def welcome_submit
