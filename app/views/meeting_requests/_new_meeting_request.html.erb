@@ -28,7 +28,7 @@
 				<div class="formDate">
 					<p>
 						<%= f.label :date, 'Desired Date' %>
-						<span class="ex">(Example: Today would be <%=Time.now.strftime "%m/%d/%Y"%>)</span>
+				    <span class="ex">(Example: Today would be <%=Time.now.strftime "%Y-%m-%d"%>)</span>
 						<%= f.text_field :date, :class => "datepicker"  %>
 					</p>
 				</div>

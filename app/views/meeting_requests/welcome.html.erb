@@ -33,7 +33,7 @@
 				<p><%= f.label :notes, "Message "%><%= f.text_area :notes, :rows => 8, :cols => 40 %></p>
 				<p class="formDate">
 					<%= f.label :date, 'Desired Date' %>
-					<span class="ex">(Example: Today would be <%=Time.now.strftime "%m/%d/%Y"%>)</span>
+					<span class="ex">(Example: Today would be <%=Time.now.strftime "%Y-%m-$d"%>)</span>
 					<%= f.text_field :date, :class => "datepicker" %>
 				</p>
 				<p>
