@@ -8,12 +8,12 @@ class Note < ActiveRecord::Base
   validates :counselor, :notes, :summary, :category, :presence => true 
   before_validation :convert_meta
   has_and_belongs_to_many :tags
+  default_scope :order => 'occurred_on ASC'
 
   def formatted_date_and_time
-    created_at.strftime '%B %d %Y @ %I:%M %p'
+    occurred_on.strftime '%B %d %Y'
   end
   
-
   def get_tag_string
     arr = []
     tags.each {|tag| arr.push tag.name}

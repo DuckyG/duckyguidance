@@ -41,7 +41,8 @@ $(document).ready(function(){
 	$( ".datepicker" ).datepicker({
 		showOn: "button",
 		buttonImage: "/images/buttons/calendar.png",
-		buttonImageOnly: true
+		buttonImageOnly: true,
+    dateFormat: "yy-mm-dd"
 	});
 
 
