@@ -10,7 +10,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title><%= @section ? @section + " - " : ""%>DuckyGuidance - <%=current_school.name if current_school%></title>
+  <%= yield :head %>
 	<meta name="description" content="Description of page">
 	<meta name="keywords" content="Keywords for page">
 	<meta name="copyright" content="Copyright information">

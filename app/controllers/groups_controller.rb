@@ -23,7 +23,6 @@ class GroupsController < ApplicationController
   # GET /groups.xml
   def index
     @groups = current_school.groups.all
-    @title = 'Groups'
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @groups }
@@ -35,7 +34,6 @@ class GroupsController < ApplicationController
   def show
     @group = current_school.groups.find(params[:id])
     @note = Note.new
-    @title = 'Group: '  + @group.name
     @group_id_string = @group.id
     respond_to do |format|
       format.html # show.html.erb
@@ -47,7 +45,6 @@ class GroupsController < ApplicationController
   # GET /groups/new.xml
   def new
     @group = Group.new
-    @title = 'New Group'
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @group }
@@ -57,7 +54,6 @@ class GroupsController < ApplicationController
   # GET /groups/1/edit
   def edit
     @group = current_school.groups.find(params[:id])
-    @title = 'Edit Group: '  + @group.name
     @non_members = current_school.students - @group.students
   end
 

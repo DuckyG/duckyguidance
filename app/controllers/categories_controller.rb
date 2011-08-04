@@ -21,7 +21,6 @@ class CategoriesController < ApplicationController
   # GET /categories.xml
   def index
     @categories = current_school.categories.all.sort {|x,y| x.name <=> y.name}
-    @title = 'Categories'
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @categories }
@@ -32,7 +31,6 @@ class CategoriesController < ApplicationController
   # GET /categories/1.xml
   def show
     @category = current_school.categories.find(params[:id])
-    @title = 'Category: '  + @category.name
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @category }
@@ -44,7 +42,6 @@ class CategoriesController < ApplicationController
   def new
     @section = "Add a Note Category"
     @category = Category.new
-    @title = 'New Category'
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @category }
@@ -55,7 +52,6 @@ class CategoriesController < ApplicationController
   def edit
     @category = current_school.categories.find(params[:id])
     redirect_to category_path(@category) if @category.system 
-    @title = 'Edit Category: '  + @category.name
   end
 
   # POST /categories

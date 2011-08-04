@@ -24,7 +24,6 @@ class NotesController < ApplicationController
   # GET /notes/1.xml
   def show
     @note = current_school.notes.find(params[:id])
-    @title = 'Note Details'
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @note }
@@ -47,7 +46,6 @@ class NotesController < ApplicationController
   # GET /notes/1/edit
   def edit
     @note = current_school.notes.find(params[:id])
-    @title = 'Edit Note'
     @note.tags_string = @note.get_tag_string
   end
 

@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <title><%= @student.full_name %> - Students -  <%=current_school.name %> - Ducky Guidance</title>
+<% end %>
+
 <h2 class="head pageTitle"><%=@student.full_name%></h2>
 
 <div class="rightLink">

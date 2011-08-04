@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <title>Dashboard -  <%=current_school.name %> - Ducky Guidance</title>
+<% end %>
 <% if @requests && @requests.count > 0 %>
 <%=render :partial => 'meeting_requests/meeting_requests_list', :locals => {:requests => @requests}%>
 <% end %>
