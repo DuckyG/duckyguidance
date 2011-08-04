@@ -32,7 +32,7 @@
 		
 		<%=render :partial => "shared/pagination",:locals => {:count => @group.students.count, :page => page} %>
 
-		<%=render :partial => "shared/student_list",:locals => {:students => @group.students.offset((page-1)*5).limit(5).order(:last_name)} %>
+    <%=render :partial => "shared/student_list",:locals => {:students => @group.students.offset((page-1)*5).limit(5), :show_counselor => false} %>
 
 		<%=render :partial => "shared/pagination",:locals => {:count => @group.students.count, :page => page} %>
 	</div>

@@ -11,27 +11,17 @@
 		<a class="addItem right" href="<%= new_student_path %>">Add a Student<span>&nbsp;&rarr;</span></a>
 	</div><!--// end modCopy //-->
 	<div class="content">
-		<table cellpadding="0" cellspacing="0">
-			<thead>
-				<tr>
-					<th class="spaced w50">Student</th>
-					<th>ID</th>
-					<th>YOG</th>
-					<th>Counselor</th>
-					<th>View Student</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @students.each do |student| %>
-					<tr>
-						<td class="spaced w50 studentName"><strong><%= student.full_name %></strong></td>
-						<td><%=student.student_id%></td>
-						<td><%=student.year_of_graduation%></td>
-						<td class="w25"><%=student.counselor.formal_name%></td>
-						<td class="action"><%=button_to "View Student", student_path(student), :method => :get %></td>
-					</tr>
-				<% end %>
-			</tbody>
-		</table>
+    <%-if params[:page] =~ /^\d+$/ 
+				page = params[:page].to_i
+			else
+				page = 1
+			end
+			-%>
+		
+		<%=render :partial => "shared/pagination",:locals => {:count => @students.count, :page => page, per_page: 20} %>
+
+    <%=render :partial => "shared/student_list",:locals => {:students => @students.offset((page-1)*20).limit(20), :show_counselor => true} %>
+
+		<%=render :partial => "shared/pagination",:locals => {:count => @students.count, :page => page, per_page: 20} %>
 	</div>
 </div><!--// end modRequests //-->

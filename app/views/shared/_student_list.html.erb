@@ -3,7 +3,10 @@
 		<tr>
 			<th class="spaced w50">Student</th>
 			<th>ID</th>
-			<th>YOG</th>
+      <th>YOG</th>
+      <%- if show_counselor -%>
+      <th>Counselor</th>
+      <%- end -%>
 			<th>View Student</th>
 		</tr>
 	</thead>
@@ -12,7 +15,10 @@
 			<tr>
 				<td class="spaced w50"><strong><%=student.full_name%></strong></td>
 				<td><%=student.student_id%></td>
-				<td><%=student.year_of_graduation%></td>
+        <td><%=student.year_of_graduation%></td>
+        <%- if show_counselor %>
+	        <td class="w25"><%=student.counselor.formal_name%></td>
+        <%- end -%>
 				<td class="action"><%=button_to "View Student", student, :method => :get%></td>
 			</tr>
 		<%-end-%>
