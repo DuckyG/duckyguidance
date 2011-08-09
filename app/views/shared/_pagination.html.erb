@@ -1,4 +1,6 @@
-<%-page_count = (count/5.0).ceil-%>
+<%-
+  per_page ||= 5
+  page_count = (count/(per_page*1.0)).ceil-%>
 <div class="pagination">
 	<p><strong>Page <%=page%></strong> of <%=page_count %></p>
 	<%-if page_count > 1%>

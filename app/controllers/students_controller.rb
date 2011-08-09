@@ -12,15 +12,16 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
   def index
-    if params[:last_name]
-      @students = current_school.students.where('last_name ilike ? or first_name ilike ?', "%" + params[:last_name] + "%", "%" + params[:last_name] + "%").order(:last_name)
-    else
-      @students = current_school.students.order(:last_name) if !params[:last_name]
-    end
-
+    search_term = "#{params[:search]}%" 
+    @students = current_school.students
+    @students = @students.where{last_name.matches search_term} unless search_term.nil? || search_term.empty? 
+    @students = @students.page(params[:page])
+    @show_counselor = true
+    logger.info @students.to_sql
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @students }
+      format.js
     end
   end
 

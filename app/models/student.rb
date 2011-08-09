@@ -11,6 +11,7 @@ class Student < ActiveRecord::Base
   attr_protected :full_name
   before_validation :aggregate_phone_number
   before_validation { self.full_name = "#{first_name} #{last_name}" }
+  default_scope :order => 'last_name, first_name'
   
   def aggregate_phone_number
     self.primary_phone_number = "(#{areaCode})#{prefix}-#{line}#{" ext. " + self.extension unless self.extension.empty?}" if @areaCode && @prefix && @line
