@@ -6,22 +6,13 @@
 	<div class="modCopy">
 		<p>
 			<label>Search for a Student:</label>
-			<input class="studentFilter" type="text" name="student_filter" value="">
+			<input class="filter" type="text" name="student_filter" value="">
 		</p>
 		<a class="addItem right" href="<%= new_student_path %>">Add a Student<span>&nbsp;&rarr;</span></a>
 	</div><!--// end modCopy //-->
 	<div class="content">
-    <%-if params[:page] =~ /^\d+$/ 
-				page = params[:page].to_i
-			else
-				page = 1
-			end
-			-%>
-		
-		<%=render :partial => "shared/pagination",:locals => {:count => @students.count, :page => page, per_page: 20} %>
-
-    <%=render :partial => "shared/student_list",:locals => {:students => @students.offset((page-1)*20).limit(20), :show_counselor => true} %>
-
-		<%=render :partial => "shared/pagination",:locals => {:count => @students.count, :page => page, per_page: 20} %>
+    <div id="students">
+      <%=render "students"%>
+    </div>
 	</div>
 </div><!--// end modRequests //-->

@@ -29,13 +29,7 @@ $(document).ready(function(){
 	// Autotab date field
 	$('.date .month, .date .day, .date .year').autotab_magic().autotab_filter('numeric');
 
-	$('.studentFilter').keyup(function(){
-    query = $('.studentFilter').val()
-    $("tbody").find('tr').each(function(){
-       ($(this).find('.studentName').find('strong').text().search(new RegExp(query,"i")) < 0) ? $(this).hide() : $(this).show();
-    });
-  });
-
+	
 	$('.multiselect').multiselect();
 
 	$( ".datepicker" ).datepicker({
@@ -45,6 +39,15 @@ $(document).ready(function(){
     dateFormat: "yy-mm-dd"
 	});
 
+  $("a[data-remote=true]").live("click",function(){
+    $(".pagination").html("<img  src='/images/ajax-loader.gif' />");
+    $.get(this.href, null,null,"script");
+    return false;
+  });
+
+  $('.filter').keyup(function(){
+    $.get(window.location.pathname + "?search=" + $('.filter').val(), null, null, "script");
+  });
 
 
 }); // Bye-bye jQuery!
