@@ -49,6 +49,10 @@ $(document).ready(function(){
     $.get(window.location.pathname + "?search=" + $('.filter').val(), null, null, "script");
   });
 
+  $(".student-search").tokenInput("/students/search", {
+    preventDuplicates: true,
+    prePopulate: eval($("#prior_members").val())
+  });
 
 }); // Bye-bye jQuery!
 

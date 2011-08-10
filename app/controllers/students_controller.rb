@@ -14,7 +14,7 @@ class StudentsController < ApplicationController
   def index
     search_term = "#{params[:search]}%" 
     @students = current_school.students
-    @students = @students.where{last_name.matches search_term} unless search_term.nil? || search_term.empty? 
+    @students = @students.search_by_first_or_last_name(search_term)
     @students = @students.page(params[:page])
     @show_counselor = true
     logger.info @students.to_sql
@@ -23,6 +23,12 @@ class StudentsController < ApplicationController
       format.xml  { render :xml => @students }
       format.js
     end
+  end
+
+  def search
+    search_term = "#{params[:q]}%"
+    @students = current_school.students.search_by_first_or_last_name(search_term)
+    render :json => @students.map{ |student| {id: student.id, name: student.full_name}}
   end
 
   # GET /students/1
