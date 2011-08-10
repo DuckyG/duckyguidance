@@ -13,6 +13,11 @@ class Student < ActiveRecord::Base
   before_validation { self.full_name = "#{first_name} #{last_name}" }
   default_scope :order => 'last_name, first_name'
   
+  class << self
+    def search_by_first_or_last_name(term)
+      where{(last_name.matches term) | (first_name.matches term)}
+    end
+  end
   def aggregate_phone_number
     self.primary_phone_number = "(#{areaCode})#{prefix}-#{line}#{" ext. " + self.extension unless self.extension.empty?}" if @areaCode && @prefix && @line
   end

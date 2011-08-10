@@ -19,6 +19,7 @@ class GroupsController < ApplicationController
       allow :school_admin,:of => :current_school
     end
   end
+  before_filter :split_id_string, :only => [:create, :update]
   # GET /groups
   # GET /groups.xml
   def index
@@ -104,4 +105,11 @@ class GroupsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+  
+  def split_id_string
+    params[:group][:student_ids] = params[:group][:student_ids].split(',')
+  end
+
 end

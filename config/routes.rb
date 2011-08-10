@@ -27,6 +27,9 @@ Guidance::Application.routes.draw do |map|
 
   resources :students do
     resources :notes
+    collection do
+      get :search
+    end
   end
 
   controller :meeting_requests do
