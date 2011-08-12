@@ -21,7 +21,6 @@ Guidance::Application.routes.draw do |map|
 
   resources :tags
 
-  get "dashboard/index"
   match 'dashboard' => 'dashboard#index'
   resources :notes
 
@@ -51,10 +50,7 @@ Guidance::Application.routes.draw do |map|
   end
 
   resources :counselors
-  get "thankyou/index"
   match 'thankyou' => 'thankyou#index'
 
   root :to => "meeting_requests#welcome"
-
-
 end
