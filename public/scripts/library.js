@@ -54,6 +54,11 @@ $(document).ready(function(){
     prePopulate: eval($("#prior_members").val())
   });
 
+  $(".group-search").tokenInput("/groups/search", {
+    preventDuplicates: true,
+    prePopulate: eval($("#prior_groups").val())
+  });
+
 }); // Bye-bye jQuery!
 
 
