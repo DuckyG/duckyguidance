@@ -49,6 +49,15 @@ $(document).ready(function(){
     $.get(window.location.pathname + "?search=" + $('.filter').val(), null, null, "script");
   });
 
+  $(".student-search").tokenInput("/students/search", {
+    preventDuplicates: true,
+    prePopulate: eval($("#prior_members").val())
+  });
+
+  $(".group-search").tokenInput("/groups/search", {
+    preventDuplicates: true,
+    prePopulate: eval($("#prior_groups").val())
+  });
 
 }); // Bye-bye jQuery!
 

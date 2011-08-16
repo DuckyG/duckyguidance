@@ -45,6 +45,12 @@
 				<%=f.label :year_of_graduation%>
 				<%= f.text_field :year_of_graduation %>
 			</p>
+      <p>
+			  <%= f.label :group_ids, "Groups" %>
+        <%= f.text_field :group_ids,  { class: "group-search", value: "Loading..."} %>
+        <%= hidden_field :prior, :groups,{value: @student.groups.map{|group| {"id" => group.id, "name" => group.name} }.to_json.gsub(/"/,"'")}  %>
+		  </p>
+
 			<div class="button">
 				<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Student" : "Update This Student"%>
 			</div>
