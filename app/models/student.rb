@@ -15,7 +15,7 @@ class Student < ActiveRecord::Base
   
   class << self
     def search_by_first_or_last_name(term)
-      where{(last_name.matches term) | (first_name.matches term)}
+      where{(last_name.matches term) | (first_name.matches term) | (full_name.matches term)}
     end
   end
   def aggregate_phone_number
