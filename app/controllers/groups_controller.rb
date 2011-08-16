@@ -10,7 +10,7 @@ class GroupsController < ApplicationController
       allow :counselor, :of => :current_school
     end
 
-    actions :edit, :update, :add_student, :remove_student do
+    actions :edit, :update, :search do
       allow :school_admin, :of => :current_school
       allow :counselor, :of => :current_school
     end
@@ -54,10 +54,15 @@ class GroupsController < ApplicationController
     end
   end
 
+  def search
+    search_term = "%#{params[:q]}%"
+    @groups = current_school.groups.where{ name.matches search_term}
+    render :json => @groups.map{ |group| {id: group.id, name: group.name}}
+  end
+
   # GET /groups/1/edit
   def edit
     @group = current_school.groups.find(params[:id])
-    @non_members = current_school.students - @group.students
   end
 
   # POST /groups

@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
   before_filter :title
-  before_filter :retrieve_non_member_groups, :only => [:edit, :update]
+  before_filter :split_id_string, :only => [:create, :update]
   access_control do
     allow :counselor, :of => :current_school
     allow :superadmin
@@ -73,15 +73,11 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
+    @student = current_school.students.find(params[:id])
     title
     @student.distribute_phone_number
   end
   
-  def retrieve_non_member_groups
-    @student = current_school.students.find(params[:id])
-    @other_groups = current_school.groups - @student.groups
-  end
-
   # POST /students
   # POST /students.xml
   def create
@@ -101,6 +97,11 @@ class StudentsController < ApplicationController
   # PUT /students/1
   # PUT /students/1.xml
   def update
+    @student = current_school.students.find(params[:id])
+     if params[:student][:group_ids].nil?
+      @group.students.clear
+    end
+
     respond_to do |format|
       if @student.update_attributes(params[:student])
         format.html { redirect_to(@student) }
@@ -123,4 +124,11 @@ class StudentsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+  
+  def split_id_string
+    params[:student][:group_ids] = params[:student][:group_ids].split(',')
+  end
+
 end

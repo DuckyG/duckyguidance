@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   acts_as_authentic
   acts_as_authorization_subject
-  has_and_belongs_to_many :roles
+  has_many :roles_users
+  has_many :roles, :through => :roles_users
   belongs_to :name_prefix
   before_save :assign_roles
   belongs_to :school
