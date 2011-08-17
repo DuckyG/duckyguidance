@@ -1,4 +1,4 @@
-Guidance::Application.routes.draw do |map|
+Guidance::Application.routes.draw do 
   get 'my_account' => 'counselors#my_account'
   put 'my_account_update' => 'counselors#my_account_update'
   match 'search' => 'notes#search'

@@ -16,3 +16,16 @@ gem 'capistrano-ext'
 
 gem 'nokogiri'
 gem 'squeel'
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
+  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'capybara'
+  gem "factory_girl_rails", "~> 1.1"
+end
+
+group :test do
+  gem 'sqlite3'
+end
