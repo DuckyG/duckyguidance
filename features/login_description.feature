@@ -6,6 +6,5 @@ Feature: Counselor Logs in
 
   Scenario: Log in
     Given I am a counselor
-    And I am on the login page
     When I log in
     Then I should be redirected to the dashboard

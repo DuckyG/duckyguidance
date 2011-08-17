@@ -12,7 +12,7 @@
 				<p><%= f.label :email, "Email Address", :class => 'first_name' %><%= f.text_field :email, :value => 'email@example.com', :class => "first_name" %></p>
 				<p><%= f.label :password, "Password", :class => 'last_name' %><%= f.password_field :password %></p>
 				<div class="button">
-					<input type="submit" name="continue" value="Login &raquo;">
+          <%= f.submit raw("Login &raquo;") %>
 				</div>
 			</fieldset>
 		<% end %>
