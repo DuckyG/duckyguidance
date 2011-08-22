@@ -9,32 +9,30 @@
 			</ul>
 		<% end %>
 		<fieldset>
-				<%=f.hidden_field :student_ids, :value => @student_id_string%>
-			  	<%=f.hidden_field :group_ids, :value => @group_id_string%>
-				<p>
-					<%= f.required_field_label :category_id, "Note Category"%>
-					<% category_array = ["Select a Category..."] + current_school.categories.map { |cat| [cat.name, cat.id] } %>
-					<%= f.select :category_id, options_for_select(category_array, @note.category_id) %>
-				</p>
-				<p>
-					<%= f.required_field_label :summary, "Note Summary" %>
-					<%= f.text_field :summary%>
-				</p>
-				<p>
-					<%=f.label :tags, 'Tags (separated by spaces)'%>
-					<%=f.text_field :tags_string%>
-				</p>
-        <p>
+      <%=f.hidden_field :student_ids, :value => @student_id_string%>
+      <%=f.hidden_field :group_ids, :value => @group_id_string%>
+      <p>
+        <%= f.required_field_label :category_id, "Note Category"%>
+        <% category_array = ["Select a Category..."] + current_school.categories.map { |cat| [cat.name, cat.id] } %>
+        <%= f.select :category_id, options_for_select(category_array, @note.category_id) %>
+      </p>
+      <p>
+        <%= f.required_field_label :summary, "Note Summary" %>
+        <%= f.text_field :summary%>
+      </p>
+      <p>
+        <%=f.label :tags, 'Tags (separated by spaces)'%>
+        <%=f.text_field :tags_string%>
+      </p>
+      <p>
         <%=f.label :occurred_on, 'Occurred On'%>
         <% @note.occurred_on ||= Date.current %>
-				<span class="ex">(Example: Today would be <%=Time.now.strftime "%Y-%m-%d"%>)</span>
+        <span class="ex">(Example: Today would be <%=Time.now.strftime "%Y-%m-%d"%>)</span>
         <%=f.text_field :occurred_on, :class => "datepicker"  %>
-        </p>
-				
-				<p><%= f.required_field_label :notes, "Note"%><%=f.text_area :notes, :html => {:rows =>8, :cols=>40 } %></p>
-
-			<div class="button">
-				<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Note" : "Update This Note"%>
+      </p>
+      <p><%= f.required_field_label :notes, "Note"%><%=f.text_area :notes, :html => {:rows =>8, :cols=>40 } %></p>
+      <div class="button">
+        <%=f.submit (request.filtered_parameters["action"] == "new" || request.filtered_parameters["action"] == "create" || request.filtered_parameters["controller"] == "students")? "Add This Note" : "Update This Note"%>
 			</div>
 		</fieldset>
 	<% end %>

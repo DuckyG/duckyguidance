@@ -3,7 +3,6 @@ class NotesController < ApplicationController
     allow :counselor, :of => :current_school
     allow :superadmin
   end
-  layout Proc.new { |controller| controller.request.xhr? ? false : 'standard' }
   # GET /notes
   # GET /notes.xml
   def index
@@ -57,10 +56,11 @@ class NotesController < ApplicationController
   # POST /notes.xml
   def create
     @note = Note.new(params[:note])
+    @student_id_string = params[:note][:student_ids]
     @note.counselor = current_counselor
     @note.school = current_school
     respond_to do |format|
-      if @note.save!
+      if @note.save
         if(@note.notify_students_counselor == '1')
           Notifier.another_counselor_post(@note).deliver
         end

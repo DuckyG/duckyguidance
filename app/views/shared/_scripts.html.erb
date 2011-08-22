@@ -1,14 +1,9 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-<script>!window.jQuery && document.write('<script src="js/jquery-1.4.2.min.js"><\/script>')</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.js"></script>
-<script type="text/javascript" src="/scripts/jquery.tokeninput.js"></script>
-<script type="text/javascript" src="/scripts/ui.multiselect.js"></script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="/scripts/library.js"></script>
+<%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"%>
+<script>!window.jQuery && document.write('<%= javascript_include_tag "jquery-1.4.2.min.js" %>')</script>
+<%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.js", "jquery.tokeninput",
+  "ui.multiselect", "https://www.google.com/jsapi", "library" %>
 
 <script type="text/javascript">
-    
-      // Load the Visualization API and the piechart package.
 	google.load('visualization', '1', {'packages':['corechart']});
   google.setOnLoadCallback(drawChart);
   

@@ -12,9 +12,9 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
   def index
-    search_term = "#{params[:search]}%" 
+    search_term = "#{params[:search]}%" unless params[:search].nil? or params[:search].empty?
     @students = current_school.students
-    @students = @students.search_by_first_or_last_name(search_term)
+    @students = @students.search_by_first_or_last_name(search_term) if search_term
     @students = @students.page(params[:page])
     @show_counselor = true
     logger.info @students.to_sql

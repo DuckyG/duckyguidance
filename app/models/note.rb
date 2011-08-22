@@ -5,7 +5,7 @@ class Note < ActiveRecord::Base
   belongs_to :category
   belongs_to :school
   attr_accessor :notify_students_counselor, :tags_string, :student_ids, :group_ids
-  validates :counselor, :notes, :summary, :category, :presence => true 
+  validates :counselor, :notes, :summary, :category, :presence => true
   before_validation :convert_meta
   has_and_belongs_to_many :tags
   default_scope :order => 'occurred_on ASC'
@@ -13,20 +13,19 @@ class Note < ActiveRecord::Base
   def formatted_date_and_time
     occurred_on.strftime '%B %d %Y'
   end
-  
+
   def get_tag_string
     arr = []
     tags.each {|tag| arr.push tag.name}
     arr.join ' '
   end
 
-  
   def convert_meta
     get_tags if @tags_string
     convert_student_ids
     convert_group_ids
   end
-  
+
   def convert_student_ids
     unless @student_ids.nil?
       @student_ids.split(',').each do |id|
@@ -35,7 +34,7 @@ class Note < ActiveRecord::Base
       end
     end
   end
-  
+
   def convert_group_ids
     unless @group_ids.nil?
       @group_ids.split(',').each do |id|

@@ -6,13 +6,28 @@ Given /^I am a counselor$/ do
 end
 
 When /^I log in$/ do
-  visit login_path
-  fill_in 'Email Address', :with => @user.email
-  fill_in 'Password', :with => @user.password
-  click_button "user_session_submit"
+  login
 end
 
 Then /^I should be redirected to the dashboard$/ do
   current_path.should == dashboard_path  
 end
 
+Given /^I am logged in$/ do
+  login 
+end
+
+When /^I visit the logout page$/ do
+  visit logout_path
+end
+
+Then /^I should be redirected to the login page$/ do
+  current_path.should == login_path
+end
+
+def login
+  visit login_path
+  fill_in 'Email Address', :with => @user.email
+  fill_in 'Password', :with => @user.password
+  click_button "user_session_submit"
+end
