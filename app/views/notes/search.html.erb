@@ -35,4 +35,4 @@
     <%=submit_tag "Search" %>
   <%end%>
 </div>
-<%= render :partial => 'shared/note_list', :locals => {:notes => @notes.all } %>
+<%= render "notes/list" %>

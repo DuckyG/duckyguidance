@@ -37,6 +37,8 @@ class StudentsController < ApplicationController
     @student = current_school.students.find(params[:id])
     @note = Note.new
     @note.created_at = DateTime.now
+    @notes = @student.notes.page(params[:page])
+    @hide_note_subject = true
     @student_id_string = @student.id
     title
     respond_to do |format|

@@ -42,6 +42,6 @@
 	<h2 class="head">Notes</h2>
 	<%=render :partial => "shared/new_note" %>
 
-	<%=render :partial => 'shared/note_list', :locals => {:notes => @student.notes.reverse }%>
+	<%=render "notes/list"%>
 </div><!--// end modNotes //-->
 

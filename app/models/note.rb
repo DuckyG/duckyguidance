@@ -20,6 +20,12 @@ class Note < ActiveRecord::Base
     arr.join ' '
   end
 
+  def subject_name
+    return "Group: #{groups.first.name}" unless groups.first.nil?
+    return students.first.full_name if students.count == 1
+    return "Multiple students"
+  end
+
   def convert_meta
     get_tags if @tags_string
     convert_student_ids

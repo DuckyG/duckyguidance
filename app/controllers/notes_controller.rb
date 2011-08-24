@@ -144,6 +144,7 @@ class NotesController < ApplicationController
       conditions[notes.created_at.lteq] = end_date if end_date
       conditions
     end
-      
+
+    @notes = @notes.page(params[:page])
   end
 end

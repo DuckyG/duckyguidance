@@ -12,7 +12,7 @@ class CounselorsController < ApplicationController
     actions :my_account, :my_account_update do
       allow :counselor, :of => :current_school
     end
-    
+
     actions :edit, :update do
       allow :school_admin, :of => :current_school
     end

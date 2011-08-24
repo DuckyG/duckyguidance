@@ -33,7 +33,7 @@
       <p><%= f.required_field_label :notes, "Note"%><%=f.text_area :notes, :html => {:rows =>8, :cols=>40 } %></p>
       <div class="button">
         <%=f.submit (request.filtered_parameters["action"] == "new" || request.filtered_parameters["action"] == "create" || request.filtered_parameters["controller"] == "students")? "Add This Note" : "Update This Note"%>
-			</div>
+        </div>
 		</fieldset>
 	<% end %>
 </div><!--// end modCopy //-->
