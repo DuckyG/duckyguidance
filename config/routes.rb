@@ -17,6 +17,7 @@ Guidance::Application.routes.draw do
     member do
       get :report
     end
+    resources :notes
   end
 
   resources :tags
