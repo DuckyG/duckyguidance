@@ -1,5 +1,5 @@
 class Student < ActiveRecord::Base
-  has_and_belongs_to_many :notes, :order => "created_at ASC"
+  has_and_belongs_to_many :notes
   belongs_to :school
   belongs_to :counselor
   has_and_belongs_to_many :groups
@@ -11,7 +11,13 @@ class Student < ActiveRecord::Base
   attr_protected :full_name
   before_validation :aggregate_phone_number
   before_validation { self.full_name = "#{first_name} #{last_name}" }
+  default_scope :order => 'last_name, first_name'
   
+  class << self
+    def search_by_first_or_last_name(term)
+      where{(last_name.matches term) | (first_name.matches term) | (full_name.matches term)}
+    end
+  end
   def aggregate_phone_number
     self.primary_phone_number = "(#{areaCode})#{prefix}-#{line}#{" ext. " + self.extension unless self.extension.empty?}" if @areaCode && @prefix && @line
   end
@@ -19,7 +25,6 @@ class Student < ActiveRecord::Base
     if self.primary_phone_number && !self.primary_phone_number.empty?
       matches = /\(?(\d+)\)?-?(\d+)-(\d+)( ext. (\d+))?/.match(self.primary_phone_number)
       if matches
-      logger.info "exists in matches"
         @areaCode = matches[1]
         @prefix = matches[2]
         @line = matches[3]

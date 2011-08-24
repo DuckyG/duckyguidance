@@ -3,16 +3,19 @@ class NotesController < ApplicationController
     allow :counselor, :of => :current_school
     allow :superadmin
   end
-  layout Proc.new { |controller| controller.request.xhr? ? false : 'standard' }
   # GET /notes
   # GET /notes.xml
   def index
-    @notes = current_school.notes.paginate(:page => params[:page], :per_page => 5, :order => "created_at DESC")
-    @student = current_school.students.find(params[:student_id]) if params[:student_id]
-    @notes =  @student.notes if @student
-    @group = current_school.groups.find(params[:group_id]) if params[:group_id]
-    @notes =  @group.notes if @group
-    @notes = @notes.sort {|x,y| y.created_at <=> x.created_at}
+    if params[:student_id]
+      @student = current_school.students.find(params[:student_id])
+      @notes =  @student.notes if @student
+    elsif params[:group_id]
+      @group = current_school.groups.find(params[:group_id])
+      @notes =  @group.notes if @group
+    else
+      @notes = current_school.notes
+    end
+    @notes = @notes.page(params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @notes }
@@ -24,7 +27,6 @@ class NotesController < ApplicationController
   # GET /notes/1.xml
   def show
     @note = current_school.notes.find(params[:id])
-    @title = 'Note Details'
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @note }
@@ -47,7 +49,6 @@ class NotesController < ApplicationController
   # GET /notes/1/edit
   def edit
     @note = current_school.notes.find(params[:id])
-    @title = 'Edit Note'
     @note.tags_string = @note.get_tag_string
   end
 
@@ -55,10 +56,11 @@ class NotesController < ApplicationController
   # POST /notes.xml
   def create
     @note = Note.new(params[:note])
+    @student_id_string = params[:note][:student_ids]
     @note.counselor = current_counselor
     @note.school = current_school
     respond_to do |format|
-      if @note.save!
+      if @note.save
         if(@note.notify_students_counselor == '1')
           Notifier.another_counselor_post(@note).deliver
         end
@@ -142,6 +144,7 @@ class NotesController < ApplicationController
       conditions[notes.created_at.lteq] = end_date if end_date
       conditions
     end
-      
+
+    @notes = @notes.page(params[:page])
   end
 end

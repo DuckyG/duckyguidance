@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <title>Categories -  <%=current_school.name %> - Ducky Guidance</title>
+<% end %>
 <h2 class="head pageTitle">Categories</h2>
 <div class="modCategories modData block module">
     <%= render :partial => "shared/category_note_chart", :locals => {:notes => current_school.notes} %>

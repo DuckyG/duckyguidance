@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <title>Note Detail -  <%=current_school.name %> - Ducky Guidance</title>
+<% end %>
 <h2 class="head pageTitle">Note Detail</h2>
 
 <div class="rightLink">
@@ -28,7 +31,7 @@
 		</tr>
 		<% end %>
 		<tr>
-			<td class="spaced label">Occured On</td>
+			<td class="spaced label">Occurred On</td>
 			<td><%= @note.formatted_date_and_time%></td>
 		</tr>
 		<tr>
@@ -37,7 +40,7 @@
 		</tr>
 		<tr>
 			<td class="spaced label">Category</td>
-			<td><%= @note.category.name%></td>
+			<td><%= link_to @note.category.name, @note.category%></td>
 		</tr>
 		<tr>
 			<td class="spaced label">Tags</td>

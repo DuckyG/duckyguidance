@@ -10,7 +10,7 @@ class GroupsController < ApplicationController
       allow :counselor, :of => :current_school
     end
 
-    actions :edit, :update, :add_student, :remove_student do
+    actions :edit, :update, :search do
       allow :school_admin, :of => :current_school
       allow :counselor, :of => :current_school
     end
@@ -19,11 +19,11 @@ class GroupsController < ApplicationController
       allow :school_admin,:of => :current_school
     end
   end
+  before_filter :split_id_string, :only => [:create, :update]
   # GET /groups
   # GET /groups.xml
   def index
     @groups = current_school.groups.all
-    @title = 'Groups'
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @groups }
@@ -34,12 +34,15 @@ class GroupsController < ApplicationController
   # GET /groups/1.xml
   def show
     @group = current_school.groups.find(params[:id])
+    @students = @group.students.page(params[:student_page]).per(5)
     @note = Note.new
-    @title = 'Group: '  + @group.name
+    @notes = @group.notes.page(params[:page])
+    @hide_note_subject = true
     @group_id_string = @group.id
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @group }
+      format.js
     end
   end
 
@@ -47,18 +50,21 @@ class GroupsController < ApplicationController
   # GET /groups/new.xml
   def new
     @group = Group.new
-    @title = 'New Group'
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @group }
     end
   end
 
+  def search
+    search_term = "%#{params[:q]}%"
+    @groups = current_school.groups.where{ name.matches search_term}
+    render :json => @groups.map{ |group| {id: group.id, name: group.name}}
+  end
+
   # GET /groups/1/edit
   def edit
     @group = current_school.groups.find(params[:id])
-    @title = 'Edit Group: '  + @group.name
-    @non_members = current_school.students - @group.students
   end
 
   # POST /groups
@@ -106,4 +112,11 @@ class GroupsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+  
+  def split_id_string
+    params[:group][:student_ids] = params[:group][:student_ids].split(',')
+  end
+
 end

@@ -9,75 +9,31 @@
 			</ul>
 		<% end %>
 		<fieldset>
-				<%=f.hidden_field :student_ids, :value => @student_id_string%>
-			  	<%=f.hidden_field :group_ids, :value => @group_id_string%>
-				<p>
-					<%= f.required_field_label :category_id, "Note Category"%>
-					<% category_array = ["Select a Category..."] + current_school.categories.map { |cat| [cat.name, cat.id] } %>
-					<%= f.select :category_id, options_for_select(category_array, @note.category_id) %>
-				</p>
-				<p>
-					<%= f.required_field_label :summary, "Note Summary" %>
-					<%= f.text_field :summary%>
-				</p>
-				<p>
-					<%=f.label :tags, 'Tags (separated by spaces)'%>
-					<%=f.text_field :tags_string%>
-				</p>
-				
-				<p><%= f.required_field_label :notes, "Note"%><%=f.text_area :notes, :html => {:rows =>8, :cols=>40 } %></p>
-
-			<div class="button">
-				<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Note" : "Update This Note"%>
-			</div>
+      <%=f.hidden_field :student_ids, :value => @student_id_string%>
+      <%=f.hidden_field :group_ids, :value => @group_id_string%>
+      <p>
+        <%= f.required_field_label :category_id, "Note Category"%>
+        <% category_array = ["Select a Category..."] + current_school.categories.map { |cat| [cat.name, cat.id] } %>
+        <%= f.select :category_id, options_for_select(category_array, @note.category_id) %>
+      </p>
+      <p>
+        <%= f.required_field_label :summary, "Note Summary" %>
+        <%= f.text_field :summary%>
+      </p>
+      <p>
+        <%=f.label :tags, 'Tags (separated by spaces)'%>
+        <%=f.text_field :tags_string%>
+      </p>
+      <p>
+        <%=f.label :occurred_on, 'Occurred On'%>
+        <% @note.occurred_on ||= Date.current %>
+        <span class="ex">(Example: Today would be <%=Time.now.strftime "%Y-%m-%d"%>)</span>
+        <%=f.text_field :occurred_on, :class => "datepicker"  %>
+      </p>
+      <p><%= f.required_field_label :notes, "Note"%><%=f.text_area :notes, :html => {:rows =>8, :cols=>40 } %></p>
+      <div class="button">
+        <%=f.submit (request.filtered_parameters["action"] == "new" || request.filtered_parameters["action"] == "create" || request.filtered_parameters["controller"] == "students")? "Add This Note" : "Update This Note"%>
+        </div>
 		</fieldset>
 	<% end %>
 </div><!--// end modCopy //-->
-
-
-
-<%#= form_for(@note) do |f|
-  - if @note.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@note.errors.count, 'error')} prohibited this user from being saved:"
-      %ul
-      - @note.errors.full_messages.each do |msg|
-        %li= msg
-  =f.hidden_field :student_ids, :value => @student_id_string
-  =f.hidden_field :group_ids, :value => @group_id_string
-  .grid_2
-    =f.label 'Category'
-    %br
-    -categories = current_school.categories.all.sort {|x,y| x.name <=> y.name}
-    -default = current_school.categories.find_by_name('Uncategorized')
-    -default = categories.first unless default
-    = f.select :category_id, categories.map {|c| [c.name, c.id]}, :selected => default.id 
-  .clear
-  .grid_2
-    =f.label :summary
-  .clear
-  .grid_3
-    =f.text_field :summary
-  .clear
-  -if @student && @student.counselor != current_counselor
-    .grid_3
-      =f.check_box :notify_students_counselor
-      =f.label :notify_students_counselor, "Notify student's counselor (" + @student.counselor.formal_name + ")"
-  -if current_school.show_tags
-    .grid_4
-      =f.label :tags, 'Tags (separated by spaces)'
-    .clear
-    .grid_3
-      =f.text_field :tags_string
-    .clear
-  
-  .grid_1
-    =f.label :notes
-  .clear
-  .grid_5
-    =f.text_area :notes
-  .clear
-  .grid_1
-    = f.submit 'Save Note'
-  .clear
-%>

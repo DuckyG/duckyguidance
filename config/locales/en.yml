@@ -2,6 +2,12 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  views:
+    pagination:
+      first: 'First'
+      last: 'Last'
+      previous: '&lt;'
+      next: '&gt;'
   actions: 'Actions'
   edit: 'Edit'
   show: 'Details'

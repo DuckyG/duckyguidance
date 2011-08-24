@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <title><%= @student.full_name %> - Students -  <%=current_school.name %> - Ducky Guidance</title>
+<% end %>
+
 <h2 class="head pageTitle"><%=@student.full_name%></h2>
 
 <div class="rightLink">
@@ -38,6 +42,6 @@
 	<h2 class="head">Notes</h2>
 	<%=render :partial => "shared/new_note" %>
 
-	<%=render :partial => 'shared/note_list', :locals => {:notes => @student.notes.reverse }%>
+	<%=render "notes/list"%>
 </div><!--// end modNotes //-->
 

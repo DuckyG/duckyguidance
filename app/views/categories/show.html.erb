@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <title><%= @category.name %> - Categories -  <%=current_school.name %> - Ducky Guidance</title>
+<% end %>
 <h2 class="head pageTitle"><span>Note Category:</span> <%= @category.name %></h2>
 
 <%- unless @category.system -%>
@@ -43,7 +46,7 @@
 
 <div class="modNotes block module">
 	<h2 class="head">Notes</h2>
-	<%=render :partial => 'shared/note_list', :locals => {:notes => @category.notes.reverse}%>
+	<%=render "notes/list" %>
 </div><!--// end modNotes //-->
 
 
