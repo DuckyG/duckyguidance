@@ -8,7 +8,7 @@ class Note < ActiveRecord::Base
   validates :counselor, :notes, :summary, :category, :presence => true
   before_validation :convert_meta
   has_and_belongs_to_many :tags
-  default_scope :order => 'occurred_on ASC'
+  default_scope :order => 'notes.occurred_on ASC'
 
   def formatted_date_and_time
     occurred_on.strftime '%B %d %Y'
