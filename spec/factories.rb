@@ -18,7 +18,6 @@ FactoryGirl.define do
   end
 
   factory :counselor do
-    school
     name_prefix
     first_name "John"
     last_name "Test"
@@ -37,5 +36,10 @@ FactoryGirl.define do
     sequence(:student_id) {|n| "#{n}"}
     shop "Carpentry"
     year_of_graduation "2013"
+  end
+
+  factory :group do
+    name "Test Group"
+    description "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
   end
 end

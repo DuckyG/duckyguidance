@@ -5,7 +5,8 @@ Feature: Navigation
   I want to ensure the navigation works
 
   Scenario Outline: Navigation Items
-    Given I am a counselor
+    Given I am at a school
+    And I am a counselor
     And I am logged in
     When I click the "<name>" link in the "<section>" section
     Then I should be redirected to the "<page_name>" page
