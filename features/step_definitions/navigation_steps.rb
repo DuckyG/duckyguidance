@@ -10,7 +10,9 @@ Then /^I should be redirected to the "([^"]*)" page$/ do |page|
   current_path.should == send("#{page}_path".to_sym)
 end
 
-When /^I click the "([^"]*)" navigation item$/ do |link_name|
-  click_link link_name
+When /^I click the "([^"]*)" link in the "([^"]*)" section$/ do |link_name, section|
+  within("##{section}") do
+    click_link link_name
+  end
 end
 

@@ -12,7 +12,7 @@ class Student < ActiveRecord::Base
   before_validation :aggregate_phone_number
   before_validation { self.full_name = "#{first_name} #{last_name}" }
   default_scope :order => 'last_name, first_name'
-  
+
   class << self
     def search_by_first_or_last_name(term)
       where{(last_name.matches term) | (first_name.matches term) | (full_name.matches term)}
@@ -32,7 +32,7 @@ class Student < ActiveRecord::Base
       end
     end
   end
-  
+
   def validate_counselor
     unless self.counselor_id && self.counselor_id.kind_of?(Integer) && self.counselor_id > 0
       errors.add_to_base "Guidance Counselor is required"
