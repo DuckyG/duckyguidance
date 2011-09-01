@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110801173910) do
+ActiveRecord::Schema.define(:version => 20110901123235) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -50,10 +50,8 @@ ActiveRecord::Schema.define(:version => 20110801173910) do
   end
 
   create_table "groups_students", :id => false, :force => true do |t|
-    t.integer  "group_id"
-    t.integer  "student_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "group_id"
+    t.integer "student_id"
   end
 
   add_index "groups_students", ["group_id"], :name => "index_groups_students_on_group_id"
@@ -107,10 +105,8 @@ ActiveRecord::Schema.define(:version => 20110801173910) do
   end
 
   create_table "notes_tags", :id => false, :force => true do |t|
-    t.integer  "note_id"
-    t.integer  "tag_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "note_id"
+    t.integer "tag_id"
   end
 
   create_table "roles", :force => true do |t|
@@ -127,10 +123,8 @@ ActiveRecord::Schema.define(:version => 20110801173910) do
   add_index "roles", ["name"], :name => "index_roles_on_name"
 
   create_table "roles_users", :id => false, :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "user_id"
+    t.integer "role_id"
   end
 
   add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
