@@ -117,6 +117,7 @@ class GroupsController < ApplicationController
   
   def split_id_string
     params[:group][:student_ids] = params[:group][:student_ids].split(',')
+    params[:group][:student_ids].delete_if { |key,value| value.to_i ==0 }
   end
 
 end

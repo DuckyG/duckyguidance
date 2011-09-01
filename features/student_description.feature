@@ -10,6 +10,6 @@ Feature: Student
     And I am logged in
     When I visit the "students" page
     And I click the "Add a Student" link in the "content" section
-    And I enter the students details
-    Then I should redirected to the new student's detail page
+    And I submit the student's details
+    Then I should be redirected to the new student's detail page
     And the status code should be 200
