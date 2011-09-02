@@ -1,10 +1,9 @@
 /* Example tokeninput style #1: Token vertical list*/
 .token-input-list {
+	list-style: none;
 	position: relative;
 	    z-index: 999;
     width: 422px;
-    height: 1%;
-	    overflow: hidden;
     cursor: text;
     padding: 0;
 }
