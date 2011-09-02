@@ -24,8 +24,12 @@ FactoryGirl.define do
     email "john@test.com"
     password "password1"
     password_confirmation "password1"
-  end
 
+    factory :school_admin do
+      after_create {|admin| admin.has_role! :school_admin, admin.school }
+    end
+  end
+ 
   factory :student do
     first_name "Joe"
     last_name "Student"

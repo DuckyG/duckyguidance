@@ -18,7 +18,17 @@ end
 
 Then /^I should not see a "([^"]*)" link in the "([^"]*)" section$/ do |link_name, section|
   within("##{section}") do
-    has_no_link? link_name
+    page.should have_no_link(link_name)
   end
+end
+
+Then /^I should see a "([^"]*)" link in the "([^"]*)" section$/ do |link_name, section|
+  within("##{section}") do
+    page.should have_link(link_name)
+  end
+end
+
+When /^I click the "([^"]*)" button$/ do |button_text|
+  click_button button_text
 end
 
