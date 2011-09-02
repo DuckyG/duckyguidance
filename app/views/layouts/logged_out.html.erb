@@ -19,8 +19,14 @@
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
 
     <%= render "shared/stylesheets" %>
-	</head>
-	<body class="pageHome">
+  </head>
+  <body class="pageHome">
+    <%- if flash[:notice]-%>
+      <div class="accountAlert">
+        <p><%= flash[:notice]%></p>
+      </div><!--// end accountAlert //-->
+    <%- end -%>
+
 		<div id="header">
 			<h1 id="clientName"><%=current_school.name if current_school%></h1>
 		</div>

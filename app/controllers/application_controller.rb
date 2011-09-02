@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
       if current_user
         if current_user.has_role? :member, current_subdomain
           flash[:notice] = "You do not have access to this page"
-          redirect_to dashboard_path, :status => :forbidden
+          redirect_to dashboard_path
         else
           current_user_session.destroy
           flash[:notice] = "You do not have access to this domain"
@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
         redirect_to root_path
       end
     end
+
     def check_defaults
       if current_school
         uncat = current_school.categories.find_by_name 'Uncategorized'
