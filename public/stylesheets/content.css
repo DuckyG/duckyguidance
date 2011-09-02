@@ -578,6 +578,7 @@ label {
 	padding: 0 0 3px;
 }
 p input,
+.formElement input,
 textarea,
 select,
 .button {
