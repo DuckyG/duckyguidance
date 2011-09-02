@@ -582,8 +582,9 @@ p input,
 textarea,
 select,
 .button {
-	width: 400px;
-	padding: 4px 10px 5px 10px;
+	width: 402px;
+	font: 1em/20px Arial, Helvetica, sans-serif;
+	padding: 4px 10px 5px 8px;
 	margin: 0 0 10px;
 }
 input[type="text"] {
@@ -595,9 +596,7 @@ input[type="submit"] {
 .ie6 p input,
 .ie7 p input,
 .ie8 p input,
-.ie9 p input {
-	
-}
+.ie9 p input {}
 .col .button {
 	width: 100%;
 }
@@ -605,11 +604,6 @@ input[type="submit"] {
 	clear: both;
 	text-align: right;
 	padding: 0 0 10px 21px;
-}
-input,
-select,
-button {
-	font: 1em/20px Arial, Helvetica, sans-serif;
 }
 label input {
 	width: auto;
@@ -669,7 +663,6 @@ textarea {
 	display: block;
 	clear: both;
 	height: 180px;
-	font: 0.88em/20px Arial, Helvetica, sans-serif;
 }
 	.button .cancel {
 		float: left;
