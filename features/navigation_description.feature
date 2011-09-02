@@ -4,7 +4,7 @@ Feature: Navigation
   As a Counselor
   I want to ensure the navigation works
 
-  Scenario Outline: Navigation Items
+  Scenario Outline: Counselor Navigation Items
     Given I am at a school
     And I am a counselor
     And I am logged in
@@ -24,3 +24,13 @@ Feature: Navigation
       | Add a Student        | new_student | auxiliary | 200    |
       | Add a Group          | new_group   | auxiliary | 200    |
       | Your Account Options | my_account  | auxiliary | 200    |
+  
+  Scenario Outline: Links not visible to counselors
+    Given I am at a school
+    And I am a counselor
+    And I am logged in
+    Then I should not see a "<link_name>" link in the "<section>" section
+    
+    Scenarios: Tools Navigation
+      | link_name           | section   |
+      | Add a Note Category | auxiliary |

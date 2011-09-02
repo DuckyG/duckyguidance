@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :roles_users
   has_many :roles, :through => :roles_users
   belongs_to :name_prefix
-  before_save :assign_roles
+  before_create :assign_roles 
   belongs_to :school
   validate :password_meets_requirements
   attr_accessor :subdomain

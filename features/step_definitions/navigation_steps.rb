@@ -1,5 +1,5 @@
 When /^I visit the "([^"]*)" page$/ do |page|
-  visit send("#{page}_path".to_sym)
+  visit send("#{page.gsub(/ /, "_")}_path".to_sym)
 end
 
 Then /^the status code should be (\d+)$/ do |status_code|
@@ -13,6 +13,12 @@ end
 When /^I click the "([^"]*)" link in the "([^"]*)" section$/ do |link_name, section|
   within("##{section}") do
     click_link link_name
+  end
+end
+
+Then /^I should not see a "([^"]*)" link in the "([^"]*)" section$/ do |link_name, section|
+  within("##{section}") do
+    has_no_link? link_name
   end
 end
 
