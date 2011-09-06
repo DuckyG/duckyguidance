@@ -1,9 +1,3 @@
-Given /^I am a counselor$/ do
-  @user = Factory(:counselor)
-  @user.has_role!(:counselor, @user.school)
-  @user.has_role!(:member, @user.school.subdomain)
-end
-
 When /^I log in$/ do
   login
 end

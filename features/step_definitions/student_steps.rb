@@ -1,4 +1,4 @@
-When /^I enter the students details$/ do
+When /^I submit the student's details$/ do
   @student = FactoryGirl.build(:student)
   fill_in "First Name", with: @student.first_name
   fill_in "Last Name", with: @student.last_name
@@ -14,7 +14,7 @@ When /^I enter the students details$/ do
   click_button "Add This Student"
 end
 
-Then /^I should redirected to the new student's detail page$/ do
+Then /^I should be redirected to the new student's detail page$/ do
   submitted_student = Student.find_by_student_id @student.student_id
 
   current_path.should == student_path(submitted_student)

@@ -4,9 +4,11 @@
 <h2 class="head pageTitle"><span>Note Category:</span> <%= @category.name %></h2>
 
 <%- unless @category.system -%>
-<div class="rightLink">
-	<a href="<%= edit_category_path(@category)%>">Edit<span>&nbsp;&rarr;</a>
-</div>
+  <% if current_counselor.has_role? :school_admin, current_school %>
+    <div class="rightLink">
+      <a href="<%= edit_category_path(@category)%>">Edit<span>&nbsp;&rarr;</a>
+    </div>
+  <% end %>
 <%- end -%>
 <table cellpadding="0" cellspacing="0">
 	<tbody>

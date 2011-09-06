@@ -52,7 +52,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1/edit
   def edit
     @category = current_school.categories.find(params[:id])
-    redirect_to category_path(@category) if @category.system 
+    redirect_to category_path(@category), notice: "You cannot edit system categories" if @category.system 
   end
 
   # POST /categories
