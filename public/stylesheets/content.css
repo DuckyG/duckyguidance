@@ -144,6 +144,13 @@ dl {}
 		width: 50%;
 		margin: 0;
 	}
+	.modCopy .col {
+		width: 45%;
+		margin: 0 0 0 4%;
+	}
+	.modCopy .cols2 .col:first-child {
+		margin: 0;
+	}
 	.cols2 .colR {
 		border-left: 1px solid #D7D2CF;
 		margin-left: -1px;
@@ -277,6 +284,19 @@ table .rightLink {
 		text-decoration: underline;
 	}
 
+.modOverflow {
+	max-width: 400px;
+	height: 207px;
+		overflow: auto;
+	background: #F7F6F5;
+	padding: 10px;
+	border: 1px solid #D7D2CF;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	        border-radius: 3px;
+	margin: 0 0 25px;
+}
+
 #systemMessage {
 	position: relative;
 	background: #F7F6F5;
@@ -370,10 +390,6 @@ table .rightLink {
 	.studentFilter {
 		margin-top: -5px;
 	}
-
-.modFormCol {background:silver;
-	margin: 0 30px 0 0;
-}
 
 .studentDetail {}
 	.studentName {}
@@ -587,6 +603,13 @@ select,
 	padding: 4px 10px 5px 8px;
 	margin: 0 0 10px;
 }
+.modCopy .col p input,
+.modCopy .col .formElement input,
+.modCopy .col textarea,
+.modCopy .col select,
+.button {
+	width: 95%;
+}
 input[type="text"] {
 	cursor: text;
 }
@@ -605,7 +628,8 @@ input[type="submit"] {
 	text-align: right;
 	padding: 0 0 10px 21px;
 }
-label input {
+label input,
+#container .modCopy .col label input {
 	width: auto;
 	margin: 0 5px 5px 0;
 	cursor: pointer;
@@ -702,7 +726,8 @@ p.message {
 .formContinue {
 	display: none;
 }
-.formDate input {
+.formDate input,
+.modCopy .col .formDate input {
 	width: 200px;
 	margin-right: 10px;
 }
