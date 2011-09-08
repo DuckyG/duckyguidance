@@ -36,8 +36,21 @@
 			</div>
 			<div class="col">
 				<h3>Date Range</h3>
-				<p><%= label_tag :start_date, "Start Date" %><%= text_field_tag :start_date,  params[:start_date]%></p>
-				<p><%= label_tag :end_date, "End Date" %><%= text_field_tag :end_date,  params[:end_date]%></p>
+				<p>
+					<%= label_tag :start_date, "Start Date" %>
+					<span class="ex">(Example: Today would be <%=Time.now.strftime "%Y-%m-%d"%>)</span>
+<!--//
+	DEVELOPER COMMENT: Add datepicker here (start date).
+//-->
+					<%= text_field_tag :start_date,  params[:start_date]%>
+				</p>
+				<p>
+					<%= label_tag :end_date, "End Date" %>
+<!--//
+	DEVELOPER COMMENT: Add datepicker here (end date).
+//-->
+					<%= text_field_tag :end_date,  params[:end_date]%>
+				</p>
 			</div>
 		</div><!-- /cols2 -->
 		<div class="button">
