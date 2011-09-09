@@ -124,6 +124,10 @@ ol {
 dl {}
 	dl dt {}
 	dl dd {}
+
+iframe {
+	width: 100%;
+}
 /* Icons ---------------------------------------------------------- */
 .icon {
 	background-image: url(images/icons/icons.png);
