@@ -4,4 +4,6 @@ class Group < ActiveRecord::Base
   belongs_to :school
   validates_presence_of :name, :description
   validates_uniqueness_of :name, :scope => :school_id, :case_sensitive => false
+
+  default_scope :order => "name"
 end
