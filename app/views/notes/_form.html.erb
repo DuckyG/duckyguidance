@@ -16,6 +16,9 @@
         <% category_array = ["Select a Category..."] + current_school.categories.map { |cat| [cat.name, cat.id] } %>
         <%= f.select :category_id, options_for_select(category_array, @note.category_id) %>
       </p>
+      <% if @student && @student.counselor != current_counselor %>
+			<p><%=f.label :notify_students_counselor, f.check_box(:notify_students_counselor) + "Notify Counselor (" + @student.counselor.last_name + ")"%></p>
+			<% end %>
       <p>
         <%= f.required_field_label :summary, "Note Summary" %>
         <%= f.text_field :summary%>
