@@ -19,7 +19,7 @@ class GroupsController < ApplicationController
       allow :school_admin,:of => :current_school
     end
   end
-  before_filter :split_id_string, :only => [:create, :update]
+  #before_filter :split_id_string, :only => [:create, :update]
   # GET /groups
   # GET /groups.xml
   def index
