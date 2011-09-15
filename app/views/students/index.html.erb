@@ -5,12 +5,20 @@
 
 
 <div class="modStudents modData block module">
-  <div class="modCopy filter">
-        <ul>
+  <% if @note %>
+    <div class="modCopy">
+      <h3>Assigned to Note</h3>
+      <%= link_to @note.summary, @note %>
+    </div>
+  <%else %>
+    <div class="modCopy filter">
+      <ul>
         <li <%= "class='active'" if students_path == request.path %>><a href="<%= students_path %>">Current</a></li>
         <li <%= "class='active'" if graduated_students_path == request.path %>><a href="<%= graduated_students_path %>">Graduated</a></li>
         <li <%= "class='active'" if all_students_path == request.path %>><a href="<%= all_students_path %>">All</a></li>
-    </ul></div>
+      </ul>
+    </div>
+  <% end %>
 	<div class="modCopy">
 		<p>
 			<label>Search for a Student:</label>
