@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
   before_filter :title
   before_filter :split_id_string, :only => [:create, :update]
+  before_filter :retrieve_note
   access_control do
     allow :counselor, :of => :current_school
     allow :superadmin
@@ -13,6 +14,7 @@ class StudentsController < ApplicationController
   # GET /students.xml
   def index
     @students = current_school.students.current
+    @students = @note.students if @note
     search_and_page_students
     @show_counselor = true
     respond_to do |format|
@@ -161,6 +163,10 @@ class StudentsController < ApplicationController
 
     @students = @students.search_by_first_or_last_name(search_term) if search_term
     @students = @students.page(params[:page])
+  end
+
+  def retrieve_note
+    @note = current_school.notes.find(params[:note_id]) if params[:note_id]
   end
 
 end
