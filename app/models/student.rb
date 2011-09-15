@@ -15,8 +15,30 @@ class Student < ActiveRecord::Base
 
   class << self
     def search_by_first_or_last_name(term)
-      where{(last_name.matches term) | (first_name.matches term) | (full_name.matches term)}
+      where {(last_name.matches term) | (first_name.matches term) | (full_name.matches term)}
     end
+
+    def current
+      school_year = current_school_year
+      where { year_of_graduation.gteq school_year }
+    end
+
+    def graduated
+      school_year = current_school_year
+      where { year_of_graduation.lt school_year }
+    end
+
+    def recently_graduated
+      school_year = current_school_year
+      where { year_of_graduation.eq school_year -1 }
+    end
+
+    def current_school_year
+      end_school_year = Date.parse "#{DateTime.now.year}/07/31"
+
+      DateTime.now.to_date > end_school_year ? DateTime.now.year + 1 : DateTime.now.year
+    end
+
   end
   def aggregate_phone_number
     self.primary_phone_number = "(#{areaCode})#{prefix}-#{line}#{" ext. " + self.extension unless self.extension.empty?}" if @areaCode && @prefix && @line
@@ -38,4 +60,7 @@ class Student < ActiveRecord::Base
       errors.add_to_base "Guidance Counselor is required"
     end
   end
+
+ 
+ 
 end

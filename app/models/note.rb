@@ -23,8 +23,17 @@ class Note < ActiveRecord::Base
   def subject_name
     return "Group: #{groups.first.name}" unless groups.first.nil?
     return students.first.full_name if students.count == 1
+    return "Unassigned" if students.count == 0
     return "Multiple students"
   end
+
+  def subject
+    return groups.first unless groups.first.nil?
+    return students.first if students.count == 1
+    return "#" if students.count == 0
+    return students
+  end
+
 
   def convert_meta
     get_tags if @tags_string

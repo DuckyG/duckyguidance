@@ -45,8 +45,9 @@ $(document).ready(function(){
     return false;
   });
 
-  $('.filter').keyup(function(){
-    $.get(window.location.pathname + "?search=" + $('.filter').val(), null, null, "script");
+  $(".filter_box").focus();
+  $('.filter_box').keyup(function(){
+    $.get(window.location.pathname + "?search=" + $('.filter_box').val(), null, null, "script");
   });
 
   $(".student-search").tokenInput("/students/search", {

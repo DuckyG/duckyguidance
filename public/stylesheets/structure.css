@@ -163,6 +163,37 @@ body {
 *> #container,
 *> #content,
 *> #navGlobal {min-height: 1px; height: auto;}
+
+/*DAN'S STYYLES -------------------------------*/
+
+  .filter {
+    margin-bottom:10px;
+  }
+  .filter ul {
+  padding:0; 
+}
+  .filter li {
+			display: inline;
+		}
+
+.modCopy.filter a {
+    text-decoration:none;
+				display: block;
+				float: left;
+				padding: 5px 9px;
+				border-top: 1px solid #FFF;
+				border-right: 1px solid #D7D2CF;
+				border-bottom: 1px solid #D7D2CF;
+				border-left: 1px solid #FFF;
+			}
+				.filter a:hover, .filter .active a {
+					background: #E9E7E5;
+					border-top-color: #D7D2CF;
+					border-right-color: #FFF;
+					border-bottom-color: #FFF;
+					border-left-color: #D7D2CF;
+				}
+
 .chart {display: none;}
 #category_chart_div{
   clear:both;
@@ -172,3 +203,4 @@ body {
   clear:both;
   height:240px;
 }
+

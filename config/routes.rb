@@ -23,12 +23,16 @@ Guidance::Application.routes.draw do
   resources :tags
 
   match 'dashboard' => 'dashboard#index'
-  resources :notes
+  resources :notes do
+    resources :students
+  end
 
   resources :students do
     resources :notes
     collection do
       get :search
+      get :all
+      get :graduated
     end
   end
 
