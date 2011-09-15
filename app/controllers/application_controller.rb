@@ -4,10 +4,8 @@ class ApplicationController < ActionController::Base
 
   layout 'standard'
   before_filter :check_domain, :check_defaults
-  helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options, :render_csv
+  helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options, :render_csv, :current_school_year
 
-
-  
   private
     def access_denied
       if current_user

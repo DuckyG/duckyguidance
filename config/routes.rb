@@ -29,6 +29,8 @@ Guidance::Application.routes.draw do
     resources :notes
     collection do
       get :search
+      get :all
+      get :graduated
     end
   end
 

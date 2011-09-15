@@ -2,7 +2,15 @@
   <title>Students -  <%=current_school.name %> - Ducky Guidance</title>
 <% end %>
 <h2 class="head pageTitle">Students</h2>
+
+
 <div class="modStudents modData block module">
+  <div class="modCopy filter">
+        <ul>
+        <li <%= "class='active'" if students_path == request.path %>><a href="<%= students_path %>">Current</a></li>
+        <li <%= "class='active'" if graduated_students_path == request.path %>><a href="<%= graduated_students_path %>">Graduated</a></li>
+        <li <%= "class='active'" if all_students_path == request.path %>><a href="<%= all_students_path %>">All</a></li>
+    </ul></div>
 	<div class="modCopy">
 		<p>
 			<label>Search for a Student:</label>
@@ -11,7 +19,7 @@
 		<a class="addItem right" href="<%= new_student_path %>">Add a Student<span>&nbsp;&rarr;</span></a>
 	</div><!--// end modCopy //-->
 	<div class="content">
-    <div id="students">
+        <div id="students">
       <%=render "students"%>
     </div>
 	</div>

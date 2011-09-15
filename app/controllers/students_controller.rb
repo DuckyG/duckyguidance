@@ -12,18 +12,40 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
   def index
-    search_term = "#{params[:search]}%" unless params[:search].nil? or params[:search].empty?
-    @students = current_school.students
-    @students = @students.search_by_first_or_last_name(search_term) if search_term
-    @students = @students.page(params[:page])
+    @students = current_school.students.current
+    search_and_page_students
     @show_counselor = true
-    logger.info @students.to_sql
     respond_to do |format|
-      format.html # index.html.erb
+      format.html 
       format.xml  { render :xml => @students }
       format.js
     end
   end
+
+  def graduated
+    @students = current_school.students.graduated
+    search_and_page_students
+    @show_counselor = true
+    respond_to do |format|
+      format.html { render :index }
+      format.xml  { render :xml => @students }
+      format.js   { render :index }
+    end
+
+  end
+
+  def all
+    @students = current_school.students
+    search_and_page_students
+    @show_counselor = true
+    respond_to do |format|
+      format.html { render :index }
+      format.xml  { render :xml => @students }
+      format.js   { render :index }
+    end
+
+  end
+
 
   def search
     search_term = "#{params[:q]}%"
@@ -132,6 +154,13 @@ class StudentsController < ApplicationController
   def split_id_string
     params[:student][:group_ids] = params[:student][:group_ids].split(',')
     params[:student][:group_ids].delete_if { |key,value| value.to_i == 0 }
+  end
+
+  def search_and_page_students
+    search_term = "#{params[:search]}%" unless params[:search].nil? or params[:search].empty?
+
+    @students = @students.search_by_first_or_last_name(search_term) if search_term
+    @students = @students.page(params[:page])
   end
 
 end
