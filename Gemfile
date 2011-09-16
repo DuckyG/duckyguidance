@@ -19,6 +19,7 @@ gem 'squeel'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem "seed_dump"
   gem 'cucumber-rails'
   gem 'database_cleaner'
   gem 'ruby-debug19', :require => 'ruby-debug'
