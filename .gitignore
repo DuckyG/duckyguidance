@@ -8,3 +8,5 @@ tmp/
 .svn
 public/images/students/
 vendor/cache
+config/database.yml
+
