@@ -13,6 +13,7 @@ class Student < ActiveRecord::Base
   before_validation { self.full_name = "#{first_name} #{last_name}" }
   default_scope :order => 'last_name, first_name'
 
+  VALID_SMART_FIELDS = {"Year of Gaduation" => "year_of_graduation", "Shop" => "shop", "City" => "city", "Counselor" => "counselor_id"}
   class << self
     def search_by_first_or_last_name(term)
       where {(last_name.matches term) | (first_name.matches term) | (full_name.matches term)}
@@ -39,10 +40,19 @@ class Student < ActiveRecord::Base
       DateTime.now.to_date > end_school_year ? DateTime.now.year + 1 : DateTime.now.year
     end
 
+    def valid_smart_field?(field_name)
+      VALID_SMART_FIELDS.keys.include? field_name
+    end
+
+    def valid_smart_field_names
+      VALID_SMART_FIELDS.keys
+    end
   end
+
   def aggregate_phone_number
     self.primary_phone_number = "(#{areaCode})#{prefix}-#{line}#{" ext. " + self.extension unless self.extension.empty?}" if @areaCode && @prefix && @line
   end
+
   def distribute_phone_number
     if self.primary_phone_number && !self.primary_phone_number.empty?
       matches = /\(?(\d+)\)?-?(\d+)-(\d+)( ext. (\d+))?/.match(self.primary_phone_number)
@@ -60,7 +70,4 @@ class Student < ActiveRecord::Base
       errors.add_to_base "Guidance Counselor is required"
     end
   end
-
- 
- 
 end

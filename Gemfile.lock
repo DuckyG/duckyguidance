@@ -162,7 +162,6 @@ GEM
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.4)
-    seed_dump (0.3.4)
     selenium-webdriver (2.5.0)
       childprocess (>= 0.2.1)
       ffi (>= 1.0.7)
@@ -203,6 +202,5 @@ DEPENDENCIES
   rails (= 3.0.9)
   rspec-rails
   ruby-debug19
-  seed_dump
   sqlite3
   squeel
