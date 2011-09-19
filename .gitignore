@@ -1,5 +1,12 @@
 .bundle
+uploads/
 db/*.sqlite3
 log/*.log
 tmp/**/*
 tmp/
+*/**/.svn
+.svn
+public/images/students/
+vendor/cache
+config/database.yml
+

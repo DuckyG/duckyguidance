@@ -1,0 +1,14 @@
+<% content_for :head do %>
+  <title>Edit Note -  <%=current_school.name %> - Ducky Guidance</title>
+<% end %>
+<h2 class="head pageTitle">Edit Note</h2>
+<table cellpadding="0" cellspacing="0">
+	<tbody>
+		<tr>
+			<td class="spaced label">Assigned to</td>
+			<td><%= link_to @note.subject_name, @note.subject%></td>
+		</tr>
+	
+	</tbody>
+</table>
+<%= render 'form'%>

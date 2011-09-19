@@ -1,37 +1,31 @@
 source 'http://rubygems.org'
-
-gem 'rails', '3.0.3'
-gem 'foreigner'
-gem 'acl9'
+#gem "will_paginate", "~> 3.0.pre2"
+gem 'rails', '3.0.9'
 gem 'haml'
-
 gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
+gem 'acl9'
 
+gem 'foreigner'
 gem 'pg'
-  
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3-ruby', :require => 'sqlite3'
-
-# Use unicorn as the web server
-# gem 'unicorn'
+gem 'kaminari'
+gem 'delayed_job', :tag => 'v2.1.4', :git => 'https://github.com/collectiveidea/delayed_job.git'
 
 # Deploy with Capistrano
- gem 'capistrano'
- gem 'capistrano-ext'
+gem 'capistrano'
+gem 'capistrano-ext'
 
-# To use debugger
-# gem 'ruby-debug'
+gem 'nokogiri'
+gem 'squeel'
 
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
+  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'capybara'
+  gem "factory_girl_rails", "~> 1.1"
+end
 
-# Bundle gems for certain environments:
-# gem 'rspec', :group => :test
-# group :test do
-#   gem 'webrat'
-# end
+group :test do
+  gem 'sqlite3'
+end

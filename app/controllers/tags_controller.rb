@@ -17,8 +17,9 @@ class TagsController < ApplicationController
   # GET /tags/1
   # GET /tags/1.xml
   def show
-    @tag = current_school.tags.find_by_name(params[:id])
+    @tag = current_school.tags.find(params[:id])
     @title = 'Tags: ' + @tag.name
+    @notes = @tag.notes.page(params[:page])
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @tag }
@@ -38,7 +39,7 @@ class TagsController < ApplicationController
 
   # GET /tags/1/edit
   def edit
-    @tag = current_school.tags.find_by_name(params[:id])
+    @tag = current_school.tags.find(params[:id])
     @title = 'Edit Tag'
   end
 
@@ -49,7 +50,7 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       if @tag.save
-        format.html { redirect_to(@tag, :notice => 'Tag was successfully created.') }
+        format.html { redirect_to(@tag) }
         format.xml  { render :xml => @tag, :status => :created, :location => @tag }
       else
         format.html { render :action => "new" }
@@ -61,7 +62,7 @@ class TagsController < ApplicationController
   # PUT /tags/1
   # PUT /tags/1.xml
   def update
-    @tag = current_school.tags.find_by_name(params[:id])
+    @tag = current_school.tags.find(params[:id])
 
     respond_to do |format|
       if @tag.update_attributes(params[:tag])

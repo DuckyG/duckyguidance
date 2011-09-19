@@ -1,0 +1,24 @@
+<div class="modCopy module">
+	<%= form_for @category do |f| %>
+	<% if @category.errors.any? %>
+		<ul>
+			<%- @category.errors.full_messages.each do |msg| -%>
+				<li><%=msg%></li>
+			<%-end-%>
+		</ul>
+	<% end %>
+		<fieldset>
+			<p>
+				<%= f.required_field_label :name, "Note Category Name" %>
+				<%= f.text_field :name %>
+			</p>
+			<p>
+				<%= f.required_field_label :description, "Description" %>
+				<%= f.text_area :description, :rows => 8, :cols => 40 %>
+			</p>
+			<div class="button">
+				<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Note Category" : "Update This Note Category"%>
+			</div>
+		</fieldset>
+	<% end %>
+</div><!--// end modCopy //-->

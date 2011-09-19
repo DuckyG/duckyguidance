@@ -1,0 +1,54 @@
+<tr class="drop">
+
+	<td class="spaced w50"><strong><%= new_request.first_name + " " + new_request.last_name %></strong></td>
+	<td><%= new_request.formatted_desired_date %></td>
+	<td><%= new_request.formatted_desired_time %></td>
+	<td>
+		<div class="trigger">
+			View Request<span class="arr">&nbsp;&rarr;</span>
+		</div>
+	</td>
+</tr>
+<tr class="full">
+	<td colspan="4">
+		<div class="content">
+			<p class="email"><a href="mailto:<%= new_request.email %>"><%= new_request.email %></a></p>
+			<div class="comment">
+				<p><%= new_request.notes %></p>
+			</div>
+			<div class="buttonSet button firstLayer">
+				<input class="swapLayers reject" type="submit" name="suggest_new_request" value="Suggest New Time">
+				<%= form_for(new_request, :html => {}) do |f| %>
+					<%= f.submit 'Accept Request', :class => 'accept' %>
+				<% end %>
+			</div><!--// end button //-->
+			
+			<div class="suggest secondLayer">
+				<%= form_for(new_request, :html => {}) do |f| %>
+				<div class="formDate">
+					<p>
+						<%= f.label :date, 'Desired Date' %>
+				    <span class="ex">(Example: Today would be <%=Time.now.strftime "%Y-%m-%d"%>)</span>
+						<%= f.text_field :date, :class => "datepicker"  %>
+					</p>
+				</div>
+				<div class="formTime">
+					<p>
+						<% valid_times = ["Choose a Time","8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM", "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM", "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM", "1:00 PM", "1:15 PM", "1:30 PM", "1:45 PM", "2:00 PM", "2:15 PM", "2:30 PM", "2:45 PM", "3:00 PM"]%>
+						<%= f.label :time, 'Desired Time'%>
+						<%= f.select :time, options_for_select(valid_times), {}, {:class => "narrow"} %>
+					</p>
+				</div>
+				<div class="buttonSet button">
+					<%= f.submit 'Send New Meeting Time' %>
+				</div>
+				<% end %>
+				<div class="buttonSet button">
+					<input class="swapLayers" type="submit" value="Cancel">
+				</div>
+			</div><!--// end suggest //-->
+			
+		</div><!--// end content //-->
+	</td>
+</tr>
+

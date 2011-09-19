@@ -1,10 +1,11 @@
 class ApplicationController < ActionController::Base
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
   protect_from_forgery
-  layout 'application'
-  before_filter :check_domain
-  helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options
-  
+
+  layout 'standard'
+  before_filter :check_domain, :check_defaults
+  helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options, :render_csv, :current_school_year
+
   private
     def access_denied
       if current_user
@@ -21,14 +22,26 @@ class ApplicationController < ActionController::Base
         redirect_to root_path
       end
     end
+
+    def check_defaults
+      if current_school
+        uncat = current_school.categories.find_by_name 'Uncategorized'
+        unless uncat
+          uncat = Category.new
+          uncat.name = "Uncategorized"
+          uncat.description = "System category: Uncategorized"
+          uncat.system = true
+          uncat.school = current_school
+          uncat.save
+        end
+      end
+    end
     
     def check_domain
       if !request.subdomains.empty? && !current_subdomain
-        querystring = "?error_domain="+ request.subdomains.first
-        querystring = querystring + "&error_title=School+Not+Found"
-        querystring = querystring + "&error_message=The+school+you+are+looking+for+could+not+be+found.+Please+check+to+see+that+you+have+the+correct+domain+for+your+school."
-
-        redirect_to request.scheme+"://" + request.domain+"/error/404"+querystring
+        @section = "School Not Found"
+        @message = "The school you are looking for could not be found. Please check to see that you have the correct domain for your school."
+        render "shared/error", :status => 404, :layout => false
       end
     end
     
@@ -65,5 +78,23 @@ class ApplicationController < ActionController::Base
     def current_counselor
       return @current_counselor if defined?(@current_counselor)
       @current_counselor = current_user ? Counselor.find(current_user.id) : nil
+    end
+    
+    def render_csv(filename = nil)
+      filename ||= params[:action]
+      filename += '.csv'
+
+      if request.env['HTTP_USER_AGENT'] =~ /msie/i
+        headers['Pragma'] = 'public'
+        headers["Content-type"] = "text/plain" 
+        headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\"" 
+        headers['Expires'] = "0" 
+      else
+        headers["Content-Type"] ||= 'text/csv'
+        headers["Content-Disposition"] = "attachment; filename=\"#{filename}\"" 
+      end
+
+      render :layout => false
     end
 end

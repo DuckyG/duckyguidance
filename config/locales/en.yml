@@ -2,6 +2,12 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  views:
+    pagination:
+      first: 'First'
+      last: 'Last'
+      previous: '&lt;'
+      next: '&gt;'
   actions: 'Actions'
   edit: 'Edit'
   show: 'Details'
@@ -13,6 +19,7 @@ en:
   add: 'add'
   Add: 'Add'
   Remove: 'Remove'
+  Description: 'Description'
   counselor_sessions:
     new:
       title: 'Login'
@@ -25,3 +32,10 @@ en:
   counselors:
     index:
       title: 'Counselors'
+  activerecord:
+    attributes:
+      student:
+        student_id: "Student ID"
+    errors:
+      messages:
+        blank: "is required"

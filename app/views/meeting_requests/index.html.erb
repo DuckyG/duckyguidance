@@ -1,0 +1,30 @@
+<h2 class="head pageTitle">Meeting Requests</h2>
+<div class="modGroups modData block module">
+	<div class="content">
+		<table cellpadding="0" cellspacing="0">
+			<thead>
+				<tr>
+					<th class="spaced">Student</th>
+					<th>Counselor</th>
+					<th>Date Requested</th>
+					<th>Time Requested</th>
+					<th>Accepted</th>
+					<th>View Request</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%- @meeting_requests.each do |meeting_request| -%>
+				<tr>
+					<td class="spaced w30"><strong><%= meeting_request.student_full_name %></strong></td>
+					<td><%= meeting_request.counselor.formal_name%></td>
+					<td><%= meeting_request.formatted_desired_date %></td>
+					<td><%= meeting_request.formatted_desired_time %></td>
+					<td><%= meeting_request.accepted ? 'Yes' : meeting_request.accepted.nil? ? "No Response" : "No" %></td>
+					<td class="action"><%= button_to "View Request", meeting_request, :method => :get %></td>
+				</tr>
+				<%- end -%>
+			</tbody>
+		</table>
+		<%= will_paginate(@meeting_requests)%>
+	</div>
+</div><!--// end modRequests //-->

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101214180740) do
+ActiveRecord::Schema.define(:version => 20110901123235) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -18,7 +18,23 @@ ActiveRecord::Schema.define(:version => 20101214180740) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "school_id"
+    t.boolean  "system"
   end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "groups", :force => true do |t|
     t.string   "name",        :null => false
@@ -34,10 +50,8 @@ ActiveRecord::Schema.define(:version => 20101214180740) do
   end
 
   create_table "groups_students", :id => false, :force => true do |t|
-    t.integer  "group_id"
-    t.integer  "student_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "group_id"
+    t.integer "student_id"
   end
 
   add_index "groups_students", ["group_id"], :name => "index_groups_students_on_group_id"
@@ -65,6 +79,10 @@ ActiveRecord::Schema.define(:version => 20101214180740) do
     t.integer  "school_id"
   end
 
+  create_table "name_prefixes", :force => true do |t|
+    t.string "prefix"
+  end
+
   create_table "notes", :force => true do |t|
     t.text     "notes"
     t.datetime "created_at"
@@ -73,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20101214180740) do
     t.string   "summary"
     t.integer  "category_id"
     t.integer  "school_id"
+    t.date     "occurred_on"
   end
 
   create_table "notes_smart_groups", :id => false, :force => true do |t|
@@ -86,10 +105,8 @@ ActiveRecord::Schema.define(:version => 20101214180740) do
   end
 
   create_table "notes_tags", :id => false, :force => true do |t|
-    t.integer  "note_id"
-    t.integer  "tag_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "note_id"
+    t.integer "tag_id"
   end
 
   create_table "roles", :force => true do |t|
@@ -106,10 +123,8 @@ ActiveRecord::Schema.define(:version => 20101214180740) do
   add_index "roles", ["name"], :name => "index_roles_on_name"
 
   create_table "roles_users", :id => false, :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "user_id"
+    t.integer "role_id"
   end
 
   add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
@@ -125,8 +140,11 @@ ActiveRecord::Schema.define(:version => 20101214180740) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "subdomain_id"
-    t.boolean  "show_tags",    :default => true
+    t.boolean  "show_tags",               :default => true
+    t.boolean  "allows_meeting_requests"
   end
+
+  add_index "schools", ["name"], :name => "index_schools_on_name", :unique => true
 
   create_table "smart_groups", :force => true do |t|
     t.string   "name",        :null => false
@@ -149,6 +167,7 @@ ActiveRecord::Schema.define(:version => 20101214180740) do
     t.integer  "year_of_graduation"
     t.string   "shop"
     t.integer  "counselor_id"
+    t.string   "full_name"
   end
 
   create_table "subdomains", :force => true do |t|
@@ -186,6 +205,7 @@ ActiveRecord::Schema.define(:version => 20101214180740) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "school_id"
+    t.integer  "name_prefix_id"
   end
 
   add_foreign_key "categories", "schools", :name => "categories_school_id_fk"

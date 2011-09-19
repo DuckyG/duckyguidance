@@ -9,8 +9,11 @@ class CounselorsController < ApplicationController
       allow :school_admin, :of => :current_school
     end
 
+    actions :my_account, :my_account_update do
+      allow :counselor, :of => :current_school
+    end
+
     actions :edit, :update do
-      allow :counselor, :of => :current_school, :if => :editing_self?
       allow :school_admin, :of => :current_school
     end
 
@@ -37,7 +40,7 @@ class CounselorsController < ApplicationController
     else
       @counselor = current_counselor
     end
-    @title = 'Counselor: ' + @counselor.first_name + ' ' + @counselor.last_name
+    @title = "Counselor: #{@counselor.full_name}"
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @counselor }
@@ -57,13 +60,8 @@ class CounselorsController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    if params[:id]
       @counselor = current_school.counselors.find(params[:id])
       @title = "Edit Counselor"
-    else
-      @counselor = current_counselor
-      @title = "My Settings"
-    end
   end
   
 
@@ -75,10 +73,38 @@ class CounselorsController < ApplicationController
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.save
-        format.html { redirect_to(@counselor, :notice => 'Counselor was successfully created.') }
+        format.html { redirect_to(@counselor) }
         format.xml  { render :xml => @counselor, :status => :created, :location => @counselor }
       else
         format.html { render :action => "new" }
+        format.xml  { render :xml => @counselor.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
+  def my_account
+
+     @counselor = current_counselor
+     @title = "My Settings"
+  end
+
+  def my_account_update
+
+    @counselor = current_counselor
+    @title = "My Settings"
+
+
+    @counselor.school = current_school
+    respond_to do |format|
+      if @counselor.update_attributes(params[:counselor])
+        format.html {
+            session = UserSession.new(:email  => params[:counselor][:email], :password => params[:counselor][:password]) if params[:counselor][:password]
+            session.save
+            redirect_to(my_account_path, :notice => 'Your settings have been updated. Please review the changes made below.') 
+        }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "my_account"}
         format.xml  { render :xml => @counselor.errors, :status => :unprocessable_entity }
       end
     end
@@ -87,28 +113,18 @@ class CounselorsController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
-    if params[:id]
+
       @counselor = current_school.counselors.find(params[:id])
       @title = "Edit Counselor"
-    else
-      @counselor = current_counselor
-      @title = "My Settings"
-    end
+
+
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.update_attributes(params[:counselor])
-        format.html {
-          if request.fullpath == "/my_settings_update"
-            session = UserSession.new(:email  => params[:counselor][:email], :password => params[:counselor][:password]) 
-            session.save
-            redirect_to(my_account_path, :notice => 'Counselor was successfully updated.') 
-          else
-            redirect_to(@counselor, :notice => 'Counselor was successfully updated.') 
-          end
-           }
+        format.html { redirect_to(@counselor) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => "edit"  }
         format.xml  { render :xml => @counselor.errors, :status => :unprocessable_entity }
       end
     end
@@ -124,9 +140,5 @@ class CounselorsController < ApplicationController
       format.html { redirect_to(users_url) }
       format.xml  { head :ok }
     end
-  end
-
-  def editing_self?
-    (params[:id].to_i == current_user.id) || (request.fullpath == "/my_settings_update") || (request.fullpath == "/my_settings")
   end
 end

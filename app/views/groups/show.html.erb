@@ -1,0 +1,40 @@
+<% content_for :head do %>
+  <title><%=@group.name %> - Group -  <%=current_school.name %> - Ducky Guidance</title>
+<% end %>
+<h2 class="head pageTitle"><span>Group:</span> <%= @group.name %></h2>
+
+<div class="rightLink">
+	<a href="<%= edit_group_path(@group)%>">Edit<span>&nbsp;&rarr;</a>
+</div>
+
+<table cellpadding="0" cellspacing="0">
+	<tbody>
+		<tr>
+			<td class="spaced label">Name</td>
+			<td><%= @group.name %></td>
+		</tr>
+		<tr>
+			<td class="spaced label">Description</td>
+			<td><p><%=@group.description%></p></td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="modList modData block module">
+	<h2 class="head">Group Members</h2>
+	<div class="content">
+		<div id="students">
+      <%=render "students/students"%>
+    </div>
+
+	</div>
+</div><!--// end modRequests //-->
+
+
+<div class="modNotes block module">
+	<h2 class="head">Notes</h2>
+	<%=render :partial => "shared/new_note" %>
+
+	<%=render "notes/list"%>
+</div><!--// end modNotes //-->
+

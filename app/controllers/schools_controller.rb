@@ -3,7 +3,7 @@ class SchoolsController < ApplicationController
     allow :superadmin
   end
   def index
-    
+    @schools = School.all 
   end
   
   def show
@@ -27,7 +27,7 @@ class SchoolsController < ApplicationController
       if @school.save!
         @new_cat = @school.categories.create :name => 'Uncategorized'
         @new_cat.save
-        format.html { redirect_to(@school, :notice => 'Student was successfully created.') }
+        format.html { redirect_to(@school) }
         format.xml  { render :xml => @school, :status => :created, :location => @student }
       else
         format.html { render :action => "new" }

@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.save
-        format.html { redirect_to(@counselor, :notice => 'Counselor was successfully created.') }
+        format.html { redirect_to(@counselor) }
         format.xml  { render :xml => @counselor, :status => :created, :location => @counselor }
       else
         format.html { render :action => "new" }
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.update_attributes(params[:counselor])
-        format.html { redirect_to(@counselor, :notice => 'Counselor was successfully updated.') }
+        format.html { redirect_to(@counselor) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
