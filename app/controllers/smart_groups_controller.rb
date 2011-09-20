@@ -27,7 +27,7 @@ class SmartGroupsController < ApplicationController
       redirect_to(@smart_group ? @smart_group : new_smart_group_path(:field => params[:field], :value => params[:value]))
       return
     end
-    @smart_groups = current_school.smart_groups.all
+    @smart_groups = current_school.smart_groups.page(params[:page])
     @title = 'Smart Groups'
     respond_to do |format|
       format.html # index.html.erb

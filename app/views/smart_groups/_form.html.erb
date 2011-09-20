@@ -20,6 +20,9 @@
         <%= f.required_field_label :field_value %>
         <%= f.text_field :field_value %>
       </p>
+      <div class="button">
+				<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Smart Group" : "Update This Smart Group"%>
+			</div>
     </fieldset>
   <% end %>
 </div>
