@@ -16,7 +16,7 @@ gem 'capistrano-ext'
 
 gem 'nokogiri'
 gem 'squeel'
-
+gem 'SyslogLogger'
 group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails'
