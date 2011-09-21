@@ -25,6 +25,7 @@ Guidance::Application.configure do
 
   # See everything in the log (default is :info)
   config.log_level = :info
+  config.active_record.logger = nil
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
