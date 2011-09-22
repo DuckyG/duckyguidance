@@ -166,6 +166,9 @@ body {
 
 /*DAN'S STYYLES -------------------------------*/
 
+.pagination { 
+  clear:both;
+}
   .filter {
     margin-bottom:10px;
   }

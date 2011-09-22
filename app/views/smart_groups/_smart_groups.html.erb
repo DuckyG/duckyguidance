@@ -6,15 +6,15 @@
       <th class="spaced w50">Name</th>
       <th>Field</th>
       <th>Value</th>
-      <th>View Student</th>
+      <th>View Smart Group</th>
     </tr>
   </thead>
   <tbody>
     <%-@smart_groups.each do |smart_group| -%>
       <tr>
         <td class="spaced w50"><strong><%=smart_group.name%></strong></td>
-        <td><%=smart_group.field_name%></td>
-        <td><%=smart_group.field_value%></td>
+        <td><%=smart_group.friendly_field_name%></td>
+        <td><%=smart_group.friendly_field_value%></td>
         <td class="action"><%=button_to "View Smart Group", smart_group, :method => :get%></td>
       </tr>
     <%-end-%>

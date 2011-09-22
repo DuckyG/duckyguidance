@@ -61,13 +61,14 @@ class StudentsController < ApplicationController
     @student = current_school.students.find(params[:id])
     @note = Note.new
     @note.created_at = DateTime.now
-    @notes = @student.notes.page(params[:page])
+    @notes = @student.notes.page(params[:note_page])
     @hide_note_subject = true
     @student_id_string = @student.id
     title
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @student }
+      format.js
     end
   end
   

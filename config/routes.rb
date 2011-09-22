@@ -3,7 +3,11 @@ Guidance::Application.routes.draw do
   put 'my_account_update' => 'counselors#my_account_update'
   match 'search' => 'notes#search'
   
-  resources :smart_groups
+  resources :smart_groups do
+    member do
+      post :snapshot
+    end
+  end
   resources :groups do
     resources :notes
     collection do

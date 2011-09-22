@@ -1,6 +1,6 @@
 class SmartGroupsController < ApplicationController
   access_control do
-    actions :index, :show do
+    actions :index, :show, :snapshot do
       allow :counselor, :of => :current_school
       allow :superadmin
     end
@@ -19,12 +19,19 @@ class SmartGroupsController < ApplicationController
       allow :school_admin,:of => :current_school
     end
   end
+
+  before_filter :retrieve_fields
   # GET /smart_groups
   # GET /smart_groups.xml
   def index
     if params[:field] && params[:value]
       @smart_group = current_school.smart_groups.find_by_field_name_and_field_value(params[:field], params[:value])
-      redirect_to(@smart_group ? @smart_group : new_smart_group_path(:field => params[:field], :value => params[:value]))
+      if @smart_group
+        redirect_to @smart_group 
+        return
+      end
+       flash[:notice] =  "A smart group for this filter does not exist yet. Complete this form to create one."
+      redirect_to(new_smart_group_path(:field => params[:field], :value => params[:value]) )
       return
     end
     @smart_groups = current_school.smart_groups.page(params[:page])
@@ -32,6 +39,7 @@ class SmartGroupsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @smart_groups }
+      format.js
     end
   end
 
@@ -39,13 +47,27 @@ class SmartGroupsController < ApplicationController
   # GET /smart_groups/1.xml
   def show
     @smart_group = current_school.smart_groups.find(params[:id])
-    @students=current_school.students.where("#{@smart_group.field_name} = ?", @smart_group.field_value)
+    @students = @smart_group.students.page(params[:student_page]).per(5)
     @note = Note.new
-    @title = 'Smart Group: '  + @smart_group.name
+    @notes = @smart_group.notes.page(params[:note_page])
     @smart_group_id_string = @smart_group.id
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @smart_group }
+      format.js
+    end
+  end
+
+  def snapshot
+    @smart_group = current_school.smart_groups.find(params[:id])
+    group = Group.new
+    group.school = current_school
+    group.name = params[:name]
+    group.description = params[:description]
+    group.students = @smart_group.students
+
+    if group.save
+      redirect_to group
     end
   end
 
@@ -53,7 +75,6 @@ class SmartGroupsController < ApplicationController
   # GET /smart_groups/new.xml
   def new
     @smart_group = SmartGroup.new
-    @fields = Student.valid_smart_field_names
     if params[:field] && params[:value]
       @smart_group.field_name = params[:field]
       @smart_group.field_value = params[:value]
@@ -68,7 +89,6 @@ class SmartGroupsController < ApplicationController
   # GET /smart_groups/1/edit
   def edit
     @smart_group = current_school.smart_groups.find(params[:id])
-    @title = 'Edit SmartGroup: '  + @smart_group.name
 
   end
 
@@ -118,4 +138,9 @@ class SmartGroupsController < ApplicationController
     end
   end
 
+  private 
+  
+  def retrieve_fields
+    @fields = Student.smart_fields.map{|k,v| [k,v]}
+  end
 end
