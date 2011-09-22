@@ -7,7 +7,7 @@ class DashboardController < ApplicationController
     if current_counselor
       #@notes = current_counselor.notes.order('created_at desc').limit(10)
       if current_counselor.has_role?(:school_admin, current_school)
-        @notes = Note.limit(10)
+        @notes = current_school.notes.limit(10)
         logger.info @notes.to_sql
       else
         @notes = Array.new
