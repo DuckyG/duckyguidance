@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   layout 'standard'
-  before_filter :check_domain, :check_defaults
+  before_filter :check_domain, :check_defaults, :check_smart_group
   helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options, :render_csv, :current_school_year
 
   private
@@ -96,5 +96,18 @@ class ApplicationController < ActionController::Base
       end
 
       render :layout => false
+    end
+
+    def check_smart_group
+      if current_counselor
+        unless current_school.smart_groups.find_by_field_name_and_field_value("counselor_id", current_counselor.id.to_s)
+          smart_group = SmartGroup.new
+          smart_group.name = "#{current_counselor.formal_name}'s students"
+          smart_group.field_name = "counselor_id"
+          smart_group.field_value = current_counselor.id.to_s
+          smart_group.school = current_school
+          smart_group.save
+        end
+      end
     end
 end

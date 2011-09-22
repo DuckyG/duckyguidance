@@ -1,0 +1,29 @@
+<div class="modCopy module">
+  <%= form_for(@smart_group) do |f| %>
+    <% if @smart_group.errors.any? %>
+      <ul>
+        <%- @smart_group.errors.full_messages.each do |msg| -%>
+          <li><%=msg%></li>
+        <%-end-%>
+      </ul>
+    <% end %>
+    <fieldset>
+      <p>
+        <%= f.required_field_label :name %>
+        <%= f.text_field :name %>
+      </p>
+      <p>
+        <%= f.required_field_label :field_name %>
+        <%= f.select :field_name, options_for_select(@fields, @smart_group.field_name) %>
+      </p>
+      <p>
+        <%= f.required_field_label :field_value %>
+        <%= f.text_field :field_value %>
+      </p>
+      <div class="button">
+				<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Smart Group" : "Update This Smart Group"%>
+			</div>
+    </fieldset>
+  <% end %>
+</div>
+

@@ -1,7 +1,7 @@
 <% content_for :head do %>
   <title>Note Detail -  <%=current_school.name %> - Ducky Guidance</title>
 <% end %>
-<h2 class="head pageTitle">Note Detail</h2>
+<h2 class="head pageTitle"><span>Note Detail:</span> <%= @note.summary %></h2>
 
 <div class="rightLink">
 	<a href="<%= edit_note_path @note%>">Edit<span>&nbsp;&rarr;</a>
@@ -11,7 +11,12 @@
 	<tbody>
 		<tr>
 			<td class="spaced label">Assigned to</td>
-			<td><%= link_to @note.subject_name, @note.subject == @note.students ? note_students_path(@note) : @note.subject%></td>
+      <td><%= link_to @note.subject_name, @note.subject == @note.students ? note_students_path(@note) : @note.subject%> 
+        <% unless @note.subject == @note.students %>
+          and 
+          <%= link_to "#{@note.students.count} student#{"s" unless @note.students.count == 1}",  note_students_path(@note) %>
+        <% end %>
+      </td>
     </tr>
     <tr>
 			<td class="spaced label">Occurred On</td>
@@ -36,6 +41,7 @@
 	</tbody>
 </table>
 
+	<h2 class="head">Notes</h2>
 <div class="modCopy module">
 	<%- note_text =h(@note.notes).gsub("\n","<br/>") -%>
 	<p><%=raw(note_text) %></p>

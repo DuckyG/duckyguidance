@@ -1,24 +1,25 @@
 <div class="modCopy module">
 
-	<%= form_for(@note) do |f|%>
-		<% if @note.errors.any? %>
-			<ul>
-				<%- @note.errors.full_messages.each do |msg| -%>
-					<li><%=msg%></li>
-				<%-end-%>
-			</ul>
-		<% end %>
-		<fieldset>
+  <%= form_for(@note) do |f|%>
+    <% if @note.errors.any? %>
+      <ul>
+        <%- @note.errors.full_messages.each do |msg| -%>
+          <li><%=msg%></li>
+        <%-end-%>
+      </ul>
+    <% end %>
+    <fieldset>
       <%=f.hidden_field :student_ids, :value => @student_id_string%>
       <%=f.hidden_field :group_ids, :value => @group_id_string%>
+      <%=f.hidden_field :smart_group_ids, :value => @smart_group_id_string%>
       <p>
         <%= f.required_field_label :category_id, "Note Category"%>
         <% category_array = ["Select a Category..."] + current_school.categories.map { |cat| [cat.name, cat.id] } %>
         <%= f.select :category_id, options_for_select(category_array, @note.category_id) %>
       </p>
       <% if @student && @student.counselor != current_counselor %>
-			<p><%=f.label :notify_students_counselor, f.check_box(:notify_students_counselor) + "Notify Counselor (" + @student.counselor.last_name + ")"%></p>
-			<% end %>
+        <p><%=f.label :notify_students_counselor, f.check_box(:notify_students_counselor) + "Notify Counselor (" + @student.counselor.last_name + ")"%></p>
+      <% end %>
       <p>
         <%= f.required_field_label :summary, "Note Summary" %>
         <%= f.text_field :summary%>
@@ -35,8 +36,8 @@
       </p>
       <p><%= f.required_field_label :notes, "Note"%><%=f.text_area :notes, :html => {:rows =>8, :cols=>40 } %></p>
       <div class="button">
-        <%=f.submit (request.filtered_parameters["action"] == "new" || request.filtered_parameters["action"] == "create" || request.filtered_parameters["controller"] == "students")? "Add This Note" : "Update This Note"%>
+        <%=f.submit (["new", "create"].include?(request.filtered_parameters["action"]) or ["students", "groups", "smart_groups"].include?(request.filtered_parameters["controller"])) ? "Add This Note" : "Update This Note"%>
         </div>
-		</fieldset>
-	<% end %>
+    </fieldset>
+  <% end %>
 </div><!--// end modCopy //-->
