@@ -38,11 +38,11 @@
       <fieldset>
       <p>
         <%= label_tag :name %>
-        <%= text_field_tag :name %>
+        <%= text_field_tag :name, params[:name] %>
       </p>
       <p>
         <%= label_tag :description %>
-        <%= text_field_tag :description %>
+        <%= text_area_tag :description, params[:description] %>
       </p>
       <div class="button">
 				<%= submit_tag "Create Group"%>
