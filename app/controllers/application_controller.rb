@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  ActionView::Base.field_error_proc = proc { |input, instance| input }
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
   protect_from_forgery
 
@@ -36,7 +37,7 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-    
+
     def check_domain
       if !request.subdomains.empty? && !current_subdomain
         @section = "School Not Found"
@@ -44,7 +45,7 @@ class ApplicationController < ActionController::Base
         render "shared/error", :status => 404, :layout => false
       end
     end
-    
+
     def build_student_options(student_list, selected_students)
       output = ""
       student_list.sort! {|x,y| x.last_name <=> y.last_name}
@@ -53,7 +54,7 @@ class ApplicationController < ActionController::Base
       end
       output.html_safe
     end
-    
+
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
@@ -63,13 +64,12 @@ class ApplicationController < ActionController::Base
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.record
     end
-    
+
     def current_school
       return @current_school if defined?(@current_school)
       @current_school = current_subdomain ? current_subdomain.school : nil
-      
     end
-    
+
     def current_subdomain
       return @current_subdomain if defined?(@current_subdomain)
       @current_subdomain = Subdomain.find_by_name(request.subdomains.first)
@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
       return @current_counselor if defined?(@current_counselor)
       @current_counselor = current_user ? Counselor.find(current_user.id) : nil
     end
-    
+
     def render_csv(filename = nil)
       filename ||= params[:action]
       filename += '.csv'

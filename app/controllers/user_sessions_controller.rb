@@ -10,7 +10,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user_session = UserSession.new(params[:user_session])    
+    @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       if current_subdomain.name == 'admin'
         redirect_to schools_path

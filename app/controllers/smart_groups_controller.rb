@@ -80,7 +80,7 @@ class SmartGroupsController < ApplicationController
 
     else
       flash[:notice] = "A name and description are require to create a snapshot of this smart group"
-      redirect_to :back
+      redirect_to smart_group_path(@smart_group, name: params[:name], description: params[:description])
     end
   end
 
