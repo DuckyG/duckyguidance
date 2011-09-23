@@ -24,6 +24,7 @@ class GroupsController < ApplicationController
   # GET /groups.xml
   def index
     @groups = current_school.groups.all
+    @smart_groups = current_school.smart_groups
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @groups }

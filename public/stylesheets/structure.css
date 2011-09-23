@@ -165,7 +165,13 @@ body {
 *> #navGlobal {min-height: 1px; height: auto;}
 
 /*DAN'S STYYLES -------------------------------*/
-
+.col{
+  width:50%;
+  float:left;
+}
+.modGroups p {
+  margin-left:40px;
+}
 .pagination { 
   clear:both;
 }
