@@ -77,6 +77,10 @@ class SmartGroupsController < ApplicationController
 
     if group.save
       redirect_to group
+
+    else
+      flash[:notice] = "A name and description are require to create a snapshot of this smart group"
+      redirect_to :back
     end
   end
 
