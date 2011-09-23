@@ -8,6 +8,9 @@ class SmartGroup < ActiveRecord::Base
     if self.field_name == "counselor_id"
       check_counselor
     end
+    if self.field_name == "year_of_graduation"
+      check_year_of_graduation
+    end
   end
 
   def validate_field
@@ -52,5 +55,9 @@ class SmartGroup < ActiveRecord::Base
        errors.add :base, "You must enter a valid counselor"
       end
     end
+  end
+
+  def check_year_of_graduation
+    self.field_value = self.field_value.to_i
   end
 end
