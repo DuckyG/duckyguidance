@@ -83,7 +83,7 @@ class SmartGroupsController < ApplicationController
   # GET /smart_groups/new
   # GET /smart_groups/new.xml
   def new
-    @smart_group = SmartGroup.new
+    @smart_group = current_school.smart_groups.build
     if params[:field] && params[:value]
       @smart_group.field_name = params[:field]
       @smart_group.field_value = params[:value]
