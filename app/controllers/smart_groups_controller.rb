@@ -77,13 +77,17 @@ class SmartGroupsController < ApplicationController
 
     if group.save
       redirect_to group
+
+    else
+      flash[:notice] = "A name and description are require to create a snapshot of this smart group"
+      redirect_to :back
     end
   end
 
   # GET /smart_groups/new
   # GET /smart_groups/new.xml
   def new
-    @smart_group = SmartGroup.new
+    @smart_group = current_school.smart_groups.build
     if params[:field] && params[:value]
       @smart_group.field_name = params[:field]
       @smart_group.field_value = params[:value]

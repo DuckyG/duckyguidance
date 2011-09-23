@@ -1,6 +1,7 @@
 class SmartGroup < ActiveRecord::Base
   has_and_belongs_to_many :notes
   belongs_to :school
+  validates_presence_of :field_name, :field_value, :school, :name
   validate :validate_field, :validate_value
 
   def validate_value
@@ -22,8 +23,10 @@ class SmartGroup < ActiveRecord::Base
   def friendly_field_value
     if field_name == "counselor_id"
       begin
-        counselor = school.counselors.find field_value
-        return counselor.formal_name
+        if field_value.to_i != 0
+          counselor = school.counselors.find field_value
+          return counselor.formal_name
+        end
       rescue ActiveRecord::RecordNotFound
       end
     end
