@@ -30,8 +30,17 @@ class SmartGroupsController < ApplicationController
         redirect_to @smart_group 
         return
       end
-       flash[:notice] =  "A smart group for this filter does not exist yet. Complete this form to create one."
-      redirect_to(new_smart_group_path(:field => params[:field], :value => params[:value]) )
+      flash[:notice] =  "A smart group for this filter does not exist yet. Complete this form to create one."
+      value = params[:value]
+
+      if params[:field] == "counselor_id"
+        begin
+          counselor = current_school.counselors.find params[:value]
+          value = counselor.formal_name
+        rescue ActiveRecord::RecordNotFound
+        end
+      end
+      redirect_to(new_smart_group_path(:field => params[:field], :value => value) )
       return
     end
     @smart_groups = current_school.smart_groups.page(params[:page])
@@ -117,7 +126,7 @@ class SmartGroupsController < ApplicationController
     end
     respond_to do |format|
       if @smart_group.update_attributes(params[:smart_group])
-        format.html { redirect_to(edit_smart_group_path(@smart_group), :notice => 'SmartGroup was successfully updated.') }
+        format.html { redirect_to(@smart_group, :notice => 'SmartGroup was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

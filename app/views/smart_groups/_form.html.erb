@@ -18,7 +18,7 @@
       </p>
       <p>
         <%= f.required_field_label :field_value %>
-        <%= f.text_field :field_value %>
+        <%= f.text_field :field_value, value: @smart_group.friendly_field_value %>
       </p>
       <div class="button">
 				<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Smart Group" : "Update This Smart Group"%>
