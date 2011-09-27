@@ -15,12 +15,15 @@ Given /^there is a smart group for the year of (\d+)$/ do |year|
   @new_smart_group.field_name = "year_of_graduation"
   @new_smart_group.field_value = year
   @new_smart_group.save!
-  p @new_smart_group.students.count
 end
 
 Given /^I am on the first smart group's detail page$/ do
   visit smart_group_path(SmartGroup.first)
 end
 
+Then /^I should be redirected to the smart group with a "([^"]*)" of "([^"]*)"$/ do |field, value|
+  smart_group = @school.smart_groups.where(field_name: field, field_value: value).first
 
+  current_path.should eq(smart_group_path(smart_group))
+end
 

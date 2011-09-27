@@ -26,6 +26,16 @@ Feature: Smart Groups
     When I click the "2012" link in the "content" section
     Then I should be redirected to the "new_smart_group" page
 
+  Scenario: Clicking the year of graduation for a student when there is a smart group
+    Given I am at a school
+    And I am a counselor
+    And I am logged in
+    And I have 5 students with a "year_of_graduation" of "2012"
+    And there is a smart group for the year of 2012
+    And I am on the first student's page
+    When I click the "2012" link in the "content" section
+    Then I should be redirected to the smart group with a "year_of_graduation" of "2012"
+
   Scenario: Making a snapshot of a smart group
     Given I am at a school
     And I am a counselor
@@ -40,13 +50,3 @@ Feature: Smart Groups
     And the group's name should be "Year of 2012"
     And the group should contain 5 students
 
-  @wip
-  Scenario: Making a snapshot of a smart group
-    Given I am at a school
-    And I am a counselor
-    And I am logged in
-    And I have 5 students with a "year_of_graduation" of "2012"
-    And there is a smart group for the year of 2012
-    And I am on the first smart group's detail page
-    When I click the "2012" link in the "content" section
-    Then I should be redirected to the "new_smart_group" page
