@@ -2,15 +2,20 @@ Guidance::Application.routes.draw do
   get 'my_account' => 'counselors#my_account'
   put 'my_account_update' => 'counselors#my_account_update'
   match 'search' => 'notes#search'
-  
+
+  resources :smart_groups do
+    member do
+      post :snapshot
+    end
+  end
   resources :groups do
     resources :notes
     collection do
       get :search
     end
   end
-  resources :users
   constraints :subdomain => 'admin' do
+    resources :users
     resources :schools
   end
   resources :categories do

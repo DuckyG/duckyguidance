@@ -39,7 +39,7 @@ class NotesController < ApplicationController
     @note = current_school.notes.new
     @note.students<< current_school.students.find(params[:student_id])
     @note.counselor = current_counselor
-   
+ 
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @note }
@@ -67,6 +67,9 @@ class NotesController < ApplicationController
         @target = @note.students.first
         unless @note.groups.first.nil?
           @target = @note.groups.first
+        end
+        unless @note.smart_groups.first.nil?
+          @target = @note.smart_groups.first
         end
         format.html { redirect_to(@target) }
         format.xml  { render :xml => @note, :status => :created, :location => @note }

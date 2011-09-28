@@ -1,0 +1,73 @@
+<% content_for :head do %>
+  <title><%=@smart_group.name %> - Smart Group -  <%=current_school.name %> - Ducky Guidance</title>
+<% end %>
+<h2 class="head pageTitle"><span>Smart Group:</span> <%= @smart_group.name %></h2>
+
+<div class="rightLink">
+	<a href="<%= edit_smart_group_path(@smart_group)%>">Edit<span>&nbsp;&rarr;</a>
+</div>
+
+<table cellpadding="0" cellspacing="0">
+	<tbody>
+		<tr>
+			<td class="spaced label">Name</td>
+			<td><%= @smart_group.name %></td>
+		</tr>
+		<tr>
+			<td class="spaced label">Field Name</td>
+			<td><%=@smart_group.friendly_field_name%></td>
+    </tr>
+    <tr>
+			<td class="spaced label">Field Value</td>
+			<td><%=@smart_group.friendly_field_value%></td>
+		</tr>
+    <tr>
+			<td class="spaced label">Number of Students</td>
+			<td><%=@smart_group.students.count%></td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="modList modData block module">
+	<h2 class="head">Create Snapshot</h2>
+</div>
+  <div class="modCopy modData block module">
+  <div class="content">
+      <p>Creating a snapshot of a smart group copies its current members to a new group.</p>
+    <%= form_tag(snapshot_smart_group_path(@smart_group)) do |f| %>
+      <fieldset>
+      <p>
+        <%= label_tag :name %>
+        <%= text_field_tag :name, params[:name] %>
+      </p>
+      <p>
+        <%= label_tag :description %>
+        <%= text_area_tag :description, params[:description] %>
+      </p>
+      <div class="button">
+				<%= submit_tag "Create Group"%>
+    </div>
+  </fieldset>
+    <% end %>
+  </div>
+</div>
+<div class="modList modData block module">
+	<h2 class="head">Group Members</h2>
+	<div class="content">
+		<div id="students">
+      <%=render "students/students"%>
+    </div>
+
+	</div>
+</div><!--// end modRequests //-->
+
+
+<div class="modNotes block module">
+  <h2 class="head">Notes</h2>
+  <%=render :partial => "shared/new_note" %>
+
+  <div id="notes">
+    <%=render "notes/list"%>
+  </div>
+</div><!--// end modNotes //-->
+

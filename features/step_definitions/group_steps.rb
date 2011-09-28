@@ -12,3 +12,16 @@ Then /^I should be redirected to the new group's detail page$/ do
   current_path.should == group_path(submitted_group)
 end
 
+Then /^the group's name should be "([^"]*)"$/ do |name|
+  num_of_students = find(:xpath, "//table/tbody/tr[td='Name']/td[last()]").text
+  num_of_students.should eq(name)
+end
+
+Then /^the group should contain (\d+) students$/ do |count|
+  num_of_students = find(:xpath, "//table/tbody/tr[td='Number of Students']/td[last()]").text
+  num_of_students.should eq(count)
+end
+
+Then /^I should be redirected to the newest group's page$/ do
+  current_path.should eq(group_path(Group.last))
+end
