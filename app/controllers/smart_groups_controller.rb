@@ -77,7 +77,16 @@ class SmartGroupsController < ApplicationController
     if group.save
       redirect_to group
     else
-      flash[:notice] = "A name and description are required to create a snapshot of this smart group"
+      if params[:description].blank? and params[:name].blank? 
+        flash[:notice] = "A name and description are required to create a snapshot of this smart group"
+      elsif params[:description].blank?
+        flash[:notice] = "A description is required to create a snapshot of this smart group"
+      elsif params[:name].blank?
+        flash[:notice] = "A name is required to create a snapshot of this smart group"
+      elsif current_school.groups.find_by_name params[:name]
+        flash[:notice] = "A group with thie name '#{params[:name]}' already exists.  Please pick another name to create this snapshot"
+      end
+
       redirect_to smart_group_path(@smart_group, name: params[:name], description: params[:description])
     end
   end
