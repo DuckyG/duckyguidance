@@ -69,15 +69,13 @@ class SmartGroupsController < ApplicationController
 
   def snapshot
     @smart_group = current_school.smart_groups.find(params[:id])
-    group = Group.new
-    group.school = current_school
+    group = current_school.groups.build
     group.name = params[:name]
     group.description = params[:description]
     group.students = @smart_group.students
 
     if group.save
       redirect_to group
-
     else
       flash[:notice] = "A name and description are required to create a snapshot of this smart group"
       redirect_to smart_group_path(@smart_group, name: params[:name], description: params[:description])

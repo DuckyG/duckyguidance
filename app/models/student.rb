@@ -59,7 +59,7 @@ class Student < ActiveRecord::Base
   end
 
   def aggregate_phone_number
-    self.primary_phone_number = "(#{areaCode})#{prefix}-#{line}#{" ext. " + self.extension unless self.extension.empty?}" if @areaCode && @prefix && @line
+    self.primary_phone_number = "(#{areaCode})#{prefix}-#{line}#{" ext. " + self.extension unless self.extension.nil? ||  self.extension.empty?}" if @areaCode && @prefix && @line
   end
 
   def distribute_phone_number
