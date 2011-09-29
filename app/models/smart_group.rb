@@ -37,7 +37,7 @@ class SmartGroup < ActiveRecord::Base
   end
 
   def students
-    self.school.students.where(self.field_name.to_sym => self.field_value)
+    self.school.students.current.where(self.field_name.to_sym => self.field_value)
   end
 
   private
