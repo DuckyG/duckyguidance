@@ -1,10 +1,11 @@
 class Note < ActiveRecord::Base
   has_and_belongs_to_many :students
   has_and_belongs_to_many :groups
+  has_and_belongs_to_many :smart_groups
   belongs_to :counselor
   belongs_to :category
   belongs_to :school
-  attr_accessor :notify_students_counselor, :tags_string, :student_ids, :group_ids
+  attr_accessor :notify_students_counselor, :tags_string, :student_ids, :group_ids, :smart_group_ids
   validates :counselor, :notes, :summary, :category, :presence => true
   before_validation :convert_meta
   has_and_belongs_to_many :tags
@@ -22,14 +23,26 @@ class Note < ActiveRecord::Base
 
   def subject_name
     return "Group: #{groups.first.name}" unless groups.first.nil?
+    return "Smart Group: #{smart_groups.first.name}" unless smart_groups.first.nil?
     return students.first.full_name if students.count == 1
+    return "Unassigned" if students.count == 0
     return "Multiple students"
   end
+
+  def subject
+    return groups.first unless groups.first.nil?
+    return smart_groups.first unless smart_groups.first.nil?
+    return students.first if students.count == 1
+    return "#" if students.count == 0
+    return students
+  end
+
 
   def convert_meta
     get_tags if @tags_string
     convert_student_ids
     convert_group_ids
+    convert_smart_group_ids
   end
 
   def convert_student_ids
@@ -52,6 +65,17 @@ class Note < ActiveRecord::Base
     end
   end
 
+  def convert_smart_group_ids
+    unless @smart_group_ids.nil?
+      @smart_group_ids.split(',').each do |id|
+        smart_group = school.smart_groups.find id
+        students_to_append = smart_group.students - self.students
+        self.students<< students_to_append
+        self.smart_groups << smart_group
+      end
+    end
+  end
+
   def get_tags
     tag_list = @tags_string.split ' '
 
@@ -65,7 +89,7 @@ class Note < ActiveRecord::Base
       end
     end
   end
-  
+
   def to_csv(student = nil)
     tags_list = ""
     tags.each do |tag|

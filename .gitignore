@@ -1,4 +1,5 @@
 .bundle
+test/
 uploads/
 db/*.sqlite3
 log/*.log
@@ -8,3 +9,5 @@ tmp/
 .svn
 public/images/students/
 vendor/cache
+config/database.yml
+

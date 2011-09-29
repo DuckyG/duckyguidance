@@ -1,13 +1,12 @@
 class ApplicationController < ActionController::Base
+  ActionView::Base.field_error_proc = proc { |input, instance| input }
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
   protect_from_forgery
 
   layout 'standard'
-  before_filter :check_domain, :check_defaults
-  helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options, :render_csv
+  before_filter :check_domain, :check_defaults, :check_smart_group
+  helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options, :render_csv, :current_school_year
 
-
-  
   private
     def access_denied
       if current_user
@@ -38,7 +37,7 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-    
+
     def check_domain
       if !request.subdomains.empty? && !current_subdomain
         @section = "School Not Found"
@@ -46,7 +45,7 @@ class ApplicationController < ActionController::Base
         render "shared/error", :status => 404, :layout => false
       end
     end
-    
+
     def build_student_options(student_list, selected_students)
       output = ""
       student_list.sort! {|x,y| x.last_name <=> y.last_name}
@@ -55,7 +54,7 @@ class ApplicationController < ActionController::Base
       end
       output.html_safe
     end
-    
+
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
@@ -65,13 +64,12 @@ class ApplicationController < ActionController::Base
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.record
     end
-    
+
     def current_school
       return @current_school if defined?(@current_school)
       @current_school = current_subdomain ? current_subdomain.school : nil
-      
     end
-    
+
     def current_subdomain
       return @current_subdomain if defined?(@current_subdomain)
       @current_subdomain = Subdomain.find_by_name(request.subdomains.first)
@@ -81,7 +79,7 @@ class ApplicationController < ActionController::Base
       return @current_counselor if defined?(@current_counselor)
       @current_counselor = current_user ? Counselor.find(current_user.id) : nil
     end
-    
+
     def render_csv(filename = nil)
       filename ||= params[:action]
       filename += '.csv'
@@ -98,5 +96,18 @@ class ApplicationController < ActionController::Base
       end
 
       render :layout => false
+    end
+
+    def check_smart_group
+      if current_counselor
+        unless current_school.smart_groups.find_by_field_name_and_field_value("counselor_id", current_counselor.id.to_s)
+          smart_group = SmartGroup.new
+          smart_group.name = "#{current_counselor.formal_name}'s students"
+          smart_group.field_name = "counselor_id"
+          smart_group.field_value = current_counselor.id.to_s
+          smart_group.school = current_school
+          smart_group.save
+        end
+      end
     end
 end

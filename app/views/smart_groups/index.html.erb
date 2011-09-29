@@ -1,0 +1,16 @@
+<% content_for :head do %>
+  <title>Smart Groups -  <%=current_school.name %> - Ducky Guidance</title>
+<% end %>
+<h2 class="head pageTitle">Smart Groups</h2>
+
+
+<div class="modStudents modData block module">
+  <div class="modCopy">
+    <a class="addItem right" href="<%= new_smart_group_path %>">Add a Smart Group<span>&nbsp;&rarr;</span></a>
+  </div><!--// end modCopy //-->
+  <div class="content">
+    <div id="smart_groups">
+      <%=render "smart_groups"%>
+    </div>
+  </div>
+</div><!--// end modRequests //-->

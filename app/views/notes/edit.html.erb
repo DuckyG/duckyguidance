@@ -4,20 +4,11 @@
 <h2 class="head pageTitle">Edit Note</h2>
 <table cellpadding="0" cellspacing="0">
 	<tbody>
-		<% if @note.groups.count == 1 %>
 		<tr>
-			<td class="spaced label">Group</td>
-			<td><%= link_to @note.groups.first.name, @note.groups.first%></td>
+			<td class="spaced label">Assigned to</td>
+			<td><%= link_to @note.subject_name, @note.subject%></td>
 		</tr>
-		<% elsif @note.students.count > 1%>
-
-		<% else %>
-		<tr>
-			<td class="spaced label">Student</td>
-			<td><%= link_to @note.students.first.full_name, @note.students.first%></td>
-		</tr>
-		<% end %>
-
+	
 	</tbody>
 </table>
 <%= render 'form'%>

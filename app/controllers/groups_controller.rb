@@ -19,11 +19,12 @@ class GroupsController < ApplicationController
       allow :school_admin,:of => :current_school
     end
   end
-  before_filter :split_id_string, :only => [:create, :update]
+  #before_filter :split_id_string, :only => [:create, :update]
   # GET /groups
   # GET /groups.xml
   def index
     @groups = current_school.groups.all
+    @smart_groups = current_school.smart_groups
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @groups }

@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
   before_filter :title
   before_filter :split_id_string, :only => [:create, :update]
+  before_filter :retrieve_note
   access_control do
     allow :counselor, :of => :current_school
     allow :superadmin
@@ -12,18 +13,41 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
   def index
-    search_term = "#{params[:search]}%" unless params[:search].nil? or params[:search].empty?
-    @students = current_school.students
-    @students = @students.search_by_first_or_last_name(search_term) if search_term
-    @students = @students.page(params[:page])
+    @students = current_school.students.current
+    @students = @note.students if @note
+    search_and_page_students
     @show_counselor = true
-    logger.info @students.to_sql
     respond_to do |format|
-      format.html # index.html.erb
+      format.html 
       format.xml  { render :xml => @students }
       format.js
     end
   end
+
+  def graduated
+    @students = current_school.students.graduated
+    search_and_page_students
+    @show_counselor = true
+    respond_to do |format|
+      format.html { render :index }
+      format.xml  { render :xml => @students }
+      format.js   { render :index }
+    end
+
+  end
+
+  def all
+    @students = current_school.students
+    search_and_page_students
+    @show_counselor = true
+    respond_to do |format|
+      format.html { render :index }
+      format.xml  { render :xml => @students }
+      format.js   { render :index }
+    end
+
+  end
+
 
   def search
     search_term = "#{params[:q]}%"
@@ -37,13 +61,14 @@ class StudentsController < ApplicationController
     @student = current_school.students.find(params[:id])
     @note = Note.new
     @note.created_at = DateTime.now
-    @notes = @student.notes.page(params[:page])
+    @notes = @student.notes.page(params[:note_page])
     @hide_note_subject = true
     @student_id_string = @student.id
     title
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @student }
+      format.js
     end
   end
   
@@ -132,6 +157,17 @@ class StudentsController < ApplicationController
   def split_id_string
     params[:student][:group_ids] = params[:student][:group_ids].split(',')
     params[:student][:group_ids].delete_if { |key,value| value.to_i == 0 }
+  end
+
+  def search_and_page_students
+    search_term = "#{params[:search]}%" unless params[:search].nil? or params[:search].empty?
+
+    @students = @students.search_by_first_or_last_name(search_term) if search_term
+    @students = @students.page(params[:page])
+  end
+
+  def retrieve_note
+    @note = current_school.notes.find(params[:note_id]) if params[:note_id]
   end
 
 end

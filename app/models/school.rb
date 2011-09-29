@@ -7,6 +7,7 @@ class School < ActiveRecord::Base
   has_many :notes
   has_many :groups
   has_many :meeting_requests
+  has_many :smart_groups
   belongs_to :subdomain
   
   validates    :name, :address, :city, :state, :zip_code, :subdomain, :presence => true

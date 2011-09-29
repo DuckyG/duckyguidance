@@ -1,7 +1,7 @@
 <% content_for :head do %>
   <title>Note Detail -  <%=current_school.name %> - Ducky Guidance</title>
 <% end %>
-<h2 class="head pageTitle">Note Detail</h2>
+<h2 class="head pageTitle"><span>Note Detail:</span> <%= @note.summary %></h2>
 
 <div class="rightLink">
 	<a href="<%= edit_note_path @note%>">Edit<span>&nbsp;&rarr;</a>
@@ -9,28 +9,16 @@
 
 <table cellpadding="0" cellspacing="0">
 	<tbody>
-		<% if @note.groups.count == 1 %>
 		<tr>
-			<td class="spaced label">Group</td>
-			<td><%= link_to @note.groups.first.name, @note.groups.first%></td>
-		</tr>
-		<% elsif @note.students.count > 1%>
-		<tr>
-			<td class="spaced label">Students</td>
-			<td>
-        <% @note.students.each do |student| %>
-          <%= link_to student.full_name, student-%><%=", " unless student == @note.students.last%>
+			<td class="spaced label">Assigned to</td>
+      <td><%= link_to @note.subject_name, @note.subject == @note.students ? note_students_path(@note) : @note.subject%> 
+        <% unless @note.subject == @note.students %>
+          and 
+          <%= link_to "#{@note.students.count} student#{"s" unless @note.students.count == 1}",  note_students_path(@note) %>
         <% end %>
       </td>
-		</tr>
-
-		<% else %>
-		<tr>
-			<td class="spaced label">Student</td>
-			<td><%= link_to @note.students.first.full_name, @note.students.first%></td>
-		</tr>
-		<% end %>
-		<tr>
+    </tr>
+    <tr>
 			<td class="spaced label">Occurred On</td>
 			<td><%= @note.formatted_date_and_time%></td>
 		</tr>
@@ -53,6 +41,7 @@
 	</tbody>
 </table>
 
+	<h2 class="head">Notes</h2>
 <div class="modCopy module">
 	<%- note_text =h(@note.notes).gsub("\n","<br/>") -%>
 	<p><%=raw(note_text) %></p>

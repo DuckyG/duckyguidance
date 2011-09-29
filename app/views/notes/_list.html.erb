@@ -1,16 +1,19 @@
+<%= paginate @notes,  :window => 1, :remote => true, :param_name => controller.controller_name == "notes" ? :page : :note_page %>
 <div class="notesList content">
 	<table cellpadding="0" cellspacing="0">
 	<%-@notes.each do |note|-%>
-		<tr>
-			<td class="spaced">
-        <h3 class="title"><%=note.summary%></h3><%= note.subject_name unless @hide_note_subject %>
-				<strong class="subtitle"><%=note.occurred_on.strftime "%b %d %Y"%> &nbsp;&mdash;&nbsp; <span>Filed under</span> <%=note.category.name%></strong>
-				<%- note_text =h(note.notes).gsub("\n","<br/>") -%>
-				<p><%=raw(note_text.length > 165 ? "#{note_text.slice(0..165)}&hellip;" : note_text) %></p>
-				<span class="rightLink"><%= button_to "View Note", note_path(note), :method => :get %></span>
-			</td>
-		</tr>
+    <% if note.school == current_school %>
+      <tr>
+        <td class="spaced">
+          <h3 class="title"><%=note.summary%></h3><%= note.subject_name unless @hide_note_subject %>
+          <strong class="subtitle"><%=note.occurred_on.strftime "%b %d %Y"%> &nbsp;&mdash;&nbsp; <span>Filed under</span> <%=note.category.name%></strong>
+          <%- note_text =h(note.notes).gsub("\n","<br/>") -%>
+          <p><%=raw(note_text.length > 165 ? "#{note_text.slice(0..165)}&hellip;" : note_text) %></p>
+          <span class="rightLink"><%= button_to "View Note", note_path(note), :method => :get %></span>
+        </td>
+      </tr>
+    <% end %>
 	<%-end-%>
 	</table>
 </div>
-<%= paginate @notes,  :window => 1%>
+<%= paginate @notes,  :window => 1, :remote => true, :param_name => controller.controller_name == "notes" ? :page : :note_page %>

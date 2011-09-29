@@ -45,8 +45,9 @@ $(document).ready(function(){
     return false;
   });
 
-  $('.filter').keyup(function(){
-    $.get(window.location.pathname + "?search=" + $('.filter').val(), null, null, "script");
+  $(".filter_box").focus();
+  $('.filter_box').keyup(function(){
+    $.get(window.location.pathname + "?search=" + $('.filter_box').val(), null, null, "script");
   });
 
   $(".student-search").tokenInput("/students/search", {
@@ -82,15 +83,15 @@ function ieResize(){
 	function adjustStyle(width) {
 		width = parseInt(width);
 		if ( width <= 800 ) {
-			$("#styles800").attr("href", "/styles/window_800.css");
+			$("#styles800").attr("href", "/stylesheets/window_800.css");
 		} else {
-			$("#styles1024").attr("href", "/styles/ie_blank.css");
-			$("#styles800").attr("href", "/styles/ie_blank.css");
+			$("#styles1024").attr("href", "/stylesheets/ie_blank.css");
+			$("#styles800").attr("href", "/stylesheets/ie_blank.css");
 		}
 		if (width <= 1024) {
-			$("#styles1024").attr("href", "/styles/window_1024.css");
+			$("#styles1024").attr("href", "/stylesheets/window_1024.css");
 		} else {
-			$("#styles1024").attr("href", "/styles/ie_blank.css");
+			$("#styles1024").attr("href", "/stylesheets/ie_blank.css");
 		}
 	}	
 	$(function() {

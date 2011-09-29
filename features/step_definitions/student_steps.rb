@@ -20,3 +20,11 @@ Then /^I should be redirected to the new student's detail page$/ do
   current_path.should == student_path(submitted_student)
 end
 
+Given /^I have (\d+) students with a "([^"]*)" of "([^"]*)"$/ do |count, field, value|
+  @generated_students = FactoryGirl.create_list(:student, count.to_i, field.to_sym => value, :counselor => @user, :school => @school)
+end
+
+Given /^I am on the first student's page$/ do
+  visit student_path(Student.first)
+end
+

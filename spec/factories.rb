@@ -32,7 +32,7 @@ FactoryGirl.define do
  
   factory :student do
     first_name "Joe"
-    last_name "Student"
+    sequence(:last_name) {|n| "Student#{n}"}
     city "Boston"
     areaCode "617"
     prefix "555"
