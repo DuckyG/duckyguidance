@@ -36,12 +36,19 @@
 		<td><%=@student.student_id%></td>
 	</tr>
 </table>
+<!--//
+	DEVELOPER COMMENT: Remove these charts, they now belong in the right col
+//-->
+<!--
 <%= render :partial => "shared/month_note_chart", :locals => {:notes => @student.notes} %>
 <%= render :partial => "shared/category_note_chart", :locals => {:notes => @student.notes} %>
+-->
 <div class="modNotes block module">
 	<h2 class="head">Notes</h2>
 	<%=render :partial => "shared/new_note" %>
-
+<!--//
+	DEVELOPER COMMENT: Notes list should mimic the dashboard, having both detail & list views with a toggle button.
+//-->
   <div id="notes">
     <%=render "notes/list"%>
   </div>

@@ -1,3 +1,9 @@
+#header {
+	padding-top: 17px;
+}
+#clientName {
+	font-size: 1.8em;
+}
 #navGlobal {
 	font-size: 1.1em;
 	line-height: 16px;

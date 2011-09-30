@@ -54,22 +54,92 @@
 		</div><!--// end #padder //-->
 		<hr>
 		<div id="auxiliary">
-			<div class="modTools block module">
-				<h2 class="head">Tools</h2>
+			<div class="modReports block module">
+				<h2 class="head">Reports</h2>
 				<div class="content">
-					<ul class="linklist">
-						<li><a href="<%= students_path %>" class="icon iconSearch">Search for a Student</a></li>
-						<%#<li><a href="#" class="icon iconSearch">Search Student Notes</a></li>%>
-						<li><a href="<%= new_student_path %>" class="icon iconAddStudent">Add a Student</a></li>
-						<li><a href="<%= new_group_path %>" class="icon iconAddGroup">Add a Group</a></li>
-            <% if current_counselor.has_role? :school_admin, current_school %>
-						  <li><a href="<%= new_category_path %>" class="icon iconAddCategory">Add a Note Category</a></li>
-            <% end %>
-						<li><a href="<%= my_account_path %>" class="icon iconOptions">Your Account Options</a></li>
-					</ul>
+<!--//
+	DEVELOPER COMMENT: Customize Reports dropdown (div class="contentDrop") is only visible on
+	                   the dashboard. The charts on the student detail page are not customizable.
+	                   Consult Nate about what behaviors other pages should have.
+//-->
+					<div class="contentDrop addNote">
+						<div class="trigger rightLink">
+							<a>Customize Reports</a>
+						</div>
+						<div class="item">
+							<div class="modOverflow">
+								<fieldset>
+									<p><label for="checkbox120"><input type="checkbox" name="checkbox120" value="" id="checkbox120" checked>What I Worried About Today</label></p>
+									<p><label for="checkbox121"><input type="checkbox" name="checkbox121" value="" id="checkbox121">Activity Timeline</label></p>
+									<p><label for="checkbox122"><input type="checkbox" name="checkbox122" value="" id="checkbox122">Category: Bullying</label></p>
+									<p><label for="checkbox123"><input type="checkbox" name="checkbox123" value="" id="checkbox123">Category: MCAS</label></p>
+									<p><label for="checkbox124"><input type="checkbox" name="checkbox124" value="" id="checkbox124">Category: Parent Meeting</label></p>
+									<p><label for="checkbox125"><input type="checkbox" name="checkbox125" value="" id="checkbox125">Notes by Category</label></p>
+									<p><label for="checkbox126"><input type="checkbox" name="checkbox126" value="" id="checkbox126" checked>Students Being ________</label></p>
+									<p><label for="checkbox127"><input type="checkbox" name="checkbox127" value="" id="checkbox127">Category: Bullying</label></p>
+									<p><label for="checkbox128"><input type="checkbox" name="checkbox128" value="" id="checkbox128">Category: MCAS</label></p>
+									<p><label for="checkbox129"><input type="checkbox" name="checkbox129" value="" id="checkbox129">Category: Parent Meeting</label></p>
+								</fieldset>
+							</div><!-- /modOverflow -->
+							<div class="button">
+								<input type="submit" name="chartPrefsSubmit" value="Save">
+							</div>
+						</div><!--// end item //-->
+					</div><!--// end contentDrop //-->
+<!--//
+	DEVELOPER COMMENT: Sample charts
+//-->
+					<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+					<script type="text/javascript">
+						google.load("visualization", "1", {packages:["corechart"]});
+						google.setOnLoadCallback(drawChart);
+						function drawChart() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Task');
+							data.addColumn('number', 'Hours per Day');
+							data.addRows(4);
+							data.setValue(0, 0, 'Death');
+							data.setValue(0, 1, 25);
+							data.setValue(1, 0, 'Taxes');
+							data.setValue(1, 1, 25);
+							data.setValue(2, 0, 'Being mauled by a Liger');
+							data.setValue(2, 1, 50);
+							data.setValue(3, 0, 'Accidentally stabbing myself in the eye');
+							data.setValue(3, 1, 50);
+							var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+							chart.draw(data, {width: 265, height: 265, legend: 'none', backgroundColor: '#EEECEA', title: 'What I Worried About Today', titleTextStyle: {color: '#444', fontSize: '12'}, colors:['#4B798B','#6C909E', '#8CA7B1', '#ADBEC4', '#CDD5D7'] });
+						}
+					</script>
+					<script type="text/javascript">
+						google.load("visualization", "1", {packages:["corechart"]});
+						google.setOnLoadCallback(drawChart);
+						function drawChart() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Year');
+							data.addColumn('number', 'Awesome');
+							data.addColumn('number', 'Not Awesome');
+							data.addRows(4);
+							data.setValue(0, 0, '2007');
+							data.setValue(0, 1, 800);
+							data.setValue(0, 2, 400);
+							data.setValue(1, 0, '2008');
+							data.setValue(1, 1, 1000);
+							data.setValue(1, 2, 350);
+							data.setValue(2, 0, '2009');
+							data.setValue(2, 1, 1150);
+							data.setValue(2, 2, 200);
+							data.setValue(3, 0, '2010');
+							data.setValue(3, 1, 2000);
+							data.setValue(3, 2, 100);
+							var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+							chart.draw(data, {width: 265, height: 265, legend: 'none', backgroundColor: '#EEECEA', title: 'Students Being __________', titleTextStyle: {color: '#444', fontSize: '12'}, colors:['#4B798B','#6C909E', '#8CA7B1', '#ADBEC4', '#CDD5D7'] });
+						}
+					</script>
+					<div id="chart_div" class="modChart module"></div>
+					<div id="chart_div2" class="modChart module"></div>
 				</div>
-			</div><!--// end modTools //-->
-		</div><!--// end #extra //-->
+			</div><!--// end modReports //-->
+		</div><!--// end #auxiliary //-->
 		<hr>
 	</div><!--// end #container //-->
 	<hr class="print">

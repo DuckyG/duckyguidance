@@ -50,13 +50,13 @@ body {
 	position: relative;
 	width: 98%;
 	background: #EEECEA;
-	font-size: 1.6em;
-	line-height: 22px;
-	padding: 0 0 27px;
+	font-size: 1.4em;
+	line-height: 20px;
+	padding: 0 0 20px;
 	margin: 0 auto;
 	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	   -moz-border-radius: 2px;
+	        border-radius: 2px;
 }
 .pageHome #container {
 	padding-top: 27px;
@@ -68,7 +68,7 @@ body {
 #content {
 	border-right: 1px solid #D7D2CF;
 	border-bottom: 1px solid #D7D2CF;
-	margin: 0 250px 0 0;
+	margin: 0 265px 0 0;
 }
 .pageHome #content {
 	border: none;
@@ -77,9 +77,9 @@ body {
 	position: relative;
 		left: -1px;
 	float: left;
-	width: 250px;
+	width: 265px;
 	border-left: 1px solid #D7D2CF;
-	margin: 0 -1px 0 -250px;
+	margin: 0 -1px 0 -265px;
 }
 /* Header --------------------------------------------------------- */
 #header {
@@ -92,7 +92,7 @@ body {
 		display: block;
 		width: 45%;
 		color: #FFF;
-		font: 2.4em/25px 'VegurRegular', Arial, Helvetica, sans-serif;
+		font: 2.0em/22px 'VegurRegular', Arial, Helvetica, sans-serif;
 		text-transform: uppercase;
 	}
 		#header a img {}
@@ -127,11 +127,12 @@ body {
 		display: block;
 		background: #8FB4C3;
 		color: #333;
+		text-decoration: none;
 		padding: 2px 24px 3px 24px;
 		margin: 0 0 2px 2px;
 		-webkit-border-radius: 2px;
-		-moz-border-radius: 2px;
-		border-radius: 2px;
+		   -moz-border-radius: 2px;
+		        border-radius: 2px;
 	}
 	.bIE #navGlobal a {
 		padding-top: 4px;
@@ -155,8 +156,6 @@ body {
 		}
 	#navGlobal {}
 	#navGlobal {}
-
-
 /* Clearfixes ----------------------------------------------------- */
 #container,
 #content,
@@ -167,49 +166,3 @@ body {
 *> #container,
 *> #content,
 *> #navGlobal {min-height: 1px; height: auto;}
-
-/*DAN'S STYYLES -------------------------------*/
-.modGroups p {
-  margin-left:40px;
-}
-.pagination { 
-  clear:both;
-}
-  .filter {
-    margin-bottom:10px;
-  }
-  .filter ul {
-  padding:0; 
-}
-  .filter li {
-			display: inline;
-		}
-
-.modCopy.filter a {
-    text-decoration:none;
-				display: block;
-				float: left;
-				padding: 5px 9px;
-				border-top: 1px solid #FFF;
-				border-right: 1px solid #D7D2CF;
-				border-bottom: 1px solid #D7D2CF;
-				border-left: 1px solid #FFF;
-			}
-				.filter a:hover, .filter .active a {
-					background: #E9E7E5;
-					border-top-color: #D7D2CF;
-					border-right-color: #FFF;
-					border-bottom-color: #FFF;
-					border-left-color: #D7D2CF;
-				}
-
-.chart {display: none;}
-#category_chart_div{
-  clear:both;
-  height:240px;
-}
-#month_chart_div{
-  clear:both;
-  height:240px;
-}
-

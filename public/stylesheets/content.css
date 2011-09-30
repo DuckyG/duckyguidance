@@ -4,15 +4,14 @@ a,
 .editName {
 	position: relative;
 	color: #4B798B;
-	text-decoration: none;
 	cursor: pointer;
 }
 .editName {
-	text-decoration: underline;
+	text-decoration: none;
 }
 	a .arr,
 	.trigger .arr {
-		visibility: hidden;
+		xvisibility: hidden;
 	}
 	a:hover,
 	span.trigger:hover,
@@ -24,9 +23,11 @@ a,
 			visibility: visible;
 		}
 .close {
+	display: block;
 	position: absolute;
 		right: 10px;
 		top: 10px;
+		z-index: 100;
 	width: 16px;
 	height: 16px;
 		overflow: hidden;
@@ -49,15 +50,15 @@ h5 {color: #000; font-size: 1.0em; line-height: 20px;}
 h6 {color: #444; font: bold 0.88em/20px Arial, Helvetica, sans-serif; text-transform: uppercase; padding: 0 0 3px;}
 .head {
 	color: #444;
-	font: normal 1.88em/34px 'LeagueGothicRegular', 'Arial Narrow', Arial, Helvetica, sans-serif;
-	padding: 0 0 8px 38px;
+	font: normal 1.86em/34px 'LeagueGothicRegular', 'Arial Narrow', Arial, Helvetica, sans-serif;
+	padding: 5px 21px 1px 21px;
 }
 .pageTitle {
 	background: #E9E7E5 url(images/structure/whiteBorder.png) 0 0 no-repeat;
-	padding: 10px 38px 3px 38px;
+	padding: 10px 20px 3px 20px;
 	border-top: 1px solid #D7D2CF;
 	border-bottom: 1px solid #D7D2CF;
-	margin: 0 0 25px;
+	margin: 0 0 10px;
 }
 	.pageTitle span {
 		font-size: 0.73em;
@@ -183,7 +184,7 @@ iframe {
 		.module .head {}
 		.block .head {
 			background: #E9E7E5 url(images/structure/whiteBorder.png) 0 0 no-repeat;
-			padding: 10px 38px 3px 38px;
+			padding: 5px 10px 1px 21px;
 			border-top: 1px solid #D7D2CF;
 			border-bottom: 1px solid #D7D2CF;
 			margin: 0 0 15px;
@@ -212,6 +213,23 @@ iframe {
 		padding: 0 0 10px;
 	}
 
+.modToggle {
+	text-align: right;
+}
+	.head .modToggle {
+		float: right;
+		font: 0.43em Arial, Helvetica, sans-serif;
+		padding: 14px 0 0 20px;
+	}
+
+.modReports .head {
+	margin-bottom: 9px;
+}
+.modReports .close {
+	position: static;
+	float: right;
+}
+
 .modAccount {
 	font-size: 0.88em;
 	text-align: right;
@@ -232,15 +250,37 @@ iframe {
 	}
 
 .rightLink {
-	display: block;
-	float: right;
-	text-align: right;
-	text-decoration: none;
-	padding: 0 37px 10px 37px;
+	padding: 0 10px 10px;
+		overflow: hidden;
 }
-table .rightLink {
-	padding-right: 7px;
+.modCopy .rightLink,
+.module .rightLink {
+	padding-right: 0;
 }
+.modReports .rightLink {
+	padding-bottom: 6px;
+}
+	.rightLink a {
+		display: block;
+		float: right;
+		text-align: right;
+		text-decoration: none;
+		padding: 2px 9px;
+		border-top: 1px solid #FFF;
+		border-right: 1px solid #D7D2CF;
+		border-bottom: 1px solid #D7D2CF;
+		border-left: 1px solid #FFF;
+	}
+	table .rightLink {
+		padding-right: 7px;
+	}
+		.rightLink a:hover {
+			background: #E9E7E5;
+			border-top-color: #D7D2CF;
+			border-right-color: #FFF;
+			border-bottom-color: #FFF;
+			border-left-color: #D7D2CF;
+		}
 
 .modRequests {}
 	.modRequests .head {
@@ -279,14 +319,11 @@ table .rightLink {
 .modCopy {
 	clear: both;
 	max-width: 820px;
-	padding: 0 40px;
+	padding: 0 10px 0 21px;
 }
 .modData .modCopy {
 	max-width: 100%;
 }
-	.modCopy a {
-		text-decoration: underline;
-	}
 
 .modOverflow {
 	max-width: 400px;
@@ -300,20 +337,23 @@ table .rightLink {
 	        border-radius: 3px;
 	margin: 0 0 25px;
 }
+#auxiliary .modOverflow {
+	margin-bottom: 10px;
+}
 
 #systemMessage {
 	position: relative;
 	background: #F7F6F5;
-	padding: 23px 30px 10px 30px;
+	padding: 18px 20px 5px 20px;
 	border: 1px solid #D7D2CF;
-	margin: 0 38px 38px 38px;
 	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	   -moz-border-radius: 3px;
+	        border-radius: 3px;
+	margin: 0 22px 22px 22px;
 }
 	#systemMessage .head {
 		color: #444;
-		font: normal 1.88em/34px 'LeagueGothicRegular', 'Arial Narrow', Arial, Helvetica, sans-serif;
+		font: normal 1.86em/34px 'LeagueGothicRegular', 'Arial Narrow', Arial, Helvetica, sans-serif;
 		padding: 0 0 8px 0;
 	}
 	#systemMessage .content {
@@ -334,8 +374,8 @@ table .rightLink {
 		padding: 7px 10px;
 		border: 1px solid #D7D2CF;
 		-webkit-border-radius: 2px;
-		-moz-border-radius: 2px;
-		border-radius: 2px;
+		   -moz-border-radius: 2px;
+		        border-radius: 2px;
 		cursor: pointer;
 	}
 	.modDrop .layer {
@@ -352,8 +392,8 @@ table .rightLink {
 		border: 1px solid #D7D2CF;
 		border-top: none;
 		-webkit-border-radius: 2px;
-		-moz-border-radius: 2px;
-		border-radius: 2px;
+		   -moz-border-radius: 2px;
+		        border-radius: 2px;
 		margin-top: -1px;
 	}
 		.modDrop li label {
@@ -364,12 +404,25 @@ table .rightLink {
 	position: relative;
 	padding: 15px 0 0 37px;
 }
+#auxiliary .contentDrop {
+	padding: 0 15px;
+}
 .contentDrop.open {
 	background: #F5F4F2;
 	border-bottom: 1px solid #D7D2CF;
 }
+#auxiliary .contentDrop.open {
+	background: transparent;
+	padding-top: 0;
+}
 	.contentDrop .item {
 		display: none;
+	}
+	.contentDrop fieldset {
+		padding: 0;
+	}
+	.contentDrop .button {
+		width: auto;
 	}
 
 .modRequests .full,
@@ -410,8 +463,8 @@ table .rightLink {
 			padding: 2px;
 			border: 1px solid #D7D2CF;
 			-webkit-border-radius: 3px;
-			-moz-border-radius: 3px;
-			border-radius: 3px;
+			   -moz-border-radius: 3px;
+			        border-radius: 3px;
 			margin: 10px;
 		}
 	.modAddNote .head {
@@ -423,10 +476,17 @@ table .rightLink {
 		padding-top: 15px;
 	}
 	.notesList .title {
+		float: left;
+		width: 80%;
 		padding: 0 0 2px;
+	}
+	.dashList .title {
+		float: left;
+		width: 75%;
 	}
 	.notesList .subtitle {
 		display: block;
+		clear: both;
 		font-size: 0.85em;
 		padding: 0 0 2px;
 	}
@@ -436,10 +496,20 @@ table .rightLink {
 	.notesList p {
 		padding: 0 0 5px;
 	}
+	.notesList .classification {
+		float: right;
+		width: 20%;
+		text-align: right;
+		margin: 0 8px 0 0;
+	}
+	.notesList .name {
+		font-weight: bold;
+		padding: 0;
+	}
 
 .pagination {
 	font: 0.88em Arial, Helvetica, sans-serif;
-	padding: 10px 10px 10px 37px;
+	padding: 10px 10px 10px 21px;
 }
 	.pagination p {
 		position: relative;
@@ -457,6 +527,7 @@ table .rightLink {
 			.pagination a {
 				display: block;
 				float: left;
+				text-decoration: none;
 				padding: 5px 9px;
 				border-top: 1px solid #FFF;
 				border-right: 1px solid #D7D2CF;
@@ -475,11 +546,28 @@ table .rightLink {
 					padding-top: 6px;
 					border: none;
 				}
+/* Charts --------------------------------------------------------- */
+.chart,
+.monthly-chart,
+.category-chart {
+	display: none;
+}
+#category_chart_div {
+	clear: both;
+	height: 240px;
+}
+#month_chart_div {
+	clear: both;
+	height: 240px;
+}
+.modChart {
+	border-bottom: 1px solid #D7D2CF;
+}
 /* Tables --------------------------------------------------------- */
 table {
 	width: 100%;
 	clear: both;
-	font-size: 0.88em;
+	font-size: 0.93em;
 	font-family: Arial, Helvetica, sans-serif;
 	border-spacing: 0 0;
 	border-bottom: 1px solid #FFF;
@@ -504,14 +592,18 @@ table {
 	td,
 	th {
 		vertical-align: top;
-		padding: 8px 10px 8px 15px;
+		padding: 6px 8px 5px 13px;
 		border-top: 1px solid #FFF;
 		border-bottom: 1px solid #D7D2CF;
+	}
+	.modStudentInfo td {
+		padding-top: 3px;
+		padding-bottom: 2px;
 	}
 	td.spaced,
 	thead td.spaced,
 	th.spaced {
-		padding-left: 37px;
+		padding-left: 20px;
 		border-left: none;
 	}
 	.details td.spaced {
@@ -561,7 +653,7 @@ table {
 	thead td {
 		background: #E9E7E5 url(images/structure/whiteBorder.png) 0 0 no-repeat;
 		color: #444;
-		font-size: 0.86em;
+		font-size: 0.92em;
 		font-weight: bold;
 		text-align: left;
 		padding: 6px 5px 3px 14px;
@@ -770,5 +862,3 @@ p.message {
 .gray   {background: gray !important;}
 .silver {background: silver !important;}
 .white  {background: white !important;}
-.monthly-chart, .category-chart {display: none;}
-

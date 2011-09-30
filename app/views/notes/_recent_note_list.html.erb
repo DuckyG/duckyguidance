@@ -1,21 +1,47 @@
 <div class="modNotes block module">
-	<h2 class="head">Recent Notes</h2>
+	<h2 class="head">
+		Recent Notes
+<!--//
+	DEVELOPER COMMENT: Toggle for Detail view vs. List view
+//-->
+		<div class="modToggle">
+			Detail View&nbsp;|&nbsp;<a href="#">List View</a>
+		</div><!-- /modToggle -->
+	</h2>
 	<div class="content">
+<!--//
+	DEVELOPER COMMENT: Pagination here
+//-->
 		<table cellpadding="0" cellspacing="0">
 			<thead>
 				<tr>
-					<th class="spaced">Assigned to</th>   
+					<th class="spaced">Date Posted</th>
 					<th>Note Title</th>
+					<th>Assigned to&hellip;</th>   
 				</tr>
 			</thead>
 			<tbody>
 				<% notes.each do |note| %>
 					<tr>
-						<td class="spaced"><%=note.subject_name %></td>
-						<td><a href="<%= note_path(note) %>"><%= note.summary %><span class="arr">&nbsp;&rarr;</span></a></td>
+						<td class="spaced">
+<!--//
+	DEVELOPER COMMENT: Note date here
+//-->
+							DATE_POSTED
+						</td>
+						<td><a href="<%= note_path(note) %>"><%= note.summary %></a></td>
+						<td>
+<!--//
+	DEVELOPER COMMENT: Wrap the note subject in a link leading to that subject
+//-->
+							<%=note.subject_name %>
+						</td>
 					</tr>
 				<% end %>
 			</tbody>
 		</table>
+<!--//
+	DEVELOPER COMMENT: Pagination here
+//-->
 	</div>
 </div><!--// end modNotes //-->
