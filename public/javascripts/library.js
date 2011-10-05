@@ -150,11 +150,11 @@ function contentDrop(el){
 		trigger.click(function(){
 			if(obj.hasClass('open') == true) {
 				obj.removeClass('open');
-				trigger.next('.item').hide();
+				obj.find('.item').hide();
 				trigger.html(view);
 			} else {
 				obj.addClass('open');
-				trigger.next('.item').show();
+				obj.find('.item').show();
 				trigger.html('<span class="close icon iconClose"></span>');
 			}
 			return false;

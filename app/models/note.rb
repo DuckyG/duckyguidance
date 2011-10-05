@@ -15,6 +15,10 @@ class Note < ActiveRecord::Base
     occurred_on.strftime '%B %d %Y'
   end
 
+  def numeric_date_and_time
+    occurred_on.strftime '%m/%d/%Y'
+  end
+
   def get_tag_string
     arr = []
     tags.each {|tag| arr.push tag.name}
@@ -36,7 +40,10 @@ class Note < ActiveRecord::Base
     return "#" if students.count == 0
     return students
   end
-
+  
+  def subject_path
+  	note.subject == note.students ? note_students_path(note) : note.subject
+  end
 
   def convert_meta
     get_tags if @tags_string

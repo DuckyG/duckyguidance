@@ -27,19 +27,47 @@
 <!--//
 	DEVELOPER COMMENT: Note date here
 //-->
-							DATE_POSTED
+						<%= note.numeric_date_and_time %>
 						</td>
 						<td><a href="<%= note_path(note) %>"><%= note.summary %></a></td>
 						<td>
 <!--//
 	DEVELOPER COMMENT: Wrap the note subject in a link leading to that subject
 //-->
-							<%=note.subject_name %>
+							<%= link_to note.subject_name, note.subject == note.students ? note_students_path(note) : note.subject%>
 						</td>
 					</tr>
 				<% end %>
 			</tbody>
 		</table>
+
+
+<!--//
+	DEVELOPER COMMENT: This is what the Note item should look like in expanded form.
+	                   There will be less items in this list.
+	                   BOTH NOTES VIEWS WILL BE PAGINATED.
+	                   Consult Nate to see how many records should be generated for
+	                   each list (detail view will be different than list view).
+//-->
+
+		<table class="notesList dashList" cellpadding="0" cellspacing="0">
+			<tbody>
+				<% notes.each do |note| %>
+				<tr>
+					<td class="spaced">
+						<h3 class="title"><a href="<%= note_path(note) %>"><%= note.summary %></a></h3>
+						<span class="classification"><%= link_to note.category.name, note.category%></span>
+						<strong class="subtitle"><%= note.formatted_date_and_time %> &nbsp;&mdash;&nbsp; <span>by</span> <%= note.counselor.full_name %></strong>
+						<p class="name"><%= link_to note.subject_name, note.subject == note.students ? note_students_path(note) : note.subject%></p>
+						<%- note_text =h(note.notes).gsub("\n","<br/>") -%>
+						<p><%=raw(note_text.length > 165 ? "#{note_text.slice(0..165)}&hellip;" : note_text) %></p>
+					</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+
 <!--//
 	DEVELOPER COMMENT: Pagination here
 //-->

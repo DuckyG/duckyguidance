@@ -1,14 +1,19 @@
 <%- month_groups = notes.group_by {|note| note.created_at.strftime "%B %Y"}-%>
-<ul class="monthly-chart">
-  <% now = Time.now %>
-  <%(-6..0).each do |month_offset| %>
-    <% offset_date = now.advance(:months => month_offset).to_date.strftime "%B %Y" %>
-    <li>
-    <span class="month"><%=offset_date%></span>
-    <span class="count"><%=month_groups[offset_date] ? month_groups[offset_date].count : 0%></span></li>
-  <% end%>
-</ul>
-
-<div id="month_chart_div">
-</div>
-
+<script type="text/javascript">
+	google.load("visualization", "1", {packages:["corechart"]});
+	google.setOnLoadCallback(drawChart);
+	function drawChart() {
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Month');
+		data.addColumn('number', 'Number of notes');
+		data.addRows(7);
+<% now = Time.now %>
+<%(-6..0).each_with_index do |month_offset, index| %>
+<% offset_date = now.advance(:months => month_offset).to_date.strftime "%B %Y" %>
+		data.setValue(<%=index%>, 0, '<%=offset_date%>');
+		data.setValue(<%=index%>, 1, <%=month_groups[offset_date] ? month_groups[offset_date].count : 0%>);
+<% end%>
+		var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
+		chart.draw(data, {width: 265, height: 265, legend: 'none', backgroundColor: '#EEECEA', title: 'Notes by Month',  titleTextStyle: {color: '#444', fontSize: '12'}, colors:['#4B798B','#6C909E', '#8CA7B1', '#ADBEC4', '#CDD5D7'] });
+	}
+</script>

@@ -1,11 +1,11 @@
 <%= stylesheet_link_tag "structure", "content", "jquery-ui", "multiselect", "token-input" %>
 <%= stylesheet_link_tag "print", :media => "print" %>
-<!--[if !(IE)]>
-  <%= stylesheet_link_tag "window_1024", :media => "only screen and (max-width: 1024px)" %>
+<!--[if !(IE)]><!-->
+  <%= stylesheet_link_tag "window_1024", :media => "only screen and (max-width: 1000px)" %>
   <%= stylesheet_link_tag "window_800", :media => "only screen and (max-width: 800px)" %>
-<![endif]-->
+  <%= stylesheet_link_tag "window_640", :media => "only screen and (max-width: 640px)" %>
+<!--<![endif]-->
 <!--[if (lt IE 10)]>
   <%= stylesheet_link_tag "structure", :id => "styles1024" %>
   <%= stylesheet_link_tag "structure", :id => "styles800" %>
 <![endif]-->
-

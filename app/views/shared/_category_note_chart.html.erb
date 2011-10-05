@@ -1,12 +1,17 @@
+<script type="text/javascript">
+	google.load("visualization", "1", {packages:["corechart"]});
+	google.setOnLoadCallback(drawChart);
+	function drawChart() {
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Task');
+		data.addColumn('number', 'Hours per Day');
 <%- category_groups = notes.group_by {|note| note.category.name}-%>
-<ul class="category-chart">
-  <% category_groups.keys.each do |category_name| %>
-    <li>
-    <span class="category"><%=category_name%></span>
-    <span class="count"><%=category_groups[category_name].count%></span></li>
-  <% end%>
-</ul>
-
-<div id="category_chart_div">
-</div>
-
+		data.addRows(<%=category_groups.keys.count %>);
+<% category_groups.keys.each_with_index do |category_name, index| %>
+		data.setValue(<%=index%>, 0, '<%=category_name%>');
+		data.setValue(<%=index%>, 1, <%=category_groups[category_name].count%>);
+<% end%>
+		var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+		chart.draw(data, {width: 265, height: 265, legend: 'none', backgroundColor: '#EEECEA', title: 'Notes by Category', titleTextStyle: {color: '#444', fontSize: '12'}, colors:['#4B798B','#6C909E', '#8CA7B1', '#ADBEC4', '#CDD5D7'] });
+	}
+</script>

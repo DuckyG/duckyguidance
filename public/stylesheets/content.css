@@ -282,6 +282,44 @@ iframe {
 			border-left-color: #D7D2CF;
 		}
 
+.modFilter {}
+	.modFilter ul {
+		list-style: none;
+		overflow: hidden;
+		padding: 0 0 15px;
+	}
+	.modFilter li {
+		float: left;
+		overflow: hidden;
+		padding: 0;
+	}
+		.modFilter a {
+			display: block;
+			float: left;
+			text-align: right;
+			text-decoration: none;
+			padding: 2px 9px;
+			border-top: 1px solid #FFF;
+			border-right: 1px solid #D7D2CF;
+			border-bottom: 1px solid #D7D2CF;
+			border-left: 1px solid #FFF;
+		}
+			.modFilter a:hover {
+				background: #E9E7E5;
+				border-top-color: #D7D2CF;
+				border-right-color: #FFF;
+				border-bottom-color: #FFF;
+				border-left-color: #D7D2CF;
+			}
+			.modFilter .active a {
+				background: #D7D2CF;
+				color: #000;
+				border-color: #D7D2CF;
+				background: transparent;
+				color: #000;
+				border-color: #EEECEA;
+			}
+
 .modRequests {}
 	.modRequests .head {
 		background-color: #F7F6F5;
@@ -408,7 +446,6 @@ iframe {
 	padding: 0 15px;
 }
 .contentDrop.open {
-	background: #F5F4F2;
 	border-bottom: 1px solid #D7D2CF;
 }
 #auxiliary .contentDrop.open {
@@ -423,6 +460,16 @@ iframe {
 	}
 	.contentDrop .button {
 		width: auto;
+	}
+	.contentDrop .rightLink {
+		padding-bottom: 16px;
+	}
+	.contentDrop.open .rightLink a {
+		border: none;
+	}
+	.contentDrop.open .trigger .iconClose {
+		right: 0;
+		top: 0;
 	}
 
 .modRequests .full,

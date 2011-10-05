@@ -28,19 +28,18 @@
 	<h2 class="head">Group Members</h2>
 	<div class="content">
 		<div id="students">
-      <%=render "students/students"%>
-    </div>
-
+			<%=render "students/students"%>
+		</div>
+	
 	</div>
 </div><!--// end modRequests //-->
 
 
+<%=render :partial => "shared/new_note" %>
 <div class="modNotes block module">
 	<h2 class="head">Notes</h2>
-	<%=render :partial => "shared/new_note" %>
-
-  <div id="notes">
-    <%=render "notes/list"%>
-  </div>
+	<div id="notes">
+		<%=render "notes/list"%>
+	</div>
 </div><!--// end modNotes //-->
 
