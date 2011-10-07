@@ -10,6 +10,8 @@
 					<th class="spaced w50">School</th>
 					<th>Subdomain</th>
 					<th>School Admin</th>
+					<th>Number of Students</th>
+					<th>&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -19,6 +21,8 @@
 						<td><%=school.subdomain.name%></td>
             <%-admin = school.counselors.select{|c| c.has_role? :school_admin, school}.first-%>
             <td><%=admin.full_name if admin%></td>
+            <td><%=school.students.count%></td>
+            <td><%=button_to "View", school, :method => :get%></td>
 					</tr>
 				<% end %>
 			</tbody>

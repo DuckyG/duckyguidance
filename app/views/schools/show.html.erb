@@ -1,0 +1,50 @@
+<h2 class="head pageTitle"><%=@school.name%></h2>
+
+<div class="rightLink">
+	<a href="<%= edit_school_path(@school)%>">Edit<span>&nbsp;&rarr;</a>
+</div>
+
+<table cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="spaced label">Address</td>
+		<td><%=@school.address%></td>
+	</tr>
+	<tr>
+		<td class="spaced label">City</td>
+		<td><%=@school.city%></td>
+	</tr>
+	<tr>
+		<td class="spaced label">State</td>
+		<td><%=@school.state%></td>
+	</tr>
+	<tr>
+		<td class="spaced label">Zip Code</td>
+		<td><%=@school.zip_code%></td>
+	</tr>
+	<tr>
+		<td class="spaced label">Allows meeting requests</td>
+		<td><%=@school.allows_meeting_requests%></td>
+	</tr>
+	<tr>
+		<td class="spaced label">Subdomain</td>
+		<td><%=@school.subdomain.name%></td>
+	</tr>
+	<tr>
+		<td class="spaced label">Number of Students</td>
+		<td><%=@school.students.count%></td>
+	</tr>
+	<tr>
+    <td class="spaced label">Counselors</td>
+    <td>
+      <ul>
+        <%@school.counselors.each do |counselor| %>
+          <li><%=link_to counselor.full_name, counselor%></li>
+        <% end %>
+        <li><%= link_to "Add a counselor", new_school_counselor_path(@school) %></li>
+      </ul>
+    </td>
+    
+	</tr>
+</table>
+
+

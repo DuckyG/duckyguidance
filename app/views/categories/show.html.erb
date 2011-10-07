@@ -47,12 +47,7 @@
 	</div><!-- /modCopy -->
 </div><!--// end block module //-->
 
-<div class="modNotes block module">
-	<h2 class="head">Notes</h2>
-	<div id="notes">
-		<%=render "notes/list"%>
-	</div>
-</div><!--// end modNotes //-->
+<%= render "notes/block" %>
 
 <% content_for :auxiliary do %>
 	<div class="modReports block module">
