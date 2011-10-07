@@ -37,7 +37,7 @@ class GroupsController < ApplicationController
     @group = current_school.groups.find(params[:id])
     @students = @group.students.page(params[:student_page]).per(5)
     @note = Note.new
-    @notes = @group.notes.page(params[:page])
+    @notes = @group.notes.page(params[:note_page])
     @hide_note_subject = true
     @group_id_string = @group.id
     respond_to do |format|
