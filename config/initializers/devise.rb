@@ -210,3 +210,10 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 end
+module Devise
+  module Models
+    module Recoverable
+      handle_asynchronously :send_reset_password_instructions
+    end
+  end
+end
