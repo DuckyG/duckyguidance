@@ -21,11 +21,7 @@
     <%= render "shared/stylesheets" %>
   </head>
   <body class="pageHome">
-    <%- if flash[:notice]-%>
-      <div class="accountAlert">
-        <p><%= flash[:notice]%></p>
-      </div><!--// end accountAlert //-->
-    <%- end -%>
+    <%= render "shared/account_alert" %>
 
 		<div id="header">
 			<h1 id="clientName"><%=current_school.name if current_school%></h1>

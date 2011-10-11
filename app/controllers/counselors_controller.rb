@@ -17,10 +17,15 @@ class CounselorsController < ApplicationController
       allow :school_admin, :of => :current_school
     end
 
+    action :sign_in do
+      allow all
+    end
+
     action :destroy do
       allow :school_admin,:of => :current_school
     end
   end
+
   # GET /users
   # GET /users.xml
   def index
@@ -91,16 +96,14 @@ class CounselorsController < ApplicationController
   def my_account_update
 
     @counselor = current_counselor
-    @title = "My Settings"
-
+    params[:counselor].delete(:password) if params[:counselor][:password].blank?
+    params[:counselor].delete(:password_confirmation) if params[:counselor][:password_confirmation].blank?
 
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.update_attributes(params[:counselor])
-        format.html {
-            session = UserSession.new(:email  => params[:counselor][:email], :password => params[:counselor][:password]) if params[:counselor][:password]
-            session.save
-            redirect_to(my_account_path, :notice => 'Your settings have been updated. Please review the changes made below.') 
+        sign_in(@counselor, :bypass => true)
+        format.html { redirect_to(my_account_path, :notice => 'Your settings have been updated. Please review the changes made below.') 
         }
         format.xml  { head :ok }
       else
@@ -113,10 +116,10 @@ class CounselorsController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
+    params[:counselor].delete(:password) if params[:counselor][:password].blank?
+    params[:counselor].delete(:password_confirmation) if params[:counselor][:password_confirmation].blank?
 
-      @counselor = current_school.counselors.find(params[:id])
-      @title = "Edit Counselor"
-
+    @counselor = current_school.counselors.find(params[:id])
 
     @counselor.school = current_school
     respond_to do |format|
@@ -141,4 +144,5 @@ class CounselorsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-end
+
+ end

@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  acts_as_authentic
   acts_as_authorization_subject
   has_many :roles_users
   has_many :roles, :through => :roles_users
