@@ -48,8 +48,7 @@ Guidance::Application.routes.draw do
 
   end
 
-
-  get 'thankyou' => 'thankyou#index'
+  match "/login" => redirect("/")
 
   root :to => "devise/sessions#new"
 end
