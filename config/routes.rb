@@ -39,16 +39,12 @@ Guidance::Application.routes.draw do
     end
   end
 
-  controller :user_sessions do
-    get  'login' => :new
-    post 'login' => :create
-    get 'logout' => :destroy
-  end
-
-  resources :counselors do
+  devise_for  :counselors do
+    get "/" => "devise/sessions#new", as: "login"
+    get "/logout" => "devise/sessions#destroy", as: "logout"
   end
 
   get 'thankyou' => 'thankyou#index'
 
-  root :to => "user_sessions#new"
+  root :to => "devise/sessions#new"
 end

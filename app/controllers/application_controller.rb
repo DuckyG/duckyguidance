@@ -5,22 +5,39 @@ class ApplicationController < ActionController::Base
 
   layout 'standard'
   before_filter :check_domain, :check_defaults, :check_smart_group
-  helper_method :current_school, :current_user_session, :current_user, :current_subdomain, :current_counselor, :build_student_options, :render_csv, :current_school_year
+  helper_method :current_school, :current_user, :current_subdomain, :build_student_options, :render_csv, :current_school_year
+  before_filter :mailer_set_url_options
+  def mailer_set_url_options
+    ActionMailer::Base.default_url_options[:host] = request.host
+  end
 
   private
+
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || dashboard_path
+  end
+
+    def current_user
+      return @current_user if defined?(@current_user)
+      if current_counselor
+        @current_user = User.find(current_counselor.id)
+      else
+        @current_user = User.new
+      end
+    end
     def access_denied
-      if current_user
-        if current_user.has_role? :member, current_subdomain
+      if current_counselor
+        if current_counselor.has_role? :member, current_subdomain
           flash[:notice] = "You do not have access to this page"
           redirect_to dashboard_path
         else
-          current_user_session.destroy
+
           flash[:notice] = "You do not have access to this domain"
-          redirect_to root_path
+          redirect_to login_path
         end
       else
         flash[:notice] = "You must be logged in to view this page"
-        redirect_to root_path
+        redirect_to login_path
       end
     end
 
@@ -55,16 +72,6 @@ class ApplicationController < ActionController::Base
       output.html_safe
     end
 
-    def current_user_session
-      return @current_user_session if defined?(@current_user_session)
-      @current_user_session = UserSession.find
-    end
-
-    def current_user
-      return @current_user if defined?(@current_user)
-      @current_user = current_user_session && current_user_session.record
-    end
-
     def current_school
       return @current_school if defined?(@current_school)
       @current_school = current_subdomain ? current_subdomain.school : nil
@@ -75,10 +82,7 @@ class ApplicationController < ActionController::Base
       @current_subdomain = Subdomain.find_by_name(request.subdomains.first)
     end
 
-    def current_counselor
-      return @current_counselor if defined?(@current_counselor)
-      @current_counselor = current_user ? Counselor.find(current_user.id) : nil
-    end
+
 
     def render_csv(filename = nil)
       filename ||= params[:action]
