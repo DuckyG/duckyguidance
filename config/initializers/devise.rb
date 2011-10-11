@@ -8,7 +8,7 @@ Devise.setup do |config|
   config.mailer_sender = "notifications@duckyg.com"
 
   # Configure the class responsible to send e-mails.
-  #config.mailer = "MyMailer"
+  config.mailer = "PasswordResetMailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -211,10 +211,10 @@ Devise.setup do |config|
   # end
 end
 #This has to be here so that delayed job will work correctly
-module Devise
-  module Models
-    module Recoverable
-      handle_asynchronously :send_reset_password_instructions
-    end
-  end
-end
+#module Devise
+#  module Models
+#    module Recoverable
+#      handle_asynchronously :send_reset_password_instructions
+#    end
+#  end
+#end
