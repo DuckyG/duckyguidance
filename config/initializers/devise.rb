@@ -210,6 +210,7 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 end
+#This has to be here so that delayed job will work correctly
 module Devise
   module Models
     module Recoverable

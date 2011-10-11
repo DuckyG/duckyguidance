@@ -1,0 +1,14 @@
+<div class="requestMeeting module">
+	<h2 class="head">Forgot your password?</h2>
+	<div class="content">
+      <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+			<fieldset class="formBegin">
+				<p><%= f.label :email, "Email Address", :class => 'first_name' %><%= f.email_field :email, :value => 'email@example.com', :class => "first_name" %></p>
+				<div class="button">
+          <%= f.submit "Send me reset password instructions" %>
+				</div>
+			</fieldset>
+    <% end %>
+    <%= render :partial => "devise/shared/links" %>
+	</div><!--// end content //-->
+</div><!--// end meetingForm module //-->

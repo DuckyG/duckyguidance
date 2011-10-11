@@ -12,6 +12,11 @@ class Counselor < User
     super
   end
 
+  def update_with_password(params={})
+    params.delete(:current_password)
+    self.update_without_password(params)
+  end	
+
   private
 
   def assign_roles

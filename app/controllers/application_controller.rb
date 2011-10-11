@@ -7,25 +7,27 @@ class ApplicationController < ActionController::Base
   before_filter :check_domain, :check_defaults, :check_smart_group
   helper_method :current_school, :current_user, :current_subdomain, :build_student_options, :render_csv, :current_school_year
   before_filter :mailer_set_url_options
-  def mailer_set_url_options
-    ActionMailer::Base.default_url_options[:host] = request.host
-  end
+  
+  layout :layout_by_resource
 
   private
-
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || dashboard_path
   end
 
-    def current_user
+  def mailer_set_url_options
+    ActionMailer::Base.default_url_options[:host] = request.host
+  end
+
+  def current_user
       return @current_user if defined?(@current_user)
       if current_counselor
         @current_user = User.find(current_counselor.id)
       else
         @current_user = User.new
       end
-    end
-    def access_denied
+  end
+  def access_denied
       if current_counselor
         if current_counselor.has_role? :member, current_subdomain
           flash[:notice] = "You do not have access to this page"
@@ -114,4 +116,9 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+
+    
+  def layout_by_resource
+    devise_controller? ? 'logged_out' : 'standard'
+  end
 end

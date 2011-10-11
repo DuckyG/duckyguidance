@@ -39,10 +39,15 @@ Guidance::Application.routes.draw do
     end
   end
 
-  devise_for  :counselors do
+    devise_for  :counselors do
     get "/" => "devise/sessions#new", as: "login"
     get "/logout" => "devise/sessions#destroy", as: "logout"
   end
+
+  resources :counselors do
+
+  end
+
 
   get 'thankyou' => 'thankyou#index'
 
