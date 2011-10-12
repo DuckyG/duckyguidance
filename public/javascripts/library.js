@@ -47,12 +47,6 @@ $(document).ready(function(){
     return false;
   });
 
-  $("#recent-list .modToggle a").live("click", function(){
-    $("#recent-list .content").prepend("<div><img  src='/images/ajax-loader.gif' /></div>");
-    $.get(this.href, null, null, "script");
-    return false;
-  });
-
   $(".filter_box").focus();
   $('.filter_box').keyup(function(){
     $.get(window.location.pathname + "?search=" + $('.filter_box').val(), null, null, "script");
@@ -85,9 +79,16 @@ function closeLayer(el){
 
 function accountAlert(el) {
 	$(el).each(function() {
-		$(this).fadeIn(750);
+		var thisHeight = $(this).height();
+		$(this).css('top', -thisHeight).animate({
+			opacity: 1,
+			top: '10px'
+		}, 750);
 		$(this).append('<span class="icon iconCloseFFF close" />').find('.close').bind('click', function() {
-			$(this).parent().fadeOut(750);
+			$(this).parent().animate({
+				opacity: 0,
+				top: -thisHeight
+			}, 750);
 		})
 	});
 };
@@ -276,7 +277,7 @@ function activeSwap(el){
 function inputClear(target) {
 	var target = target || "input";
 	$(target).each(function() {
-		if( $(this).attr('type') == 'text' || $(this).attr('type') == 'password' || $(this).attr('type') == 'textarea' || $(this).attr('type') == 'email' ) {
+		if( $(this).attr('type') == 'text' || $(this).attr('type') == 'password' || $(this).attr('type') == 'textarea' ) {
 			var value = $(this).val();
 			$(this).focus(function() {
 				if($(this).val() == value) {
