@@ -28,7 +28,7 @@
 	</tbody>
 </table>
 
-<div class="modList modData block module">
+<div class="block module">
 	<h2 class="head">Create Snapshot</h2>
 </div>
   <div class="modCopy modData block module">
@@ -62,12 +62,18 @@
 </div><!--// end modRequests //-->
 
 
-<div class="modNotes block module">
-  <h2 class="head">Notes</h2>
-  <%=render :partial => "shared/new_note" %>
+<%= render "shared/new_note" %>
+<%= render "notes/block" %>
 
-  <div id="notes">
-    <%=render "notes/list"%>
-  </div>
-</div><!--// end modNotes //-->
-
+<% content_for :auxiliary do %>
+	<div class="modReports block module">
+		<h2 class="head">Reports</h2>
+		<div class="content">
+			<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+			<%= render :partial => "shared/category_note_chart", :locals => {:notes => @smart_group.notes} %>
+			<%= render :partial => "shared/month_note_chart", :locals => {:notes => @smart_group.notes} %>
+			<div id="chart_div" class="modChart module"></div>
+			<div id="chart_div2" class="modChart module"></div>
+		</div>
+	</div><!--// end modReports //-->
+<% end %>

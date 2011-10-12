@@ -1,5 +1,7 @@
 <div class="contentDrop">
-	<span class="trigger rightLink">Add a Note<span>&nbsp;&rarr;</span></span>
+	<div class="rightLink">
+		<a class="trigger">Add a Note<span>&nbsp;&rarr;</span></a>
+	</div>
 	<div class="item">
     <% @note = Note.new%> 
     <%= render "notes/form" %>

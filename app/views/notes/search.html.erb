@@ -5,34 +5,58 @@
 
 <div class="modCopy module">
   <%= form_tag do %>
-    <div style="width:45%;float:left">
-      <h3>Note Details</h3>
-      <%=label_tag :category_ids, "Categories"%>
-      <% category_array =current_school.categories.map {|category| [category.name, category.id]} %>
-      <%=select_tag :category_ids, options_for_select(category_array,params[:category_ids]), {:multiple => true, :class => 'multiselect'}%>
-      <%= label_tag :tags, "Tags" %>
-      <%= text_field_tag :tags, params[:tags] %>
-      <%= label_tag :author_ids, "Author" %>
-			<% counselor_array = current_school.counselors.map { |counselor| [counselor.formal_name, counselor.id] } %>
-			<%= select_tag :author_ids, options_for_select(counselor_array, params[:author_ids]), {:multiple => true, :class => 'multiselect'}%>
-      <h4>Date Range</h4>
-      <%= label_tag :start_date, "Start Date" %>
-      <%= text_field_tag :start_date,  params[:start_date]%>
-      <%= label_tag :end_date, "End Date" %>
-      <%= text_field_tag :end_date,  params[:end_date]%>
-    </div>
-    <div style="width:45%;float:left">
-      <h3>Student Details</h3>
-      <%= label_tag :student_name, "Student Name" %>
-      <%= text_field_tag :student_name,  params[:student_name]%>
-      <%= label_tag :year_of_graduation, "Year of Graduation" %>
-      <%= text_field_tag :year_of_graduation, params[:year_of_graduation] %>
-      <%= label_tag :shop %>
-      <%= text_field_tag :shop, params[:shop] %>
 
-    </div>
-    <br class="clear">
-    <%=submit_tag "Search" %>
+	<fieldset>
+		<h3>Note Details</h3>
+		<div class="cols2">
+			<div class="col">
+				<%=label_tag :category_ids, "Categories"%>
+<!--//
+	DEVELOPER COMMENT: We need to replace these multiselect controls with a custom overflow module
+	                   I built. Each item should be a checkbox with a label (all wrapped in a
+	                   paragraph tag). I have an example in the static code.
+//-->
+				<% category_array =current_school.categories.map {|category| [category.name, category.id]} %>
+				<%=select_tag :category_ids, options_for_select(category_array,params[:category_ids]), {:multiple => true, :class => 'multiselect'}%>
+				<p><%= label_tag :tags, "Tags" %><%= text_field_tag :tags, params[:tags] %></p>
+			</div>
+			<div class="col">
+				<%= label_tag :author_ids, "Author" %><% counselor_array = current_school.counselors.map { |counselor| [counselor.formal_name, counselor.id] } %>
+				<%= select_tag :author_ids, options_for_select(counselor_array, params[:author_ids]), {:multiple => true, :class => 'multiselect'}%>
+			</div>
+		</div><!-- /cols2 -->
+	</fieldset>
+	<fieldset>
+		<div class="cols2">
+			<div class="col">
+				<h3>Student Details</h3>
+				<p><%= label_tag :student_name, "Student Name" %><%= text_field_tag :student_name,  params[:student_name]%></p>
+				<p><%= label_tag :year_of_graduation, "Year of Graduation" %><%= text_field_tag :year_of_graduation, params[:year_of_graduation] %></p>
+				<p><%= label_tag :shop %><%= text_field_tag :shop, params[:shop] %></p>
+			</div>
+			<div class="col">
+				<h3>Date Range</h3>
+				<p>
+					<%= label_tag :start_date, "Start Date" %>
+					<span class="ex">(Example: Today would be <%=Time.now.strftime "%Y-%m-%d"%>)</span>
+<!--//
+	DEVELOPER COMMENT: Add datepicker here (start date).
+//-->
+					<%= text_field_tag :start_date,  params[:start_date]%>
+				</p>
+				<p>
+					<%= label_tag :end_date, "End Date" %>
+<!--//
+	DEVELOPER COMMENT: Add datepicker here (end date).
+//-->
+					<%= text_field_tag :end_date,  params[:end_date]%>
+				</p>
+			</div>
+		</div><!-- /cols2 -->
+		<div class="button">
+			<%=submit_tag "Search" %>
+		</div>
+	</fieldset>
   <%end%>
 </div>
 <%= render "notes/list" %>

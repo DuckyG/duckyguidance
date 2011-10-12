@@ -86,6 +86,6 @@ class UsersController < ApplicationController
   end
   
   def editing_self?
-    params[:id].to_i == current_user.id
+    params[:id].to_i == current_counselor.id
   end
 end

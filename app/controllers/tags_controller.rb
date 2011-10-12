@@ -19,10 +19,11 @@ class TagsController < ApplicationController
   def show
     @tag = current_school.tags.find(params[:id])
     @title = 'Tags: ' + @tag.name
-    @notes = @tag.notes.page(params[:page])
+    @notes = @tag.notes.page(params[:note_page])
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @tag }
+      format.js
     end
   end
 

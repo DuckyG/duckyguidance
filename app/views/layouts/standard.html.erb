@@ -1,5 +1,4 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <!--[if IE 6 ]><html lang="en" class="bIE ie6"><![endif]-->
 <!--[if IE 7 ]><html lang="en" class="bIE ie7"><![endif]-->
 <!--[if IE 8 ]><html lang="en" class="bIE ie8"><![endif]-->
@@ -16,17 +15,13 @@
 	<meta name="copyright" content="Copyright information">
 	<meta name="Robots" content="INDEX,FOLLOW">
 
-	<link rel="shortcut icon" type="image/gif" href="/favicon.gif?v=1">
-	<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
+	<link rel="shortcut icon" type="image/gif" href="/favicon.gif?v=2">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 
   <%= render "shared/stylesheets" %>
 </head>
 <body>
-	<%- if flash[:notice]-%>
-	<div class="accountAlert">
-			<p><%= flash[:notice]%></p>
-	</div><!--// end accountAlert //-->
-	<%- end -%>
+  <%= render "shared/account_alert" %>
 	<div id="header">
 		<h1 id="clientName"><%=current_school ? current_school.name : @section %></h1>
 		<div id="navigation">
@@ -43,7 +38,7 @@
 	<div id="container">
 		<% if current_counselor %>
 		<div class="modAccount module">
-			Welcome, <%= link_to current_counselor.first_name, my_account_path %> &nbsp;|&nbsp;<%= link_to "Sign Off", logout_path%>
+			Welcome, <%= link_to current_counselor.first_name, my_account_path %>&nbsp;|&nbsp;<%= link_to "Sign Off", logout_path%>
 		</div><!--// end account //-->
 		<% end %>
 		<div id="padder">
@@ -54,22 +49,8 @@
 		</div><!--// end #padder //-->
 		<hr>
 		<div id="auxiliary">
-			<div class="modTools block module">
-				<h2 class="head">Tools</h2>
-				<div class="content">
-					<ul class="linklist">
-						<li><a href="<%= students_path %>" class="icon iconSearch">Search for a Student</a></li>
-						<%#<li><a href="#" class="icon iconSearch">Search Student Notes</a></li>%>
-						<li><a href="<%= new_student_path %>" class="icon iconAddStudent">Add a Student</a></li>
-						<li><a href="<%= new_group_path %>" class="icon iconAddGroup">Add a Group</a></li>
-            <% if current_counselor.has_role? :school_admin, current_school %>
-						  <li><a href="<%= new_category_path %>" class="icon iconAddCategory">Add a Note Category</a></li>
-            <% end %>
-						<li><a href="<%= my_account_path %>" class="icon iconOptions">Your Account Options</a></li>
-					</ul>
-				</div>
-			</div><!--// end modTools //-->
-		</div><!--// end #extra //-->
+			<%= yield :auxiliary %>
+		</div><!--// end #auxiliary //-->
 		<hr>
 	</div><!--// end #container //-->
 	<hr class="print">

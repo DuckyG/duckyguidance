@@ -1,0 +1,22 @@
+<div class="requestMeeting module">
+	<h2 class="head">Change your password</h2>
+	<div class="content">
+      <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%=raw( resource.errors.full_messages.map { |msg| content_tag(:h4, msg) }.join )%>
+  <%= f.hidden_field :reset_password_token %>
+  <fieldset>
+        <p><%= f.label :password, "New password" %>
+            <%= f.password_field :password %></p>
+
+  <p><%= f.label :password_confirmation, "Confirm new password" %>
+  <%= f.password_field :password_confirmation %></p>
+
+  <div class="button">
+<%= f.submit "Change my password" %></div>
+
+			</fieldset>
+    <% end %>
+    <%= render :partial => "devise/shared/links" %>
+	</div><!--// end content //-->
+</div><!--// end meetingForm module //-->
+

@@ -45,6 +45,12 @@ $(document).ready(function(){
     return false;
   });
 
+  $("#recent-list .modToggle a").live("click", function(){
+    $("#recent-list .content").prepend("<div><img  src='/images/ajax-loader.gif' /></div>");
+    $.get(this.href, null, null, "script");
+    return false;
+  });
+
   $(".filter_box").focus();
   $('.filter_box').keyup(function(){
     $.get(window.location.pathname + "?search=" + $('.filter_box').val(), null, null, "script");
@@ -150,11 +156,11 @@ function contentDrop(el){
 		trigger.click(function(){
 			if(obj.hasClass('open') == true) {
 				obj.removeClass('open');
-				trigger.next('.item').hide();
+				obj.find('.item').hide();
 				trigger.html(view);
 			} else {
 				obj.addClass('open');
-				trigger.next('.item').show();
+				obj.find('.item').show();
 				trigger.html('<span class="close icon iconClose"></span>');
 			}
 			return false;
@@ -262,7 +268,7 @@ function activeSwap(el){
 function inputClear(target) {
 	var target = target || "input";
 	$(target).each(function() {
-		if( $(this).attr('type') == 'text' || $(this).attr('type') == 'password' || $(this).attr('type') == 'textarea' ) {
+		if( $(this).attr('type') == 'text' || $(this).attr('type') == 'password' || $(this).attr('type') == 'textarea' || $(this).attr('type') == 'email' ) {
 			var value = $(this).val();
 			$(this).focus(function() {
 				if($(this).val() == value) {

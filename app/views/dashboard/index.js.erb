@@ -1,0 +1,7 @@
+<% if @view == "list"%>
+  $("#recent-list .content").html("<%=escape_javascript(render("notes/list_view_list")) %>");
+  $("#recent-list .modToggle").html("<a href='?view=detail'>Detail View</a>&nbsp;|&nbsp;List View");
+<% else %>
+  $("#recent-list .content").html("<%=escape_javascript(render("notes/detail_view_list")) %>");
+  $("#recent-list .modToggle").html("Detail View&nbsp;|&nbsp;<a href='?view=list'>List View</a>");
+<% end %>

@@ -36,13 +36,28 @@
 		<td><%=@student.student_id%></td>
 	</tr>
 </table>
-<%= render :partial => "shared/month_note_chart", :locals => {:notes => @student.notes} %>
-<%= render :partial => "shared/category_note_chart", :locals => {:notes => @student.notes} %>
+
+<%=render :partial => "shared/new_note" %>
+
 <div class="modNotes block module">
 	<h2 class="head">Notes</h2>
-	<%=render :partial => "shared/new_note" %>
-
+<!--//
+	DEVELOPER COMMENT: Notes list should mimic the dashboard, having both detail & list views with a toggle button.
+//-->
   <div id="notes">
     <%=render "notes/list"%>
   </div>
 </div><!--// end modNotes //-->
+
+<% content_for :auxiliary do %>
+	<div class="modReports block module">
+		<h2 class="head">Reports</h2>
+		<div class="content">
+			<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+			<%= render :partial => "shared/category_note_chart", :locals => {:notes => @student.notes} %>
+			<%= render :partial => "shared/month_note_chart", :locals => {:notes => @student.notes} %>
+			<div id="chart_div" class="modChart module"></div>
+			<div id="chart_div2" class="modChart module"></div>
+		</div>
+	</div><!--// end modReports //-->
+<% end %>

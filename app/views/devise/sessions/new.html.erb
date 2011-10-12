@@ -1,0 +1,20 @@
+<div class="requestMeeting module">
+	<h2 class="head">Counselors</h2>
+	<div class="content">
+		<h3>Log in to manage your students:</h3>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+			<fieldset class="formBegin">
+				<p><%= f.label :email, "Email Address", :class => 'first_name' %><%= f.email_field :email, :value => 'email@example.com', :class => "first_name" %></p>
+				<p><%= f.label :password, "Password", :class => 'last_name' %><%= f.password_field :password %></p>
+        <% if devise_mapping.rememberable? -%>
+          <p><%= f.label :remember_me, f.check_box(:remember_me) + "Remember me", class: "remember-me" %></p>
+        <% end -%>
+				<div class="button">
+          <%= f.submit raw("Login &raquo;") %>
+				</div>
+			</fieldset>
+    <% end %>
+    <%= render :partial => "devise/shared/links" %>
+
+	</div><!--// end content //-->
+</div><!--// end meetingForm module //-->

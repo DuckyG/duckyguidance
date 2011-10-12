@@ -5,26 +5,28 @@
 
 
 <div class="modStudents modData block module">
-  <% if @note %>
-    <div class="modCopy">
-      <h3>Assigned to Note</h3>
-      <%= link_to @note.summary, @note %>
-    </div>
-  <%else %>
-    <div class="modCopy filter">
-      <ul>
-        <li <%= "class='active'" if students_path == request.path %>><a href="<%= students_path %>">Current</a></li>
-        <li <%= "class='active'" if graduated_students_path == request.path %>><a href="<%= graduated_students_path %>">Graduated</a></li>
-        <li <%= "class='active'" if all_students_path == request.path %>><a href="<%= all_students_path %>">All</a></li>
-      </ul>
-    </div>
-  <% end %>
 	<div class="modCopy">
+<% if @note %>
+		<h3>Assigned to Note</h3>
+		<ul>
+			<li><%= link_to @note.summary, @note %></li>
+		</ul>
+<%else %>
+		<div class="modFilter">
+			<ul>
+				<li <%= "class='active'" if students_path == request.path %>><a href="<%= students_path %>">Current</a></li>
+				<li <%= "class='active'" if graduated_students_path == request.path %>><a href="<%= graduated_students_path %>">Graduated</a></li>
+				<li <%= "class='active'" if all_students_path == request.path %>><a href="<%= all_students_path %>">All</a></li>
+			</ul>
+		</div>
+<% end %>
 		<p>
 			<label>Search for a Student:</label>
-			<input class="filter_box" type="text" name="student_filter" value="">
+			<input class="studentFilter filter_box" type="text" name="student_filter" value="">
 		</p>
-		<a class="addItem right" href="<%= new_student_path %>">Add a Student<span>&nbsp;&rarr;</span></a>
+		<div class="rightLink">
+			<a href="<%= new_student_path %>">Add a Student<span>&nbsp;&rarr;</span></a>
+		</div><!-- /rightLink -->
 	</div><!--// end modCopy //-->
 	<div class="content">
         <div id="students">

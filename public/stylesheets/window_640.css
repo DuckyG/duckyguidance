@@ -1,0 +1,29 @@
+#clientName {
+	width: 100%;
+}
+#content {
+	margin: 0;
+}
+#auxiliary {
+	clear: both;
+	position: static;
+	float: none;
+	width: 100%;
+	border: none;
+	margin: 0;
+}
+#navigation {
+	position: relative;
+		left: 0;
+		top: 4px;
+	max-width: 100%;
+		overflow: hidden;
+}
+
+.pageTitle {
+	padding-right: 21px;
+	padding-left: 21px;
+}
+.block .head {
+	padding-right: 13px;
+}
