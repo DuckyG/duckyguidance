@@ -770,6 +770,7 @@ input[type="submit"] {
 	clear: both;
 	text-align: right;
 	padding: 0 0 10px 21px;
+  width: 405px;
 }
 label input,
 #container .modCopy .col label input {
