@@ -1,7 +1,11 @@
 <div class="requestMeeting module">
 	<h2 class="head">Forgot your password?</h2>
 	<div class="content">
+    <h3>Enter your email address below to have instructions for resetting your password sent to you via email.</h3>
       <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+        <% if resource.errors %>
+          <h4>The email address you entered was not found. Please try again or email <a href="mailto:support@duckyg.com">support@duckyg.com</a> for assistance</h4>
+        <% end %>
 			<fieldset class="formBegin">
 				<p><%= f.label :email, "Email Address", :class => 'first_name' %><%= f.email_field :email, :value => 'email@example.com', :class => "first_name" %></p>
 				<div class="button">
