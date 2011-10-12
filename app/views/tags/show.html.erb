@@ -18,7 +18,16 @@
 
 <%= render :partial => "shared/month_note_chart", :locals => {:notes => @tag.notes} %>
 
-<div class="modNotes block module">
-	<h2 class="head">Notes</h2>
-  <%= render "notes/list" %>
-</div><!--// end modNotes //-->
+<%= render "notes/block" %>
+
+<% content_for :auxiliary do %>
+	<div class="modReports block module">
+		<h2 class="head">Reports</h2>
+		<div class="content">
+			<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+			<%= render :partial => "shared/month_note_chart", :locals => {:notes => @tag.notes} %>
+			<div id="chart_div" class="modChart module"></div>
+			<div id="chart_div2" class="modChart module"></div>
+		</div>
+	</div><!--// end modReports //-->
+<% end %>

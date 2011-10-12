@@ -14,6 +14,6 @@
 		data.setValue(<%=index%>, 1, <%=month_groups[offset_date] ? month_groups[offset_date].count : 0%>);
 <% end%>
 		var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
-		chart.draw(data, {width: 265, height: 265, legend: 'none', backgroundColor: '#EEECEA', title: 'Notes by Month',  titleTextStyle: {color: '#444', fontSize: '12'}, colors:['#4B798B','#6C909E', '#8CA7B1', '#ADBEC4', '#CDD5D7'] });
+		chart.draw(data, {width: 265, height: 265, legend: 'none', backgroundColor: '#EEECEA', title: 'Notes by Month',  titleTextStyle: {color: '#444', fontSize: '12'} });
 	}
 </script>

@@ -35,11 +35,18 @@
 </div><!--// end modRequests //-->
 
 
-<%=render :partial => "shared/new_note" %>
-<div class="modNotes block module">
-	<h2 class="head">Notes</h2>
-	<div id="notes">
-		<%=render "notes/list"%>
-	</div>
-</div><!--// end modNotes //-->
+<%= render "shared/new_note" %>
+<%= render "notes/block" %>
 
+<% content_for :auxiliary do %>
+	<div class="modReports block module">
+		<h2 class="head">Reports</h2>
+		<div class="content">
+			<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+			<%= render :partial => "shared/category_note_chart", :locals => {:notes => @group.notes} %>
+			<%= render :partial => "shared/month_note_chart", :locals => {:notes => @group.notes} %>
+			<div id="chart_div" class="modChart module"></div>
+			<div id="chart_div2" class="modChart module"></div>
+		</div>
+	</div><!--// end modReports //-->
+<% end %>

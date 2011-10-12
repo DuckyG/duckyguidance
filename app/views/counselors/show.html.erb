@@ -11,5 +11,9 @@
 		<td class="spaced label">Email Address</td>
 		<td><%=@counselor.email%></td>
 	</tr>
+  <tr>
+		<td class="spaced label">Is Director</td>
+		<td><%=@counselor.has_role?(:school_admin, current_school) ? "Yes" : "No"%></td>
+	</tr>
 	
 </table>

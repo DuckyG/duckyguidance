@@ -12,6 +12,6 @@
 		data.setValue(<%=index%>, 1, <%=category_groups[category_name].count%>);
 <% end%>
 		var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-		chart.draw(data, {width: 265, height: 265, legend: 'none', backgroundColor: '#EEECEA', title: 'Notes by Category', titleTextStyle: {color: '#444', fontSize: '12'}, colors:['#4B798B','#6C909E', '#8CA7B1', '#ADBEC4', '#CDD5D7'] });
+		chart.draw(data, {width: 265, height: 265, legend: 'none', backgroundColor: '#EEECEA', title: 'Notes by Category', titleTextStyle: {color: '#444', fontSize: '12'} });
 	}
 </script>

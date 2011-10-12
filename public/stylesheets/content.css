@@ -789,6 +789,7 @@ input[type="submit"] {
 	clear: both;
 	text-align: right;
 	padding: 0 0 10px 21px;
+  width: 405px;
 }
 label input,
 #container .modCopy .col label input {
@@ -881,6 +882,13 @@ fieldset .ex {
 	width: 1px;
 	overflow: hidden;
 }
+.formBegin label.remember-me {
+  position: relative;
+  left:0;
+  font: normal 1.13em 'Puritan20Normal', Arial, Helvetica, sans-serif;
+	width: 120px;
+}
+
 .continue,
 p.message {
 	display: none;

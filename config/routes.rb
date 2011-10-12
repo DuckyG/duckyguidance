@@ -8,16 +8,14 @@ Guidance::Application.routes.draw do
       post :snapshot
     end
   end
+
   resources :groups do
     resources :notes
     collection do
       get :search
     end
   end
-  constraints :subdomain => 'admin' do
-    resources :users
-    resources :schools
-  end
+
   resources :categories do
     member do
       get :report
@@ -25,7 +23,7 @@ Guidance::Application.routes.draw do
     resources :notes
   end
 
-  resources :tags
+  resources :tags, only: [:index, :show]
 
   match 'dashboard' => 'dashboard#index'
   resources :notes do
@@ -41,26 +39,16 @@ Guidance::Application.routes.draw do
     end
   end
 
-  controller :meeting_requests do
-    get 'request' => :new
-    post 'request' => :create
+    devise_for  :counselors do
+    get "/" => "devise/sessions#new", as: "login"
+    get "/logout" => "devise/sessions#destroy", as: "logout"
   end
 
-  controller :user_sessions do
-    get  'login' => :new
-    post 'login' => :create
-    get 'logout' => :destroy
-  end
-  resources :meeting_requests do
-    collection do
-      get :past
-      get :future
-      post :welcome_submit
-    end
+  resources :counselors do
+
   end
 
-  resources :counselors
-  get 'thankyou' => 'thankyou#index'
+  match "/login" => redirect("/")
 
-  root :to => "meeting_requests#welcome"
+  root :to => "devise/sessions#new"
 end
