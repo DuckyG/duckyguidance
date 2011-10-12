@@ -2,9 +2,9 @@
 	<h2 class="head">Change your password</h2>
 	<div class="content">
       <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+  <%=raw( resource.errors.full_messages.map { |msg| content_tag(:h4, msg) }.join )%>
   <%= f.hidden_field :reset_password_token %>
-			<fieldset class="formBegin">
+  <fieldset>
         <p><%= f.label :password, "New password" %>
             <%= f.password_field :password %></p>
 
