@@ -268,7 +268,7 @@ function activeSwap(el){
 function inputClear(target) {
 	var target = target || "input";
 	$(target).each(function() {
-		if( $(this).attr('type') == 'text' || $(this).attr('type') == 'password' || $(this).attr('type') == 'textarea' ) {
+		if( $(this).attr('type') == 'text' || $(this).attr('type') == 'password' || $(this).attr('type') == 'textarea' || $(this).attr('type') == 'email' ) {
 			var value = $(this).val();
 			$(this).focus(function() {
 				if($(this).val() == value) {
