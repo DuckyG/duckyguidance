@@ -21,6 +21,8 @@ $(document).ready(function(){
 	homeForm('.requestMeeting');
 	editName('.requestMeeting .editName');
 	inputClear('.requestMeeting input');
+	
+	accountAlert('.accountAlert');
 
 	// Cancel button
 	formCancel('form .cancel');
@@ -36,7 +38,7 @@ $(document).ready(function(){
 		showOn: "button",
 		buttonImage: "/images/buttons/calendar.png",
 		buttonImageOnly: true,
-    dateFormat: "yy-mm-dd"
+		dateFormat: "yy-mm-dd"
 	});
 
   $("a[data-remote=true]").live("click",function(){
@@ -73,10 +75,16 @@ function closeLayer(el){
 			layer.slideUp(slideUpSpeed);
 		})
 	});
-}
+};
 
-
-
+function accountAlert(el) {
+	$(el).each(function() {
+		$(this).fadeIn(750);
+		$(this).append('<span class="icon iconCloseFFF close" />').find('.close').bind('click', function() {
+			$(this).parent().fadeOut(750);
+		})
+	});
+};
 
 //  Apply the proper stylesheets to IE when the window resizes
 function ieResize(){

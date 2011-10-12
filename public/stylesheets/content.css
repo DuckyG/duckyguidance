@@ -133,13 +133,14 @@ iframe {
 .icon {
 	background-image: url(images/icons/icons.png);
 	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+		overflow: hidden;
+	text-indent: -999em;
 }
-	.iconSearch      {background-position: -337px -91px;}
-	.iconAddStudent  {background-position: -286px -141px;}
-	.iconAddGroup    {background-position: -239px -191px;}
-	.iconAddCategory {background-position: -188px -242px;}
-	.iconOptions     {background-position: -137px -291px;}
-	.iconClose       {background-position: -50px -400px;}
+	.iconClose,
+	.iconClose000       {background-position: 0 0;}
+	.iconCloseFFF       {background-position: -50px 0;}
 /* Columns -------------------------------------------------------- */
 .cols2,
 .cols3 {}
@@ -240,10 +241,28 @@ iframe {
 	}
 
 .accountAlert {
+	position: fixed;
+		left: 50px;
+		right: 50px;
+		top: 10px;
+		z-index: 100;
+	display: none;
+	font-size: 2em;
+	padding: 20px;
+	-webkit-border-radius: 2px;
+	   -moz-border-radius: 2px;
+	        border-radius: 2px;
+}
+.accountAlert.success {
+	background: #15AE15;
+	color: #FFF;
+}
+.accountAlert.warning {
 	background: #FFDE00;
-	font-size: 1.6em;
-	padding: 7px 20px;
-	margin: 5px 5px 0 5px;
+}
+.accountAlert.error {
+	color: #FFF;
+	background: #CC0000;
 }
 	.accountAlert p {
 		padding: 0;
