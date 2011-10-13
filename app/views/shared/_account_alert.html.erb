@@ -1,16 +1,6 @@
-	<%- if notice -%>
-	<div class="accountAlert success">
-			<p><%= notice%></p>
+	<%- if flash[:notice] or alert-%>
+	<div class="accountAlert">
+			<p><%= flash[:notice]%></p>
+      <p class="alert"><%= alert %></p>
 	</div><!--// end accountAlert //-->
-<%- end -%>
-
-<% if alert %>
-  <div class="accountAlert error">
-		<p><%= alert %></p>
-	</div><!--// end accountAlert //-->
-<% end %>
-<% if warning %>
-  <div class="accountAlert warning">
-		<p><%= warning %></p>
-	</div><!--// end accountAlert //-->
-<% end %>
+	<%- end -%>
