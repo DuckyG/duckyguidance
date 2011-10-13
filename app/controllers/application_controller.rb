@@ -5,12 +5,18 @@ class ApplicationController < ActionController::Base
 
   layout 'standard'
   before_filter :check_domain, :check_defaults, :check_smart_group
-  helper_method :current_school, :current_user, :current_subdomain, :build_student_options, :render_csv, :current_school_year
+  helper_method :current_school, :current_user, :current_subdomain, :build_student_options, :render_csv, :current_school_year, :warning
   before_filter :mailer_set_url_options
   
   layout :layout_by_resource
 
   private
+
+  #Provides warning method to get flash[:warning]. Method alredy exists for :notice and :error
+  def warning
+    @warning ||= flash[:warning]
+  end
+
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || dashboard_path
   end

@@ -30,7 +30,7 @@ class SmartGroupsController < ApplicationController
         redirect_to @smart_group 
         return
       end
-      flash[:notice] =  "A smart group for this filter does not exist yet. Complete this form to create one."
+      flash[:warning] =  "A smart group for this filter does not exist yet. Complete this form to create one."
       value = params[:value]
 
       if params[:field] == "counselor_id"
@@ -78,13 +78,13 @@ class SmartGroupsController < ApplicationController
       redirect_to group
     else
       if params[:description].blank? and params[:name].blank? 
-        flash[:notice] = "A name and description are required to create a snapshot of this smart group"
+        flash[:warning] = "A name and description are required to create a snapshot of this smart group"
       elsif params[:description].blank?
-        flash[:notice] = "A description is required to create a snapshot of this smart group"
+        flash[:warning] = "A description is required to create a snapshot of this smart group"
       elsif params[:name].blank?
-        flash[:notice] = "A name is required to create a snapshot of this smart group"
+        flash[:warning] = "A name is required to create a snapshot of this smart group"
       elsif current_school.groups.find_by_name params[:name]
-        flash[:notice] = "A group with the name '#{params[:name]}' already exists.  Please pick another name to create this snapshot"
+        flash[:warning] = "A group with the name '#{params[:name]}' already exists.  Please pick another name to create this snapshot"
       end
 
       redirect_to smart_group_path(@smart_group, name: params[:name], description: params[:description])
