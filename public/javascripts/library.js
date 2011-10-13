@@ -22,6 +22,8 @@ $(document).ready(function(){
 	editName('.requestMeeting .editName');
 	inputClear('.requestMeeting input');
 
+  accountAlert('.accountAlert');
+
 	// Cancel button
 	formCancel('form .cancel');
 	// Autotab phone field
@@ -81,6 +83,21 @@ function closeLayer(el){
 	});
 }
 
+function accountAlert(el) {
+	$(el).each(function() {
+		var thisHeight = $(this).height();
+		$(this).css('top', -thisHeight).animate({
+			opacity: 1,
+			top: '10px'
+		}, 750);
+		$(this).append('<span class="icon iconCloseFFF close" />').find('.close').bind('click', function() {
+			$(this).parent().animate({
+				opacity: 0,
+				top: -thisHeight
+			}, 750);
+		})
+	});
+};
 
 
 
