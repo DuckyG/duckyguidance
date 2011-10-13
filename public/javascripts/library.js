@@ -21,8 +21,8 @@ $(document).ready(function(){
 	homeForm('.requestMeeting');
 	editName('.requestMeeting .editName');
 	inputClear('.requestMeeting input');
-
-  accountAlert('.accountAlert');
+	
+	accountAlert('.accountAlert');
 
 	// Cancel button
 	formCancel('form .cancel');
@@ -38,18 +38,12 @@ $(document).ready(function(){
 		showOn: "button",
 		buttonImage: "/images/buttons/calendar.png",
 		buttonImageOnly: true,
-    dateFormat: "yy-mm-dd"
+		dateFormat: "yy-mm-dd"
 	});
 
   $("a[data-remote=true]").live("click",function(){
     $(".pagination").html("<img  src='/images/ajax-loader.gif' />");
     $.get(this.href, null,null,"script");
-    return false;
-  });
-
-  $("#recent-list .modToggle a").live("click", function(){
-    $("#recent-list .content").prepend("<div><img  src='/images/ajax-loader.gif' /></div>");
-    $.get(this.href, null, null, "script");
     return false;
   });
 
@@ -81,7 +75,8 @@ function closeLayer(el){
 			layer.slideUp(slideUpSpeed);
 		})
 	});
-}
+};
+
 
 function accountAlert(el) {
 	$(el).each(function() {
@@ -98,8 +93,6 @@ function accountAlert(el) {
 		})
 	});
 };
-
-
 
 //  Apply the proper stylesheets to IE when the window resizes
 function ieResize(){
@@ -285,7 +278,7 @@ function activeSwap(el){
 function inputClear(target) {
 	var target = target || "input";
 	$(target).each(function() {
-		if( $(this).attr('type') == 'text' || $(this).attr('type') == 'password' || $(this).attr('type') == 'textarea' || $(this).attr('type') == 'email' ) {
+		if( $(this).attr('type') == 'text' || $(this).attr('type') == 'password' || $(this).attr('type') == 'textarea' ) {
 			var value = $(this).val();
 			$(this).focus(function() {
 				if($(this).val() == value) {
