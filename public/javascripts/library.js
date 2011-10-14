@@ -47,6 +47,12 @@ $(document).ready(function(){
     return false;
   });
 
+  $("#recent-list .modToggle a").live("click", function(){
+    $("#recent-list .content").prepend("<div><img  src='/images/ajax-loader.gif' /></div>");
+    $.get(this.href, null, null, "script");
+    return false;
+  });
+
   $(".filter_box").focus();
   $('.filter_box').keyup(function(){
     $.get(window.location.pathname + "?search=" + $('.filter_box').val(), null, null, "script");
