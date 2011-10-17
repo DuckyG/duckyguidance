@@ -12,7 +12,7 @@
 		<tr>
 			<td class="spaced label">Assigned to</td>
       <td><%= link_to @note.subject_name, @note.subject == @note.students ? note_students_path(@note) : @note.subject%> 
-        <% unless @note.subject == @note.students %>
+        <% unless @note.subject == @note.students.first or @note.subject == "Unassigned" %>
           and 
           <%= link_to "#{@note.students.count} student#{"s" unless @note.students.count == 1}",  note_students_path(@note) %>
         <% end %>

@@ -15,14 +15,23 @@ class NotesController < ApplicationController
     else
       @notes = current_school.notes
     end
-    @notes = @notes.page(params[:page])
+    page_notes
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @notes }
       format.json {render :json => @notes}
+      format.js
     end
   end
 
+  def unassigned
+    @notes = current_school.notes.unassigned.page(params[:page])
+    page_notes
+    respond_to do |format|
+      format.html { render :index }
+      format.js { render :index }
+    end
+  end
   # GET /notes/1
   # GET /notes/1.xml
   def show

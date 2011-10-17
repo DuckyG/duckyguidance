@@ -1,5 +1,6 @@
 class Note < ActiveRecord::Base
-  has_and_belongs_to_many :students
+  has_many :notes_students
+  has_many :students, through: :notes_students
   has_and_belongs_to_many :groups
   has_and_belongs_to_many :smart_groups
   belongs_to :counselor
@@ -10,6 +11,12 @@ class Note < ActiveRecord::Base
   before_validation :convert_meta
   has_and_belongs_to_many :tags
   default_scope :order => '"notes".occurred_on DESC'
+
+  class << self
+    def unassigned
+      joins("left join notes_students on notes_students.note_id = notes.id").where("notes_students.note_id is null")
+    end
+  end
 
   def formatted_date_and_time
     occurred_on.strftime '%B %d %Y'

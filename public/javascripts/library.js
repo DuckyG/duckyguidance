@@ -47,8 +47,8 @@ $(document).ready(function(){
     return false;
   });
 
-  $("#recent-list .modToggle a").live("click", function(){
-    $("#recent-list .content").prepend("<div><img  src='/images/ajax-loader.gif' /></div>");
+  $(".modNotes .modToggle a").live("click", function(){
+    $(".modNotes .content").prepend("<div><img  src='/images/ajax-loader.gif' /></div>");
     $.get(this.href, null, null, "script");
     return false;
   });

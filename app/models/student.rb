@@ -1,18 +1,25 @@
 class Student < ActiveRecord::Base
-  has_and_belongs_to_many :notes
+  has_many :notes_students
+  has_many :notes, through: :notes_students
   belongs_to :school
   belongs_to :counselor
   has_and_belongs_to_many :groups
-  has_many :guardians
+  has_many :guardians, dependent: :destroy
+
   validates_presence_of :first_name, :last_name, :counselor_id, :city, :student_id, :full_name
   validates_uniqueness_of :student_id, :scope => :school_id
   validate :validate_counselor
+
   attr_accessor :areaCode, :prefix, :line, :extension
   attr_protected :full_name
+
   before_validation :aggregate_phone_number
   before_validation { self.full_name = "#{first_name} #{last_name}" }
-  default_scope :order => 'last_name, first_name'
 
+  before_destroy { self.notes.clear }
+  before_destroy { self.groups.clear }
+
+  default_scope :order => 'last_name, first_name'
   VALID_SMART_FIELDS = {"Year of Graduation" => "year_of_graduation", "Shop" => "shop", "City" => "city", "Counselor" => "counselor_id"}
   SMART_FIELD_NAMES = { "year_of_graduation" => "Year of Graduation", "shop" => "Shop", "city" => "City", "counselor_id" => "Counselor"} 
   class << self

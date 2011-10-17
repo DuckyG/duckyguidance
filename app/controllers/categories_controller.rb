@@ -31,7 +31,8 @@ class CategoriesController < ApplicationController
   # GET /categories/1.xml
   def show
     @category = current_school.categories.find(params[:id])
-    @notes = @category.notes.page(params[:note_page])
+    @notes = @category.notes
+    page_notes
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @category }

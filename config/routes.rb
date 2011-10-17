@@ -26,7 +26,11 @@ Guidance::Application.routes.draw do
   resources :tags, only: [:index, :show]
 
   match 'dashboard' => 'dashboard#index'
+
   resources :notes do
+    collection do 
+      get :unassigned
+    end
     resources :students
   end
 

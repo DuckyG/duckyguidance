@@ -4,11 +4,27 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   layout 'standard'
-  before_filter :check_domain, :check_defaults, :check_smart_group
-  helper_method :current_school, :current_user, :current_subdomain, :build_student_options, :render_csv, :current_school_year, :warning
+  before_filter :check_domain, :check_defaults, :check_smart_group, :get_note_view_limit
+  helper_method :current_school, :current_user, :current_subdomain, :build_student_options,
+    :render_csv, :current_school_year, :warning
   before_filter :mailer_set_url_options
-  
+
   layout :layout_by_resource
+
+  protected
+
+  def page_notes
+    if @notes
+      @notes = @notes.page(params[:note_page])
+      @notes = @notes.per(@note_limit) if @note_limit
+    end
+  end
+
+  def get_note_view_limit
+    @note_view = params[:note_view]
+
+    @note_limit = @note_view == "list" ? 25 :10
+  end
 
   private
 
@@ -16,6 +32,8 @@ class ApplicationController < ActionController::Base
   def warning
     @warning ||= flash[:warning]
   end
+
+
 
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || dashboard_path
