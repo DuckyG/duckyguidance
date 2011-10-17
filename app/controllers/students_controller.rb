@@ -24,8 +24,8 @@ class StudentsController < ApplicationController
     end
   end
 
-  def graduated
-    @students = current_school.students.graduated
+  def inactive
+    @students = current_school.students.inactive
     search_and_page_students
     @show_counselor = true
     respond_to do |format|

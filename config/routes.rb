@@ -35,7 +35,7 @@ Guidance::Application.routes.draw do
     collection do
       get :search
       get :all
-      get :graduated
+      get :inactive
     end
   end
 

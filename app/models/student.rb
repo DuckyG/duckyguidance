@@ -25,7 +25,7 @@ class Student < ActiveRecord::Base
       where { year_of_graduation.gteq school_year }
     end
 
-    def graduated
+    def inactive
       school_year = current_school_year
       where { year_of_graduation.lt school_year }
     end

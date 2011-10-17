@@ -14,8 +14,8 @@
 <%else %>
 		<div class="modFilter">
 			<ul>
-				<li <%= "class='active'" if students_path == request.path %>><a href="<%= students_path %>">Current</a></li>
-				<li <%= "class='active'" if graduated_students_path == request.path %>><a href="<%= graduated_students_path %>">Graduated</a></li>
+				<li <%= "class='active'" if students_path == request.path %>><a href="<%= students_path %>">Active</a></li>
+				<li <%= "class='active'" if inactive_students_path == request.path %>><a href="<%= inactive_students_path %>">Inactive</a></li>
 				<li <%= "class='active'" if all_students_path == request.path %>><a href="<%= all_students_path %>">All</a></li>
 			</ul>
 		</div>
