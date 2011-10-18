@@ -31,6 +31,10 @@ $(document).ready(function(){
 	// Autotab date field
 	$('.date .month, .date .day, .date .year').autotab_magic().autotab_filter('numeric');
 
+  $('input[data-confirm]').click(function(){
+    var answer = confirm($(this).attr("data-confirm"))
+    return answer;
+  });
 	
 	$('.multiselect').multiselect();
 
@@ -284,7 +288,7 @@ function activeSwap(el){
 function inputClear(target) {
 	var target = target || "input";
 	$(target).each(function() {
-		if( $(this).attr('type') == 'text' || $(this).attr('type') == 'password' || $(this).attr('type') == 'textarea' ) {
+		if( $(this).attr('type') == 'text' || $(this).attr('type') == 'password' || $(this).attr('type') == 'textarea' || $(this).attr('type') == 'email' ) {
 			var value = $(this).val();
 			$(this).focus(function() {
 				if($(this).val() == value) {

@@ -2,7 +2,13 @@
   <title><%= @student.full_name %> - Students -  <%=current_school.name %> - Ducky Guidance</title>
 <% end %>
 
-<h2 class="head pageTitle"><%=@student.full_name%></h2>
+<h2 class="head pageTitle"><%=@student.full_name%>
+  <% if current_counselor.has_role?(:school_admin, current_school) %>
+    <div class="delete">
+      <%= button_to "Delete this student", {action: :destroy, id: @student.id}, confirm: "Student deletion is permanent.  Are you sure you want to delete this student?", method: :delete %>
+    </div>
+  <% end %>
+</h2>
 
 <div class="rightLink">
 	<a href="<%= edit_student_path(@student)%>">Edit<span>&nbsp;&rarr;</a>
@@ -36,9 +42,6 @@
 		<td><%=@student.student_id%></td>
 	</tr>
 </table>
-<div>
-  <%= button_to "Delete this student", {action: :destroy, id: @student.id}, confirm: "Student deletion is permanent.  Are you sure you want to delete this student?", method: :delete %>
-</div>
 <%=render :partial => "shared/new_note" %>
 
 <%=render partial: 'notes/list', locals: { title: "Notes" }%>

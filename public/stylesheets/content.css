@@ -939,3 +939,7 @@ p.message {
 .gray   {background: gray !important;}
 .silver {background: silver !important;}
 .white  {background: white !important;}
+
+.delete{
+  float:right;
+}
