@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111007161131) do
+ActiveRecord::Schema.define(:version => 20111018143645) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -145,6 +145,14 @@ ActiveRecord::Schema.define(:version => 20111007161131) do
   end
 
   add_index "schools", ["name"], :name => "index_schools_on_name", :unique => true
+
+  create_table "smart_group_filters", :force => true do |t|
+    t.string   "field_name"
+    t.string   "field_value"
+    t.integer  "smart_group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "smart_groups", :force => true do |t|
     t.string   "name",        :null => false

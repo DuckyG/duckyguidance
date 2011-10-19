@@ -72,6 +72,10 @@ $(document).ready(function(){
     prePopulate: eval($("#prior_groups").val())
   });
 
+  $(".add-smart-group-filter").click(addSmartGroupFilterField);
+  $(".delete-smart-group-filter").click(deteleSmartGroupFilterField);
+
+
 }); // Bye-bye jQuery!
 
 
@@ -87,7 +91,33 @@ function closeLayer(el){
 	});
 };
 
+function deteleSmartGroupFilterField(){
+  var $el = $(this)
+  var $id = this.href.substring(this.href.indexOf("#")+1)
+  var $deletedIdsField = $("#smart_group_deleted_filters")
 
+  if($deletedIdsField.val())
+    $deletedIdsField.val($deletedIdsField.val()+","+$id)
+  else
+    $deletedIdsField.val($id)
+
+  $el.parent().slideUp(500, function() { $(this).remove(); });
+
+  return false;
+};
+
+function addSmartGroupFilterField(){
+  var $el = $(this)
+  var $fieldset = $el.parent("fieldset")
+  var $newElementIndex = $el.attr("count")
+  if ($newElementIndex == undefined)
+    $newElementIndex = 1
+
+  $el.attr("count", ($newElementIndex + 1))
+  $.get(this.href + $newElementIndex, null,null,"script");
+
+  return false;
+};
 function accountAlert(el) {
 	$(el).each(function() {
 		var thisHeight = $(this).height();
