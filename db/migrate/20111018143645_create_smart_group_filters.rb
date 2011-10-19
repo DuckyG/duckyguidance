@@ -7,10 +7,11 @@ class CreateSmartGroupFilters < ActiveRecord::Migration
       t.timestamps
     end
 
-    SmartGroup.all.each do |sg|
-      sg.smart_group_filters << SmartGroupFilter.new(field_name: sg.field_name, field_value: sg.field_value)
-      sg.save
-    end
+    execute <<-SQL
+      INSERT INTO smart_group_filters(smart_group_id, field_name, field_value)
+      SELECT id, field_name, field_value
+      FROM smart_groups
+    SQL
   end
 
   def self.down
