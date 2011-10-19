@@ -17,10 +17,6 @@
 			<td class="spaced label">Number of Students</td>
 			<td><%=@smart_group.students.count%></td>
 		</tr>
-    <tr>
-      <td class="spaced label"><strong>Field Name</strong></td>
-      <td><strong>Field Value</strong></td>
-    </tr>
     <% @smart_group.smart_group_filters.each do |field| %>
       <tr>
 			  <td class="spaced label"><%=field.friendly_field_name%></td>
