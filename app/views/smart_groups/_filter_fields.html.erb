@@ -1,0 +1,13 @@
+<% id =(filter.id and filter.id > 0) ? filter.id : "new_#{@count}" %>
+<div class="field-filter">
+  <p>
+    <%= label_tag "smart_group[smart_group_filters_attributes][#{id}][field_name]", "Field Name" %>
+    <%= select_tag  "smart_group[smart_group_filters_attributes][#{id}][field_name]", options_for_select(@fields, filter.field_name) %>
+  </p>
+  <p>
+    <%= label_tag "smart_group[smart_group_filters_attributes][#{id}][field_value]", "Field Value" %>
+    <%= text_field_tag "smart_group[smart_group_filters_attributes][#{id}][field_value]", filter.friendly_field_value %>
+  </p>
+    <a class="delete-smart-group-filter" href="#<%=id%>">Remove</a>
+</div>
+

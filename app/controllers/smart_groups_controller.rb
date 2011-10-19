@@ -5,7 +5,7 @@ class SmartGroupsController < ApplicationController
       allow :superadmin
     end
 
-    actions :new, :create do
+    actions :new, :create, :new_field do
       allow :school_admin, :of => :current_school
       allow :counselor, :of => :current_school
     end
@@ -132,9 +132,6 @@ class SmartGroupsController < ApplicationController
   # PUT /smart_groups/1.xml
   def update
     @smart_group = current_school.smart_groups.find(params[:id])
-    if params[:smart_group][:student_ids].nil?
-      @smart_group.students.clear
-    end
     respond_to do |format|
       if @smart_group.update_attributes(params[:smart_group])
         format.html { redirect_to(@smart_group, :notice => 'SmartGroup was successfully updated.') }
@@ -155,6 +152,14 @@ class SmartGroupsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(smart_groups_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  def new_field
+    @filter = SmartGroupFilter.new
+    @count = params[:count].to_i
+    respond_to do |format|
+      format.js
     end
   end
 

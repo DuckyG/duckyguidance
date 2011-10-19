@@ -7,6 +7,9 @@ Guidance::Application.routes.draw do
     member do
       post :snapshot
     end
+    collection do
+      get "new_field/:count", action: :new_field, as: :new_field
+    end
   end
 
   resources :groups do
@@ -43,7 +46,7 @@ Guidance::Application.routes.draw do
     end
   end
 
-    devise_for  :counselors do
+  devise_for  :counselors do
     get "/" => "devise/sessions#new", as: "login"
     get "/logout" => "devise/sessions#destroy", as: "logout"
   end
