@@ -908,6 +908,13 @@ p.message {
 .formDate .cal {
 	float: left;
 }
+.formDate img {
+	cursor: pointer;
+}
+#ui-datepicker-div {
+	position: absolute;
+		left: -999em;
+}
 /* Clearfixes ----------------------------------------------------- */
 .cols2,
 .cols3,
