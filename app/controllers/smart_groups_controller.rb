@@ -95,9 +95,10 @@ class SmartGroupsController < ApplicationController
   # GET /smart_groups/new.xml
   def new
     @smart_group = current_school.smart_groups.build
+    @smart_group.smart_group_filters << SmartGroupFilter.new
     if params[:field] && params[:value]
-      @smart_group.field_name = params[:field]
-      @smart_group.field_value = params[:value]
+      @smart_group.smart_group_filters.first.field_name = params[:field]
+      @smart_group.smart_group_filters.first.field_value = params[:value]
     end
     @title = 'New Smart Group'
     respond_to do |format|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111018143645) do
+ActiveRecord::Schema.define(:version => 20111020165841) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -155,10 +155,8 @@ ActiveRecord::Schema.define(:version => 20111018143645) do
   end
 
   create_table "smart_groups", :force => true do |t|
-    t.string   "name",        :null => false
-    t.string   "field_name",  :null => false
-    t.string   "field_value", :null => false
-    t.integer  "school_id",   :null => false
+    t.string   "name",       :null => false
+    t.integer  "school_id",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

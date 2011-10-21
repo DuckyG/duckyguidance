@@ -7,6 +7,13 @@ class SmartGroup < ActiveRecord::Base
   attr_accessor :deleted_filters
   before_validation :process_smart_group_filter, :process_delete_filters
 
+  class << self
+    def find_by_field_name_and_field_value(field_name, field_value)
+      smart_groups = joins(:smart_group_filters).where('smart_group_filters.field_name' => field_name,'smart_group_filters.field_value' => field_value).to_a
+      smart_groups.select{|sg| sg.smart_group_filters.count == 1}.first
+    end
+  end
+
   def students
     unless @students
       @students = self.school.students.current

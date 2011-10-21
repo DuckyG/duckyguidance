@@ -31,6 +31,10 @@ $(document).ready(function(){
 	// Autotab date field
 	$('.date .month, .date .day, .date .year').autotab_magic().autotab_filter('numeric');
 
+  $('input[data-confirm]').click(function(){
+    var answer = confirm($(this).attr("data-confirm"))
+    return answer;
+  });
 	
 	$('.multiselect').multiselect();
 
@@ -44,6 +48,12 @@ $(document).ready(function(){
   $("a[data-remote=true]").live("click",function(){
     $(".pagination").html("<img  src='/images/ajax-loader.gif' />");
     $.get(this.href, null,null,"script");
+    return false;
+  });
+
+  $(".modNotes .modToggle a").live("click", function(){
+    $(".modNotes .content").prepend("<div><img  src='/images/ajax-loader.gif' /></div>");
+    $.get(this.href, null, null, "script");
     return false;
   });
 
@@ -62,6 +72,10 @@ $(document).ready(function(){
     prePopulate: eval($("#prior_groups").val())
   });
 
+  $(".add-smart-group-filter").click(addSmartGroupFilterField);
+  $(".delete-smart-group-filter").click(deteleSmartGroupFilterField);
+
+
 }); // Bye-bye jQuery!
 
 
@@ -77,20 +91,47 @@ function closeLayer(el){
 	});
 };
 
+function deteleSmartGroupFilterField(){
+  var $el = $(this)
+  var $id = this.href.substring(this.href.indexOf("#")+1)
+  var $deletedIdsField = $("#smart_group_deleted_filters")
+
+  if($deletedIdsField.val())
+    $deletedIdsField.val($deletedIdsField.val()+","+$id)
+  else
+    $deletedIdsField.val($id)
+
+  $el.parent().slideUp(500, function() { $(this).remove(); });
+
+  return false;
+};
+
+function addSmartGroupFilterField(){
+  var $el = $(this)
+  var $fieldset = $el.parent("fieldset")
+  var $newElementIndex = $el.attr("count")
+  if ($newElementIndex == undefined)
+    $newElementIndex = 1
+
+  $el.attr("count", ($newElementIndex + 1))
+  $.get(this.href + $newElementIndex, null,null,"script");
+
+  return false;
+};
 function accountAlert(el) {
 	$(el).each(function() {
 		var thisHeight = $(this).height();
-		$('body').css('padding-top', thisHeight+28)
+    $('body').css('padding-top', thisHeight+28)
 		$(this).css('top', -thisHeight).animate({
 			opacity: 1,
 			top: '10px'
 		}, 750);
-		$(this).append('<span class="icon iconCloseFFF close" />').find('.close').bind('click', function() {
+    		$(this).append('<span class="icon iconCloseFFF close" />').find('.close').bind('click', function() {
 			$(this).parent().animate({
 				opacity: 0,
 				top: -thisHeight
 			}, 750);
-			$('body').animate({
+      $('body').animate({
 				paddingTop: 0
 			}, 750);
 		})
@@ -281,7 +322,7 @@ function activeSwap(el){
 function inputClear(target) {
 	var target = target || "input";
 	$(target).each(function() {
-		if( $(this).attr('type') == 'text' || $(this).attr('type') == 'password' || $(this).attr('type') == 'textarea' ) {
+		if( $(this).attr('type') == 'text' || $(this).attr('type') == 'password' || $(this).attr('type') == 'textarea' || $(this).attr('type') == 'email' ) {
 			var value = $(this).val();
 			$(this).focus(function() {
 				if($(this).val() == value) {
