@@ -26,6 +26,7 @@ class SmartGroup < ActiveRecord::Base
   end
 
   def process_delete_filters
+    if deleted_filters
     deleted_filters.split(",").each do |fid|
       unless fid =~ /^new/
         begin
@@ -35,9 +36,11 @@ class SmartGroup < ActiveRecord::Base
         end
       end
     end
+    end
   end
 
   def process_smart_group_filter
+    if smart_group_filters_attributes
     smart_group_filters_attributes.each do |key, hash|
       if key =~ /^new/
         self.smart_group_filters << SmartGroupFilter.new(hash)
@@ -49,6 +52,7 @@ class SmartGroup < ActiveRecord::Base
           end
         end
       end
+    end
     end
   end
 end
