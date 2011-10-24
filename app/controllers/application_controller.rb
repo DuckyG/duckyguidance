@@ -135,7 +135,7 @@ class ApplicationController < ActionController::Base
           smart_group.school = current_school
           smart_group.name = "#{current_counselor.formal_name}'s students"
           smart_filter = SmartGroupFilter.new
-
+          smart_filter.smart_group = smart_group
           smart_filter.field_name = "counselor_id"
           smart_filter.field_value = current_counselor.id.to_s
           smart_group.smart_group_filters << smart_filter
