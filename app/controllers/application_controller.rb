@@ -131,7 +131,7 @@ class ApplicationController < ActionController::Base
     def check_smart_group
       if current_counselor
         unless current_school.smart_groups.find_by_field_name_and_field_value("counselor_id", current_counselor.id.to_s)
-          smart_group = current_school.smart_group.build
+          smart_group = current_school.smart_groups.build
           smart_group.name = "#{current_counselor.formal_name}'s students"
           smart_filter = SmartGroupFilter.new
 
