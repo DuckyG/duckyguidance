@@ -133,8 +133,11 @@ class ApplicationController < ActionController::Base
         unless current_school.smart_groups.find_by_field_name_and_field_value("counselor_id", current_counselor.id.to_s)
           smart_group = SmartGroup.new
           smart_group.name = "#{current_counselor.formal_name}'s students"
-          smart_group.field_name = "counselor_id"
-          smart_group.field_value = current_counselor.id.to_s
+          smart_filter = SmartGroupFilter.new
+
+          smart_filter.field_name = "counselor_id"
+          smart_filter.field_value = current_counselor.id.to_s
+          smart_group.smart_group_filters << smart_filter
           smart_group.school = current_school
           smart_group.save
         end
