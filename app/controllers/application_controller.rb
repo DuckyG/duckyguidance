@@ -1,12 +1,13 @@
 class ApplicationController < ActionController::Base
   ActionView::Base.field_error_proc = proc { |input, instance| input }
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
+  rescue_from 'Guidance::DomainAccessDenied', with: :domain_denied
   protect_from_forgery
 
   layout 'standard'
   before_filter :check_domain, :check_defaults, :check_smart_group, :get_note_view_limit
   helper_method :current_school, :current_user, :current_subdomain, :build_student_options,
-    :render_csv, :current_school_year, :warning
+    :render_csv, :current_school_year, :warning, :current_counselor, :authenticate_user_against_school!
   before_filter :mailer_set_url_options
 
   layout :layout_by_resource
@@ -28,6 +29,13 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def authenticate_user_against_school!
+    authenticate_user!
+    unless current_user.school == current_school
+      raise ::Guidance::DomainAccessDenied
+    end
+  end
+
   #Provides warning method to get flash[:warning]. Method alredy exists for :notice and :error
   def warning
     @warning ||= flash[:warning]
@@ -43,14 +51,22 @@ class ApplicationController < ActionController::Base
     ActionMailer::Base.default_url_options[:host] = request.host
   end
 
-  def current_user
-      return @current_user if defined?(@current_user)
-      if current_counselor
-        @current_user = User.find(current_counselor.id)
+
+  def current_counselor
+      return @current_counselor if defined?(@current_counselor)
+      if current_user
+        @current_counselor = Counselor.find(current_user.id)
       else
-        @current_user = User.new
+        @current_counselor = Counselor.new
       end
   end
+
+  def domain_denied
+    sign_out
+    flash[:alert] = "Invalid email or password"
+    redirect_to new_user_session_path
+  end
+
   def access_denied
       if current_counselor
         if current_counselor.has_role? :member, current_subdomain

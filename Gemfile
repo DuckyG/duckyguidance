@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.9'
 #gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
 gem 'acl9'
+gem 'cancan'
 gem 'devise', '1.4.7'
 
 gem 'foreigner'

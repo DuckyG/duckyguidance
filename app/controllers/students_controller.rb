@@ -1,11 +1,7 @@
-class StudentsController < ApplicationController
+class StudentsController < AuthorizedController
   before_filter :title
   before_filter :split_id_string, :only => [:create, :update]
   before_filter :retrieve_note
-  access_control do
-    allow :counselor, :of => :current_school
-    allow :superadmin
-  end
   def title
     @section = 'Students'
   end

@@ -46,7 +46,7 @@ Guidance::Application.routes.draw do
     end
   end
 
-  devise_for  :counselors do
+  devise_for  :users do
     get "/" => "devise/sessions#new", as: "login"
     get "/logout" => "devise/sessions#destroy", as: "logout"
   end

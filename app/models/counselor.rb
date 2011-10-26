@@ -1,5 +1,4 @@
 class Counselor < User
-  devise :database_authenticatable,  :encryptable, :recoverable, :rememberable, :trackable, :validatable
   has_many :students, :foreign_key => "counselor_id"
   has_many :meeting_requests, :foreign_key => "counselor_id"
   has_many :notes, :foreign_key => "counselor_id"

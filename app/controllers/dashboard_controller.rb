@@ -1,8 +1,5 @@
 class DashboardController < ApplicationController
-  access_control do
-    allow :member, :of => :current_subdomain
-    allow :superadmin
-  end
+  before_filter :authenticate_user_against_school!
   def index
     if current_counselor
       if current_counselor.has_role?(:school_admin, current_school)

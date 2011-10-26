@@ -11,7 +11,7 @@
 		<ul>
 			<li><%= link_to @note.summary, @note %></li>
 		</ul>
-<%else %>
+<% else %>
 		<div class="modFilter">
 			<ul>
 				<li <%= "class='active'" if students_path == request.path %>><a href="<%= students_path %>">Active</a></li>
@@ -24,9 +24,11 @@
 			<label>Search for a Student:</label>
 			<input class="studentFilter filter_box" type="text" name="student_filter" value="">
 		</p>
+    <% if can?(:create, Student) and @note.nil? %>
 		<div class="rightLink">
 			<a href="<%= new_student_path %>">Add a Student<span>&nbsp;&rarr;</span></a>
 		</div><!-- /rightLink -->
+    <% end %>
 	</div><!--// end modCopy //-->
 	<div class="content">
         <div id="students">
