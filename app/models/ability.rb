@@ -2,14 +2,28 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    #alias_action :modify
     user ||= User.new
 
     if user.school
-      can [:read, :edit], Student, :school => { :id => user.school_id }
-      can [:create], Student
+
+      if user.counselor?
+        can :update,  Student, :school => { :id => user.school_id }
+
+        can :read, [Student,Category], :school => { :id => user.school_id }
+
+        can [:read, :update], Note, :school => { :id => user.school_id }
+
+        can :create, [Note,Student]
+
+        can :search, :all
+        can :report, :all
+      end
 
       if user.director?
-        can :destroy, Student, :school => { :id => user.school_id } 
+        can :create, Category
+        can :update, Category, :school => { :id => user.school_id }
+        can :destroy, [Category,Student], :school => { :id => user.school_id }
       end
     end
     # Define abilities for the passed in user here. For example:

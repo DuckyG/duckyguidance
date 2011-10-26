@@ -1,22 +1,4 @@
-class CategoriesController < ApplicationController
-  access_control do
-    actions :index, :show, :report do
-      allow :counselor, :of => :current_school
-      allow :superadmin
-    end
-
-    actions :new, :create do
-      allow :school_admin, :of => :current_school
-    end
-
-    actions :edit, :update do
-      allow :school_admin, :of => :current_school
-    end
-
-    action :destroy do
-      allow :school_admin,:of => :current_school
-    end
-  end
+class CategoriesController < AuthorizedController
   # GET /categories
   # GET /categories.xml
   def index

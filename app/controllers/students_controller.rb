@@ -67,26 +67,11 @@ class StudentsController < AuthorizedController
       format.js
     end
   end
-  
-  def add_group
-    @group = current_school.groups.find(params[:group_id])
-    @student = current_school.students.find(params[:id])
-    @group.students<<@student
-    redirect_to edit_student_path(@group)
-  end
-  
-  def remove_group
-    @group = current_school.groups.find(params[:group_id])
-    @student = current_school.students.find(params[:id])
-    @group.students.delete @student
-    redirect_to edit_student_path(@group)
-  end
-  
 
   # GET /students/new
   # GET /students/new.xml
   def new
-    @student = Student.new
+    @student = current_school.students.build
 
     respond_to do |format|
       format.html # new.html.erb

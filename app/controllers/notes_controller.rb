@@ -1,8 +1,4 @@
-class NotesController < ApplicationController
-  access_control do
-    allow :counselor, :of => :current_school
-    allow :superadmin
-  end
+class NotesController < AuthorizedController
   # GET /notes
   # GET /notes.xml
   def index

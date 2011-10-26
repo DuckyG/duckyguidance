@@ -4,7 +4,7 @@
 <h2 class="head pageTitle"><span>Note Category:</span> <%= @category.name %></h2>
 
 <%- unless @category.system -%>
-  <% if current_counselor.has_role? :school_admin, current_school %>
+  <% if can? :edit, @category %>
     <div class="rightLink">
       <a href="<%= edit_category_path(@category)%>">Edit<span>&nbsp;&rarr;</a>
     </div>

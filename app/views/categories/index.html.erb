@@ -3,7 +3,7 @@
 <% end %>
 <h2 class="head pageTitle">Categories</h2>
 
-<% if current_counselor.has_role? :school_admin, current_school %>
+<% if can? :create, Category %>
 	<div class="rightLink">
 		<a href="<%=new_category_path%>">Add a Note Category<span>&nbsp;&rarr;</span></a>
 	</div><!-- /rightLink -->

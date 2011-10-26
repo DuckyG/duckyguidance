@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def counselor?
-    role == "counselor"
+    director? or role == "counselor"
   end
 
   def director?
