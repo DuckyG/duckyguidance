@@ -8,11 +8,13 @@ class Ability
     if user.school
 
       if user.counselor?
-        can :update,  Student, :school => { :id => user.school_id }
+        can :update,  Student, school: { id:  user.school_id }
 
-        can :read, [Student,Category], :school => { :id => user.school_id }
+        can :read, [Student,Category], school: { :id => user.school_id }
 
-        can [:read, :update], Note, :school => { :id => user.school_id }
+        can [:read, :update], Note, school: { :id => user.school_id }
+
+        can :destroy, Note, counselor_id: user.id
 
         can :create, [Note,Student]
 

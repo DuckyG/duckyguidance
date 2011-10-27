@@ -109,7 +109,7 @@ class NotesController < AuthorizedController
     @note.destroy
 
     respond_to do |format|
-      format.html { redirect_to(notes_url) }
+      format.html { redirect_to(dashboard_path, notice: "Note has been deleted") }
       format.xml  { head :ok }
     end
   end

@@ -12,6 +12,9 @@ class Note < ActiveRecord::Base
   has_and_belongs_to_many :tags
   default_scope :order => '"notes".occurred_on DESC'
 
+  before_destroy { self.students.clear }
+  before_destroy { self.groups.clear }
+
   class << self
     def unassigned
       joins("left join notes_students on notes_students.note_id = notes.id").where("notes_students.note_id is null")
