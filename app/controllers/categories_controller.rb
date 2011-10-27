@@ -59,7 +59,7 @@ class CategoriesController < AuthorizedController
   # PUT /categories/1.xml
   def update
     @category = current_school.categories.find(params[:id])
-    
+
     respond_to do |format|
       if @category.system || @category.update_attributes(params[:category])
         format.html { redirect_to(@category) }
@@ -70,9 +70,8 @@ class CategoriesController < AuthorizedController
       end
     end
   end
-  
+
   def report
-    
     start_date = Time.strptime(params[:start_date], "%Y-%m-%d") unless params[:start_date].nil? || params[:start_date].empty? 
     end_date = Time.strptime("#{params[:end_date]} 23:59", "%Y-%m-%d %H:%M") unless params[:end_date].nil? || params[:end_date].empty? 
     @category = current_school.categories.find(params[:id])
@@ -107,7 +106,8 @@ class CategoriesController < AuthorizedController
       format.xml  { head :ok }
     end
   end
-  
+
+  private
   def uncategorized_cat
     current_school.categories.find_by_name 'Uncategorized'
   end
