@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   ActionView::Base.field_error_proc = proc { |input, instance| input }
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
   rescue_from 'Guidance::DomainAccessDenied', with: :domain_denied
+  rescue_from "Guidance::PermissionDenied", with: :permission_denied
   protect_from_forgery
 
   layout 'standard'
@@ -65,6 +66,11 @@ class ApplicationController < ActionController::Base
     sign_out
     flash[:alert] = "Invalid email or password"
     redirect_to new_user_session_path
+  end
+
+  def permission_denied
+    flash[:alert] = "You do have the proper permissions to perform that action"
+    redirect_to dashboard_path
   end
 
   def access_denied

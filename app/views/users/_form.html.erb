@@ -1,0 +1,62 @@
+
+<div class="modCopy module">
+	<%= form_for @counselor, :url => ( [ my_account_update_path, my_account_path ].include?(request.path) ? my_account_update_path : @counselor) do |f|%>
+	<%#= form_for @counselor do |f|%>
+	<% if @counselor.errors.any? %>
+		<ul class="errors">
+			<%- @counselor.errors.full_messages.each do |msg| -%>
+				<li><%=msg%></li>
+			<%-end-%>
+		</ul>
+	<% end %>
+	<fieldset>
+		<% if ['/my_account', '/my_account_update'].include? request.path%>
+			<legend>Your Account Information</legend>
+		<%end%>
+		<p>
+			<%= f.label :name_prefix_id, "Prefix"%>
+			<%= f.select :name_prefix_id, ["Select one"] + NamePrefix.all.map {|p| [p.prefix,p.id]}%>
+		</p>
+		<p>
+			<%= f.label :first_name, "First Name"%>
+			<%= f.text_field :first_name %>
+		</p>
+		<p>
+			<%= f.label :last_name, "Last Name"%>
+			<%= f.text_field :last_name %>
+		</p>
+		<p>
+			<%= f.label :email,  ['/my_account', '/my_account_update'].include?(request.path) ? "Your Email Address" : "Email Address"%>
+			<%= f.text_field :email %>
+		</p>
+		<% if request.path =~ /\/counselors\/\d+\/edit/%>
+			<div class="button">
+				<%= f.submit "Save Your Changes"%>
+			</div>
+			<%end%>
+	</fieldset>
+	<% if ['/my_account', '/my_account_update', new_counselor_path ].include? request.path%>
+	<fieldset>
+		<% if ['/my_account', '/my_account_update'].include? request.path%>
+			<legend>Change Your Password</legend>
+		<%end%>
+		<%#<p>
+			<label for="input4"><span class="req">*&nbsp;</span>Your Current Password</label>
+			<input type="password" name="input4" id="input4" value="">
+		</p>%>
+		<p>
+			<%= f.label :password, ['/my_account', '/my_account_update'].include?(request.path) ? "Your New Password" : "Password"%>
+			<%= f.password_field :password %>
+		</p>
+		<p>
+			<%= f.label :password_confirmation, ['/my_account', '/my_account_update'].include?(request.path) ? "Confirm Your New Password" : "Confirm Password"%>
+			<%= f.password_field :password_confirmation %>
+		</p>
+		<div class="button">
+			<p class="cancel"></p>
+			<%= f.submit "Save Your Changes"%>
+		</div>
+	</fieldset>
+	<% end %>
+	<% end %>
+</div><!--// end modCopy module //-->

@@ -9,7 +9,8 @@ Guidance::Application.configure do
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
-  config.log_level = :info
+  config.log_level = :debug
+  config.active_record.logger = nil
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
