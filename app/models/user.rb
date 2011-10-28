@@ -1,10 +1,6 @@
 class User < ActiveRecord::Base
-  acts_as_authorization_subject
   devise :database_authenticatable,  :encryptable, :recoverable, :rememberable, :trackable, :validatable
-  has_many :roles_users
-  has_many :roles, :through => :roles_users
   belongs_to :name_prefix
-  before_create :assign_roles
   belongs_to :school
   validate :password_meets_requirements
   attr_accessor :subdomain
@@ -46,9 +42,6 @@ class User < ActiveRecord::Base
   private
 
   def assign_roles
-    has_role! :counselor, school
-    self.subdomain = school.subdomain
-    has_role! :member, subdomain if subdomain
   end
 
 end

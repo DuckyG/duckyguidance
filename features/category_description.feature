@@ -24,7 +24,7 @@ Feature: Categories
     And I am logged in
     When I visit the "new category" page
     Then I should be redirected to the "dashboard" page
-    And I should see an alert stating "You do not have access to this page"
+    And I should see an alert stating "You do have the proper permissions to perform that action"
 
   Scenario: Counselors should not be able to edit a category
     Given I am at a school
@@ -33,7 +33,7 @@ Feature: Categories
     And there is a category
     When I visit that category's edit page
     Then I should be redirected to the "dashboard" page
-    And I should see an alert stating "You do not have access to this page"
+    And I should see an alert stating "You do have the proper permissions to perform that action"
 
   Scenario: School admins should see "Add a Note Category" link on the categories page
     Given I am at a school

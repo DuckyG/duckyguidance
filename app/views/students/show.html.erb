@@ -45,11 +45,9 @@
 	</tr>
 </table>
 
-<% if can? :create, Note %>
 <%=render :partial => "shared/new_note" %>
-<% end %>
 
-<%=render partial: 'notes/list', locals: { title: "Notes" }%>
+<%=render partial: 'notes/list'%>
 
 <% content_for :auxiliary do %>
 	<div class="modReports block module">

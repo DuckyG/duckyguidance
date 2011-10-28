@@ -19,7 +19,7 @@
 					<tr>
 						<td class="spaced w50 schoolName"><strong><%= school.name %></strong></td>
 						<td><%=school.subdomain.name%></td>
-            <%-admin = school.counselors.select{|c| c.has_role? :school_admin, school}.first-%>
+            <%-admin = school.counselors.select{|c| c.director?}.first-%>
             <td><%=admin.full_name if admin%></td>
             <td><%=school.students.count%></td>
             <td><%=button_to "View", school, :method => :get%></td>

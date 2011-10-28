@@ -1,8 +1,6 @@
 source 'http://rubygems.org'
-#gem "will_paginate", "~> 3.0.pre2"
+
 gem 'rails', '3.0.9'
-#gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
-gem 'acl9'
 gem 'cancan'
 gem 'devise', '1.4.7'
 
@@ -15,7 +13,6 @@ gem 'delayed_job', :tag => 'v2.1.4', :git => 'https://github.com/collectiveidea/
 gem 'capistrano'
 gem 'capistrano-ext'
 
-gem 'nokogiri'
 gem 'squeel'
 gem 'SyslogLogger'
 group :development, :test do

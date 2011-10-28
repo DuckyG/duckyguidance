@@ -8,24 +8,25 @@ class Ability
     if user.school
 
       if user.counselor?
-        can :update,  Student, school: { id:  user.school_id }
+        can :update,  Student, school_id: user.school_id
+        can :update, [Group,SmartGroup], school_id: user.school_id, user_id: nil
+        can [:destroy,:update], [Group,SmartGroup], school_id: user.school_id, user_id: user.id
 
-        can :read, [Student,Category], school: { :id => user.school_id }
+        can :read, [Student,Category,Group,SmartGroup,Tag], school_id: user.school_id
 
-        can [:read, :update], Note, school: { :id => user.school_id }
+        can [:read, :unassigned], Note, school_id: user.school_id
 
-        can :destroy, Note, counselor_id: user.id
+        can [:update,:destroy], Note, counselor_id: user.id
 
-        can :create, [Note,Student]
+        can :create, [Note,Student,Group,SmartGroup]
 
-        can :search, :all
-        can :report, :all
+        can [:new_field, :snapshot, :search, :report], :all, school_id: user.school_id
       end
 
       if user.director?
         can :create, Category
-        can :update, Category, :school => { :id => user.school_id }
-        can :destroy, [Category,Student], :school => { :id => user.school_id }
+        can :update, Category, school_id: user.school_id
+        can :destroy, [Category,Student,Group,SmartGroup], school_id: user.school_id
       end
     end
     # Define abilities for the passed in user here. For example:

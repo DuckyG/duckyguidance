@@ -1,6 +1,5 @@
 class Student < ActiveRecord::Base
-  has_many :notes_students
-  has_many :notes, through: :notes_students
+  has_and_belongs_to_many :notes
   belongs_to :school
   belongs_to :counselor
   has_and_belongs_to_many :groups

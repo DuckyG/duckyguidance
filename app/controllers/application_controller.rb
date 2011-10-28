@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   ActionView::Base.field_error_proc = proc { |input, instance| input }
-  rescue_from 'Acl9::AccessDenied', :with => :access_denied
   rescue_from 'Guidance::DomainAccessDenied', with: :domain_denied
   rescue_from "Guidance::PermissionDenied", with: :permission_denied
+  rescue_from "CanCan::AccessDenied", with: :permission_denied
   protect_from_forgery
 
   layout 'standard'
@@ -42,8 +42,6 @@ class ApplicationController < ActionController::Base
     @warning ||= flash[:warning]
   end
 
-
-
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || dashboard_path
   end
@@ -72,22 +70,6 @@ class ApplicationController < ActionController::Base
     flash[:alert] = "You do have the proper permissions to perform that action"
     redirect_to dashboard_path
   end
-
-  def access_denied
-      if current_counselor
-        if current_counselor.has_role? :member, current_subdomain
-          flash[:notice] = "You do not have access to this page"
-          redirect_to dashboard_path
-        else
-
-          flash[:notice] = "You do not have access to this domain"
-          redirect_to login_path
-        end
-      else
-        flash[:notice] = "You must be logged in to view this page"
-        redirect_to login_path
-      end
-    end
 
     def check_defaults
       if current_school
@@ -167,7 +149,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    
   def layout_by_resource
     devise_controller? ? 'logged_out' : 'standard'
   end

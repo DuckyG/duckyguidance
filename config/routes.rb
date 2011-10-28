@@ -6,6 +6,9 @@ Guidance::Application.routes.draw do
   resources :counselors, controller: "users" do
 
   end
+  resource :users do
+
+  end
   resources :smart_groups do
     member do
       post :snapshot

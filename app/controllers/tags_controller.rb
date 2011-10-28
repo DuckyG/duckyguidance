@@ -1,8 +1,4 @@
-class TagsController < ApplicationController
-  access_control do
-    allow :counselor, :of => :current_school
-    allow :superadmin
-  end
+class TagsController < AuthorizedController
   # GET /tags
   # GET /tags.xml
   def index

@@ -1,3 +1,4 @@
+<% if can? :create, Note %>
 <div class="contentDrop">
 	<div class="rightLink">
 		<a class="trigger">Add a Note<span>&nbsp;&rarr;</span></a>
@@ -7,3 +8,4 @@
     <%= render "notes/form" %>
 	</div><!--// end item //-->
 </div><!--// end contentDrop //-->
+<% end %>
