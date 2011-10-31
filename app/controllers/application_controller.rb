@@ -1,12 +1,14 @@
 class ApplicationController < ActionController::Base
   ActionView::Base.field_error_proc = proc { |input, instance| input }
-  rescue_from 'Acl9::AccessDenied', :with => :access_denied
+  rescue_from 'Guidance::DomainAccessDenied', with: :domain_denied
+  rescue_from "Guidance::PermissionDenied", with: :permission_denied
+  rescue_from "CanCan::AccessDenied", with: :permission_denied
   protect_from_forgery
 
   layout 'standard'
   before_filter :check_domain, :check_defaults, :check_smart_group, :get_note_view_limit
   helper_method :current_school, :current_user, :current_subdomain, :build_student_options,
-    :render_csv, :current_school_year, :warning
+    :render_csv, :current_school_year, :warning, :current_counselor, :authenticate_user_against_school!
   before_filter :mailer_set_url_options
 
   layout :layout_by_resource
@@ -28,12 +30,17 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def authenticate_user_against_school!
+    authenticate_user!
+    unless current_user.school == current_school
+      raise ::Guidance::DomainAccessDenied
+    end
+  end
+
   #Provides warning method to get flash[:warning]. Method alredy exists for :notice and :error
   def warning
     @warning ||= flash[:warning]
   end
-
-
 
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || dashboard_path
@@ -43,29 +50,26 @@ class ApplicationController < ActionController::Base
     ActionMailer::Base.default_url_options[:host] = request.host
   end
 
-  def current_user
-      return @current_user if defined?(@current_user)
-      if current_counselor
-        @current_user = User.find(current_counselor.id)
+
+  def current_counselor
+      return @current_counselor if defined?(@current_counselor)
+      if current_user
+        @current_counselor = Counselor.find(current_user.id)
       else
-        @current_user = User.new
+        @current_counselor = Counselor.new
       end
   end
-  def access_denied
-      if current_counselor
-        if current_counselor.has_role? :member, current_subdomain
-          flash[:notice] = "You do not have access to this page"
-          redirect_to dashboard_path
-        else
 
-          flash[:notice] = "You do not have access to this domain"
-          redirect_to login_path
-        end
-      else
-        flash[:notice] = "You must be logged in to view this page"
-        redirect_to login_path
-      end
-    end
+  def domain_denied
+    sign_out
+    flash[:alert] = "Invalid email or password"
+    redirect_to new_user_session_path
+  end
+
+  def permission_denied
+    flash[:alert] = "You do have the proper permissions to perform that action"
+    redirect_to dashboard_path
+  end
 
     def check_defaults
       if current_school
@@ -145,7 +149,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    
   def layout_by_resource
     devise_controller? ? 'logged_out' : 'standard'
   end

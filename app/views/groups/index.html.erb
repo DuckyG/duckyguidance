@@ -5,10 +5,12 @@
 	<div class="col">
 		<h2 class="head pageTitle">Student Groups</h2>
 		<div class="modCopy">
+      <% if can? :create, Group %>
 			<div class="rightLink">
 				<p>&nbsp;</p>
 				<a href="<%= new_group_path %>">Add a Student Group<span>&nbsp;&rarr;</span></a>
 			</div><!-- /rightLink -->
+      <% end %>
 		</div><!-- /modCopy -->
 		<div class="modGroups modData block module">
 			<div class="content">
@@ -35,9 +37,11 @@
 		<h2 class="head pageTitle">Smart Groups</h2>
 		<div class="modCopy">
 			<p>Smart groups are self updating groups.</p>
+      <% if can? :create, SmartGroup %>
 			<div class="rightLink">
 				<a href="<%= new_smart_group_path %>">Add a Smart Group<span>&nbsp;&rarr;</span></a>
 			</div><!-- /rightLink -->
+      <% end %>
 		</div><!-- /modCopy -->
 		<div class="modGroups modData block module">
 			<div class="content">

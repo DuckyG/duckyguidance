@@ -1,11 +1,20 @@
 <% content_for :head do %>
   <title>Note Detail -  <%=current_school.name %> - Ducky Guidance</title>
 <% end %>
-<h2 class="head pageTitle"><span>Note Detail:</span> <%= @note.summary %></h2>
+<h2 class="head pageTitle"><span>Note Detail:</span> <%= @note.summary %>
+  <% if can? :destroy, @note %>
+    <div class="delete">
+      <%= button_to "Delete this note", {action: :destroy, id: @note.id}, confirm: "Note deletion is permanent.  Are you sure you want to delete this note?", method: :delete %>
+    </div>
+  <% end %>
 
+</h2>
+
+<% if can? :update, @note %>
 <div class="rightLink">
 	<a href="<%= edit_note_path @note%>">Edit<span>&nbsp;&rarr;</a>
 </div>
+<% end %>
 
 <table cellpadding="0" cellspacing="0">
 	<tbody>

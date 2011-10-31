@@ -1,22 +1,4 @@
-class CategoriesController < ApplicationController
-  access_control do
-    actions :index, :show, :report do
-      allow :counselor, :of => :current_school
-      allow :superadmin
-    end
-
-    actions :new, :create do
-      allow :school_admin, :of => :current_school
-    end
-
-    actions :edit, :update do
-      allow :school_admin, :of => :current_school
-    end
-
-    action :destroy do
-      allow :school_admin,:of => :current_school
-    end
-  end
+class CategoriesController < AuthorizedController
   # GET /categories
   # GET /categories.xml
   def index
@@ -77,7 +59,7 @@ class CategoriesController < ApplicationController
   # PUT /categories/1.xml
   def update
     @category = current_school.categories.find(params[:id])
-    
+
     respond_to do |format|
       if @category.system || @category.update_attributes(params[:category])
         format.html { redirect_to(@category) }
@@ -88,9 +70,8 @@ class CategoriesController < ApplicationController
       end
     end
   end
-  
+
   def report
-    
     start_date = Time.strptime(params[:start_date], "%Y-%m-%d") unless params[:start_date].nil? || params[:start_date].empty? 
     end_date = Time.strptime("#{params[:end_date]} 23:59", "%Y-%m-%d %H:%M") unless params[:end_date].nil? || params[:end_date].empty? 
     @category = current_school.categories.find(params[:id])
@@ -125,7 +106,8 @@ class CategoriesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
+  private
   def uncategorized_cat
     current_school.categories.find_by_name 'Uncategorized'
   end

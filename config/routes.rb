@@ -1,8 +1,14 @@
 Guidance::Application.routes.draw do 
-  get 'my_account' => 'counselors#my_account'
-  put 'my_account_update' => 'counselors#my_account_update'
+  get 'my_account' => 'users#my_account'
+  put 'my_account_update' => 'users#my_account_update'
   match 'search' => 'notes#search'
 
+  resources :counselors, controller: "users" do
+
+  end
+  resource :users do
+
+  end
   resources :smart_groups do
     member do
       post :snapshot
@@ -46,14 +52,11 @@ Guidance::Application.routes.draw do
     end
   end
 
-  devise_for  :counselors do
+  devise_for  :users do
     get "/" => "devise/sessions#new", as: "login"
     get "/logout" => "devise/sessions#destroy", as: "logout"
   end
 
-  resources :counselors do
-
-  end
 
   match "/login" => redirect("/")
 

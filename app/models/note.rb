@@ -1,6 +1,5 @@
 class Note < ActiveRecord::Base
-  has_many :notes_students
-  has_many :students, through: :notes_students
+  has_and_belongs_to_many :students
   has_and_belongs_to_many :groups
   has_and_belongs_to_many :smart_groups
   belongs_to :counselor
@@ -11,6 +10,9 @@ class Note < ActiveRecord::Base
   before_validation :convert_meta
   has_and_belongs_to_many :tags
   default_scope :order => '"notes".occurred_on DESC'
+
+  before_destroy { self.students.clear }
+  before_destroy { self.groups.clear }
 
   class << self
     def unassigned
@@ -72,7 +74,7 @@ class Note < ActiveRecord::Base
     unless @group_ids.nil?
       @group_ids.split(',').each do |id|
         group = school.groups.find id
-        new_students_to_append = group.students - self.students
+        new_students_to_append = group.students - self.students 
         self.students<<new_students_to_append
         self.groups<<group
       end

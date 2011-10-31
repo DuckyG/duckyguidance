@@ -1,11 +1,6 @@
-class StudentsController < ApplicationController
+class StudentsController < AuthorizedController
   before_filter :title
-  before_filter :split_id_string, :only => [:create, :update]
   before_filter :retrieve_note
-  access_control do
-    allow :counselor, :of => :current_school
-    allow :superadmin
-  end
   def title
     @section = 'Students'
   end
@@ -71,26 +66,11 @@ class StudentsController < ApplicationController
       format.js
     end
   end
-  
-  def add_group
-    @group = current_school.groups.find(params[:group_id])
-    @student = current_school.students.find(params[:id])
-    @group.students<<@student
-    redirect_to edit_student_path(@group)
-  end
-  
-  def remove_group
-    @group = current_school.groups.find(params[:group_id])
-    @student = current_school.students.find(params[:id])
-    @group.students.delete @student
-    redirect_to edit_student_path(@group)
-  end
-  
 
   # GET /students/new
   # GET /students/new.xml
   def new
-    @student = Student.new
+    @student = current_school.students.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -125,9 +105,6 @@ class StudentsController < ApplicationController
   # PUT /students/1.xml
   def update
     @student = current_school.students.find(params[:id])
-     if params[:student][:group_ids].nil?
-      @group.students.clear
-    end
 
     respond_to do |format|
       if @student.update_attributes(params[:student])
@@ -153,11 +130,6 @@ class StudentsController < ApplicationController
   end
 
   private
-
-  def split_id_string
-    params[:student][:group_ids] = params[:student][:group_ids].split(',')
-    params[:student][:group_ids].delete_if { |key,value| value.to_i == 0 }
-  end
 
   def search_and_page_students
     search_term = "#{params[:search]}%" unless params[:search].nil? or params[:search].empty?

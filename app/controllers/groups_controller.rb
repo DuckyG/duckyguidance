@@ -1,24 +1,4 @@
-class GroupsController < ApplicationController
-  access_control do
-    actions :index, :show do
-      allow :counselor, :of => :current_school
-      allow :superadmin
-    end
-
-    actions :new, :create do
-      allow :school_admin, :of => :current_school
-      allow :counselor, :of => :current_school
-    end
-
-    actions :edit, :update, :search do
-      allow :school_admin, :of => :current_school
-      allow :counselor, :of => :current_school
-    end
-
-    action :destroy do
-      allow :school_admin,:of => :current_school
-    end
-  end
+class GroupsController < AuthorizedController
   #before_filter :split_id_string, :only => [:create, :update]
   # GET /groups
   # GET /groups.xml

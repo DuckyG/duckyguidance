@@ -2,6 +2,7 @@
 <table class="notesList dashList" cellpadding="0" cellspacing="0">
 			<tbody>
 				<% @notes.each do |note| %>
+          <% if can? :read, note %>
 				<tr>
 					<td class="spaced">
 						<h3 class="title"><a href="<%= note_path(note) %>"><%= note.summary %></a></h3>
@@ -12,7 +13,8 @@
 						<p><%=raw(note_text.length > 165 ? "#{note_text.slice(0..165)}&hellip;" : note_text) %></p>
 					</td>
 				</tr>
+          <% end %>
 				<% end %>
 			</tbody>
 </table>
-
+<%= paginate @notes, :window => 1, :remote => true, :param_name => :note_page %>

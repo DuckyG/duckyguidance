@@ -1,55 +1,27 @@
-class SmartGroupsController < ApplicationController
-  access_control do
-    actions :index, :show, :snapshot do
-      allow :counselor, :of => :current_school
-      allow :superadmin
-    end
-
-    actions :new, :create, :new_field do
-      allow :school_admin, :of => :current_school
-      allow :counselor, :of => :current_school
-    end
-
-    actions :edit, :update do
-      allow :school_admin, :of => :current_school
-      allow :counselor, :of => :current_school
-    end
-
-    action :destroy do
-      allow :school_admin,:of => :current_school
-    end
-  end
-
+class SmartGroupsController < AuthorizedController
   before_filter :retrieve_fields
   # GET /smart_groups
   # GET /smart_groups.xml
   def index
     if params[:field] && params[:value]
-      @smart_group = current_school.smart_groups.find_by_field_name_and_field_value(params[:field], params[:value])
-      if @smart_group
-        redirect_to @smart_group 
-        return
-      end
-      flash[:warning] =  "A smart group for this filter does not exist yet. Complete this form to create one."
-      value = params[:value]
-
-      if params[:field] == "counselor_id"
-        begin
-          counselor = current_school.counselors.find params[:value]
-          value = counselor.formal_name
-        rescue ActiveRecord::RecordNotFound
-        end
-      end
-      redirect_to(new_smart_group_path(:field => params[:field], :value => value) )
+    @smart_group = current_school.smart_groups.find_by_field_name_and_field_value(params[:field], params[:value])
+    if @smart_group
+      redirect_to @smart_group 
       return
     end
-    @smart_groups = current_school.smart_groups.page(params[:page])
-    @title = 'Smart Groups'
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @smart_groups }
-      format.js
+    flash[:warning] =  "A smart group for this filter does not exist yet. Complete this form to create one."
+    value = params[:value]
+      if params[:field] == "counselor_id"
+      begin
+        counselor = current_school.counselors.find params[:value]
+        value = counselor.formal_name
+      rescue ActiveRecord::RecordNotFound
+      end
     end
+    redirect_to(new_smart_group_path(:field => params[:field], :value => value) )
+    return
+  end
+   redirect_to groups_path
   end
 
   # GET /smart_groups/1
@@ -151,7 +123,7 @@ class SmartGroupsController < ApplicationController
     @smart_group.destroy
 
     respond_to do |format|
-      format.html { redirect_to(smart_groups_url) }
+      format.html { redirect_to(groups_url) }
       format.xml  { head :ok }
     end
   end

@@ -1,6 +1,5 @@
 class Student < ActiveRecord::Base
-  has_many :notes_students
-  has_many :notes, through: :notes_students
+  has_and_belongs_to_many :notes
   belongs_to :school
   belongs_to :counselor
   has_and_belongs_to_many :groups
@@ -10,10 +9,10 @@ class Student < ActiveRecord::Base
   validates_uniqueness_of :student_id, :scope => :school_id
   validate :validate_counselor
 
-  attr_accessor :areaCode, :prefix, :line, :extension
+  attr_accessor :areaCode, :prefix, :line, :extension,:group_ids_attribute
   attr_protected :full_name
 
-  before_validation :aggregate_phone_number
+  before_validation :aggregate_phone_number, :process_group_ids
   before_validation { self.full_name = "#{first_name} #{last_name}" }
 
   before_destroy { self.notes.clear }
@@ -84,6 +83,19 @@ class Student < ActiveRecord::Base
   def validate_counselor
     unless self.counselor_id && self.counselor_id.kind_of?(Integer) && self.counselor_id > 0
       errors.add_to_base "Guidance Counselor is required"
+    end
+  end
+
+  def process_group_ids
+    unless group_ids_attribute == "Loading..."
+      self.groups.clear
+      group_ids_attribute.split(',').each do |group_id|
+        Rails.logger.info group_id
+        begin
+          self.groups << Group.find(group_id)
+        rescue ActiveRecord::RecordNotFound
+        end
+      end
     end
   end
 end

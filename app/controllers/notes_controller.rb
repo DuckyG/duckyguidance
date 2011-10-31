@@ -1,8 +1,4 @@
-class NotesController < ApplicationController
-  access_control do
-    allow :counselor, :of => :current_school
-    allow :superadmin
-  end
+class NotesController < AuthorizedController
   # GET /notes
   # GET /notes.xml
   def index
@@ -69,7 +65,7 @@ class NotesController < ApplicationController
     @note.counselor = current_counselor
     @note.school = current_school
     respond_to do |format|
-      if @note.save
+      if @note.save!
         if(@note.notify_students_counselor == '1')
           Notifier.another_counselor_post(@note).deliver
         end
@@ -113,7 +109,7 @@ class NotesController < ApplicationController
     @note.destroy
 
     respond_to do |format|
-      format.html { redirect_to(notes_url) }
+      format.html { redirect_to(dashboard_path, notice: "Note has been deleted") }
       format.xml  { head :ok }
     end
   end
