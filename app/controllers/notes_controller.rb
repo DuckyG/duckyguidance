@@ -3,13 +3,13 @@ class NotesController < AuthorizedController
   # GET /notes.xml
   def index
     if params[:student_id]
-      @student = current_school.students.find(params[:student_id])
+      @student = current_school.students.accessible_by(current_ability).find(params[:student_id])
       @notes =  @student.notes if @student
     elsif params[:group_id]
-      @group = current_school.groups.find(params[:group_id])
+      @group = current_school.groups.accessible_by(current_ability).find(params[:group_id])
       @notes =  @group.notes if @group
     else
-      @notes = current_school.notes
+      @notes = current_school.notes.accessible_by(current_ability)
     end
     page_notes
     respond_to do |format|
@@ -21,7 +21,7 @@ class NotesController < AuthorizedController
   end
 
   def unassigned
-    @notes = current_school.notes.unassigned.page(params[:page])
+    @notes = current_school.notes.accessible_by(current_ability).unassigned.page(params[:page])
     page_notes
     respond_to do |format|
       format.html { render :index }

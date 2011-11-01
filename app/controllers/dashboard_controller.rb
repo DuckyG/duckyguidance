@@ -3,10 +3,11 @@ class DashboardController < ApplicationController
   def index
     if current_counselor
       if current_counselor.director?
-        @notes = current_school.notes
+        @notes = Note.accessible_by(current_ability)
       else
         note_ids = NotesStudent.where(student_id: current_counselor.student_ids).select(:note_id).map {|n| n.note_id }
-        @notes = current_school.notes.where(id: note_ids)
+        user_id = current_user.id
+        @notes = Note.accessible_by(current_ability).where{ (id >> note_ids) | (counselor_id == user_id) }
       end
       page_notes
     end

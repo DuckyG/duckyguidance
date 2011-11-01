@@ -30,7 +30,7 @@ class SmartGroupsController < AuthorizedController
     @smart_group = current_school.smart_groups.find(params[:id])
     @students = @smart_group.students.page(params[:student_page]).per(5)
     @note = Note.new
-    @notes = @smart_group.notes.page(params[:note_page])
+    @notes = @smart_group.notes.accessible_by(current_ability).page(params[:note_page])
     @smart_group_id_string = @smart_group.id
     respond_to do |format|
       format.html # show.html.erb

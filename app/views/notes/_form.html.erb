@@ -28,6 +28,10 @@
         <%=f.label :tags, 'Tags (separated by spaces)'%>
         <%=f.text_field :tags_string%>
       </p>
+      <p>
+        <%= f.required_field_label :confidentiality_level %>
+        <%= f.select :confidentiality_level, options_for_select(Note.confidentiality_levels, @note.confidentiality_level) %>
+      </p>
       <p class="formDate">
         <%=f.label :occurred_on, 'Occurred On'%>
         <% @note.occurred_on ||= Date.current %>

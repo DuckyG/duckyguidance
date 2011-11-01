@@ -2,7 +2,7 @@ class TagsController < AuthorizedController
   # GET /tags
   # GET /tags.xml
   def index
-    @tags = current_school.tags
+    @tags = current_school.tags.accessible_by(current_ability)
     @title = 'Tags'
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class TagsController < AuthorizedController
   def show
     @tag = current_school.tags.find(params[:id])
     @title = 'Tags: ' + @tag.name
-    @notes = @tag.notes.page(params[:note_page])
+    @notes = @tag.notes.accessible_by(current_ability).page(params[:note_page])
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @tag }
