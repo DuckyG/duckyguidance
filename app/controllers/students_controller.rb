@@ -8,7 +8,7 @@ class StudentsController < AuthorizedController
   # GET /students
   # GET /students.xml
   def index
-    @students = current_school.students.current
+    @students = current_school.students.accessible_by(current_ability).current
     @students = @note.students if @note
     search_and_page_students
     @show_counselor = true
@@ -20,7 +20,7 @@ class StudentsController < AuthorizedController
   end
 
   def inactive
-    @students = current_school.students.inactive
+    @students = current_school.students.accessible_by(current_ability).inactive
     search_and_page_students
     @show_counselor = true
     respond_to do |format|
@@ -32,7 +32,7 @@ class StudentsController < AuthorizedController
   end
 
   def all
-    @students = current_school.students
+    @students = current_school.students.accessible_by(current_ability)
     search_and_page_students
     @show_counselor = true
     respond_to do |format|
@@ -46,7 +46,7 @@ class StudentsController < AuthorizedController
 
   def search
     search_term = "#{params[:q]}%"
-    @students = current_school.students.search_by_first_or_last_name(search_term)
+    @students = current_school.students.accessible_by(current_ability).search_by_first_or_last_name(search_term)
     render :json => @students.map{ |student| {id: student.id, name: student.full_name}}
   end
 
@@ -56,7 +56,7 @@ class StudentsController < AuthorizedController
     @student = current_school.students.find(params[:id])
     @note = Note.new
     @note.created_at = DateTime.now
-    @notes = @student.notes
+    @notes = @student.notes.accessible_by(current_ability)
     page_notes
     @student_id_string = @student.id
     title

@@ -14,7 +14,8 @@ class Ability
 
         can :read, [Student,Category,Group,SmartGroup,Tag], school_id: user.school_id
 
-        can [:read, :unassigned], Note, school_id: user.school_id
+        can [:read, :unassigned], Note, school_id: user.school_id, confidentiality_level: "department"
+        can [:read, :unassigned], Note, school_id: user.school_id, confidentiality_level: "just_me", counselor_id: user.id
 
         can [:update,:destroy], Note, counselor_id: user.id
 
@@ -25,6 +26,7 @@ class Ability
 
       if user.director?
         can :create, Category
+        can [:read, :unassigned], Note, school_id: user.school_id, confidentiality_level: "director"
         can :update, Category, school_id: user.school_id
         can :destroy, [Category,Student,Group,SmartGroup], school_id: user.school_id
       end

@@ -70,6 +70,8 @@ class UsersController < ApplicationController
   def my_account_update
 
     @user = current_user
+    params[:user].delete(:role)
+    params[:user].delete(:super_admin)
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
 
@@ -92,6 +94,7 @@ class UsersController < ApplicationController
   def update
     params[:counselor].delete(:password) if params[:counselor][:password].blank?
     params[:counselor].delete(:password_confirmation) if params[:counselor][:password_confirmation].blank?
+    params[:user].delete(:super_admin)
 
     @counselor = current_school.counselors.find(params[:id])
 

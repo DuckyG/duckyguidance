@@ -2,7 +2,7 @@ class CategoriesController < AuthorizedController
   # GET /categories
   # GET /categories.xml
   def index
-    @categories = current_school.categories.all.sort {|x,y| x.name <=> y.name}
+    @categories = Category.accessible_by(current_ability).all.sort {|x,y| x.name <=> y.name}
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @categories }
@@ -13,7 +13,7 @@ class CategoriesController < AuthorizedController
   # GET /categories/1.xml
   def show
     @category = current_school.categories.find(params[:id])
-    @notes = @category.notes
+    @notes = @category.notes.accessible_by(current_ability)
     page_notes
     respond_to do |format|
       format.html # show.html.erb
@@ -76,16 +76,16 @@ class CategoriesController < AuthorizedController
     end_date = Time.strptime("#{params[:end_date]} 23:59", "%Y-%m-%d %H:%M") unless params[:end_date].nil? || params[:end_date].empty? 
     @category = current_school.categories.find(params[:id])
     if start_date && end_date
-      @notes = @category.notes.where('created_at >= ? AND created_at <= ?', start_date, end_date)
+      @notes = @category.notes.accessible_by(current_ability).where('created_at >= ? AND created_at <= ?', start_date, end_date)
       name = "#{@category.name}_#{start_date.strftime("%Y-%m-%d")}_#{end_date.strftime("%Y-%m-%d")}"
     elsif start_date
-      @notes = @category.notes.where('created_at >= ?', start_date)
+      @notes = @category.notes.accessible_by(current_ability).where('created_at >= ?', start_date)
       name = "#{@category.name}_from_#{start_date.strftime("%Y-%m-%d")}"
     elsif end_date
-      @notes = @category.notes.where('created_at <= ?', end_date)
+      @notes = @category.notes.accessible_by(current_ability).where('created_at <= ?', end_date)
       name = "#{@category.name}_until_#{end_date.strftime("%Y-%m-%d")}"
     else
-      @notes = @category.notes
+      @notes = @category.notes.accessible_by(current_ability)
       name = "#{@category.name}"
     end
     respond_to do |format|
