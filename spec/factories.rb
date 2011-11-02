@@ -8,7 +8,6 @@ FactoryGirl.define do
   end
 
   factory :school do
-    subdomain
     name "Testing School"
     address "123 Plain Street"
     city "Pleasantville"

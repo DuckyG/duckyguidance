@@ -87,7 +87,7 @@ class Student < ActiveRecord::Base
   end
 
   def process_group_ids
-    unless group_ids_attribute == "Loading..."
+    unless group_ids_attribute == "Loading..." or group_ids_attribute.blank?
       self.groups.clear
       group_ids_attribute.split(',').each do |group_id|
         Rails.logger.info group_id
