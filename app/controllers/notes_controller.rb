@@ -65,7 +65,7 @@ class NotesController < AuthorizedController
     @note.counselor = current_counselor
     @note.school = current_school
     respond_to do |format|
-      if @note.save!
+      if @note.save
         if(@note.notify_students_counselor == '1')
           Notifier.another_counselor_post(@note).deliver
         end

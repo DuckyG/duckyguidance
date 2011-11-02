@@ -16,7 +16,7 @@ Given /^there is a smart group for the year of (\d+)$/ do |year|
   smart_filter.field_name = "year_of_graduation"
   smart_filter.field_value = year
   @new_smart_group.smart_group_filters << smart_filter
-  @new_smart_group.save!
+  @new_smart_group.save
 end
 
 Given /^I am on the first smart group's detail page$/ do
