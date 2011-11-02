@@ -73,7 +73,7 @@ $(document).ready(function(){
   });
 
   $(".add-smart-group-filter").click(addSmartGroupFilterField);
-  $(".delete-smart-group-filter").click(deteleSmartGroupFilterField);
+  $(".delete-smart-group-filter").live("click",deteleSmartGroupFilterField);
 
 
 }); // Bye-bye jQuery!
