@@ -12,6 +12,7 @@ GEM
   specs:
     SyslogLogger (1.4.0)
       hoe (>= 1.2.0)
+    ZenTest (4.6.2)
     abstract (1.0.0)
     actionmailer (3.0.9)
       actionpack (= 3.0.9)
@@ -89,7 +90,7 @@ GEM
     ffi (1.0.9)
     foreigner (1.1.1)
       activerecord (>= 3.0.0)
-    gherkin (2.6.1)
+    gherkin (2.6.2)
       json (>= 1.4.6)
     highline (1.6.2)
     hoe (2.12.3)
@@ -192,6 +193,7 @@ PLATFORMS
 
 DEPENDENCIES
   SyslogLogger
+  ZenTest
   cancan
   capistrano
   capistrano-ext
