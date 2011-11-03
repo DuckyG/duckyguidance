@@ -29,7 +29,7 @@
         <%=f.text_field :tags_string%>
       </p>
       <p>
-        <%= f.required_field_label :confidentiality_level %>
+        <%= f.required_field_label :confidentiality_level, "Who can see this note?" %>
         <%= f.select :confidentiality_level, options_for_select(Note.confidentiality_levels, @note.confidentiality_level) %>
       </p>
       <p class="formDate">

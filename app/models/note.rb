@@ -14,7 +14,7 @@ class Note < ActiveRecord::Base
   before_destroy { self.students.clear }
   before_destroy { self.groups.clear }
 
-  ConfidentialityLevels = [["Department","department"],["Director","director"],["Just me","just_me"]]
+  ConfidentialityLevels = [["All Counselors","department"],["Director and me","director"],["Just me","just_me"]]
   class << self
     def unassigned
       joins("left join notes_students on notes_students.note_id = notes.id").where("notes_students.note_id is null")
