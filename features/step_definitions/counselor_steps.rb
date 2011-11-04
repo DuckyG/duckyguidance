@@ -19,23 +19,26 @@ end
 
 Then /^I should see the notes I wrote$/ do
   @user.notes.each do |note|
-    have_note_content(note, :should)
+    have_note_content(note, @user)
   end
 end
 
-Given /^other counselors have written notes about my students$/ do
+
+Given /^other counselors have written( "([^"]*)" level)? notes about my students$/ do |level_group, level|
+  level = "department" if level.blank?
+  level = level.downcase.gsub(' ','_')
   counselors = FactoryGirl.create_list(:counselor, 5, school: @school)
   category = FactoryGirl.create(:category)
   counselors.each do |counselor|
     student = FactoryGirl.create(:student,counselor:@user)
-    FactoryGirl.create(:note, counselor: counselor, category: category, students:[student])
+    FactoryGirl.create(:note, counselor: counselor, confidentiality_level: level, category: category, students:[student])
   end
-
 end
 
-Then /^I should see the assigned to my students$/ do
+
+Then /^I should see the appropriate notes assigned to my students$/ do
   @user.students.map(&:notes).flatten.each do |note|
-    have_note_content(note, :should)
+    have_note_content(note,@user)
   end
 end
 
