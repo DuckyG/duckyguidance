@@ -63,7 +63,6 @@ class NotesController < AuthorizedController
     @note = Note.new(params[:note])
     @student_id_string = params[:note][:student_ids]
     @note.counselor = current_user
-    @note.school = current_school
     respond_to do |format|
       if @note.save
         if(@note.notify_students_counselor == '1')

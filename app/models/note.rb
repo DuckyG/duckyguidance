@@ -8,6 +8,7 @@ class Note < ActiveRecord::Base
   attr_accessor :notify_students_counselor, :tags_string, :student_ids, :group_ids, :smart_group_ids
   validates :counselor, :notes, :summary, :category, :presence => true
   before_validation :convert_meta
+  before_validation { self.school = self.counselor.school }
   has_and_belongs_to_many :tags
   default_scope :order => '"notes".occurred_on DESC'
 

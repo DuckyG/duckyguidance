@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   validate :password_meets_requirements
   attr_accessor :subdomain
   has_many :students, :foreign_key => "counselor_id"
-  has_many :meeting_requests, :foreign_key => "counselor_id"
   has_many :notes, :foreign_key => "counselor_id"
   validates_presence_of :school, :first_name, :last_name
 
