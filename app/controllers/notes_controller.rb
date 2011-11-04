@@ -43,7 +43,7 @@ class NotesController < AuthorizedController
   def new
     @note = current_school.notes.new
     @note.students<< current_school.students.find(params[:student_id])
-    @note.counselor = current_counselor
+    @note.counselor = current_user
  
     respond_to do |format|
       format.html # new.html.erb
@@ -62,7 +62,7 @@ class NotesController < AuthorizedController
   def create
     @note = Note.new(params[:note])
     @student_id_string = params[:note][:student_ids]
-    @note.counselor = current_counselor
+    @note.counselor = current_user
     @note.school = current_school
     respond_to do |format|
       if @note.save

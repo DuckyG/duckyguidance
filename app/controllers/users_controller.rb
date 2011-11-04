@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     if params[:id]
       @counselor = current_school.counselors.find(params[:id])
     else
-      @counselor = current_counselor
+      @counselor = current_user
     end
     @title = "Counselor: #{@counselor.full_name}"
     respond_to do |format|

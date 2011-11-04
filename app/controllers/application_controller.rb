@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   layout 'standard'
   before_filter :check_domain, :check_defaults, :check_smart_group, :get_note_view_limit
   helper_method :current_school, :current_user, :current_subdomain, :build_student_options,
-    :render_csv, :current_school_year, :warning, :current_counselor, :authenticate_user_against_school!
+    :render_csv, :current_school_year, :warning, :authenticate_user_against_school!
   before_filter :mailer_set_url_options
 
   layout :layout_by_resource
@@ -48,16 +48,6 @@ class ApplicationController < ActionController::Base
 
   def mailer_set_url_options
     ActionMailer::Base.default_url_options[:host] = request.host
-  end
-
-
-  def current_counselor
-      return @current_counselor if defined?(@current_counselor)
-      if current_user
-        @current_counselor = Counselor.find(current_user.id)
-      else
-        @current_counselor = Counselor.new
-      end
   end
 
   def domain_denied
@@ -133,15 +123,15 @@ class ApplicationController < ActionController::Base
     end
 
     def check_smart_group
-      if current_counselor
-        unless current_school.smart_groups.find_by_field_name_and_field_value("counselor_id", current_counselor.id.to_s)
+      if current_user && current_user.counselor?
+        unless current_school.smart_groups.find_by_field_name_and_field_value("counselor_id", current_user.id.to_s)
           smart_group = current_school.smart_groups.build
           smart_group.school = current_school
-          smart_group.name = "#{current_counselor.formal_name}'s students"
+          smart_group.name = "#{current_user.formal_name}'s students"
           smart_filter = SmartGroupFilter.new
           smart_filter.smart_group = smart_group
           smart_filter.field_name = "counselor_id"
-          smart_filter.field_value = current_counselor.id.to_s
+          smart_filter.field_value = current_user.id.to_s
           smart_group.smart_group_filters << smart_filter
           smart_group.school = current_school
           smart_group.save

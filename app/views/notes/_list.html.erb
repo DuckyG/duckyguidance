@@ -3,10 +3,18 @@
 	<h2 class="head">
     <%= title %>
 		<div class="modToggle">
-			Detail View&nbsp;|&nbsp;<a href="?note_view=list">List View</a>
+      <% if @note_view == "list"%>
+        <a href="?note_view=detail">Detail View</a>&nbsp;|&nbsp;List View
+      <% else %>
+			  Detail View&nbsp;|&nbsp;<a href="?note_view=list">List View</a>
+      <% end %>
 		</div><!-- /modToggle -->
 	</h2>
 	<div class="content">
-  <%= render "notes/detail_view_list" %>
+    <% if @note_view == "list"%>
+      <%= render "notes/list_view_list" %>
+    <% else %>
+      <%= render "notes/detail_view_list" %>
+    <% end %>
 	</div>
 </div><!--// end modNotes //-->
