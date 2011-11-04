@@ -1,5 +1,5 @@
 class School < ActiveRecord::Base
-  has_many :counselors
+  has_many :counselors, class_name: "User"
   has_many :students
   has_many :categories
   has_many :tags
