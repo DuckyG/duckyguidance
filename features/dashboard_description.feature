@@ -34,3 +34,12 @@ Feature: Dashboard
     And other counselors have written "Just me" level notes about my students
     When I visit the "dashboard" page
     Then I should see the appropriate notes assigned to my students
+
+  Scenario: Directors should see notes from all counselors
+    Given I am at a school
+    And I am a counselor
+    And I am logged in
+    And other counselors have written "Just me" level notes about my students
+    When I visit the "dashboard" page
+    Then I should see the appropriate notes assigned to my students
+

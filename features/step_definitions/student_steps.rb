@@ -28,3 +28,23 @@ Given /^I am on the first student's page$/ do
   visit student_path(Student.first)
 end
 
+Given /^there is a student$/ do
+  @student = FactoryGirl.create(:student, counselor: @user, school: @school)
+end
+
+Given /^I have written a "([^"]*)" level note for the student$/ do |arg1|
+  level = "department" if level.blank?
+  level = level.downcase.gsub(' ','_')
+  category = FactoryGirl.create(:category, school:@school)
+  FactoryGirl.create(:note, students: [@student], category: category, counselor: @user, confidentiality_level: level)
+end
+
+When /^I visit the student's page$/ do
+  visit student_path(@student)
+end
+
+Then /^I should see all the notes I have written for that student$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+
