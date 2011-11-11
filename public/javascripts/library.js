@@ -72,7 +72,7 @@ $(document).ready(function(){
     prePopulate: eval($("#prior_groups").val())
   });
 
-  $(".add-smart-group-filter").click(addSmartGroupFilterField);
+  $(".add-smart-group-filter a").click(addSmartGroupFilterField);
   $(".delete-smart-group-filter").live("click",deteleSmartGroupFilterField);
 
 

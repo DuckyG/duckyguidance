@@ -1,11 +1,7 @@
 module NoteHelpers
   def have_note_content(note, user)
     if user.director?
-      if note.confidentiality_level == "just_me"
-        page_has_note_content(note, :should_not)
-      else
         page_has_note_content(note, :should)
-      end
     else
       if note.counselor == user or note.confidentiality_level == "department"
         page_has_note_content(note, :should)

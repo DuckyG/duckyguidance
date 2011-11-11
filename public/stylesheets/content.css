@@ -615,6 +615,54 @@ iframe {
 					padding-top: 6px;
 					border: none;
 				}
+
+
+
+
+.field-filter {
+	position: relative;
+	width: 100%;
+	padding: 5px 0 5px 10px;
+	border: 1px solid #D7D2CF;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	        border-radius: 3px;
+	margin: 0 0 20px -10px;
+}
+	.field-filter label {
+		
+	}
+	.field-filter select,
+	.field-filter input {
+		margin: 0;
+	}
+	.delete-smart-group-filter {
+		position: absolute;
+			right: 5px;
+			top: 5px;
+		background: #D7D2CF;
+		color: #333;
+		font-size: 0.857em;
+		text-decoration: none;
+		padding: 0 5px;
+		-webkit-border-radius: 3px;
+		   -moz-border-radius: 3px;
+		        border-radius: 3px;
+	}
+		.delete-smart-group-filter:hover {
+			background: #333;
+			color: #FFF;
+		}
+	.add-smart-group-filter {
+		display: block;
+		float: left;
+		margin: 0 0 -24px;
+	}
+		.add-smart-group-filter a {
+			color: #000;
+			text-decoration: none;
+		}
+
 /* Charts --------------------------------------------------------- */
 .chart,
 .monthly-chart,

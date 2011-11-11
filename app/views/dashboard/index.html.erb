@@ -2,7 +2,7 @@
   <title>Dashboard -  <%=current_school.name %> - Ducky Guidance</title>
 <% end %>
 <%=render partial: 'notes/list', locals: { title: "Recent Notes" }%>
-
+<%= @notes.to_sql %>
 <% content_for :auxiliary do %>
   <%= render "reports" %>
 <% end %>

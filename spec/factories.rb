@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :subdomain do
-    name "test"
+    sequence(:name) {|n| "test#{n}"}
   end
 
   factory :name_prefix do
@@ -8,7 +8,7 @@ FactoryGirl.define do
   end
 
   factory :school do
-    name "Testing School"
+    sequence(:name) {|n| "Testing School #{n}"}
     address "123 Plain Street"
     city "Pleasantville"
     state "Massachusetts"
@@ -56,7 +56,7 @@ FactoryGirl.define do
     sequence(:summary) {|n| "Note summary #{n}" }
     confidentiality_level "department"
     sequence(:occurred_on) {|n| n.days.ago}
-    notes "Note text"
+    sequence(:notes) {|n| "Note text for note ##{n}"}
   end
 
 end
