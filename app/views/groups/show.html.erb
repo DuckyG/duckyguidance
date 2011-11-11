@@ -4,7 +4,7 @@
 <h2 class="head pageTitle"><span>Group:</span> <%= @group.name %>
 <% if can? :destroy, @group %>
     <div class="delete">
-      <%= button_to "Delete this group", {action: :destroy, id: @group.id}, confirm: "Group deletion is permanent.  Are you sure you want to delete this smart group?", method: :delete %>
+      <%= button_to "Delete this group", {action: :destroy, id: @group.id}, confirm: "Group deletion is permanent. Deleting a group will leave students and notes intact.  Only the group itself is deleted.  Are you sure you want to delete this smart group?", method: :delete %>
     </div>
 <% end %>
 </h2>
