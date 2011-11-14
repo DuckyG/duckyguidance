@@ -18,7 +18,7 @@
           <%= render partial: "filter_fields", locals: {filter: filter} %>
         <% end %>
       </div>
-      <button class="add-smart-group-filter"><a count="21" href="/smart_groups/new_field/">Add Field</a></button>
+      <button class="add-smart-group-filter" data-target="/smart_groups/new_field/">Add Another Field</button>
       <div class="button">
 				<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Smart Group" : "Update This Smart Group"%>
 			</div>

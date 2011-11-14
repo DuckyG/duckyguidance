@@ -72,7 +72,7 @@ $(document).ready(function(){
     prePopulate: eval($("#prior_groups").val())
   });
 
-  $(".add-smart-group-filter a").click(addSmartGroupFilterField);
+  $(".add-smart-group-filter").click(addSmartGroupFilterField);
   $(".delete-smart-group-filter").live("click",deteleSmartGroupFilterField);
 
 
@@ -112,9 +112,9 @@ function addSmartGroupFilterField(){
   var $newElementIndex = $el.attr("count")
   if ($newElementIndex == undefined)
     $newElementIndex = 1
-
+  var $target = $el.attr("data-target");
   $el.attr("count", ($newElementIndex + 1))
-  $.get(this.href + $newElementIndex, null,null,"script");
+  $.get($target + $newElementIndex, null,null,"script");
 
   return false;
 };
