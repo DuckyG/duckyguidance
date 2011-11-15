@@ -1,6 +1,7 @@
 class SmartGroupFilter < ActiveRecord::Base
   belongs_to :smart_group
   validate :validate_field, :validate_value
+  validates_presence_of :field_name, :field_value 
 
   def validate_value
     if self.field_name == "counselor_id"
