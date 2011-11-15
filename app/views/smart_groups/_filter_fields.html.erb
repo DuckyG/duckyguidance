@@ -1,5 +1,12 @@
 <% id =(filter.id and filter.id > 0) ? filter.id : "new_#{@count}" %>
 <div class="field-filter">
+      <% if filter.errors.any? %>
+      <ul>
+        <%- filter.errors.full_messages.each do |msg| -%>
+          <li><%=msg%></li>
+        <%-end-%>
+      </ul>
+    <% end %>
   <p>
     <%= label_tag "smart_group[smart_group_filters_attributes][#{id}][field_name]", "Field Name" %>
     <%= select_tag  "smart_group[smart_group_filters_attributes][#{id}][field_name]", options_for_select(@fields, filter.field_name) %>

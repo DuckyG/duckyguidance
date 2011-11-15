@@ -53,6 +53,9 @@ class SmartGroupFilter < ActiveRecord::Base
 
   def check_year_of_graduation
     self.field_value = self.field_value.to_i
+    unless self.field_value > 2000
+      errors.add(:base, "Year of graduation must be valid")
+    end
   end
 
 end

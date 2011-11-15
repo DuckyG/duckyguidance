@@ -82,7 +82,7 @@ class Student < ActiveRecord::Base
 
   def validate_counselor
     unless self.counselor_id && self.counselor_id.kind_of?(Integer) && self.counselor_id > 0
-      errors.add_to_base "Guidance Counselor is required"
+      errors.add(:base, "Guidance Counselor is required")
     end
   end
 
@@ -90,7 +90,6 @@ class Student < ActiveRecord::Base
     unless group_ids_attribute == "Loading..." or group_ids_attribute.blank?
       self.groups.clear
       group_ids_attribute.split(',').each do |group_id|
-        Rails.logger.info group_id
         begin
           self.groups << Group.find(group_id)
         rescue ActiveRecord::RecordNotFound

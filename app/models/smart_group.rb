@@ -6,6 +6,8 @@ class SmartGroup < ActiveRecord::Base
   attr_accessor :smart_group_filters_attributes
   attr_accessor :deleted_filters
   before_validation :process_smart_group_filter, :process_delete_filters
+  validates_presence_of :name
+  validate :validate_filters
 
   class << self
     def find_by_field_name_and_field_value(field_name, field_value)
@@ -53,6 +55,13 @@ class SmartGroup < ActiveRecord::Base
         end
       end
     end
+    end
+  end
+
+  private
+  def validate_filters
+    unless self.smart_group_filters.first
+      errors.add(:base, "There must be at least one field")
     end
   end
 end
