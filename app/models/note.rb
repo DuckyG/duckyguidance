@@ -2,14 +2,29 @@ class Note < ActiveRecord::Base
   has_and_belongs_to_many :students
   has_and_belongs_to_many :groups
   has_and_belongs_to_many :smart_groups
-  belongs_to :counselor
+  belongs_to :counselor, class_name: "User"
   belongs_to :category
   belongs_to :school
   attr_accessor :notify_students_counselor, :tags_string, :student_ids, :group_ids, :smart_group_ids
   validates :counselor, :notes, :summary, :category, :presence => true
   before_validation :convert_meta
+  before_validation { self.school = self.counselor.school }
   has_and_belongs_to_many :tags
   default_scope :order => '"notes".occurred_on DESC'
+
+  before_destroy { self.students.clear }
+  before_destroy { self.groups.clear }
+
+  ConfidentialityLevels = [["All Counselors","department"],["Director and me","director"]]
+  class << self
+    def unassigned
+      joins("left join notes_students on notes_students.note_id = notes.id").where("notes_students.note_id is null")
+    end
+
+    def confidentiality_levels
+      ConfidentialityLevels
+    end
+  end
 
   def formatted_date_and_time
     occurred_on.strftime '%B %d %Y'
@@ -65,7 +80,7 @@ class Note < ActiveRecord::Base
     unless @group_ids.nil?
       @group_ids.split(',').each do |id|
         group = school.groups.find id
-        new_students_to_append = group.students - self.students
+        new_students_to_append = group.students - self.students 
         self.students<<new_students_to_append
         self.groups<<group
       end

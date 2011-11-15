@@ -16,9 +16,8 @@
 	</tbody>
 </table>
 
-<%= render :partial => "shared/month_note_chart", :locals => {:notes => @tag.notes} %>
 
-<%= render "notes/block" %>
+<%=render partial: 'notes/list'%>
 
 <% content_for :auxiliary do %>
 	<div class="modReports block module">

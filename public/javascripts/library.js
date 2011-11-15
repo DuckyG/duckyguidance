@@ -21,6 +21,8 @@ $(document).ready(function(){
 	homeForm('.requestMeeting');
 	editName('.requestMeeting .editName');
 	inputClear('.requestMeeting input');
+	
+	accountAlert('.accountAlert');
 
 	// Cancel button
 	formCancel('form .cancel');
@@ -29,6 +31,10 @@ $(document).ready(function(){
 	// Autotab date field
 	$('.date .month, .date .day, .date .year').autotab_magic().autotab_filter('numeric');
 
+  $('input[data-confirm]').click(function(){
+    var answer = confirm($(this).attr("data-confirm"))
+    return answer;
+  });
 	
 	$('.multiselect').multiselect();
 
@@ -36,7 +42,7 @@ $(document).ready(function(){
 		showOn: "button",
 		buttonImage: "/images/buttons/calendar.png",
 		buttonImageOnly: true,
-    dateFormat: "yy-mm-dd"
+		dateFormat: "yy-mm-dd"
 	});
 
   $("a[data-remote=true]").live("click",function(){
@@ -45,8 +51,8 @@ $(document).ready(function(){
     return false;
   });
 
-  $("#recent-list .modToggle a").live("click", function(){
-    $("#recent-list .content").prepend("<div><img  src='/images/ajax-loader.gif' /></div>");
+  $(".modNotes .modToggle a").live("click", function(){
+    $(".modNotes .content").prepend("<div><img  src='/images/ajax-loader.gif' /></div>");
     $.get(this.href, null, null, "script");
     return false;
   });
@@ -66,6 +72,10 @@ $(document).ready(function(){
     prePopulate: eval($("#prior_groups").val())
   });
 
+  $(".add-smart-group-filter").click(addSmartGroupFilterField);
+  $(".delete-smart-group-filter").live("click",deteleSmartGroupFilterField);
+
+
 }); // Bye-bye jQuery!
 
 
@@ -79,10 +89,54 @@ function closeLayer(el){
 			layer.slideUp(slideUpSpeed);
 		})
 	});
-}
+};
 
+function deteleSmartGroupFilterField(){
+  var $el = $(this)
+  var $id = this.href.substring(this.href.indexOf("#")+1)
+  var $deletedIdsField = $("#smart_group_deleted_filters")
 
+  if($deletedIdsField.val())
+    $deletedIdsField.val($deletedIdsField.val()+","+$id)
+  else
+    $deletedIdsField.val($id)
 
+  $el.parent().slideUp(500, function() { $(this).remove(); });
+
+  return false;
+};
+
+function addSmartGroupFilterField(){
+  var $el = $(this)
+  var $fieldset = $el.parent("fieldset")
+  var $newElementIndex = $el.attr("count")
+  if ($newElementIndex == undefined)
+    $newElementIndex = 1
+  var $target = $el.attr("data-target");
+  $el.attr("count", ($newElementIndex + 1))
+  $.get($target + $newElementIndex, null,null,"script");
+
+  return false;
+};
+function accountAlert(el) {
+	$(el).each(function() {
+		var thisHeight = $(this).height();
+    $('body').css('padding-top', thisHeight+28)
+		$(this).css('top', -thisHeight).animate({
+			opacity: 1,
+			top: '10px'
+		}, 750);
+    		$(this).append('<span class="icon iconCloseFFF close" />').find('.close').bind('click', function() {
+			$(this).parent().animate({
+				opacity: 0,
+				top: -thisHeight
+			}, 750);
+      $('body').animate({
+				paddingTop: 0
+			}, 750);
+		})
+	});
+};
 
 //  Apply the proper stylesheets to IE when the window resizes
 function ieResize(){

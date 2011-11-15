@@ -1,7 +1,7 @@
 <h2 class="head pageTitle"><%=@counselor.full_name%></h2>
 
 
-<%if current_counselor.has_role? :school_admin, current_school%>
+<%if can? :edit, @counselor%>
 <div class="rightLink">
 	<a href="<%= edit_counselor_path(@counselor)%>">Edit<span>&nbsp;&rarr;</a>
 </div>
@@ -13,7 +13,7 @@
 	</tr>
   <tr>
 		<td class="spaced label">Is Director</td>
-		<td><%=@counselor.has_role?(:school_admin, current_school) ? "Yes" : "No"%></td>
+		<td><%=@counselor.director? ? "Yes" : "No"%></td>
 	</tr>
 	
 </table>

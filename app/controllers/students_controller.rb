@@ -1,11 +1,6 @@
-class StudentsController < ApplicationController
+class StudentsController < AuthorizedController
   before_filter :title
-  before_filter :split_id_string, :only => [:create, :update]
   before_filter :retrieve_note
-  access_control do
-    allow :counselor, :of => :current_school
-    allow :superadmin
-  end
   def title
     @section = 'Students'
   end
@@ -13,7 +8,7 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
   def index
-    @students = current_school.students.current
+    @students = current_school.students.accessible_by(current_ability).current
     @students = @note.students if @note
     search_and_page_students
     @show_counselor = true
@@ -24,8 +19,8 @@ class StudentsController < ApplicationController
     end
   end
 
-  def graduated
-    @students = current_school.students.graduated
+  def inactive
+    @students = current_school.students.accessible_by(current_ability).inactive
     search_and_page_students
     @show_counselor = true
     respond_to do |format|
@@ -37,7 +32,7 @@ class StudentsController < ApplicationController
   end
 
   def all
-    @students = current_school.students
+    @students = current_school.students.accessible_by(current_ability)
     search_and_page_students
     @show_counselor = true
     respond_to do |format|
@@ -51,7 +46,7 @@ class StudentsController < ApplicationController
 
   def search
     search_term = "#{params[:q]}%"
-    @students = current_school.students.search_by_first_or_last_name(search_term)
+    @students = current_school.students.accessible_by(current_ability).search_by_first_or_last_name(search_term)
     render :json => @students.map{ |student| {id: student.id, name: student.full_name}}
   end
 
@@ -61,8 +56,8 @@ class StudentsController < ApplicationController
     @student = current_school.students.find(params[:id])
     @note = Note.new
     @note.created_at = DateTime.now
-    @notes = @student.notes.page(params[:note_page])
-    @hide_note_subject = true
+    @notes = @student.notes.accessible_by(current_ability)
+    page_notes
     @student_id_string = @student.id
     title
     respond_to do |format|
@@ -71,26 +66,11 @@ class StudentsController < ApplicationController
       format.js
     end
   end
-  
-  def add_group
-    @group = current_school.groups.find(params[:group_id])
-    @student = current_school.students.find(params[:id])
-    @group.students<<@student
-    redirect_to edit_student_path(@group)
-  end
-  
-  def remove_group
-    @group = current_school.groups.find(params[:group_id])
-    @student = current_school.students.find(params[:id])
-    @group.students.delete @student
-    redirect_to edit_student_path(@group)
-  end
-  
 
   # GET /students/new
   # GET /students/new.xml
   def new
-    @student = Student.new
+    @student = current_school.students.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -125,9 +105,6 @@ class StudentsController < ApplicationController
   # PUT /students/1.xml
   def update
     @student = current_school.students.find(params[:id])
-     if params[:student][:group_ids].nil?
-      @group.students.clear
-    end
 
     respond_to do |format|
       if @student.update_attributes(params[:student])
@@ -153,11 +130,6 @@ class StudentsController < ApplicationController
   end
 
   private
-
-  def split_id_string
-    params[:student][:group_ids] = params[:student][:group_ids].split(',')
-    params[:student][:group_ids].delete_if { |key,value| value.to_i == 0 }
-  end
 
   def search_and_page_students
     search_term = "#{params[:search]}%" unless params[:search].nil? or params[:search].empty?

@@ -17,7 +17,7 @@
         <% category_array = ["Select a Category..."] + current_school.categories.map { |cat| [cat.name, cat.id] } %>
         <%= f.select :category_id, options_for_select(category_array, @note.category_id) %>
       </p>
-      <% if @student && @student.counselor != current_counselor %>
+      <% if @student && @student.counselor != current_user %>
         <p><%=f.label :notify_students_counselor, f.check_box(:notify_students_counselor) + "Notify Counselor (" + @student.counselor.last_name + ")"%></p>
       <% end %>
       <p>
@@ -29,6 +29,10 @@
         <%=f.text_field :tags_string%>
       </p>
       <p>
+        <%= f.required_field_label :confidentiality_level, "Who can see this note?" %>
+        <%= f.select :confidentiality_level, options_for_select(Note.confidentiality_levels, @note.confidentiality_level) %>
+      </p>
+      <p class="formDate">
         <%=f.label :occurred_on, 'Occurred On'%>
         <% @note.occurred_on ||= Date.current %>
         <span class="ex">(Example: Today would be <%=Time.now.strftime "%Y-%m-%d"%>)</span>

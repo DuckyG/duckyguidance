@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :subdomain do
-    name "test"
+    sequence(:name) {|n| "test#{n}"}
   end
 
   factory :name_prefix do
@@ -8,8 +8,7 @@ FactoryGirl.define do
   end
 
   factory :school do
-    subdomain
-    name "Testing School"
+    sequence(:name) {|n| "Testing School #{n}"}
     address "123 Plain Street"
     city "Pleasantville"
     state "Massachusetts"
@@ -21,12 +20,13 @@ FactoryGirl.define do
     name_prefix
     first_name "John"
     last_name "Test"
-    email "john@test.com"
+    sequence(:email) {|n| "john#{n}@test.com"}
     password "password1"
     password_confirmation "password1"
+    role "counselor"
 
     factory :school_admin do
-      after_create {|admin| admin.has_role! :school_admin, admin.school }
+      role "director"
     end
   end
  
@@ -50,6 +50,13 @@ FactoryGirl.define do
   factory :category do
     sequence(:name) {|n| "Test Category #{n}" }
     description "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  end
+
+  factory :note do
+    sequence(:summary) {|n| "Note summary #{n}" }
+    confidentiality_level "department"
+    sequence(:occurred_on) {|n| n.days.ago}
+    sequence(:notes) {|n| "Note text for note ##{n}"}
   end
 
 end

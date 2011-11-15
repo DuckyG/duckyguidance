@@ -1,24 +1,16 @@
 class DashboardController < ApplicationController
-  access_control do
-    allow :member, :of => :current_subdomain
-    allow :superadmin
-  end
+  before_filter :authenticate_user_against_school!
   def index
-
-    @view = params[:view]
-
-    @limit = @view == "list" ? 25 :10
-    if current_counselor
-      if current_counselor.has_role?(:school_admin, current_school)
-        @notes = current_school.notes.page(params[:note_page]).per(@limit)
+    if current_user
+      if current_user.director?
+        @notes = Note.accessible_by(current_ability)
       else
-        note_ids = NotesStudent.where(student_id: current_counselor.student_ids).select(:note_id).map {|n| n.note_id }
-        @notes = current_school.notes.where(id: note_ids).limit(@limit).page(params[:note_page]).per(@limit)
+        note_ids = NotesStudent.where(student_id: current_user.student_ids).select(:note_id).map(&:note_id)
+        user_id = current_user.id
+        @notes = Note.accessible_by(current_ability).where{ (id >> note_ids) | (counselor_id == user_id) }
       end
+      page_notes
     end
-
-
-
 
     respond_to do |format|
       format.html

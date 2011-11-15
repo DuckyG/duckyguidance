@@ -1,28 +1,33 @@
-class NotesController < ApplicationController
-  access_control do
-    allow :counselor, :of => :current_school
-    allow :superadmin
-  end
+class NotesController < AuthorizedController
   # GET /notes
   # GET /notes.xml
   def index
     if params[:student_id]
-      @student = current_school.students.find(params[:student_id])
+      @student = current_school.students.accessible_by(current_ability).find(params[:student_id])
       @notes =  @student.notes if @student
     elsif params[:group_id]
-      @group = current_school.groups.find(params[:group_id])
+      @group = current_school.groups.accessible_by(current_ability).find(params[:group_id])
       @notes =  @group.notes if @group
     else
-      @notes = current_school.notes
+      @notes = current_school.notes.accessible_by(current_ability)
     end
-    @notes = @notes.page(params[:page])
+    page_notes
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @notes }
       format.json {render :json => @notes}
+      format.js
     end
   end
 
+  def unassigned
+    @notes = current_school.notes.accessible_by(current_ability).unassigned.page(params[:page])
+    page_notes
+    respond_to do |format|
+      format.html { render :index }
+      format.js { render :index }
+    end
+  end
   # GET /notes/1
   # GET /notes/1.xml
   def show
@@ -38,7 +43,7 @@ class NotesController < ApplicationController
   def new
     @note = current_school.notes.new
     @note.students<< current_school.students.find(params[:student_id])
-    @note.counselor = current_counselor
+    @note.counselor = current_user
  
     respond_to do |format|
       format.html # new.html.erb
@@ -57,8 +62,7 @@ class NotesController < ApplicationController
   def create
     @note = Note.new(params[:note])
     @student_id_string = params[:note][:student_ids]
-    @note.counselor = current_counselor
-    @note.school = current_school
+    @note.counselor = current_user
     respond_to do |format|
       if @note.save
         if(@note.notify_students_counselor == '1')
@@ -104,7 +108,7 @@ class NotesController < ApplicationController
     @note.destroy
 
     respond_to do |format|
-      format.html { redirect_to(notes_url) }
+      format.html { redirect_to(dashboard_path, notice: "Note has been deleted") }
       format.xml  { head :ok }
     end
   end

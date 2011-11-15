@@ -1,26 +1,8 @@
-class CategoriesController < ApplicationController
-  access_control do
-    actions :index, :show, :report do
-      allow :counselor, :of => :current_school
-      allow :superadmin
-    end
-
-    actions :new, :create do
-      allow :school_admin, :of => :current_school
-    end
-
-    actions :edit, :update do
-      allow :school_admin, :of => :current_school
-    end
-
-    action :destroy do
-      allow :school_admin,:of => :current_school
-    end
-  end
+class CategoriesController < AuthorizedController
   # GET /categories
   # GET /categories.xml
   def index
-    @categories = current_school.categories.all.sort {|x,y| x.name <=> y.name}
+    @categories = Category.accessible_by(current_ability).all.sort {|x,y| x.name <=> y.name}
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @categories }
@@ -31,7 +13,8 @@ class CategoriesController < ApplicationController
   # GET /categories/1.xml
   def show
     @category = current_school.categories.find(params[:id])
-    @notes = @category.notes.page(params[:note_page])
+    @notes = @category.notes.accessible_by(current_ability)
+    page_notes
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @category }
@@ -76,7 +59,7 @@ class CategoriesController < ApplicationController
   # PUT /categories/1.xml
   def update
     @category = current_school.categories.find(params[:id])
-    
+
     respond_to do |format|
       if @category.system || @category.update_attributes(params[:category])
         format.html { redirect_to(@category) }
@@ -87,23 +70,22 @@ class CategoriesController < ApplicationController
       end
     end
   end
-  
+
   def report
-    
     start_date = Time.strptime(params[:start_date], "%Y-%m-%d") unless params[:start_date].nil? || params[:start_date].empty? 
     end_date = Time.strptime("#{params[:end_date]} 23:59", "%Y-%m-%d %H:%M") unless params[:end_date].nil? || params[:end_date].empty? 
     @category = current_school.categories.find(params[:id])
     if start_date && end_date
-      @notes = @category.notes.where('created_at >= ? AND created_at <= ?', start_date, end_date)
+      @notes = @category.notes.accessible_by(current_ability).where('created_at >= ? AND created_at <= ?', start_date, end_date)
       name = "#{@category.name}_#{start_date.strftime("%Y-%m-%d")}_#{end_date.strftime("%Y-%m-%d")}"
     elsif start_date
-      @notes = @category.notes.where('created_at >= ?', start_date)
+      @notes = @category.notes.accessible_by(current_ability).where('created_at >= ?', start_date)
       name = "#{@category.name}_from_#{start_date.strftime("%Y-%m-%d")}"
     elsif end_date
-      @notes = @category.notes.where('created_at <= ?', end_date)
+      @notes = @category.notes.accessible_by(current_ability).where('created_at <= ?', end_date)
       name = "#{@category.name}_until_#{end_date.strftime("%Y-%m-%d")}"
     else
-      @notes = @category.notes
+      @notes = @category.notes.accessible_by(current_ability)
       name = "#{@category.name}"
     end
     respond_to do |format|
@@ -124,7 +106,8 @@ class CategoriesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
+  private
   def uncategorized_cat
     current_school.categories.find_by_name 'Uncategorized'
   end

@@ -1,11 +1,19 @@
 <% content_for :head do %>
   <title><%=@smart_group.name %> - Smart Group -  <%=current_school.name %> - Ducky Guidance</title>
 <% end %>
-<h2 class="head pageTitle"><span>Smart Group:</span> <%= @smart_group.name %></h2>
+<h2 class="head pageTitle"><span>Smart Group:</span> <%= @smart_group.name %>
+<% if can? :destroy, @smart_group %>
+    <div class="delete">
+      <%= button_to "Delete this smart group", {action: :destroy, id: @smart_group.id}, confirm: "Smart Group deletion is permanent. Deleting a smart group will leave students and notes intact.  Only the smart group itself is deleted.  Are you sure you want to delete this smart group?", method: :delete %>
+    </div>
+<% end %>
+</h2>
 
+<% if can? :update, @smart_group %>
 <div class="rightLink">
 	<a href="<%= edit_smart_group_path(@smart_group)%>">Edit<span>&nbsp;&rarr;</a>
-</div>
+  </div>
+<% end %>
 
 <table cellpadding="0" cellspacing="0">
 	<tbody>
@@ -13,18 +21,16 @@
 			<td class="spaced label">Name</td>
 			<td><%= @smart_group.name %></td>
 		</tr>
-		<tr>
-			<td class="spaced label">Field Name</td>
-			<td><%=@smart_group.friendly_field_name%></td>
-    </tr>
-    <tr>
-			<td class="spaced label">Field Value</td>
-			<td><%=@smart_group.friendly_field_value%></td>
-		</tr>
-    <tr>
+		    <tr>
 			<td class="spaced label">Number of Students</td>
 			<td><%=@smart_group.students.count%></td>
 		</tr>
+    <% @smart_group.smart_group_filters.each do |field| %>
+      <tr>
+			  <td class="spaced label"><%=field.friendly_field_name%></td>
+			  <td><%=field.friendly_field_value%></td>
+		  </tr>
+    <% end %>
 	</tbody>
 </table>
 
@@ -63,7 +69,7 @@
 
 
 <%= render "shared/new_note" %>
-<%= render "notes/block" %>
+<%= render "notes/list" %>
 
 <% content_for :auxiliary do %>
 	<div class="modReports block module">

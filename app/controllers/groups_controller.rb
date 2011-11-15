@@ -1,30 +1,10 @@
-class GroupsController < ApplicationController
-  access_control do
-    actions :index, :show do
-      allow :counselor, :of => :current_school
-      allow :superadmin
-    end
-
-    actions :new, :create do
-      allow :school_admin, :of => :current_school
-      allow :counselor, :of => :current_school
-    end
-
-    actions :edit, :update, :search do
-      allow :school_admin, :of => :current_school
-      allow :counselor, :of => :current_school
-    end
-
-    action :destroy do
-      allow :school_admin,:of => :current_school
-    end
-  end
+class GroupsController < AuthorizedController
   #before_filter :split_id_string, :only => [:create, :update]
   # GET /groups
   # GET /groups.xml
   def index
-    @groups = current_school.groups.all
-    @smart_groups = current_school.smart_groups
+    @groups = Group.accessible_by(current_ability).all
+    @smart_groups = current_school.smart_groups.accessible_by(current_ability)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @groups }
@@ -37,7 +17,7 @@ class GroupsController < ApplicationController
     @group = current_school.groups.find(params[:id])
     @students = @group.students.page(params[:student_page]).per(5)
     @note = Note.new
-    @notes = @group.notes.page(params[:note_page])
+    @notes = @group.notes.accessible_by(current_ability).page(params[:note_page])
     @hide_note_subject = true
     @group_id_string = @group.id
     respond_to do |format|
@@ -59,7 +39,7 @@ class GroupsController < ApplicationController
 
   def search
     search_term = "%#{params[:q]}%"
-    @groups = current_school.groups.where{ name.matches search_term}
+    @groups = current_school.accessible_by(current_ability).groups.where{ name.matches search_term}
     render :json => @groups.map{ |group| {id: group.id, name: group.name}}
   end
 

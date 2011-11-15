@@ -8,18 +8,17 @@
       </ul>
     <% end %>
     <fieldset>
+      <%= f.hidden_field :deleted_filters %>
       <p>
         <%= f.required_field_label :name %>
         <%= f.text_field :name %>
       </p>
-      <p>
-        <%= f.required_field_label :field_name %>
-        <%= f.select :field_name, options_for_select(@fields, @smart_group.field_name) %>
-      </p>
-      <p>
-        <%= f.required_field_label :field_value %>
-        <%= f.text_field :field_value, value: @smart_group.friendly_field_value %>
-      </p>
+      <div id="fields">
+        <% @smart_group.smart_group_filters.each do |filter| %>
+          <%= render partial: "filter_fields", locals: {filter: filter} %>
+        <% end %>
+      </div>
+      <button class="add-smart-group-filter" data-target="/smart_groups/new_field/">Add Another Field</button>
       <div class="button">
 				<%=f.submit (request.filtered_parameters["action"] == "new" ||  request.filtered_parameters["action"] == "create")? "Add This Smart Group" : "Update This Smart Group"%>
 			</div>

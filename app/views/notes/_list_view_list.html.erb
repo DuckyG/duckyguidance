@@ -9,6 +9,7 @@
 			</thead>
 			<tbody>
 				<% @notes.each do |note| %>
+          <% if can? :read, note %>
 					<tr>
 						<td class="spaced">
 						  <%= note.numeric_date_and_time %>
@@ -18,6 +19,7 @@
 							<%= link_to note.subject_name, note.subject == note.students ? note_students_path(note) : note.subject%>
 						</td>
 					</tr>
+        <% end %>
 				<% end %>
 			</tbody>
 </table>

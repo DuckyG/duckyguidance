@@ -1,18 +1,24 @@
 class Student < ActiveRecord::Base
   has_and_belongs_to_many :notes
   belongs_to :school
-  belongs_to :counselor
+  belongs_to :counselor, class_name: "User"
   has_and_belongs_to_many :groups
-  has_many :guardians
+  has_many :guardians, dependent: :destroy
+
   validates_presence_of :first_name, :last_name, :counselor_id, :city, :student_id, :full_name
   validates_uniqueness_of :student_id, :scope => :school_id
   validate :validate_counselor
-  attr_accessor :areaCode, :prefix, :line, :extension
-  attr_protected :full_name
-  before_validation :aggregate_phone_number
-  before_validation { self.full_name = "#{first_name} #{last_name}" }
-  default_scope :order => 'last_name, first_name'
 
+  attr_accessor :areaCode, :prefix, :line, :extension,:group_ids_attribute
+  attr_protected :full_name
+
+  before_validation :aggregate_phone_number, :process_group_ids
+  before_validation { self.full_name = "#{first_name} #{last_name}" }
+
+  before_destroy { self.notes.clear }
+  before_destroy { self.groups.clear }
+
+  default_scope :order => 'last_name, first_name'
   VALID_SMART_FIELDS = {"Year of Graduation" => "year_of_graduation", "Shop" => "shop", "City" => "city", "Counselor" => "counselor_id"}
   SMART_FIELD_NAMES = { "year_of_graduation" => "Year of Graduation", "shop" => "Shop", "city" => "City", "counselor_id" => "Counselor"} 
   class << self
@@ -25,7 +31,7 @@ class Student < ActiveRecord::Base
       where { year_of_graduation.gteq school_year }
     end
 
-    def graduated
+    def inactive
       school_year = current_school_year
       where { year_of_graduation.lt school_year }
     end
@@ -76,7 +82,19 @@ class Student < ActiveRecord::Base
 
   def validate_counselor
     unless self.counselor_id && self.counselor_id.kind_of?(Integer) && self.counselor_id > 0
-      errors.add_to_base "Guidance Counselor is required"
+      errors.add(:base, "Guidance Counselor is required")
+    end
+  end
+
+  def process_group_ids
+    unless group_ids_attribute == "Loading..." or group_ids_attribute.blank?
+      self.groups.clear
+      group_ids_attribute.split(',').each do |group_id|
+        begin
+          self.groups << Group.find(group_id)
+        rescue ActiveRecord::RecordNotFound
+        end
+      end
     end
   end
 end

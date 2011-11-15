@@ -1,55 +1,27 @@
-class SmartGroupsController < ApplicationController
-  access_control do
-    actions :index, :show, :snapshot do
-      allow :counselor, :of => :current_school
-      allow :superadmin
-    end
-
-    actions :new, :create do
-      allow :school_admin, :of => :current_school
-      allow :counselor, :of => :current_school
-    end
-
-    actions :edit, :update do
-      allow :school_admin, :of => :current_school
-      allow :counselor, :of => :current_school
-    end
-
-    action :destroy do
-      allow :school_admin,:of => :current_school
-    end
-  end
-
+class SmartGroupsController < AuthorizedController
   before_filter :retrieve_fields
   # GET /smart_groups
   # GET /smart_groups.xml
   def index
     if params[:field] && params[:value]
-      @smart_group = current_school.smart_groups.find_by_field_name_and_field_value(params[:field], params[:value])
-      if @smart_group
-        redirect_to @smart_group 
-        return
-      end
-      flash[:notice] =  "A smart group for this filter does not exist yet. Complete this form to create one."
-      value = params[:value]
-
-      if params[:field] == "counselor_id"
-        begin
-          counselor = current_school.counselors.find params[:value]
-          value = counselor.formal_name
-        rescue ActiveRecord::RecordNotFound
-        end
-      end
-      redirect_to(new_smart_group_path(:field => params[:field], :value => value) )
+    @smart_group = current_school.smart_groups.find_by_field_name_and_field_value(params[:field], params[:value])
+    if @smart_group
+      redirect_to @smart_group 
       return
     end
-    @smart_groups = current_school.smart_groups.page(params[:page])
-    @title = 'Smart Groups'
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @smart_groups }
-      format.js
+    flash[:warning] =  "A smart group for this filter does not exist yet. Complete this form to create one."
+    value = params[:value]
+      if params[:field] == "counselor_id"
+      begin
+        counselor = current_school.counselors.find params[:value]
+        value = counselor.formal_name
+      rescue ActiveRecord::RecordNotFound
+      end
     end
+    redirect_to(new_smart_group_path(:field => params[:field], :value => value) )
+    return
+  end
+   redirect_to groups_path
   end
 
   # GET /smart_groups/1
@@ -58,7 +30,7 @@ class SmartGroupsController < ApplicationController
     @smart_group = current_school.smart_groups.find(params[:id])
     @students = @smart_group.students.page(params[:student_page]).per(5)
     @note = Note.new
-    @notes = @smart_group.notes.page(params[:note_page])
+    @notes = @smart_group.notes.accessible_by(current_ability).page(params[:note_page])
     @smart_group_id_string = @smart_group.id
     respond_to do |format|
       format.html # show.html.erb
@@ -78,13 +50,13 @@ class SmartGroupsController < ApplicationController
       redirect_to group
     else
       if params[:description].blank? and params[:name].blank? 
-        flash[:notice] = "A name and description are required to create a snapshot of this smart group"
+        flash[:warning] = "A name and description are required to create a snapshot of this smart group"
       elsif params[:description].blank?
-        flash[:notice] = "A description is required to create a snapshot of this smart group"
+        flash[:warning] = "A description is required to create a snapshot of this smart group"
       elsif params[:name].blank?
-        flash[:notice] = "A name is required to create a snapshot of this smart group"
+        flash[:warning] = "A name is required to create a snapshot of this smart group"
       elsif current_school.groups.find_by_name params[:name]
-        flash[:notice] = "A group with the name '#{params[:name]}' already exists.  Please pick another name to create this snapshot"
+        flash[:warning] = "A group with the name '#{params[:name]}' already exists.  Please pick another name to create this snapshot"
       end
 
       redirect_to smart_group_path(@smart_group, name: params[:name], description: params[:description])
@@ -95,9 +67,10 @@ class SmartGroupsController < ApplicationController
   # GET /smart_groups/new.xml
   def new
     @smart_group = current_school.smart_groups.build
+    @smart_group.smart_group_filters << SmartGroupFilter.new
     if params[:field] && params[:value]
-      @smart_group.field_name = params[:field]
-      @smart_group.field_value = params[:value]
+      @smart_group.smart_group_filters.first.field_name = params[:field]
+      @smart_group.smart_group_filters.first.field_value = params[:value]
     end
     @title = 'New Smart Group'
     respond_to do |format|
@@ -132,9 +105,6 @@ class SmartGroupsController < ApplicationController
   # PUT /smart_groups/1.xml
   def update
     @smart_group = current_school.smart_groups.find(params[:id])
-    if params[:smart_group][:student_ids].nil?
-      @smart_group.students.clear
-    end
     respond_to do |format|
       if @smart_group.update_attributes(params[:smart_group])
         format.html { redirect_to(@smart_group, :notice => 'SmartGroup was successfully updated.') }
@@ -153,8 +123,16 @@ class SmartGroupsController < ApplicationController
     @smart_group.destroy
 
     respond_to do |format|
-      format.html { redirect_to(smart_groups_url) }
+      format.html { redirect_to(groups_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  def new_field
+    @filter = SmartGroupFilter.new
+    @count = params[:count].to_i
+    respond_to do |format|
+      format.js
     end
   end
 

@@ -11,8 +11,8 @@ Feature: Smart Groups
     When I visit the "groups" page
     And I click the "Add a Smart Group" link in the "content" section
     And I enter "Students of 2015" for the "Name" field
-    And I select "Year of Graduation" for the "Field name" field
-    And I enter "2015" for the "Field value" field
+    And I select "Year of Graduation" for the "Field Name" field
+    And I enter "2015" for the "Field Value" field
     And I click the "Add This Smart Group" button
     Then I should be redirected to the new smart group's detail page
     And the smart group should contain 20 students

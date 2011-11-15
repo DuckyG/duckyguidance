@@ -11,11 +11,11 @@
 		<ul>
 			<li><%= link_to @note.summary, @note %></li>
 		</ul>
-<%else %>
+<% else %>
 		<div class="modFilter">
 			<ul>
-				<li <%= "class='active'" if students_path == request.path %>><a href="<%= students_path %>">Current</a></li>
-				<li <%= "class='active'" if graduated_students_path == request.path %>><a href="<%= graduated_students_path %>">Graduated</a></li>
+				<li <%= "class='active'" if students_path == request.path %>><a href="<%= students_path %>">Active</a></li>
+				<li <%= "class='active'" if inactive_students_path == request.path %>><a href="<%= inactive_students_path %>">Inactive</a></li>
 				<li <%= "class='active'" if all_students_path == request.path %>><a href="<%= all_students_path %>">All</a></li>
 			</ul>
 		</div>
@@ -24,9 +24,11 @@
 			<label>Search for a Student:</label>
 			<input class="studentFilter filter_box" type="text" name="student_filter" value="">
 		</p>
+    <% if can?(:create, Student) and @note.nil? %>
 		<div class="rightLink">
 			<a href="<%= new_student_path %>">Add a Student<span>&nbsp;&rarr;</span></a>
 		</div><!-- /rightLink -->
+    <% end %>
 	</div><!--// end modCopy //-->
 	<div class="content">
         <div id="students">

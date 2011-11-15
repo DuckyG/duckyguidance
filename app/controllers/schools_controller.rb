@@ -1,7 +1,4 @@
-class SchoolsController < ApplicationController
-  access_control do
-    allow :superadmin
-  end
+class SchoolsController < AuthorizedController
   def index
     @schools = School.all 
   end

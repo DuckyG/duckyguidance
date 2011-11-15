@@ -36,9 +36,9 @@
 	</div>
 	<hr class="print">
 	<div id="container">
-		<% if current_counselor %>
+		<% if current_user %>
 		<div class="modAccount module">
-			Welcome, <%= link_to current_counselor.first_name, my_account_path %>&nbsp;|&nbsp;<%= link_to "Sign Off", logout_path%>
+			Welcome, <%= link_to current_user.first_name, my_account_path %>&nbsp;|&nbsp;<%= link_to "Sign Off", logout_path%>
 		</div><!--// end account //-->
 		<% end %>
 		<div id="padder">

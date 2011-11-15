@@ -1,0 +1,7 @@
+<% if @note_view == "list"%>
+  $(".modNotes .content").html("<%=escape_javascript(render("notes/list_view_list")) %>");
+  $(".modNotes .modToggle").html("<a href='?note_view=detail'>Detail View</a>&nbsp;|&nbsp;List View");
+<% else %>
+  $(".modNotes .content").html("<%=escape_javascript(render("notes/detail_view_list")) %>");
+  $(".modNotes .modToggle").html("Detail View&nbsp;|&nbsp;<a href='?note_view=list'>List View</a>");
+<% end %>

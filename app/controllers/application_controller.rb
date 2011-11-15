@@ -1,16 +1,47 @@
 class ApplicationController < ActionController::Base
   ActionView::Base.field_error_proc = proc { |input, instance| input }
-  rescue_from 'Acl9::AccessDenied', :with => :access_denied
+  rescue_from 'Guidance::DomainAccessDenied', with: :domain_denied
+  rescue_from "Guidance::PermissionDenied", with: :permission_denied
+  rescue_from "CanCan::AccessDenied", with: :permission_denied
   protect_from_forgery
 
   layout 'standard'
-  before_filter :check_domain, :check_defaults, :check_smart_group
-  helper_method :current_school, :current_user, :current_subdomain, :build_student_options, :render_csv, :current_school_year
+  before_filter :check_domain, :check_defaults, :check_smart_group, :get_note_view_limit
+  helper_method :current_school, :current_user, :current_subdomain, :build_student_options,
+    :render_csv, :current_school_year, :warning, :authenticate_user_against_school!
   before_filter :mailer_set_url_options
-  
+
   layout :layout_by_resource
 
+  protected
+
+  def page_notes
+    if @notes
+      @notes = @notes.page(params[:note_page])
+      @notes = @notes.per(@note_limit) if @note_limit
+    end
+  end
+
+  def get_note_view_limit
+    @note_view = params[:note_view]
+
+    @note_limit = @note_view == "list" ? 25 :10
+  end
+
   private
+
+  def authenticate_user_against_school!
+    authenticate_user!
+    unless current_user.school == current_school
+      raise ::Guidance::DomainAccessDenied
+    end
+  end
+
+  #Provides warning method to get flash[:warning]. Method alredy exists for :notice and :error
+  def warning
+    @warning ||= flash[:warning]
+  end
+
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || dashboard_path
   end
@@ -19,29 +50,16 @@ class ApplicationController < ActionController::Base
     ActionMailer::Base.default_url_options[:host] = request.host
   end
 
-  def current_user
-      return @current_user if defined?(@current_user)
-      if current_counselor
-        @current_user = User.find(current_counselor.id)
-      else
-        @current_user = User.new
-      end
+  def domain_denied
+    sign_out
+    flash[:alert] = "Invalid email or password"
+    redirect_to new_user_session_path
   end
-  def access_denied
-      if current_counselor
-        if current_counselor.has_role? :member, current_subdomain
-          flash[:notice] = "You do not have access to this page"
-          redirect_to dashboard_path
-        else
 
-          flash[:notice] = "You do not have access to this domain"
-          redirect_to login_path
-        end
-      else
-        flash[:notice] = "You must be logged in to view this page"
-        redirect_to login_path
-      end
-    end
+  def permission_denied
+    flash[:alert] = "You do have the proper permissions to perform that action"
+    redirect_to dashboard_path
+  end
 
     def check_defaults
       if current_school
@@ -105,19 +123,22 @@ class ApplicationController < ActionController::Base
     end
 
     def check_smart_group
-      if current_counselor
-        unless current_school.smart_groups.find_by_field_name_and_field_value("counselor_id", current_counselor.id.to_s)
-          smart_group = SmartGroup.new
-          smart_group.name = "#{current_counselor.formal_name}'s students"
-          smart_group.field_name = "counselor_id"
-          smart_group.field_value = current_counselor.id.to_s
+      if current_user && current_user.counselor?
+        unless current_school.smart_groups.find_by_field_name_and_field_value("counselor_id", current_user.id.to_s)
+          smart_group = current_school.smart_groups.build
+          smart_group.school = current_school
+          smart_group.name = "#{current_user.formal_name}'s students"
+          smart_filter = SmartGroupFilter.new
+          smart_filter.smart_group = smart_group
+          smart_filter.field_name = "counselor_id"
+          smart_filter.field_value = current_user.id.to_s
+          smart_group.smart_group_filters << smart_filter
           smart_group.school = current_school
           smart_group.save
         end
       end
     end
 
-    
   def layout_by_resource
     devise_controller? ? 'logged_out' : 'standard'
   end
