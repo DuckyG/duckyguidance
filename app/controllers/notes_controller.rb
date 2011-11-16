@@ -60,7 +60,7 @@ class NotesController < AuthorizedController
   # POST /notes
   # POST /notes.xml
   def create
-    @note = Note.new(params[:note])
+    @note = current_school.notes.new(params[:note])
     @student_id_string = params[:note][:student_ids]
     @note.counselor = current_user
     respond_to do |format|
