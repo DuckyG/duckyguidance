@@ -51,4 +51,9 @@ Guidance::Application.configure do
   config.i18n.fallbacks = true
 
   config.colorize_logging = false
+
+  config.middleware.use ExceptionNotifier,
+   :email_prefix => "[DuckyG Error] ",
+   :sender_address => %{"notifier" <notifier@duckyg.com>},
+   :exception_recipients => %w{dan@viridianspark.com}
 end

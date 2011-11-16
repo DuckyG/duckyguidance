@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   rescue_from 'Guidance::DomainAccessDenied', with: :domain_denied
   rescue_from "Guidance::PermissionDenied", with: :permission_denied
   rescue_from "CanCan::AccessDenied", with: :permission_denied
+  rescue_from "ActiveRecord::RecordNotFound", with: :page_not_found
   protect_from_forgery
 
   layout 'standard'
@@ -81,6 +82,12 @@ class ApplicationController < ActionController::Base
         @message = "The school you are looking for could not be found. Please check to see that you have the correct domain for your school."
         render "shared/error", :status => 404, :layout => false
       end
+    end
+
+    def page_not_found
+      @section = "Page not found"
+      @message = "The page you were looking for could not be found"
+      render "shared/error", :status => 404, :layout => false
     end
 
     def build_student_options(student_list, selected_students)

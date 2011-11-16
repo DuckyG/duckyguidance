@@ -11,10 +11,9 @@ end
 Given /^I have written notes for other counselors' students$/ do
   @visible_notes ||= []
   counselors = FactoryGirl.create_list(:counselor, 5, school: @school)
-  category = FactoryGirl.create(:category, school: @school)
   counselors.each do |counselor|
     student = FactoryGirl.create(:student,counselor:counselor)
-    @visible_notes.push FactoryGirl.create(:note, counselor: @user, category: category, students:[student])
+    @visible_notes.push FactoryGirl.create(:note, counselor: @user, category: @category, students:[student])
   end
 end
 
@@ -29,10 +28,9 @@ Given /^other counselors have written( "([^"]*)" level)? notes about my students
   level = "department" if level.blank?
   level = level.downcase.gsub(' ','_')
   counselors = FactoryGirl.create_list(:counselor, 5, school: @school)
-  category = FactoryGirl.create(:category, school: @school)
   counselors.each do |counselor|
     student = FactoryGirl.create(:student,counselor:@user)
-    FactoryGirl.create(:note, counselor: counselor, confidentiality_level: level, category: category, students:[student])
+    FactoryGirl.create(:note, counselor: counselor, confidentiality_level: level, category: @category, students:[student])
   end
 end
 
@@ -47,10 +45,9 @@ end
 Given /^other counselors have written notes on students$/ do
   @visible_notes ||= []
   counselors = FactoryGirl.create_list(:counselor, 5, school: @school)
-  category = FactoryGirl.create(:category, school: @school)
   counselors.each do |counselor|
     student = FactoryGirl.create(:student,counselor:counselor)
-    @visible_notes.push FactoryGirl.create(:note, counselor: counselor, category: category, students:[student])
+    @visible_notes.push FactoryGirl.create(:note, counselor: counselor, category: @category, students:[student])
   end
 
 end

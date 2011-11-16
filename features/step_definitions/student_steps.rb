@@ -36,8 +36,7 @@ Given /^I have written a "([^"]*)" level note for the student$/ do |level|
   @my_notes ||= []
   level = "department" if level.blank?
   level = level.downcase.gsub(' ','_')
-  category = FactoryGirl.create(:category, school:@school)
-  @my_notes.push FactoryGirl.create(:note, students: [@student], category: category, counselor: @user, confidentiality_level: level)
+  @my_notes.push FactoryGirl.create(:note, students: [@student], category: @category, counselor: @user, confidentiality_level: level)
 end
 
 When /^I visit the student's page$/ do
@@ -49,5 +48,22 @@ Then /^I should see all the notes I have written for that student$/ do
     page_has_note_content(note, :should)
   end
 end
+
+When /^I submit a note$/ do
+  @note = FactoryGirl.build(:note, counselor: @user, category: @category, students:[@student])
+
+  select @note.category.name, from: "note_category_id"
+  fill_in "note_summary", with: @note.summary
+  select "All Counselors", from: "note_confidentiality_level"
+  fill_in "note_notes", with: @note.notes
+
+  click_button "Add This Note"
+
+end
+
+Then /^I should see that note on that student's page$/ do
+  page_has_note_content(@note, :should)
+end
+
 
 
