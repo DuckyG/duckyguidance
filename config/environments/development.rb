@@ -18,4 +18,9 @@ Guidance::Application.configure do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
+
+  config.middleware.use ExceptionNotifier,
+   :email_prefix => "[DuckyG Error] ",
+   :sender_address => %{"notifier" <notifier@duckyg.com>},
+   :exception_recipients => %w{dan@viridianspark.com}
 end

@@ -14,6 +14,15 @@ Feature: Student
     Then I should be redirected to the new student's detail page
     And the status code should be 200
 
+  Scenario: Adding a note to a student
+    Given I am at a school
+    And I am a counselor
+    And I am logged in
+    And there is a student
+    When I visit the student's page
+    And I submit a note
+    Then I should see that note on that student's page
+
   @wip
   Scenario: Viewing a student's notes that I wrote
     Given I am at a school
@@ -23,5 +32,4 @@ Feature: Student
     And I have written a "Director" level note for the student
     And I have written a "Department" level note for the student
     When I visit the student's page
-    And I dump the page
     Then I should see all the notes I have written for that student
