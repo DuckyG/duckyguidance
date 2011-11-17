@@ -1,10 +1,11 @@
 class AddShowTagsToSchools < ActiveRecord::Migration
   def self.up
     add_column :schools, :show_tags, :boolean, :default => true
-    execute <<-SQL
-      update schools
-      set show_tags = true
-    SQL
+
+    School.each do |s|
+      s.show_tags = true
+      s.save
+    end
   end
 
   def self.down
