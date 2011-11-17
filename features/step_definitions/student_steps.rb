@@ -62,7 +62,7 @@ When /^I submit a note$/ do
 end
 
 Then /^I should see that note on that student's page$/ do
-  page_has_note_content(@note, :should)
+  page_has_note_content(@note, :should_not) #Purposely failing for testing
 end
 
 
