@@ -9,10 +9,10 @@ class AddRoleToUsers < ActiveRecord::Migration
     SQL
 
     execute <<-SQL
-      UPDATE users u
+      UPDATE users
       SET role = 'director'
       FROM roles r, roles_users ru
-      WHERE u.school_id = r.authorizable_id and r.name = 'school_admin' and ru.user_id = u.id and r.id = ru.role_id;
+      WHERE users.school_id = r.authorizable_id and r.name = 'school_admin' and ru.user_id = users.id and r.id = ru.role_id;
     SQL
   end
 

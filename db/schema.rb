@@ -96,6 +96,10 @@ ActiveRecord::Schema.define(:version => 20111101123642) do
     t.string   "confidentiality_level", :default => "department"
   end
 
+  add_index "notes", ["confidentiality_level"], :name => "notes_confidentiality_level_idx"
+  add_index "notes", ["confidentiality_level"], :name => "notes_confidentiality_level_idx1"
+  add_index "notes", ["occurred_on"], :name => "notes_occurred_on_idx"
+
   create_table "notes_smart_groups", :id => false, :force => true do |t|
     t.integer "smart_group_id"
     t.integer "note_id"
