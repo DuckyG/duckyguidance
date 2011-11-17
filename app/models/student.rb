@@ -20,7 +20,7 @@ class Student < ActiveRecord::Base
 
   default_scope :order => 'last_name, first_name'
   VALID_SMART_FIELDS = {"Year of Graduation" => "year_of_graduation", "Shop" => "shop", "City" => "city", "Counselor" => "counselor_id"}
-  SMART_FIELD_NAMES = { "year_of_graduation" => "Year of Graduation", "shop" => "Shop", "city" => "City", "counselor_id" => "Counselor"} 
+  SMART_FIELD_NAMES = { "year_of_graduation" => "Year of Graduation", "shop" => "Shop", "city" => "City", "counselor_id" => "Counselor"}
   class << self
     def search_by_first_or_last_name(term)
       where {(last_name.matches term) | (first_name.matches term) | (full_name.matches term)}
