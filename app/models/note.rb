@@ -27,11 +27,11 @@ class Note < ActiveRecord::Base
   end
 
   def formatted_date_and_time
-    occurred_on.strftime '%B %d %Y'
+    occurred_on.strftime '%B %d %Y' if occurred_on
   end
 
   def numeric_date_and_time
-    occurred_on.strftime '%m/%d/%Y'
+    occurred_on.strftime '%m/%d/%Y' if occurred_on
   end
 
   def get_tag_string
