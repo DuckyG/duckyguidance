@@ -72,9 +72,23 @@ class CategoriesController < AuthorizedController
   end
 
   def report
-    start_date = Time.strptime(params[:start_date], "%Y-%m-%d") unless params[:start_date].nil? || params[:start_date].empty? 
-    end_date = Time.strptime("#{params[:end_date]} 23:59", "%Y-%m-%d %H:%M") unless params[:end_date].nil? || params[:end_date].empty? 
     @category = current_school.categories.find(params[:id])
+    begin
+      start_date = Time.strptime(params[:start_date], "%Y-%m-%d") unless params[:start_date].nil? || params[:start_date].empty? 
+    rescue ArgumentError
+      flash[:alert] = "The Start Date was invalid"
+      redirect_to @category
+      return
+    end
+
+    begin
+      end_date = Time.strptime("#{params[:end_date]} 23:59", "%Y-%m-%d %H:%M") unless params[:end_date].nil? || params[:end_date].empty? 
+    rescue ArgumentError
+      flash[:alert] = "The End Date was invalid"
+      redirect_to @category
+      return
+    end
+
     if start_date && end_date
       @notes = @category.notes.accessible_by(current_ability).where('created_at >= ? AND created_at <= ?', start_date, end_date)
       name = "#{@category.name}_#{start_date.strftime("%Y-%m-%d")}_#{end_date.strftime("%Y-%m-%d")}"
