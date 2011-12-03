@@ -88,7 +88,7 @@ class SmartGroupsController < AuthorizedController
   # POST /smart_groups
   # POST /smart_groups.xml
   def create
-    @smart_group = SmartGroup.new(params[:smart_group])
+    @smart_group = current_school.smart_groups.build(params[:smart_group])
     @smart_group.school = current_school
     respond_to do |format|
       if @smart_group.save
