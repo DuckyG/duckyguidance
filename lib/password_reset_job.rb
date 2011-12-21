@@ -1,4 +1,3 @@
-require File.expand_path(File.dirname(__FILE__) + "/../config/initializers/devise.rb")
 
 class PasswordResetJob < Struct.new(:id)
   def perform
