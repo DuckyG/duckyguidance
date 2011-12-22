@@ -16,8 +16,8 @@ gem 'capistrano-ext'
 gem 'squeel'
 gem 'SyslogLogger'
 gem 'exception_notification'
+gem 'rspec-rails'
 group :development, :test do
-  gem 'rspec-rails'
   gem "ZenTest"
   gem 'cucumber-rails'
   gem 'database_cleaner'

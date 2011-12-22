@@ -47,12 +47,12 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.xml
   def create
-    @counselor = User.new(params[:counselor])
+    @counselor = current_school.counselors.build(params[:user])
     @counselor.subdomain = current_subdomain
     @counselor.school = current_school
     respond_to do |format|
       if @counselor.save
-        format.html { redirect_to(@counselor) }
+        format.html { redirect_to(counselor_path(@counselor)) }
         format.xml  { render :xml => @counselor, :status => :created, :location => @counselor }
       else
         format.html { render :action => "new" }
