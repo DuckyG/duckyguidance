@@ -45,6 +45,7 @@ class SmartGroup < ActiveRecord::Base
     if smart_group_filters_attributes
     smart_group_filters_attributes.each do |key, hash|
       if key =~ /^new/
+        hash[:smart_group] = self
         self.smart_group_filters << SmartGroupFilter.new(hash)
       else
         filter = self.smart_group_filters.find key

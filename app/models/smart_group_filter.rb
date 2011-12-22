@@ -38,7 +38,7 @@ class SmartGroupFilter < ActiveRecord::Base
   private
 
   def check_counselor
-    last_name = self.field_value.split(" ").last
+    last_name = self.field_value.to_s.split(" ").last
     counselor = smart_group.school.counselors.find_by_last_name last_name
 
     if counselor
