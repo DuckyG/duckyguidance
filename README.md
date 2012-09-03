@@ -1,5 +1,13 @@
 # Ducky Guidance
 
+# Set up
+
+ 1. Configure config/database.yml
+ 2. Use rake secret to generate a secret for
+    config/initializers/secret_token.rb
+ 3. bundle
+ 
+
 # Contributors
 
  * [Dan McClain](https://github.com/danmcclain)

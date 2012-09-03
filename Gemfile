@@ -18,6 +18,7 @@ gem 'squeel'
 gem 'SyslogLogger'
 gem 'exception_notification'
 gem 'rspec-rails'
+gem 'thin'
 group :development, :test do
   gem "ZenTest"
   gem 'cucumber-rails'
