@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.9'
 gem 'cancan'
 gem 'devise', '1.4.7'
+gem 'bundler'
 
 gem 'pg'
 gem 'kaminari'
@@ -21,7 +22,7 @@ group :development, :test do
   gem "ZenTest"
   gem 'cucumber-rails'
   gem 'database_cleaner'
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'debugger'
   gem 'capybara'
   gem "factory_girl_rails", "~> 1.1"
 end

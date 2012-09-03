@@ -11,3 +11,5 @@ public/images/students/
 vendor/cache
 config/database.yml
 
+config/database.yml
+config/initializers/secret_token.rb
