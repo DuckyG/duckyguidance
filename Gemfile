@@ -19,6 +19,7 @@ gem 'SyslogLogger'
 gem 'exception_notification'
 gem 'rspec-rails'
 gem 'thin'
+gem 'foreman'
 group :development, :test do
   gem "ZenTest"
   gem 'cucumber-rails'
