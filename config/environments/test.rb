@@ -32,4 +32,9 @@ Guidance::Application.configure do
   # config.active_record.schema_format = :sql
 
   config.active_support.deprecation = :log
+
+  config.after_initialize do
+    t = Time.local(2011, 9, 1, 10, 0, 0)
+    Timecop.travel(t)
+  end
 end

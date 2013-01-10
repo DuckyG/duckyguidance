@@ -21,7 +21,9 @@ gem 'rspec-rails'
 gem 'thin'
 gem 'foreman'
 group :development, :test do
-  gem "ZenTest"
+  gem 'ZenTest'
+  gem 'launchy'
+  gem 'timecop'
   gem 'cucumber-rails'
   gem 'database_cleaner'
   gem 'debugger'
