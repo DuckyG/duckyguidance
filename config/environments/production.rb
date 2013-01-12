@@ -55,5 +55,5 @@ Guidance::Application.configure do
   config.middleware.use ExceptionNotifier,
    :email_prefix => "[DuckyG Error] ",
    :sender_address => %{"notifier" <notifier@duckyg.com>},
-   :exception_recipients => %w{dan@viridianspark.com}
+   :exception_recipients => %w{duckyg@danmcclain.net}
 end
