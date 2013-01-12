@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+gem 'rails', '3.0.19'
 gem 'cancan'
 gem 'devise', '1.4.7'
 gem 'bundler'
@@ -15,7 +15,7 @@ gem 'capistrano'
 gem 'capistrano-ext'
 
 gem 'squeel'
-gem 'SyslogLogger'
+#gem 'SyslogLogger'
 gem 'exception_notification'
 gem 'rspec-rails'
 gem 'thin'

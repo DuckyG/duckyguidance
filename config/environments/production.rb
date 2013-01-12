@@ -1,8 +1,8 @@
-require 'syslog_logger'
-RAILS_DEFAULT_LOGGER = SyslogLogger.new
+#require 'syslog_logger'
+#RAILS_DEFAULT_LOGGER = SyslogLogger.new
 Guidance::Application.configure do
 
-  config.logger = RAILS_DEFAULT_LOGGER
+  #config.logger = RAILS_DEFAULT_LOGGER
   # Settings specified here will take precedence over those in config/environment.rb
 
   # The production environment is meant for finished, "live" apps.
