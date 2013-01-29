@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.19'
+gem 'rails', '3.0.20'
 gem 'cancan'
-gem 'devise', '1.4.7'
+gem 'devise', '1.5.4'
 gem 'bundler'
 
 gem 'pg'
