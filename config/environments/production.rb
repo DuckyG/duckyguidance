@@ -1,5 +1,3 @@
-#require 'syslog_logger'
-#RAILS_DEFAULT_LOGGER = SyslogLogger.new
 Guidance::Application.configure do
 
   #config.logger = RAILS_DEFAULT_LOGGER
