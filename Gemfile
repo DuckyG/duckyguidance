@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.20'
+gem 'rails', '3.2.12'
 gem 'cancan'
 gem 'devise', '1.5.4'
 gem 'bundler'
@@ -15,22 +15,20 @@ gem 'capistrano'
 gem 'capistrano-ext'
 
 gem 'squeel'
-#gem 'SyslogLogger'
 gem 'exception_notification'
 gem 'thin'
 gem 'foreman'
 group :development, :test do
+  gem 'brakeman'
   gem 'rspec-rails'
-  gem 'ZenTest'
-  gem 'launchy'
-  gem 'timecop'
-  gem 'cucumber-rails'
-  gem 'database_cleaner'
   gem 'debugger'
-  gem 'capybara'
   gem "factory_girl_rails", "~> 1.1"
 end
 
 group :test do
-  gem 'sqlite3'
+  gem 'launchy'
+  gem 'timecop'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
+  gem 'capybara'
 end

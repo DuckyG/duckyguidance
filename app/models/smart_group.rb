@@ -7,6 +7,7 @@ class SmartGroup < ActiveRecord::Base
   attr_accessor :deleted_filters
   before_validation :process_smart_group_filter, :process_delete_filters
   validates_presence_of :name
+  attr_accessible :name, :smart_group_filters_attributes, :deleted_filters
   validate :validate_filters
 
   class << self

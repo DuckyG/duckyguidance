@@ -10,5 +10,5 @@ def login
   visit login_path
   fill_in 'Email Address', :with => @user.email
   fill_in 'Password', :with => @user.password
-  click_button "user_submit"
+  click_button 'Login'
 end
