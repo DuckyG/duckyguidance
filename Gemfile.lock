@@ -104,7 +104,7 @@ GEM
       json (>= 1.4.6)
     highline (1.6.2)
     i18n (0.5.0)
-    json (1.7.6)
+    json (1.7.7)
     json_pure (1.6.1)
     kaminari (0.12.4)
       rails (>= 3.0.0)
