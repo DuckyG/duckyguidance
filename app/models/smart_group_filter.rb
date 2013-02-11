@@ -1,7 +1,7 @@
 class SmartGroupFilter < ActiveRecord::Base
   belongs_to :smart_group
   validate :validate_field, :validate_value
-  validates_presence_of :field_name, :field_value 
+  validates_presence_of :field_name, :field_value
   attr_accessible :field_name, :field_value, :smart_group
 
   def validate_value
