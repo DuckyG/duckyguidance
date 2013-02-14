@@ -4,9 +4,10 @@ class User < ActiveRecord::Base
   belongs_to :school
   validate :password_meets_requirements
   attr_accessor :subdomain
-  has_many :students, :foreign_key => "counselor_id"
-  has_many :notes, :foreign_key => "counselor_id"
+  has_many :students, :foreign_key => 'counselor_id'
+  has_many :notes, :foreign_key => 'counselor_id'
   validates_presence_of :school, :first_name, :last_name
+  attr_accessible :name_prefix_id, :first_name, :last_name, :email, :password, :password_confirmation
 
   def update_with_password(params={})
     params.delete(:current_password)
