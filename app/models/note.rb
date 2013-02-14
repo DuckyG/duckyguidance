@@ -6,7 +6,8 @@ class Note < ActiveRecord::Base
   belongs_to :category
   belongs_to :school
   attr_accessor :notify_students_counselor, :tags_string, :student_ids, :group_ids, :smart_group_ids
-  attr_accessible :student_ids, :group_ids, :notes, :category_id, :summary, :occurred_on, :smart_group_ids, :tags_string, :confidentiality_level
+  attr_accessible :student_ids, :group_ids, :notes, :category_id, :summary, :occurred_on, :smart_group_ids, :tags_string,
+    :confidentiality_level, :notify_students_counselor
   validates :counselor, :notes, :summary, :category, :presence => true
   before_validation :convert_meta
   before_validation { self.school = self.counselor.school }
