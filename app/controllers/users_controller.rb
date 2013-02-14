@@ -60,7 +60,6 @@ class UsersController < ApplicationController
       end
     end
   end
-  
   def my_account
 
      @counselor = current_user
@@ -69,18 +68,17 @@ class UsersController < ApplicationController
 
   def my_account_update
 
-    @user = current_user
+    @counselor = current_user
     params[:user].delete(:role)
     params[:user].delete(:super_admin)
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
 
-    @user.school = current_school
+    @counselor.school = current_school
     respond_to do |format|
-      if @user.update_attributes(params[:user])
-        sign_in(@user, :bypass => true)
-        format.html { redirect_to(my_account_path, :notice => 'Your settings have been updated. Please review the changes made below.') 
-        }
+      if @counselor.update_attributes(params[:user])
+        sign_in(@counselor, :bypass => true)
+        format.html { redirect_to(my_account_path, :notice => 'Your settings have been updated. Please review the changes made below.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "my_account"}

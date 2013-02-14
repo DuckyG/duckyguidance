@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
     return true if password.blank?
 
     unless password.length > 5 && password =~ /(\w)/ && password =~ /(\d)/
-      errors.add_to_base("Password must be 6 characters or longer, and include at least one letter and one number")
+      errors.add(:password, 'must include at least one letter and one number')
     end
   end
 
