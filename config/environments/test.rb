@@ -1,5 +1,4 @@
 Guidance::Application.configure do
-  ENV['AUTOFEATURE'] = "true"
   # Settings specified here will take precedence over those in config/environment.rb
 
   # The test environment is used exclusively to run your application's
@@ -33,9 +32,4 @@ Guidance::Application.configure do
   # config.active_record.schema_format = :sql
 
   config.active_support.deprecation = :log
-
-  config.after_initialize do
-    t = Time.local(2011, 9, 1, 10, 0, 0)
-    Timecop.travel(t)
-  end
 end
