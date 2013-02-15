@@ -18,17 +18,19 @@ RSpec.configure do |config|
   config.mock_with :rspec
 
   config.include FactoryGirl::Syntax::Methods
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :deletion
     t = Time.local(2011, 9, 1, 10, 0, 0)
     Timecop.travel(t)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.clean
+    DatabaseCleaner.start
+    @school = create :school, :subdomain => create(:subdomain)
+    Capybara.default_host = "http://#{@school.subdomain.name}.ducky.local"
   end
 
   config.after(:suite) do
