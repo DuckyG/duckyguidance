@@ -1,5 +1,5 @@
 def log_in_as(counselor, password = nil)
-  visit root_path
+  visit '/'
 
   fill_in 'Email Address', :with => counselor.email
   fill_in 'Password', :with => password || counselor.password

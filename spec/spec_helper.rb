@@ -7,7 +7,7 @@ require 'rspec/rails'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/config/**/*.rb")].each {|f| require f}
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-Dir[Rails.root.join('spec/requests/step_helpers/**/*.rb')].each {|f| require f}
+Dir[Rails.root.join('spec/features/step_helpers/**/*.rb')].each {|f| require f}
 
 RSpec.configure do |config|
   # == Mock Framework
@@ -31,8 +31,7 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.clean
     DatabaseCleaner.start
-    @school = create :school, :subdomain => create(:subdomain)
-    Capybara.default_host = "http://#{@school.subdomain.name}.ducky.local"
+    @school = create :school, :subdomain => create(:subdomain, :name => 'integration')
   end
 
   config.after(:suite) do

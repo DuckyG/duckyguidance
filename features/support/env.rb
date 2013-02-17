@@ -5,7 +5,6 @@
 # files.
 
 require 'cucumber/rails'
-require 'factory_girl/step_definitions'
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
@@ -29,6 +28,7 @@ Capybara.default_selector = :css
 #
 ActionController::Base.allow_rescue = false
 
+World(FactoryGirl::Syntax::Methods)
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
 begin

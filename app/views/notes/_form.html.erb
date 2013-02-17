@@ -25,7 +25,7 @@
         <%= f.text_field :summary%>
       </p>
       <p>
-        <%=f.label :tags, 'Tags (separated by spaces)'%>
+        <%=f.label :tags_string, 'Tags (separated by spaces)'%>
         <%=f.text_field :tags_string%>
       </p>
       <p>
@@ -38,7 +38,7 @@
         <span class="ex">(Example: Today would be <%=Time.now.strftime "%Y-%m-%d"%>)</span>
         <%=f.text_field :occurred_on, :class => "datepicker"  %>
       </p>
-      <p><%= f.required_field_label :notes, "Note"%><%=f.text_area :notes, :html => {:rows =>8, :cols=>40 } %></p>
+      <p><%= f.required_field_label :notes, "Note"%><%=f.text_area :notes, :rows =>8, :cols=>40  %></p>
       <div class="button">
         <%=f.submit (["new", "create"].include?(request.filtered_parameters["action"]) or ["students", "groups", "smart_groups"].include?(request.filtered_parameters["controller"])) ? "Add This Note" : "Update This Note"%>
         </div>

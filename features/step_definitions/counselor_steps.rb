@@ -1,11 +1,11 @@
 Given /^I am a counselor$/ do
-  prefix = Factory(:name_prefix)
-  @user = Factory(:counselor, school: @school, name_prefix: prefix)
+  prefix = create(:name_prefix)
+  @user = create(:counselor, school: @school, name_prefix: prefix)
 end
 
 Given /^I am a school admin/ do
-  prefix = Factory(:name_prefix)
-  @user = Factory(:school_admin, school: @school, name_prefix: prefix)
+  prefix = create(:name_prefix)
+  @user = create(:school_admin, school: @school, name_prefix: prefix)
 end
 
 Given /^I have written notes for other counselors' students$/ do

@@ -1,5 +1,5 @@
 Given /^there is a category$/ do
-  @category = Factory(:category, school: @school)
+  @category = create(:category, school: @school)
 end
 
 When /^I visit that category page$/ do
@@ -11,7 +11,7 @@ When /^I visit that category's edit page$/ do
 end
 
 When /^I submit the category's details$/ do
-  @category = FactoryGirl.build(:category)
+  @category = build(:category)
   fill_in "Note Category Name", with: @category.name
   fill_in "Description", with: @category.description
 

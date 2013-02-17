@@ -22,12 +22,13 @@ group :development, :test do
   gem 'brakeman'
   gem 'rspec-rails'
   gem 'debugger'
-  gem "factory_girl_rails", "~> 1.1"
+  gem "factory_girl_rails"
 end
 
 group :test do
   gem 'launchy'
   gem 'timecop'
+  gem 'capybara-webkit'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'capybara'

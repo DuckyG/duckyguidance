@@ -5,7 +5,7 @@ feature 'Managing my account' do
     counselor = log_in_as create(:counselor, :school => @school)
     click_link counselor.first_name
 
-    fill_in 'Your New Password', :with => 'differentPassword2'
+    fill_in 'user_password', :with => 'differentPassword2'
     fill_in 'Confirm Your New Password', :with => 'differentPassword2'
 
     click_button 'Save Your Changes'
@@ -13,6 +13,6 @@ feature 'Managing my account' do
     click_link 'Sign Off'
 
     log_in_as counselor, 'differentPassword2'
-    current_path.should eq dashboard_path
+    current_path.should eq '/dashboard'
   end
 end
