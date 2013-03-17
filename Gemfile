@@ -9,6 +9,9 @@ gem 'pg'
 gem 'kaminari'
 gem 'foreigner'
 gem 'delayed_job', :tag => 'v2.1.4', :git => 'https://github.com/collectiveidea/delayed_job.git'
+group :production do
+  gem 'newrelic_rpm'
+end
 
 # Deploy with Capistrano
 gem 'capistrano'

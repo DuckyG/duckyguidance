@@ -17,3 +17,4 @@ config/initializers/secret_token.rb
 bin/
 config/deploy.rb
 config/deploy/
+config/newrelic.yml
