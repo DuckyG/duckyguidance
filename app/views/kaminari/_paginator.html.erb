@@ -8,7 +8,7 @@
 -%>
 <%= paginator.render do -%>
   <div class="pagination">
-    <p><strong>Page <%=current_page%></strong> of <%=num_pages %></p>
+    <p><strong>Page <%=current_page%></strong> of <%=total_pages %></p>
     <ul>
     <%= first_page_tag unless current_page.first? %>
     <%= prev_page_tag unless current_page.first? %>
