@@ -1,5 +1,7 @@
 Guidance::Application.configure do
 
+
+  config.lograge.enabled = true
   #config.logger = RAILS_DEFAULT_LOGGER
   # Settings specified here will take precedence over those in config/environment.rb
 
