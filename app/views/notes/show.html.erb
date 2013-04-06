@@ -47,6 +47,12 @@
 			<%-end-%>
 			</td>
 		</tr>
+    <% if @note.duration.present? %>
+      <tr>
+        <td class="spaced label">Duration</td>
+        <td><%= pluralize @note.duration, 'minute' %></td>
+      </tr>
+    <% end %>
 	</tbody>
 </table>
 

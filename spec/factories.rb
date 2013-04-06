@@ -14,6 +14,7 @@ FactoryGirl.define do
     state "Massachusetts"
     zip_code "01234"
     allows_meeting_requests false
+    subdomain
   end
 
   factory :counselor do

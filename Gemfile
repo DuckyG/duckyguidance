@@ -32,6 +32,7 @@ end
 group :test do
   gem 'launchy'
   gem 'timecop'
+  gem 'valid_attribute'
   gem 'capybara-webkit'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'

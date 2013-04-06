@@ -22,6 +22,7 @@ feature 'Creating a note', :js do
       fill_in 'Tags (separated by spaces)', :with => 'testing'
       fill_in 'Occurred On', :with => '2011-08-01'
       fill_in 'note_notes', :with => 'Note Contents'
+      fill_in 'Duration', :with => 50
 
       click_button 'Add This Note'
     end
@@ -31,6 +32,9 @@ feature 'Creating a note', :js do
       page.should have_content 'Sample Note'
       page.should have_content 'August 01 2011'
       page.should have_content 'Note Contents'
+      click_link 'Sample Note'
     end
+
+    page.should have_content '50 minutes'
   end
 end

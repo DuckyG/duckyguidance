@@ -25,6 +25,10 @@
         <%= f.text_field :summary%>
       </p>
       <p>
+        <%= f.label :duration, 'Duration (in minutes)' %>
+        <%= f.number_field :duration %>
+      </p>
+      <p>
         <%=f.label :tags_string, 'Tags (separated by spaces)'%>
         <%=f.text_field :tags_string%>
       </p>
