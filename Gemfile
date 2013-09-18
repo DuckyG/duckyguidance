@@ -31,7 +31,7 @@ end
 
 group :test do
   gem 'launchy'
-  gem 'timecop'
+  gem 'timecop', '~> 0.5.8'
   gem 'valid_attribute'
   gem 'capybara-webkit'
   gem 'cucumber-rails', :require => false

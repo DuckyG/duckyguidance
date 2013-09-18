@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130406123541) do
+ActiveRecord::Schema.define(:version => 20130918010918) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(:version => 20130406123541) do
     t.string   "shop"
     t.integer  "counselor_id"
     t.string   "full_name"
+    t.boolean  "active",               :default => true
   end
 
   create_table "subdomains", :force => true do |t|

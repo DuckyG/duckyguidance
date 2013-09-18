@@ -32,7 +32,7 @@ class Student < ActiveRecord::Base
 
     def current
       school_year = current_school_year
-      where { year_of_graduation.gteq school_year }
+      where { year_of_graduation.gteq(school_year) & active.eq(true) }
     end
 
     def inactive
