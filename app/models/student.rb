@@ -37,7 +37,7 @@ class Student < ActiveRecord::Base
 
     def inactive
       school_year = current_school_year
-      where { year_of_graduation.lt school_year | active.eq(false) }
+      where { year_of_graduation.lt(school_year) | active.eq(false) }
     end
 
     def recently_graduated
