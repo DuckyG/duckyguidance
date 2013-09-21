@@ -59,5 +59,4 @@ FactoryGirl.define do
     sequence(:occurred_on) {|n| n.days.ago}
     sequence(:notes) {|n| "Note text for note ##{n}"}
   end
-
 end

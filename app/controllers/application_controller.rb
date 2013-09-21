@@ -62,89 +62,87 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_path
   end
 
-    def check_defaults
-      if current_school
-        uncat = current_school.categories.find_by_name 'Uncategorized'
-        unless uncat
-          uncat = Category.new
-          uncat.name = "Uncategorized"
-          uncat.description = "System category: Uncategorized"
-          uncat.system = true
-          uncat.school = current_school
-          uncat.save
-        end
+  def check_defaults
+    if current_school
+      uncat = current_school.categories.find_by_name 'Uncategorized'
+      unless uncat
+        uncat = Category.new
+        uncat.name = "Uncategorized"
+        uncat.description = "System category: Uncategorized"
+        uncat.system = true
+        uncat.school = current_school
+        uncat.save
       end
     end
+  end
 
-    def check_domain
-      if !request.subdomains.empty? && !current_subdomain
-        @section = "School Not Found"
-        @message = "The school you are looking for could not be found. Please check to see that you have the correct domain for your school."
-        render "shared/error", :status => 404, :layout => false
-      end
-    end
-
-    def page_not_found
-      @section = "Page not found"
-      @message = "The page you were looking for could not be found"
+  def check_domain
+    if !request.subdomains.empty? && !current_subdomain
+      @section = "School Not Found"
+      @message = "The school you are looking for could not be found. Please check to see that you have the correct domain for your school."
       render "shared/error", :status => 404, :layout => false
     end
+  end
 
-    def build_student_options(student_list, selected_students)
-      output = ""
-      student_list.sort! {|x,y| x.last_name <=> y.last_name}
-      student_list.each do |student|
-        output += "<option value='#{student.id}' #{'selected="selected"' if selected_students.include? student}>#{student.last_name}, #{student.first_name}</option>"
+  def page_not_found
+    @section = "Page not found"
+    @message = "The page you were looking for could not be found"
+    render "shared/error", :status => 404, :layout => false
+  end
+
+  def build_student_options(student_list, selected_students)
+    output = ""
+    student_list.sort! {|x,y| x.last_name <=> y.last_name}
+    student_list.each do |student|
+      output += "<option value='#{student.id}' #{'selected="selected"' if selected_students.include? student}>#{student.last_name}, #{student.first_name}</option>"
+    end
+    output.html_safe
+  end
+
+  def current_school
+    return @current_school if defined?(@current_school)
+    @current_school = current_subdomain ? current_subdomain.school : nil
+  end
+
+  def current_subdomain
+    return @current_subdomain if defined?(@current_subdomain)
+    @current_subdomain = Subdomain.find_by_name(request.subdomains.first)
+  end
+
+  def render_csv(filename = nil)
+    filename ||= params[:action]
+    filename += '.csv'
+
+    if request.env['HTTP_USER_AGENT'] =~ /msie/i
+      headers['Pragma'] = 'public'
+      headers["Content-type"] = "text/plain"
+      headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+      headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
+      headers['Expires'] = "0"
+    else
+      headers["Content-Type"] ||= 'text/csv'
+      headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
+    end
+
+    render :layout => false
+  end
+
+  def check_smart_group
+    if current_user && current_user.counselor?
+      unless current_school.smart_groups.find_by_field_name_and_field_value("counselor_id", current_user.id.to_s)
+        smart_group = current_school.smart_groups.build
+        smart_group.school = current_school
+        smart_group.name = "#{current_user.formal_name}'s students"
+        smart_filter = SmartGroupFilter.new
+        smart_filter.smart_group = smart_group
+        smart_filter.field_name = "counselor_id"
+        smart_filter.field_value = current_user.id.to_s
+        smart_group.smart_group_filters << smart_filter
+        smart_group.school = current_school
+        smart_group.save
       end
-      output.html_safe
     end
-
-    def current_school
-      return @current_school if defined?(@current_school)
-      @current_school = current_subdomain ? current_subdomain.school : nil
-    end
-
-    def current_subdomain
-      return @current_subdomain if defined?(@current_subdomain)
-      @current_subdomain = Subdomain.find_by_name(request.subdomains.first)
-    end
-
-
-
-    def render_csv(filename = nil)
-      filename ||= params[:action]
-      filename += '.csv'
-
-      if request.env['HTTP_USER_AGENT'] =~ /msie/i
-        headers['Pragma'] = 'public'
-        headers["Content-type"] = "text/plain"
-        headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
-        headers['Expires'] = "0"
-      else
-        headers["Content-Type"] ||= 'text/csv'
-        headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
-      end
-
-      render :layout => false
-    end
-
-    def check_smart_group
-      if current_user && current_user.counselor?
-        unless current_school.smart_groups.find_by_field_name_and_field_value("counselor_id", current_user.id.to_s)
-          smart_group = current_school.smart_groups.build
-          smart_group.school = current_school
-          smart_group.name = "#{current_user.formal_name}'s students"
-          smart_filter = SmartGroupFilter.new
-          smart_filter.smart_group = smart_group
-          smart_filter.field_name = "counselor_id"
-          smart_filter.field_value = current_user.id.to_s
-          smart_group.smart_group_filters << smart_filter
-          smart_group.school = current_school
-          smart_group.save
-        end
-      end
-    end
+  end
 
   def layout_by_resource
     devise_controller? ? 'logged_out' : 'standard'

@@ -12,7 +12,7 @@ class Student < ActiveRecord::Base
   attr_accessor :areaCode, :prefix, :line, :extension,:group_ids_attribute
   attr_protected :full_name
   attr_accessible :first_name, :last_name, :city, :student_id, :areaCode, :prefix, :line, :extension, :group_ids_attribute,
-    :counselor_id, :shop, :year_of_graduation
+    :counselor_id, :shop, :year_of_graduation, :primary_phone_number
 
   before_validation :aggregate_phone_number, :process_group_ids
   before_validation { self.full_name = "#{first_name} #{last_name}" }
