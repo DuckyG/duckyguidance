@@ -35,6 +35,6 @@ group :test do
   gem 'valid_attribute'
   gem 'capybara-webkit'
   gem 'cucumber-rails', :require => false
-  gem 'database_cleaner'
+  gem 'database_cleaner', '~> 1.2.0'
   gem 'capybara'
 end
