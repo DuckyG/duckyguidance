@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.16'
+gem 'rails', '3.2.19'
 gem 'cancan'
 gem 'devise', '1.5.4'
 gem 'bundler'
@@ -25,7 +25,6 @@ gem 'foreman'
 group :development, :test do
   gem 'brakeman'
   gem 'rspec-rails'
-  gem 'debugger'
   gem "factory_girl_rails"
 end
 
