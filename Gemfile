@@ -21,7 +21,7 @@ gem 'capistrano-ext'
 gem 'squeel'
 gem 'exception_notification'
 gem 'thin'
-gem 'foreman'
+gem 'foreman', '~> 0.63.0'
 group :development, :test do
   gem 'brakeman'
   gem 'rspec-rails'
