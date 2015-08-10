@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.19'
+gem 'rails', '3.2.22'
 gem 'cancan'
 gem 'devise', '1.5.4'
 gem 'bundler'
